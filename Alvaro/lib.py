@@ -3,6 +3,30 @@ import matplotlib.pyplot as plt
 import random
 import numpy as np
 from scipy.optimize import fsolve
+import math
+
+def most_significant_digit(num):
+    exp = math.floor(math.log10(abs(num)))
+    cifra = int(abs(num) / 10**exp)
+    return -exp
+
+msd = [(0, ' '),
+       (3, 'm-'),
+       (6, 'micro-'),
+       (9, 'n-')]
+
+def format_with_prefix(val):
+    exp = most_significant_digit(val)
+    
+    for threshold, prefix in msd:
+        if exp <= threshold:
+            break
+    
+    scale = 10 ** threshold
+    scaled_val = val * scale
+    
+    text = f"{scaled_val:g} {prefix}".strip()
+    return text
 
 
 def element_values(lb, ub):
@@ -21,7 +45,9 @@ def element_values(lb, ub):
 
 passive = ['capacitor',
            'inductor',
-           'resistor']
+           'resistor',
+           'shortcircuit',
+           'opencircuit']
 active = ['v_source',
           'c_source']
 limits = {'capacitor':  element_values(1e-9, 1e-3),
@@ -34,59 +60,70 @@ limits = {'capacitor':  element_values(1e-9, 1e-3),
 
 
 class circuit():
-    def __init__(self, dim, seed=None):
+    def __init__(self, rows, cols, seed=None):
         if seed is not None:
             random.seed(seed)
         self.G = nx.DiGraph()
-        self.nodes = [f"N{i}" for i in range(dim)]
+        self.nodes = [f"N{idx}{jdx}" for idx in range(rows) for jdx in range(cols)]
         self.G.add_nodes_from(self.nodes)
 
-        for _ in range(dim - 1):
-            n1, n2 = random.sample(self.nodes, 2)
-            if not self.G.has_edge(n1, n2):
+        for idx in range(rows):
+            for jdx in range(cols - 1):
+                n1 = f"N{idx}{jdx}"
+                n2 = f"N{idx}{jdx + 1}"
                 el = random.choice(passive)     
-                val = random.choice(limits[el])
-                if el == 'resistor':
-                    imp = val                    
-                if el == 'inductor':
-                    imp = complex(0, 2*np.pi*50*val)
-                if el == 'capacitor':
-                    imp = complex(0, -1/(2*np.pi*50*val))           
-                self.G.add_edge(n1, n2, element=el, value=val, impedance=imp)
-        
-        flag = True
-        while flag:
-            count = 0
-            for i in range(dim):
-                connections = list(set(self.G.successors(f"N{i}")) | set(self.G.predecessors(f"N{i}")))
-                if len(connections) < 2:
-                    neighs = self.nodes.copy()
-                    neighs.remove(f"N{i}")
-                    for item in connections:
-                        neighs.remove(item)
-                    el = random.choice(passive)  
+                if el == 'resistor':    
+                    val = random.choice(limits[el])    
+                    imp = val       
+                    string_val = format_with_prefix(val) + 'Omega'
+                elif el == 'inductor':
                     val = random.choice(limits[el])
-                    if el == 'resistor':
-                        imp = val                    
-                    if el == 'inductor':
-                        imp = complex(0, 2*np.pi*50*val)
-                    if el == 'capacitor':
-                        imp = complex(0, -1/(2*np.pi*50*val))
-                    self.G.add_edge(f"N{i}", random.choice(neighs), element=el, value=val, impedance=imp)
+                    imp = complex(0, 2*np.pi*50*val) 
+                    string_val = format_with_prefix(val) + 'H'
+                elif el == 'capacitor':  
+                    val = random.choice(limits[el])
+                    imp = complex(0, -1/(2*np.pi*50*val))  
+                    string_val = format_with_prefix(val) + 'F'
                 else:
-                    count += 1
-            if count == dim:
-                flag = False
-                    
-        self.edges = [(n1, n2, data.get('element')) for n1, n2, data in self.G.edges(data=True)]
-        sources = np.max([np.floor(len(self.edges)/3), 1])
-        edges = random.sample(self.edges, int(sources))
-        for e in edges:
+                    imp = None
+                    val = None
+                    string_val = None
+                self.G.add_edge(n1, n2, element=el, value=val, impedance=imp, string=string_val)
+
+        for jdx in range(cols):
+            for idx in range(rows - 1):
+                n1 = f"N{idx}{jdx}"
+                n2 = f"N{idx + 1}{jdx}"
+                el = random.choice(passive)    
+                if el == 'resistor':    
+                    val = random.choice(limits[el])    
+                    imp = val           
+                    string_val = format_with_prefix(val) + 'Omega'
+                elif el == 'inductor':
+                    val = random.choice(limits[el])
+                    imp = complex(0, 2*np.pi*50*val) 
+                    string_val = format_with_prefix(val) + 'H'
+                elif el == 'capacitor':  
+                    val = random.choice(limits[el])
+                    imp = complex(0, -1/(2*np.pi*50*val))  
+                    string_val = format_with_prefix(val) + 'F'
+                else:
+                    imp = None
+                    val = None
+                    string_val = None
+                self.G.add_edge(n1, n2, element=el, value=val, impedance=imp, string=string_val)
+
+        sources = int(np.max([np.floor((2*rows*cols - rows - cols)/5), 1]))
+        self.edges = list(self.G.edges(data=True))
+        edges_source = random.sample(self.edges, sources)
+        for e in edges_source:
             self.G[e[0]][e[1]]["element"] = random.choice(active)
             self.G[e[0]][e[1]]["value"] = random.choice(limits[self.G[e[0]][e[1]]["element"]])
+            self.G[e[0]][e[1]]["impedance"] = None
+            self.G[e[0]][e[1]]["str_value"] = f'{self.G[e[0]][e[1]]["value"]} V' if self.G[e[0]][e[1]]["element"] == 'v_source' else f'{self.G[e[0]][e[1]]["value"]} A'
+        self.edges = list(self.G.edges(data=True))
+        
             
-            
-        self.edges = [(n1, n2, data.get('element'), data.get('value'), '1 mH') for n1, n2, data in self.G.edges(data=True)]
         
     def draw(self):
         pos = nx.kamada_kawai_layout(self.G)  # distribución de nodos
