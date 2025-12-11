@@ -1,0 +1,123 @@
+\documentclass{beamer}
+\setbeamercovered{transparent}
+
+
+\usetheme{CambridgeUS}
+\setbeamercolor{normal text}{bg=gray!20}
+\setbeamertemplate{blocks}[default]
+
+\setbeamercolor{block title}{fg=white,bg=red!60!black}
+\setbeamercolor{block body}{fg=black,bg=gray!15}
+
+
+\usepackage[spanish]{babel}
+
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{psfrag}
+\usepackage{pstricks}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[scriptsize,tight]{subfigure}
+\usepackage{multimedia}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{comment}
+\usepackage{ragged2e}
+\usepackage{changepage}
+\usepackage{psfrag}
+
+
+\usefonttheme[onlymath]{serif}
+
+
+\setbeamertemplate{navigation symbols}{}  
+
+\let\oldtexttt\texttt
+\renewcommand{\texttt}[1]{\oldtexttt{\hspace{0pt}#1}} % evita problemas con monospace
+\let\oldraggedright\raggedright
+\let\raggedright\justifying
+
+
+
+\author[Teoría de Circuitos]{Teoría de Circuitos}
+\title[Tema 1]{\scshape Tema 1}
+\subtitle{Conceptos fundamentales y leyes de Kirchhoff}
+
+\date[]{}
+\institute[ETSI]{Departamento de Ingeniería Eléctrica \\ Escuela Técnica Superior de Ingeniería\\ Universidad de Sevilla}
+
+
+\begin{document}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\section{Magnitudes eléctricas}
+
+
+\begin{frame}
+\frametitle{Carga eléctrica}
+\begin{columns}
+\begin{column}{10cm}
+\structure{\textbf{Carga eléctrica}}, $q(t)$: propiedad de las partículas elementales que constituyen la materia y que se manifiesta por medio de fuerzas eléctricas.
+
+\medskip
+
+\begin{itemize}
+	\item El electrón, e$^-$, constituye la carga eléctrica más pequeña posible, representada como $q_e$.
+	
+	\item Se toma la carga del electrón como negativa, y positiva la del protón.
+	
+	\item Aplicando energía se puede conseguir que los electrones se desplacen.
+\end{itemize}
+
+\medskip
+
+\structure{Unidad en el SI:} culombio [C] que equivale a $6.242\cdot 10^{18}$\,$q_e$.
+\end{column}
+\begin{column}{2cm}
+\begin{figure}[hbt]
+\vspace*{-0.5cm}
+\epsfig{file=coulomb.eps,height=2cm}
+\label{coulomb}
+\end{figure}
+\vspace*{-0.5cm}
+\begin{center}
+\tiny{Charles-Augustin de Coulomb  \\
+(1736-1806)}
+\end{center}
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
