@@ -70,9 +70,9 @@ export class NavbarComponent {
     }
   }
 
-  // toggleDesplegableMovil: Gestiona la apertura y cierre del desplegable de bloques en la vista móvil.
-  // Si el desplegable ya estaba abierto (coincide el ID), lo cierra (lo pone a null).
-  // Si estaba cerrado, lo abre (asigna el nuevo ID). Esto permite abrir y cerrar con un solo clic.
+  // toggleDesplegableMovil: gestiona la apertura y cierre del desplegable de bloques en la vista movil
+  // si el desplegable ya estaba abierto (coincide el ID), lo cierra (lo pone a null)
+  // si estaba cerrado, lo abre (asigna el nuevo ID). Esto permite abrir y cerrar con un solo clic
 
 
 }

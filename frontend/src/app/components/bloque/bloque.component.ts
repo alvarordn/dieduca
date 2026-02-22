@@ -5,10 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { CircuitosService } from '../../services/circuitos.service';
 import { CircuitViewerComponent } from '../circuit-viewer/circuit-viewer.component';
 
-// OnInit: ngOnInit() se ejecuta cuando el componente se inicializa.
-// FormsModule: necesario para usar [(ngModel)].
-// ActivatedRoute: para leer parametros de la URL (:id).
-// CircuitosService: el servicio para hablar con Django.
 
 @Component({
   selector: 'app-bloque',
@@ -18,9 +14,9 @@ import { CircuitViewerComponent } from '../circuit-viewer/circuit-viewer.compone
   styleUrl: './bloque.component.css'
 })
 export class BloqueComponent implements OnInit {
-  bloqueId: string = ''; // guarda el id del bloque actual capturado en la URL.
-  circuitoGenerado: any = null; // guardara la respuesta de Django que sera el JSON con la imagen.
-  cargando: boolean = false; // esto mostrara u ocultara el icono de cargando.
+  bloqueId: string = '';
+  circuitoGenerado: any = null;
+  cargando: boolean = false;
   
   // parametros predeterminados del circuito
   rows: number = 2;

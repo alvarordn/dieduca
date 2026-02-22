@@ -157,7 +157,6 @@ class circuit():
             'opencircuit': '╌╌╌'
         }
     
-        # PASO 1: Dibujar todas las líneas/aristas primero (capa inferior)
         for e in self.edges:
             n1, n2 = e[0], e[1]
             x1, y1 = pos[n1]
@@ -165,7 +164,6 @@ class circuit():
         
             element = self.G[n1][n2]['element']
             
-            # Línea de conexión
             if element == 'opencircuit':
                 ax.plot([x1, x2], [y1, y2], color='#BDC3C7', linewidth=2, 
                     linestyle=':', alpha=0.6, zorder=1)
@@ -173,7 +171,6 @@ class circuit():
                 ax.plot([x1, x2], [y1, y2], color='#95A5A6', linewidth=3, 
                     solid_capstyle='round', zorder=1)
     
-        # PASO 2: Dibujar símbolos de componentes (capa media)
         for e in self.edges:
             n1, n2 = e[0], e[1]
             x1, y1 = pos[n1]
@@ -181,13 +178,13 @@ class circuit():
             
             element = self.G[n1][n2]['element']
             
-            # Calcular punto medio
+            # calcular punto medio
             cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
         
-            # Símbolo del componente
+            # simbolo del componente
             symbol = component_symbols.get(element, '─')
             
-            # Dibujar símbolo con fondo
+            # dibujar simbolo con fondo
             ax.text(cx, cy, symbol, 
                 ha='center', va='center',
                 fontsize=18, fontweight='bold',
@@ -199,7 +196,6 @@ class circuit():
                             alpha=0.95),
                 zorder=3)
     
-        # PASO 3: Dibujar etiquetas con solo unidades (horizontal siempre)
         for e in self.edges:
             n1, n2 = e[0], e[1]
             x1, y1 = pos[n1]
@@ -211,13 +207,12 @@ class circuit():
                 # Calcular punto medio
                 cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
                 
-                # Determinar posición de la etiqueta según orientación
-                if x1 == x2:  # Conexión vertical
-                    label_x = cx + 0.55  # A la derecha
+                if x1 == x2:
+                    label_x = cx + 0.55
                     label_y = cy
-                else:  # Conexión horizontal
+                else:
                     label_x = cx
-                    label_y = cy - 0.4  # Debajo
+                    label_y = cy - 0.4
             
                 ax.text(label_x, label_y, string_val,
                     ha='center', va='center',
@@ -231,7 +226,6 @@ class circuit():
                                 alpha=0.95),
                     zorder=4)
     
-        # PASO 4: Dibujar nodos (capa superior)
         for node, (x, y) in pos.items():
             circle = plt.Circle((x, y), 0.18, 
                             color='#3498DB', 
@@ -246,7 +240,6 @@ class circuit():
                 color='white', 
                 zorder=6)
     
-        # PASO 5: Configuración final de la figura
         ax.set_aspect('equal')
         
         ax.grid(True, alpha=0.2, linestyle='--', color='#BDC3C7', linewidth=0.5)

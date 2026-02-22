@@ -84,10 +84,6 @@
   overflow: hidden;
 }
 
-/* desplegable: Estilo de la caja que contiene los enlaces de Teoría/Ejercicio.
-  - position: absolute: Se coloca debajo del .navbar-item padre (gracias al 'position: relative' del padre).
-  - top: 100%: Lo coloca justo debajo del nombre del bloque. */
-
 .desplegable-item {
   display: block;
   color: lightslategray;
@@ -106,8 +102,6 @@
   color: black;
   font-weight: 600;
 }
-
-/* desplegable-item.active: Estilo para la ruta activa (controlado por routerLinkActive en el HTML). */
 
 .navbar-profile {
   color: white;
