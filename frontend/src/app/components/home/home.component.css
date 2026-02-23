@@ -6,7 +6,11 @@
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
+img {
+  width: 200px;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
 .welcome-card {
   background: white;
   padding: 3rem;
@@ -29,5 +33,12 @@
   color: gray;
   font-size: 1.3rem;
   margin-bottom: 3rem;
+}
+
+.userName {
+  background: linear-gradient(90deg, #ff416c, #ff4b2b); /* Degradado naranja/rojo */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
 }
 

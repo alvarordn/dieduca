@@ -7,17 +7,18 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 // aqui lo usamos para guardar el token, esta relacionado con el observable
 import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthService {
-
   private apiUrl = 'http://localhost:8000/api/auth';
   // url a la base de datos donde se le pasaran todas las peticiones de autenticacion
 
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(
+    this.hasToken(),
+  );
   // como se dijo antes, behaviorSubject almacena el estado de autenticacion, mas concretamente en este caso un booleano, se inicializa con el resultado de hasToken()
 
   private isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
@@ -25,10 +26,9 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
   ) {}
   // inyecta las dependencias necesarias
-
 
   private hasToken(): boolean {
     return !!localStorage.getItem('token');
@@ -37,45 +37,49 @@ export class AuthService {
 
   login(uvus: string, password: string): Observable<any> {
     // se activa la secuencia de login
-    return this.http.post(`${this.apiUrl}/login/`, { uvus, password })
-    // realiza una peticion post a /api/auth/login, con las credenciales enviadas, devuelve un observable
-      .pipe(
-        tap((response: any) => {
-          // Utiliza el operador tap para ejecutar código inmediatamente después de que la petición sea exitosa, pero antes de que el componente que llama reciba la respuesta
-          if (response.token) {
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('uvus', response.uvus);
-            // si el login es exitoso, se guarda en local para que persista la sesion
-            this.isAuthenticatedSubject.next(true);
-            // Notifica a todos los suscriptores (como el AuthGuard o la barra de navegación) que el usuario ahora está autenticado, cambiando el estado global
-          }
-        })
-      );
+    return (
+      this.http
+        .post(`${this.apiUrl}/login/`, { uvus, password })
+        // realiza una peticion post a /api/auth/login, con las credenciales enviadas, devuelve un observable
+        .pipe(
+          tap((response: any) => {
+            // Utiliza el operador tap para ejecutar código inmediatamente después de que la petición sea exitosa, pero antes de que el componente que llama reciba la respuesta
+            if (response.token) {
+              localStorage.setItem('token', response.token);
+              localStorage.setItem('uvus', response.uvus);
+              // si el login es exitoso, se guarda en local para que persista la sesion
+              this.isAuthenticatedSubject.next(true);
+              // Notifica a todos los suscriptores (como el AuthGuard o la barra de navegación) que el usuario ahora está autenticado, cambiando el estado global
+            }
+          }),
+        )
+    );
   }
 
-  register(datos: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register/`, datos)
-      .pipe(
-        tap((response: any) => {
-          if (response.token) {
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('uvus', datos.uvus);
-            this.isAuthenticatedSubject.next(true);
-          }
-        })
-      );
+  register(datos: Usuario): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register/`, datos).pipe(
+      tap((response: any) => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('uvus', response.uvus);
+          this.isAuthenticatedSubject.next(true);
+        }
+      }),
+    );
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('uvus');
-    this.isAuthenticatedSubject.next(false);
-    this.router.navigate(['/login']);
+    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('uvus');
+      this.isAuthenticatedSubject.next(false);
+      this.router.navigate(['/login']);
+      return;
+    }
   }
 
   // cierra sesion, se eliminan ambos campos del local
   // redirige al login
-
 
   getToken(): string | null {
     return localStorage.getItem('token');
@@ -90,26 +94,26 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.hasToken();
   }
-  // Metodo que expone el estado de autenticacion basado en la existencia del token (hasToken deuvelve true o false) 
-  
-}
+  // Metodo que expone el estado de autenticacion basado en la existencia del token (hasToken deuvelve true o false)
 
+
+}
 
 // Observable
 
 // Definicion:
 // Una fuente de datos que puede emitir cero o más valores.
-// Es un patrón de diseño que define un productor de datos 
+// Es un patrón de diseño que define un productor de datos
 // (Observable) y un consumidor de datos (Observer/Subscriber).
 
-// Las llamadas a this.http.post(...) devuelven Observables, 
-// ya que la respuesta del servidor (éxito o error) llegará en 
+// Las llamadas a this.http.post(...) devuelven Observables,
+// ya que la respuesta del servidor (éxito o error) llegará en
 // el futuro.
 
-// Son perezosos (lazy), lo que significa que el código dentro 
-// del Observable (la petición HTTP) no se ejecuta hasta que 
+// Son perezosos (lazy), lo que significa que el código dentro
+// del Observable (la petición HTTP) no se ejecuta hasta que
 // alguien se suscribe a él.
 
-// En login.component.ts, la petición 
-// no se envía a Django hasta que llamas a .subscribe() en el 
+// En login.component.ts, la petición
+// no se envía a Django hasta que llamas a .subscribe() en el
 // Observable devuelto por authService.login().

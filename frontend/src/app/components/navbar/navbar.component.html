@@ -1,51 +1,106 @@
-    <nav class="navbar">
-    <div class="navbar-content">
+<nav class="navbar">
+  <div class="navbar-content">
+    <button
+      class="menu-ham"
+      [class.active]="menuMovilAbierto"
+      (click)="toggleMenuMovil()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path fill="currentColor" d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z" />
+      </svg>
+    </button>
 
-        <button class="menu-ham" [class.active]="menuMovilAbierto" (click)="toggleMenuMovil()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z"/></svg>
-        </button>
-
-        <div class="navbar-brand">
-            <a [routerLink]="['/']">
-                <img src="assets/images/logoetsi-removebg-preview.png"  alt="logo ETSI" class="logo">
-            </a>
-        </div>
-
-        <!-- el logo de la ETSI, el cual al darle click te redirige al home -->
-        
-        <ul class="navbar-menu" [class.active]="menuMovilAbierto">
-            <li *ngFor="let bloque of bloques" class="navbar-item" (mouseenter)="abrirDesplegable(bloque.id)" (mouseleave)="cerrarDesplegable()">
-                <!-- la propiedad mouseenter detecata que se ha hecho hover sobre algun elemento del navbar (*ngFor="let bloque of bloques") -->
-                <!-- la propiedad mosueleave detecta que se ha dejado de hacer hover sobre algun elemento del navbar -->
-                
-                <span class="bloque-nombre" (click)="toggleDesplegableMovil">
-                    {{ bloque.nombre }}
-                    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.475 14.475L7.85 10.85q-.075-.075-.112-.162T7.7 10.5q0-.2.138-.35T8.2 10h7.6q.225 0 .363.15t.137.35q0 .05-.15.35l-3.625 3.625q-.125.125-.25.175T12 14.7t-.275-.05t-.25-.175"/></svg>
-                </span>
-                
-                <div class="desplegable" *ngIf="estaAbierto(bloque.id)" >
-                    <!-- si se comprueba que efectivamente el bloque que se ha seleccionado coincide con el id se abre el menu -->
-                    <a [routerLink]="['/bloque', bloque.id, 'teoria']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
-                        Teoría Bloque {{ bloque.id }}
-                    </a>
-                    <!-- al entrar en el despleagble esta elñ primer elemento, el cual te redirige a http://localhost:4200/bloque/3/teoria por ejemplo -->
-                    <a [routerLink]="['/bloque', bloque.id, 'ejercicio']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
-                        Ejercicio Bloque {{ bloque.id }}
-                    </a>
-                    <!-- al entrar en el desplegable esta el segundo elemento el cual te redirige por ejemplo a http://localhost:4200/bloque/1/ejercicio -->
-                </div>
-            </li>
-        </ul>
-        
-        <div class="navbar-profile" (click)="logout()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="#1c1c1c" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
-        </div>
-
-        <!-- este seria el icono del usuario -->
-
-        <div class="overlay" *ngIf="menuMovilAbierto" (click)="cerrarMenuMovil()">
-
-        </div>
-
+    <div class="navbar-brand">
+      <a [routerLink]="['/']">
+        <img
+          src="assets/images/logoetsi-removebg-preview.png"
+          alt="logo ETSI"
+          class="logo"
+        />
+      </a>
     </div>
-    </nav>
+
+    <ul class="navbar-menu" [class.active]="menuMovilAbierto">
+      <li
+        *ngFor="let bloque of bloques"
+        class="navbar-item"
+        (mouseenter)="abrirDesplegable(bloque.id)"
+        (mouseleave)="cerrarDesplegable()"
+      >
+        <span class="bloque-nombre" (click)="toggleDesplegableMovil(bloque.id)">
+          {{ bloque.nombre }}
+          <svg
+            class="arrow-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M11.475 14.475L7.85 10.85q-.075-.075-.112-.162T7.7 10.5q0-.2.138-.35T8.2 10h7.6q.225 0 .363.15t.137.35q0 .05-.15.35l-3.625 3.625q-.125.125-.25.175T12 14.7t-.275-.05t-.25-.175"
+            />
+          </svg>
+        </span>
+
+        <div class="desplegable" *ngIf="estaAbierto(bloque.id)">
+          <a
+            [routerLink]="['/bloque', bloque.id, 'teoria']"
+            routerLinkActive="active"
+            class="desplegable-item"
+            (click)="cerrarMenuMovil()"
+          >
+            Teoría Bloque {{ bloque.id }}
+          </a>
+
+          <a
+            [routerLink]="['/bloque', bloque.id, 'ejercicio']"
+            routerLinkActive="active"
+            class="desplegable-item"
+            (click)="cerrarMenuMovil()"
+          >
+            Ejercicio Bloque {{ bloque.id }}
+          </a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="navbar-profile" *ngIf="authService.isLoggedIn()">
+      <svg
+        class="user-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="#555"
+          d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"
+        />
+      </svg>
+
+      <span class="user-name">{{ nombreUsuario }}</span>
+
+      <span class="divider">|</span>
+
+      <button class="logout-action" (click)="logout()" title="Cerrar sesión">
+        Salir
+      </button>
+    </div>
+    <div class="navbar-auth-buttons" *ngIf="!authService.isLoggedIn()">
+      <a [routerLink]="['/login']" class="btn-login">Entrar</a>
+      <a [routerLink]="['/registro']" class="btn-register">Registrarse</a>
+    </div>
+
+    <div
+      class="overlay"
+      *ngIf="menuMovilAbierto"
+      (click)="cerrarMenuMovil()"
+    ></div>
+  </div>
+</nav>

@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
   bloques = [
@@ -16,14 +16,19 @@ export class NavbarComponent {
     { id: 2, nombre: 'Bloque 2' },
     { id: 3, nombre: 'Bloque 3' },
     { id: 4, nombre: 'Bloque 4' },
-    { id: 5, nombre: 'Bloque 5' }
+    { id: 5, nombre: 'Bloque 5' },
   ];
+  nombreUsuario: string | null = '';  
 
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService) {}
+
+  ngOnInit() {
+    this.nombreUsuario = this.authService.getUvus();
+    console.log('UVUS del usuario:', this.nombreUsuario);
+  }
 
   logout() {
-  this.authService.logout();
-  this.cerrarMenuMovil();
+      this.authService.logout();
   }
 
   bloqueAbierto: number | null = null;
@@ -71,8 +76,6 @@ export class NavbarComponent {
   }
 
   // toggleDesplegableMovil: gestiona la apertura y cierre del desplegable de bloques en la vista movil
-  // si el desplegable ya estaba abierto (coincide el ID), lo cierra (lo pone a null)
-  // si estaba cerrado, lo abre (asigna el nuevo ID). Esto permite abrir y cerrar con un solo clic
-
-
+  // si el desplegable ya estaba abierto (coincide el ID), lo cierra (lo pone a null)
+  // si estaba cerrado, lo abre (asigna el nuevo ID). Esto permite abrir y cerrar con un solo clic
 }

@@ -1,3 +1,19 @@
-body {
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+.content-area {
+    margin: 50px;
+    border-radius: 10px;
     background-color: #B0E0E6;
+    flex: 1;
+
 }

@@ -3,47 +3,45 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+// Importamos las interfaces
+import { Usuario } from '../../models/usuario';
+import { Grado } from '../../models/grado';
 
 @Component({
   selector: 'app-registro',
+  standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent {
+  // Inicializamos los campos siguiendo la interfaz Usuario
   uvus: string = '';
   email: string = '';
-  grado: string = '';
+  grado: string = ''; 
   password: string = '';
+  
   cargando: boolean = false;
   error: string = '';
 
-  // son las propiedades del componente que se vinculan con los del html
-  // directamente con ngModel, almacenan esos datos introducidos
-
-  grados = [
-    { valor: 'ing-tecnologias-industriales', nombre: 'Grado de Ingienería de Tecnologías Industriales' },
-    { valor: 'ing-tecnologias-telecomunicacion', nombre: 'Grado en Ingeniería de las Tecnologías de Telecomunicación' },
-    { valor: 'ing-aeroespacial', nombre: 'Grado en Ingeniería Aeroespacial' },
-    { valor: 'ing-civil', nombre: 'Grado en Ingeniería Civil' },
-    { valor: 'ing-quimica', nombre: 'Grado en Ingienería Química' },
-    { valor: 'ing-organizacion-industrial', nombre: 'Grado en Ingienería de Organización Industrial' },
-    { valor: 'ing-energia', nombre: 'Grado en Ingienería de de la Energía' },
-    { valor: 'ing-electronica-robotica-mecatronica', nombre: 'Grado en Ingienería Electrónica, Robótica y Mecatrónica' }
+  // Definimos la lista de grados usando la interfaz Grado
+  grados: Grado[] = [
+    { id: 1, nombre: 'Grado de Ingeniería de Tecnologías Industriales', valor: 'GITI' },
+    { id: 2, nombre: 'Grado en Ingeniería de las Tecnologías de Telecomunicación', valor: 'GITT' },
+    { id: 3, nombre: 'Grado en Ingeniería Aeroespacial', valor: 'GIA' },
+    { id: 4, nombre: 'Grado en Ingeniería Civil', valor: 'GIC' },
+    { id: 5, nombre: 'Grado en Ingeniería Química', valor: 'GIQ' },
+    { id: 6, nombre: 'Grado en Ingeniería de Organización Industrial', valor: 'GIOI' },
+    { id: 7, nombre: 'Grado en Ingeniería de la Energía', valor: 'GIE' },
+    { id: 8, nombre: 'Grado en Ingeniería Electrónica, Robótica y Mecatrónica', valor: 'GIERM' }
   ];
-
-  // para el dropdown
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
 
-  // se inyectan las dependencias
-
-
   register() {
-    // se ejecuta cuando se hace ngSubmit
     this.error = '';
 
     if (!this.uvus || !this.email || !this.grado || !this.password) {
@@ -53,29 +51,28 @@ export class RegistroComponent {
 
     this.cargando = true;
 
-    const datos = {
+    // Creamos el objeto Usuario
+    const datos: Usuario = {
       uvus: this.uvus,
       email: this.email,
       grado: this.grado,
       password: this.password
     };
 
-    // crea un objeto con los datos introducidos listos para enviar al backend
-
     this.authService.register(datos).subscribe({
-      // llama al metodo register del servicio que realiza la peticion http a django, luego se suscribe al observable devuelto
       next: (response) => {
+        console.log('Registro exitoso', response);
         this.router.navigate(['/']);
-        // si la peticion es exitosa envia al home
       },
       error: (err) => {
-        this.error = 'Error al registrar.';
+        if (err.status === 400) {
+          this.error = 'El UVUS o el correo ya están registrados';
+        } else {
+          this.error = 'Error en el registro. Por favor, inténtalo de nuevo.';
+        }
+        console.error('Error en el registro:', err);
         this.cargando = false;
       }
     });
-
   }
-
-
-
 }
