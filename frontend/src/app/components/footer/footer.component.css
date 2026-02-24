@@ -1,55 +1,79 @@
+
 .footer-container {
-    background: linear-gradient(90deg, #000000 0%, #25255e 100%);
-    width: auto;
-    padding: 1rem;
+    background-color: #0f172a;
+    color: #f8fafc;
+    padding: 4rem 2rem 2rem 2rem;
+    font-family: 'Inter', sans-serif;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .principal {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    gap: 100px;
-    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
 }
 
+
 .secundario {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: darkgray;
-    justify-content: center;
-    text-align: center;
     list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.separacion {
+    margin-bottom: 1.5rem;
 }
 
 .li-principal {
-    color: white;
-    font-weight: 500;
+    color: #3b82f6; 
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    list-style: none;
 }
 
-.separacion {
-    margin-bottom: 1rem;
+
+.secundario li:not(.li-principal) {
+    color: #94a3b8; 
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
+.secundario li:not(.li-principal):hover {
+    color: #ffffff;
+    transform: translateX(5px); 
+}
+
+.li-principal::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 2px;
+    background: #3b82f6;
+    margin-top: 0.5rem;
+    border-radius: 2px;
+}
 
 
 @media (max-width: 768px) {
     .principal {
-        flex-direction: column; 
-        gap: 0; 
-        align-items: flex-start; 
-        max-width: 100%;
-        padding-left: 10px;
+        grid-template-columns: 1fr;
+        text-align: center;
     }
-
-    .secundario {
-        width: 100%; 
-        text-align: left; 
-        margin-bottom: 1.5rem; 
-        min-width: unset;
+    
+    .li-principal::after {
+        margin: 0.5rem auto 0 auto;
     }
-
-    .separacion {
-        margin-bottom: 0.5rem; 
+    
+    .secundario li:not(.li-principal):hover {
+        transform: translateY(-3px); 
     }
 }

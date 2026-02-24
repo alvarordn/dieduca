@@ -3,9 +3,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #B0E0E6;
+  background-image: url("/assets/images/etsi.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
   padding: 1rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .registro-card {
@@ -58,8 +62,8 @@
 }
 
 .error-message {
-  background: white;
-  color: #C62828;
+  background: #ffebee;
+  color: #c62828;
   padding: 0.75rem;
   border-radius: 6px;
   margin-bottom: 1rem;
@@ -79,7 +83,7 @@
 }
 
 .btn-registro:disabled {
-  background: #BDC3C7;
+  background: #bdc3c7;
   cursor: not-allowed;
 }
 

@@ -22,7 +22,9 @@ export class RegistroComponent {
   password: string = '';
   
   cargando: boolean = false;
-  error: string = '';
+  errorUvus: string = '';
+  errorEmail: string = '';
+  error : string = '';
 
   // Definimos la lista de grados usando la interfaz Grado
   grados: Grado[] = [
@@ -42,7 +44,9 @@ export class RegistroComponent {
   ) {}
 
   register() {
-    this.error = '';
+    this.errorUvus = '';
+    this.errorEmail = '';
+    
 
     if (!this.uvus || !this.email || !this.grado || !this.password) {
       this.error = 'Por favor, completa todos los campos';
@@ -66,11 +70,11 @@ export class RegistroComponent {
       },
       error: (err) => {
         if (err.status === 400) {
-          this.error = 'El UVUS o el correo ya están registrados';
+          this.errorUvus = 'El UVUS ya está registrado';
+          this.errorEmail = 'El correo ya está registrado';
         } else {
           this.error = 'Error en el registro. Por favor, inténtalo de nuevo.';
         }
-        console.error('Error en el registro:', err);
         this.cargando = false;
       }
     });

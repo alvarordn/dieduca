@@ -3,8 +3,11 @@
         <div class="icon-box">
             <img src="assets/images/logoetsi-removebg-preview.png" alt="logo ETSI">
         </div>
-        
+        @if (nombreUsuario) {
         <h1>Bienvenido a la ETSI <span class="userName">{{ nombreUsuario }}</span></h1>
+        } @else {
+        <h1>Bienvenido a la ETSI</h1>
+        }
         <p>Plataforma de estudio para <b>Teoría de Circuitos</b>. Explora los temas y pon a prueba tus conocimientos con los ejercicios.</p>
     </div>
 </div>

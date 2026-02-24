@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 // para hacer peticiones al backend
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -23,7 +24,10 @@ export class AuthService {
 
   private isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
   // Observable publico (de ahi el simbolo $), otros componentes pueden suscribirse para reaccionar a los cambios de autenticacion, como por ejemplo mostrar/ocultar botones de login o logout
-
+  private uvusSubject = new BehaviorSubject<string | null>(
+    localStorage.getItem('uvus'),
+  );
+  public uvus$ = this.uvusSubject.asObservable();
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -48,6 +52,7 @@ export class AuthService {
               localStorage.setItem('token', response.token);
               localStorage.setItem('uvus', response.uvus);
               // si el login es exitoso, se guarda en local para que persista la sesion
+              this.uvusSubject.next(response.uvus);
               this.isAuthenticatedSubject.next(true);
               // Notifica a todos los suscriptores (como el AuthGuard o la barra de navegación) que el usuario ahora está autenticado, cambiando el estado global
             }
@@ -56,28 +61,54 @@ export class AuthService {
     );
   }
 
-  register(datos: Usuario): Observable<any> {
+  register(datos: Usuario): Observable<Usuario> {
     return this.http.post(`${this.apiUrl}/register/`, datos).pipe(
       tap((response: any) => {
         if (response.token) {
           localStorage.setItem('token', response.token);
           localStorage.setItem('uvus', response.uvus);
+          // Actualiza el valor del UVUS en el BehaviorSubject
+          this.uvusSubject.next(response.uvus);
           this.isAuthenticatedSubject.next(true);
         }
       }),
     );
   }
-
   logout() {
-    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('uvus');
-      this.isAuthenticatedSubject.next(false);
-      this.router.navigate(['/login']);
-      return;
-    }
-  }
+    Swal.fire({
+      title: '¿Cerrar sesión?',
+      text: '¿Estás seguro de que quieres salir?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#3b82f6',
+      cancelButtonColor: '#64748b',
+      // Inyectamos el estilo directamente al abrirse
+      didOpen: (popup) => {
+        popup.style.borderRadius = '24px';
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('uvus');
+        this.uvusSubject.next(null);
+        this.isAuthenticatedSubject.next(false);
+        this.router.navigate(['/']);
 
+        Swal.fire({
+          title: 'Sesión cerrada',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+          padding: '1.5rem',
+          didOpen: (popup) => {
+            popup.style.borderRadius = '24px';
+          },
+        });
+      }
+    });
+  }
   // cierra sesion, se eliminan ambos campos del local
   // redirige al login
 
@@ -95,8 +126,6 @@ export class AuthService {
     return this.hasToken();
   }
   // Metodo que expone el estado de autenticacion basado en la existencia del token (hasToken deuvelve true o false)
-
-
 }
 
 // Observable

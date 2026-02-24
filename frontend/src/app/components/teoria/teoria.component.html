@@ -1,21 +1,26 @@
-<div class="teoria-container" *ngIf="teoria">
+@if (teoria) {
+  <div class="teoria-container">
     <h1>Teoría del Bloque {{ bloqueId }}</h1>
     <h2>{{ teoria.titulo }}</h2>
     
     <div class="teoria-content">
-        <section class="teoria-section" *ngFor="let seccion of teoria.secciones">
-            <h2>{{ seccion.titulo }}</h2>
-            
-            <div class="teoria-body" 
-                [appMathJax]="seccion.contenido">
-                </div>
+      @for (seccion of teoria.secciones; track seccion.titulo) {
+        <section class="teoria-section">
+          <h2>{{ seccion.titulo }}</h2>
+          
+          <div class="teoria-body" [appMathJax]="seccion.contenido">
+          </div>
 
-            <div class="teoria-column-image" *ngIf="seccion.imagen_url">
-                <figure>
-                    <img [src]="seccion.imagen_url" alt="Figura del bloque {{ bloqueId }}">
-                    <figcaption>{{ seccion.imagen_caption }}</figcaption>
-                </figure>
+          @if (seccion.imagen_url) {
+            <div class="teoria-column-image">
+              <figure>
+                <img [src]="seccion.imagen_url" alt="Figura del bloque {{ bloqueId }}">
+                <figcaption>{{ seccion.imagen_caption }}</figcaption>
+              </figure>
             </div>
+          }
         </section>
+      }
     </div>
-</div>
+  </div>
+}

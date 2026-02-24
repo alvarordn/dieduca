@@ -17,6 +17,7 @@ export class BloqueComponent implements OnInit {
   bloqueId: string = '';
   circuitoGenerado: any = null;
   cargando: boolean = false;
+  errorCircuito: string = '';
   
   // parametros predeterminados del circuito
   rows: number = 2;
@@ -66,7 +67,7 @@ export class BloqueComponent implements OnInit {
         },
         error: (error) => { // se ejecuta si algo falla
           console.error('Error al generar circuito:', error);
-          alert('Error al generar el circuito. Revisa la consola.');
+          this.errorCircuito = 'Error al generar el circuito. Debe Iniciar Sesion primero.';
           this.cargando = false;
         }
       });

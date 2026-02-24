@@ -1,51 +1,73 @@
 <div class="registro-container">
-    <div class="registro-card">
-        
-        <div class="registro-header">
-            <h1>Crear Cuenta</h1>
-        </div>
-
-        <form (ngSubmit)="register()">
-        
-            <div class="form-group">
-                <label for="uvus">UVUS *</label>
-                <input type="text" id="uvus" [(ngModel)]="uvus" name="uvus" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Correo Corporativo *</label>
-                <input type="email" id="email" [(ngModel)]="email" name="email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="grado">Grado *</label>
-                <select id="grado" [(ngModel)]="grado" name="grado" required>
-                <option value="" disabled selected>Selecciona tu grado</option>
-                <option *ngFor="let g of grados" [value]="g.valor">
-                    {{ g.nombre }}
-                </option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Contraseña *</label>
-                <input type="password" id="password" [(ngModel)]="password" name="password" required>
-            </div>
-
-            <div class="error-message" *ngIf="error">
-                {{ error }}
-            </div>
-
-            <button type="submit" class="btn-registro" [disabled]="cargando">
-                {{ cargando ? 'Registrando...' : 'Crear Cuenta' }}
-            </button>
-
-            </form>
-
-            <div class="login-link">
-            ¿Ya tienes cuenta? 
-            <a [routerLink]="['/login']">Iniciar Sesión</a>
-        </div>
-
+  <div class="registro-card">
+    <div class="registro-header">
+      <h1>Crear Cuenta</h1>
     </div>
+
+    <form (ngSubmit)="register()">
+      <div class="form-group">
+        <label for="uvus">UVUS *</label>
+        <input type="text" id="uvus" [(ngModel)]="uvus" name="uvus" required />
+      </div>
+      @if (errorUvus) {
+         <div class="error-message">
+          {{ errorUvus }}</div>
+      }
+
+      <div class="form-group">
+        <label for="email">Correo Corporativo *</label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+      </div>
+      @if (errorEmail) {
+         <div class="error-message">
+          {{ errorEmail }}</div>
+      }
+
+      <div class="form-group">
+        <label for="grado">Grado *</label>
+        <select id="grado" [(ngModel)]="grado" name="grado" required>
+          <option value="" disabled selected>Selecciona tu grado</option>
+          @for (g of grados; track g.valor) {
+            <option [value]="g.valor">
+              {{ g.nombre }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña *</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </div>
+      @if (error) {
+         <div class="error-message">
+          {{ error }}</div>
+      }
+
+      <button type="submit" class="btn-registro" [disabled]="cargando">
+        @if (cargando) {
+          <span>Registrando...</span>
+        } @else {
+          <span>Crear Cuenta</span>
+        }
+      </button>
+    </form>
+
+    <div class="login-link">
+      ¿Ya tienes cuenta?
+      <a [routerLink]="['/login']">Iniciar Sesión</a>
+    </div>
+  </div>
 </div>

@@ -1,19 +1,22 @@
 html, body {
   height: 100%;
   margin: 0;
+  background-color: #B0E0E6;
+  
+}
+main {
+  flex: 1; 
 }
 
 .main-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-image: url("/assets/images/etsi.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 
-.content-area {
-    margin: 50px;
-    border-radius: 10px;
-    background-color: #B0E0E6;
-    flex: 1;
-
-}

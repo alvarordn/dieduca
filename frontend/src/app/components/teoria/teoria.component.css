@@ -1,59 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Lora:ital,wght@0,400;1,400&display=swap');
+
 .teoria-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #B0E0E6;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 3rem;
+    background-color: #f8fafc;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #1a202c;
+    transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 1s ease;
+
+}
+
+
+.teoria-container:hover {
+    transform: scale(1.01);
+    box-shadow: #000 0px 20px 60px -10px;
 }
 
 h1 {
-  color: #1c1c1c;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  border-bottom: 4px solid #004687;
-  border-left: 4px solid #004687;
-  border-radius: 5px;
-  padding-left: 1rem;
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-  background-color: whitesmoke;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #3b82f6; 
+    font-weight: 800;
+    margin-bottom: 0.5rem;
 }
 
-.teoria-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 2rem;
+    line-height: 1.2;
 }
 
 
 .teoria-section {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #004687;
+    margin-bottom: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #edf2f7;
 }
 
 .teoria-section h2 {
-  color: #1c1c1c;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+    font-size: 1.75rem;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
 }
 
-.teoria-section p {
-  line-height: 1.8;
-  color: #1c1c1c;
-  font-size: 1.05rem;
-  margin-bottom: 1rem;
+
+.teoria-body {
+    font-family: 'Lora', serif; 
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #4a5568;
 }
 
-.teoria-section ul {
-  padding-left: 2rem;
-  line-height: 2;
-  color: #1c1c1c;
+
+.teoria-body :host ::ng-deep .mjx-chtml {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    display: block;
+    overflow-x: auto;
 }
 
-.teoria-section li {
-  margin-bottom: 0.5rem;
+.teoria-column-image {
+    margin: 2.5rem 0;
+    text-align: center;
+}
+
+figure {
+    margin: 0;
+    display: inline-block;
+    background: #f1f5f9;
+    padding: 15px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    mix-blend-mode: multiply; 
+}
+
+figcaption {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #718096;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .teoria-container {
+        margin: 0;
+        border-radius: 0;
+        padding: 1.5rem;
+    }
+    
+    h2 { font-size: 1.8rem; }
 }

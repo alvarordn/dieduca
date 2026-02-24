@@ -18,23 +18,28 @@ export class NavbarComponent {
     { id: 4, nombre: 'Bloque 4' },
     { id: 5, nombre: 'Bloque 5' },
   ];
-  nombreUsuario: string | null = '';  
-
-  constructor(public authService: AuthService) {}
-
-  ngOnInit() {
-    this.nombreUsuario = this.authService.getUvus();
-    console.log('UVUS del usuario:', this.nombreUsuario);
-  }
-
-  logout() {
-      this.authService.logout();
-  }
-
+  nombreUsuario: string | null = '';
+  estaLogeado: boolean = false;
   bloqueAbierto: number | null = null;
   // bloqueAbierto se le asigna el valor nulo predeterminadamente y cuando no se pasa el raton por encima de ningun bloque
 
   menuMovilAbierto: boolean = false;
+
+  constructor(public authService: AuthService) {}
+
+  ngOnInit() {
+    this.authService.uvus$.subscribe((uvus) => {
+    if (uvus) {
+      this.nombreUsuario = uvus.charAt(0).toUpperCase() + uvus?.slice(1).toLocaleLowerCase();
+    } else {
+      this.nombreUsuario = null;
+    }
+    });
+  }
+
+  logout() {
+    this.authService.logout();
+  }
 
   abrirDesplegable(bloqueId: number) {
     this.bloqueAbierto = bloqueId;

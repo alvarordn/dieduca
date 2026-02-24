@@ -1,79 +1,116 @@
-<div class="circuit-container" *ngIf="circuitData">
-  <svg [attr.width]="imgWidth" [attr.height]="imgHeight" [attr.viewBox]="(-MARGIN) + ' ' + (-MARGIN) + ' ' + imgWidth + ' ' + imgHeight" preserveAspectRatio="xMidYMid meet" class="circuit-svg">
-    
-    <g class="connections">
-      <ng-container *ngFor="let comp of componentes">
-        <ng-container *ngIf="getNode(comp.source) as sourceNode">
-          <ng-container *ngIf="getNode(comp.target) as targetNode">
-            <line [attr.x1]="getNodeX(sourceNode.col)" [attr.y1]="getNodeY(sourceNode.row)" [attr.x2]="getNodeX(targetNode.col)" [attr.y2]="getNodeY(targetNode.row)" [attr.stroke]="" stroke-width="6" stroke-linecap="round" opacity="0.4"/>
-            <!-- x1, y1: Coordenadas del punto de inicio
-            x2, y2: Coordenadas del punto final
-            stroke: Color de la línea
-            stroke-width: Grosor de la línea
-            stroke-linecap: Forma de los extremos
-            opacity: Transparencia -->
-          </ng-container>
-        </ng-container>
-      </ng-container>
-    </g>
-    <!-- g es un elemento de agrupacion -->
-    
-    <!-- ng-container seria un elemento de contenedor fantasma que no genera ningun elemento HTML
-    para usar directivas ngFor y ngIf sin añadir elementos extra al DOM, sustituye al div -->
+<!-- Comprobamos que existan datos del circuito antes de renderizar -->
+@if (circuitData) {
 
+<!-- Contenedor principal del circuito -->
+<div class="circuit-container">
+
+  <!-- SVG donde se dibuja todo el circuito -->
+  <svg 
+    [attr.width]="imgWidth" 
+    [attr.height]="imgHeight" 
+    [attr.viewBox]="(-MARGIN) + ' ' + (-MARGIN) + ' ' + imgWidth + ' ' + imgHeight" 
+    
+    preserveAspectRatio="xMidYMid meet" 
+    class="circuit-svg">
+
+    <g class="connections">
+      @for (comp of componentes; track comp.id) {
+
+        <!-- Obtenemos nodo origen y destino del componente -->
+        @let source = getNode(comp.source);
+        @let target = getNode(comp.target);
+        
+        <!-- Solo dibujamos la línea si ambos nodos existen -->
+        @if (source && target) {
+
+          <!-- Línea que representa el cable entre nodos -->
+          <line 
+            [attr.x1]="getNodeX(source.col)" 
+            [attr.y1]="getNodeY(source.row)" 
+            [attr.x2]="getNodeX(target.col)" 
+            [attr.y2]="getNodeY(target.row)" 
+            class="wire-line"/>
+        }
+      }
+    </g>
 
     <g class="components">
-      <ng-container *ngFor="let comp of componentes">
-        <ng-container *ngIf="comp.type !== 'opencircuit'">
-          <image [attr.xlink:href]="getComponentImgPath(comp.type)" [attr.x]="getComponentMidPoint(comp).x - 50" [attr.y]="getComponentMidPoint(comp).y - 50" width="100" height="100" [attr.transform]="'rotate(' + getComponentRotation(comp) + ' ' + getComponentMidPoint(comp).x + ' ' + getComponentMidPoint(comp).y + ')'" class="component-image"/>
-        </ng-container>
-      </ng-container>
+      @for (comp of componentes; track comp.id) {
+
+        <!-- No dibujamos nada si es un circuito abierto -->
+        @if (comp.type !== 'opencircuit') {
+
+          <!-- Calculamos el punto medio del componente -->
+          @let mid = getComponentMidPoint(comp);
+          
+          <!-- Rectángulo blanco de fondo para limpiar visualmente el cable -->
+          <rect 
+            [attr.x]="mid.x - 35" 
+            [attr.y]="mid.y - 35" 
+            width="70" 
+            height="70" 
+            fill="white" 
+            [attr.transform]="'rotate(' + getComponentRotation(comp) + ' ' + mid.x + ' ' + mid.y + ')'" />
+
+          <!-- Imagen del componente (resistencia, fuente, etc.) -->
+          <image 
+            [attr.xlink:href]="getComponentImgPath(comp.type)" 
+            [attr.x]="mid.x - 50" 
+            [attr.y]="mid.y - 50" 
+            width="100" 
+            height="100" 
+            [attr.transform]="'rotate(' + getComponentRotation(comp) + ' ' + mid.x + ' ' + mid.y + ')'" 
+            class="component-image"/>
+        }
+      }
     </g>
-
-    <!-- Si es un circuito abierto no dibujara nada -->
-    <!-- attr.xlink:href seria la propiedad que buscaria la imagen del componente en cuestion -->
-    <!-- Luego se rota el componente un numero de grados en el punto X e Y del componente -->
-
-    <g class="labels">
-      <ng-container *ngFor="let comp of componentes">
-        <ng-container *ngIf="comp.value">
-          <text [attr.x]="getLabelPosition(comp).x" [attr.y]="getLabelPosition(comp).y" text-anchor="middle" dominant-baseline="middle" class="label-text-outline">
-            {{ comp.value }}
-          </text>
-
-          <text [attr.x]="getLabelPosition(comp).x" [attr.y]="getLabelPosition(comp).y" text-anchor="middle" dominant-baseline="middle" class="label-text-fill">
-            {{ comp.value }}
-          </text>
-        </ng-container>
-      </ng-container>
-    </g>
-
-    <!-- Solo dibuja la etiqueta si esta tiene valor, ya que el opencircuit no lo tiene -->
-    <!-- rect seria la etiqueta que simbolizaria el rectangulo de fondo de la etiqueta en cuestion -->
-    <!-- los atributos de rect serian: -->
-    
-    <!-- attr.x y attr.y esquina superior izquierda
-    width y height las dimensiones
-    fill el color de relleno
-    stroke el color del borde
-    stroke-width el grosor del borde
-    rx el radio de las esquinas redondeadas -->
-
-    <!-- text seria la etiqueta referida al texto -->
-    <!-- attr.x y attr.y es la posicion del texto
-    text-anchor="middle" alinea el texto horizontalmente al centro
-    dominant-baseline="middle" alinea el texto verticalmente al centro
-    comp.value es el valor -->
 
     <g class="nodes">
-      <ng-container *ngFor="let nodo of nodos">
-        <image [attr.xlink:href]="getNodeImgPath(nodo.type)" [attr.x]="getNodeX(nodo.col) - 50" [attr.y]="getNodeY(nodo.row) - 45" width="100" height="91" class="node-image"/>
-      </ng-container>
+      @for (nodo of nodos; track nodo.id) {
+
+        <!-- Imagen que representa el nodo -->
+        <image 
+          [attr.xlink:href]="getNodeImgPath(nodo.type)" 
+          [attr.x]="getNodeX(nodo.col) - 50" 
+          [attr.y]="getNodeY(nodo.row) - 45" 
+          width="100" 
+          height="91" 
+          class="node-image"/>
+      }
     </g>
 
-    <!-- attr.xlink:href seria la propiedad que buscaria la imagen de las esquinas  -->
-    <!-- attr.x y attr.y para centrarlo -->
-    <!-- width y height el tamaño -->
+    <g class="labels">
+      @for (comp of componentes; track comp.id) {
+
+        <!-- Solo mostramos etiqueta si el componente tiene valor -->
+        @if (comp.value) {
+
+          <!-- Calculamos posición óptima del texto -->
+          @let pos = getLabelPosition(comp);
+
+          <!-- Texto con contorno (para mejor legibilidad sobre el circuito) -->
+          <text 
+            [attr.x]="pos.x" 
+            [attr.y]="pos.y" 
+            text-anchor="middle" 
+            dominant-baseline="middle" 
+            class="label-text-outline">
+            {{ comp.value }}
+          </text>
+
+          <!-- Texto principal encima del contorno -->
+          <text 
+            [attr.x]="pos.x" 
+            [attr.y]="pos.y" 
+            text-anchor="middle" 
+            dominant-baseline="middle" 
+            class="label-text-fill">
+            {{ comp.value }}
+          </text>
+        }
+      }
+    </g>
     
   </svg>
 </div>
+}

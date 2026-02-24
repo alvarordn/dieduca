@@ -1,46 +1,18 @@
-.circuit-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  border-radius: 12px;
-  margin: 1rem 0;
-}
 
-.circuit-svg {
-  background: white;
-  border-radius: 8px;
-  border: 3px solid #dee2e6;
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  height: auto;
+.wire-line {
+  stroke: #000000;
+  stroke-width: 5px; 
+  stroke-linecap: square;
+  opacity: 1; 
+  shape-rendering: geometricPrecision;
 }
-
-.component-image {
-  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.node-image {
-  filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.4));
-}
-
-.label-text-outline, .label-text-fill {
-  font-size: 13px;
-  font-weight: bold;
-  pointer-events: none;
-  user-select: none;
-}
-
 .label-text-outline {
   stroke: white;
-  stroke-width: 4px;
+  stroke-width: 5px;
   fill: none;
 }
 
 .label-text-fill {
-  stroke: none;
-  fill: black;
+  fill: #000;
+  font-size: 14px;
 }

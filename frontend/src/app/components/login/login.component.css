@@ -3,7 +3,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #B0E0E6;
+  background-image: url("/assets/images/etsi.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
   padding: 1rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
