@@ -62,6 +62,8 @@ export class RegistroComponent {
       grado: this.grado,
       password: this.password
     };
+    localStorage.setItem('grado', this.grado); 
+    console.log('Datos a enviar:', datos);
 
     this.authService.register(datos).subscribe({
       next: (response) => {

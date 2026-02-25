@@ -19,6 +19,7 @@ export class NavbarComponent {
     { id: 5, nombre: 'Bloque 5' },
   ];
   nombreUsuario: string | null = '';
+  idUsuario: string | null = null;
   estaLogeado: boolean = false;
   bloqueAbierto: number | null = null;
   // bloqueAbierto se le asigna el valor nulo predeterminadamente y cuando no se pasa el raton por encima de ningun bloque
@@ -29,11 +30,27 @@ export class NavbarComponent {
 
   ngOnInit() {
     this.authService.uvus$.subscribe((uvus) => {
-    if (uvus) {
-      this.nombreUsuario = uvus.charAt(0).toUpperCase() + uvus?.slice(1).toLocaleLowerCase();
-    } else {
-      this.nombreUsuario = null;
-    }
+      if (uvus) {
+        this.nombreUsuario =
+          uvus.charAt(0).toUpperCase() + uvus.slice(1).toLowerCase();
+
+        // EXTRAER EL ID DEL TOKEN
+        const token = localStorage.getItem('token');
+        console.log('Token almacenado:', token); 
+        if (token) {
+          try {
+            // El ID está en la segunda parte del token (payload), codificado en Base64
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            console.log('Payload decodificado:', payload);
+            this.idUsuario = payload.user_id; // Ahora sí, idUsuario será "5"
+          } catch (e) {
+            console.error('Error al decodificar el token', e);
+          }
+        }
+      } else {
+        this.nombreUsuario = null;
+        this.idUsuario = null;
+      }
     });
   }
 

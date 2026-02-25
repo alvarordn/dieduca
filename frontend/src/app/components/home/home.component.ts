@@ -10,9 +10,11 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomeComponent {
   nombreUsuario: string | null = null ;
+  gradoUsuario: string | null = null;
   constructor(private service: AuthService) {}
 
   ngOnInit() {
+    this.gradoUsuario = localStorage.getItem('grado');
    this.service.uvus$.subscribe((uvus) => {
     if (uvus) {
       this.nombreUsuario = uvus.charAt(0).toUpperCase() + uvus?.slice(1).toLocaleLowerCase();

@@ -27,6 +27,7 @@ export class AuthService {
   private uvusSubject = new BehaviorSubject<string | null>(
     localStorage.getItem('uvus'),
   );
+
   public uvus$ = this.uvusSubject.asObservable();
   constructor(
     private http: HttpClient,

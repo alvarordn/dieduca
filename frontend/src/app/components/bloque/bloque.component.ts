@@ -41,7 +41,9 @@ export class BloqueComponent implements OnInit {
   ngOnInit() { // se ejecuta cada vez que se crea el componente
     this.route.params.subscribe(params => { // Subscribe seria como para que avisase de que se actualiza un valor
       this.bloqueId = params['id']; // si se va a /bloque/3, params['id']
+      this.circuitoGenerado = null; // limpia el circuito anterior al cambiar de bloque
     });
+  
   }
 
 
@@ -78,7 +80,7 @@ comprobarRespuestas() {
   if (this.respuestas.pregunta1 === null || 
       this.respuestas.pregunta2 === null || 
       this.respuestas.pregunta3 === null) {
-    this.mensajeResultado = 'Por favor, rellena todas las preguntas';
+    this.mensajeResultado = 'Por favor, rellena todas las respuestas antes de comprobar.';
     this.resultadoVisible = true;
     return;
   }

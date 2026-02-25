@@ -1,10 +1,6 @@
 
 .wire-line {
-  stroke: #000000;
-  stroke-width: 5px; 
-  stroke-linecap: square;
   opacity: 1; 
-  shape-rendering: geometricPrecision;
 }
 .label-text-outline {
   stroke: white;
@@ -15,4 +11,28 @@
 .label-text-fill {
   fill: #000;
   font-size: 14px;
+}
+
+.circuit-container {
+  width: 100%;
+  overflow-x: auto;
+  display: block;  
+  padding: 2px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: #000
+    0px 20px 60px -10px;
+     transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 1s ease;
+}
+
+.circuit-container:hover {
+  transform: scale(1.05);
+  box-shadow: #000 0px 20px 60px -10px;
+}
+
+.circuit-svg {
+  min-width: 800px; 
+  width: 100%;      
+  height: auto;
+  display: block;
 }
