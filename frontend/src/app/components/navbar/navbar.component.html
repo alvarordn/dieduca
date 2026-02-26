@@ -1,32 +1,23 @@
 <nav class="navbar">
-  <div class="navbar-content">
-    <button
-      class="menu-ham"
-      [class.active]="menuMovilAbierto"
-      (click)="toggleMenuMovil()"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z" />
-      </svg>
-    </button>
+  <div class="navbar-content d-flex align-items-center justify-content-between w-100">
+    
+    <div class="d-flex align-items-center">
+      <button class="menu-ham me-2" [class.active]="menuMovilAbierto" (click)="toggleMenuMovil()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z" />
+        </svg>
+      </button>
 
-    <div class="navbar-brand">
-      <a [routerLink]="['/']">
-        <img
-          src="assets/images/logoetsi-removebg-preview.png"
-          alt="logo ETSI"
-          class="logo"
-        />
-      </a>
+      <div class="navbar-brand">
+        <a [routerLink]="['/']">
+          <img src="assets/images/logoetsi-removebg-preview.png" alt="logo ETSI" class="logo" />
+        </a>
+      </div>
     </div>
 
-    <ul class="navbar-menu" [class.active]="menuMovilAbierto">
+    <ul class="navbar-menu mx-auto" [class.active]="menuMovilAbierto">
       @for (bloque of bloques; track bloque.id) {
-        <li
-          class="navbar-item"
-          (mouseenter)="abrirDesplegable(bloque.id)"
-          (mouseleave)="cerrarDesplegable()"
-        >
+        <li class="navbar-item" (mouseenter)="abrirDesplegable(bloque.id)" (mouseleave)="cerrarDesplegable()">
           <span class="bloque-nombre" (click)="toggleDesplegableMovil(bloque.id)">
             {{ bloque.nombre }}
             <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -36,21 +27,10 @@
 
           @if (estaAbierto(bloque.id)) {
             <div class="desplegable">
-              <a
-                [routerLink]="['/bloque', bloque.id, 'teoria']"
-                routerLinkActive="active"
-                class="desplegable-item"
-                (click)="cerrarMenuMovil()"
-              >
+              <a [routerLink]="['/bloque', bloque.id, 'teoria']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
                 Teoría Bloque {{ bloque.id }}
               </a>
-
-              <a
-                [routerLink]="['/bloque', bloque.id, 'ejercicio']"
-                routerLinkActive="active"
-                class="desplegable-item"
-                (click)="cerrarMenuMovil()"
-              >
+              <a [routerLink]="['/bloque', bloque.id, 'ejercicio']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
                 Ejercicio Bloque {{ bloque.id }}
               </a>
             </div>
@@ -59,24 +39,24 @@
       }
     </ul>
 
-    @if (authService.isLoggedIn()) {
-      <div class="navbar-profile">
-        <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
-          <path fill="#555" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
-        </svg>
-
-        <span class="user-name">Bienvenido, {{ nombreUsuario }}</span>
-        <span class="divider">|</span>
-        <button class="logout-action" (click)="logout()" title="Cerrar sesión">
-          Salir
-        </button>
-      </div>
-    } @else {
-      <div class="navbar-auth-buttons">
-        <a [routerLink]="['/login']" class="btn-login">Entrar</a>
-        <a [routerLink]="['/registro']" class="btn-register">Registrarse</a>
-      </div>
-    }
+    <div class="d-flex align-items-center">
+      @if (authService.isLoggedIn()) {
+        <div class="navbar-profile">
+          <svg class="user-icon d-none d-md-block" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
+            <path fill="#555" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
+          </svg>
+          <span class="user-name d-none d-lg-inline">Hola, {{ nombreUsuario }}</span>
+          <span class="divider d-none d-lg-inline">|</span>
+          <button class="logout-action" (click)="logout()">Salir</button>
+        </div>
+      } @else {
+        <div class="navbar-auth-buttons">
+          <a [routerLink]="['/login']" class="btn-login">Entrar</a>
+          <a [routerLink]="['/registro']" class="btn-register">Registrarse</a>
+        </div>
+      }
+    </div>
+    
 
     @if (menuMovilAbierto) {
       <div class="overlay" (click)="cerrarMenuMovil()"></div>

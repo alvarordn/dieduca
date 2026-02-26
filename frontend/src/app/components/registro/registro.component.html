@@ -7,56 +7,74 @@
     <form (ngSubmit)="register()">
       <div class="form-group">
         <label for="uvus">UVUS *</label>
-        <input type="text" id="uvus" [(ngModel)]="uvus" name="uvus" required />
+        <div class="input-icon">
+          <i class="bi bi-person-fill"></i>
+          <input
+            type="text"
+            id="uvus"
+            [(ngModel)]="uvus"
+            name="uvus"
+            required
+          />
+        </div>
       </div>
       @if (errorUvus) {
-         <div class="error-message">
-          {{ errorUvus }}</div>
+        <div class="error-message">
+          {{ errorUvus }}
+        </div>
       }
 
       <div class="form-group">
         <label for="email">Correo Corporativo *</label>
-        <input
-          type="email"
-          id="email"
-          [(ngModel)]="email"
-          name="email"
-          required
-        />
+        <div class="input-icon">
+          <i class="bi bi-envelope-fill"></i>
+          <input
+            type="email"
+            id="email"
+            [(ngModel)]="email"
+            name="email"
+            required
+          />
+        </div>
       </div>
       @if (errorEmail) {
-         <div class="error-message">
-          {{ errorEmail }}</div>
+        <div class="error-message">
+          {{ errorEmail }}
+        </div>
       }
-
       <div class="form-group">
         <label for="grado">Grado *</label>
-        <select id="grado" [(ngModel)]="grado" name="grado" required>
-          <option value="" disabled selected>Selecciona tu grado</option>
-          @for (g of grados; track g.valor) {
-            <option [value]="g.valor">
-              {{ g.nombre }}
-            </option>
-          }
-        </select>
+        <div class="input-icon">
+          <i class="bi bi-mortarboard-fill icon-field"></i>
+          <select id="grado" [(ngModel)]="grado" name="grado" required>
+            <option value="" disabled selected>Selecciona tu grado</option>
+            @for (g of grados; track g.valor) {
+              <option [value]="g.valor">{{ g.nombre }}</option>
+            }
+          </select>
+        </div>
       </div>
 
       <div class="form-group">
         <label for="password">Contraseña *</label>
-        <input
-          type="password"
-          id="password"
-          [(ngModel)]="password"
-          name="password"
-          required
-        />
+        <div class="input-icon">
+          <i class="bi bi-lock-fill"></i>
+          <input
+            type="password"
+            id="password"
+            [(ngModel)]="password"
+            name="password"
+            required
+          />
+        </div>
       </div>
       @if (error) {
-         <div class="error-message">
-          {{ error }}</div>
+        <div class="error-message">
+          {{ error }}
+        </div>
       }
 
-      <button type="submit" class="btn-registro" [disabled]="cargando">
+      <button type="submit" class="btn-registro" [disabled]="">
         @if (cargando) {
           <span>Registrando...</span>
         } @else {

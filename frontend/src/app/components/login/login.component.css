@@ -1,34 +1,61 @@
+/* Importamos la fuente para que coincida con el resto de la web */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap");
+
 .login-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("/assets/images/etsi.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-  padding: 1rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
-
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.5) url("/assets/images/etsi.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  filter: blur(8px);
+  transform: scale(1.1);
+  z-index: -1;
+}
 .login-card {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1;
+  position: relative;
+  padding: 3rem;
+  border-radius: 24px;
   width: 100%;
   max-width: 420px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .login-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .login-header h1 {
-  margin: 0 0 0.5rem 0;
-  color: #1c1c1c;
-  font-size: 1.8rem;
+  margin: 0;
+  color: #0f172a;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
 }
 
 .form-group {
@@ -37,70 +64,123 @@
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
-  color: #1c1c1c;
-  font-weight: 600;
-  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+  color: #475569;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border: 2px solid darkgray;
-  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
   font-size: 1rem;
+  font-family: inherit;
   box-sizing: border-box;
+  transition: all 0.3s ease;
+  background: white;
 }
 
-.form-group input::placeholder {
-  color: darkgray;
+.form-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
 .error-message {
-  background: #FFEBEE;
-  color: #C62828;
-  padding: 0.75rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 0.8rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-left: 4px solid #dc2626;
 }
 
 .btn-login {
   width: 100%;
-  padding: 0.875rem;
-  background: mediumpurple;
+  padding: 1rem;
+  background: #3b82f6;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 12px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-login:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
 }
 
 .btn-login:disabled {
-  background: #BDC3C7;
+  background: #cbd5e0;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .registro-link {
   text-align: center;
-  margin-top: 1.5rem;
-  color: #7F8C8D;
+  margin-top: 2rem;
+  color: #64748b;
   font-size: 0.95rem;
 }
 
 .registro-link a {
-  color: mediumpurple;
+  color: #3b82f6;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
+  margin-left: 5px;
 }
 
 .registro-link a:hover {
   text-decoration: underline;
+  color: #1d4ed8;
+}
+
+.input-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-icon input {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.8rem ; 
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.bi-person-fill{
+  position: absolute;
+  left: 15px;
+  color: #3b82f6; 
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.bi-lock-fill {
+  position: absolute;
+  left: 15px;
+  color: #3b82f6; 
+  font-size: 1.2rem;
+  pointer-events: none;
 }
 
 @media (max-width: 480px) {
   .login-card {
-    padding: 2rem 1.5rem;
+    padding: 2.5rem 1.5rem;
+    border-radius: 0;
+  }
+  .login-container {
+    padding: 0;
   }
 }

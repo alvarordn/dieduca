@@ -42,6 +42,7 @@ export class RegistroComponent {
     private authService: AuthService,
     private router: Router
   ) {}
+  
 
   register() {
     this.errorUvus = '';

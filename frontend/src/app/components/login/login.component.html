@@ -9,12 +9,20 @@
         
             <div class="form-group">
                 <label for="uvus">UVUS</label>
-                <input type="text" id="uvus" [(ngModel)]="uvus" name="uvus" required>
+                <div class="input-icon">
+                    <i class="bi bi-person-fill"></i> 
+                    <input type="text" id="uvus" [(ngModel)]="uvus" name="uvus" required>
+                </div>
+               
+                
             </div>
 
             <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" [(ngModel)]="password" name="password" required>
+                <div class="input-icon">
+                    <i class="bi bi-lock-fill"></i>
+                    <input type="password" id="password" [(ngModel)]="password" name="password" required>
+                </div>
             </div>
 
             @if (error) {
@@ -37,6 +45,7 @@
             ¿No tienes cuenta? 
             <a [routerLink]="['/registro']">Registrarse</a>
         </div>
+        
 
     </div>
 </div>
