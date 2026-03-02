@@ -19,7 +19,7 @@
   box-shadow: #000 0px 20px 60px -10px;
 }
 
-/* Encabezados */
+
 h1 {
   font-size: 0.9rem;
   text-transform: uppercase;
@@ -97,7 +97,7 @@ button {
 }
 
 
-/* Grid de Preguntas */
+
 .preguntas-section {
   margin-top: 3rem;
   padding-top: 2rem;

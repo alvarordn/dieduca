@@ -59,14 +59,7 @@ h2 {
 }
 
 
-.teoria-body :host ::ng-deep .mjx-chtml {
-    margin: 1.5rem 0;
-    padding: 1rem;
-    background: #f8fafc;
-    border-radius: 12px;
-    display: block;
-    overflow-x: auto;
-}
+
 
 .teoria-column-image {
     margin: 2.5rem 0;
@@ -110,3 +103,4 @@ figcaption {
     
     h2 { font-size: 1.8rem; }
 }
+ 
