@@ -44,7 +44,7 @@
 
     @if (cargando) {
       <div class="spinner"></div>
-      <p>Generando circuito {{ rows }}x{{ cols }}...</p>
+      <p>{{errorCircuito}}</p>
     }
 
     @if (circuitoGenerado && circuitoGenerado.success && !cargando) {
@@ -57,7 +57,7 @@
       </div>
        
       <div class="preguntas-section">
-        <h3>Preguntas sobre el circuito</h3>
+        <h3 class="bi bi-pencil-square"> Preguntas sobre el circuito</h3>
         <p class="preguntas-instruccion">
           Calcula los valores del circuito generado:
         </p>
@@ -97,7 +97,7 @@
             </div>
           </div>
 
-          <div class="pregunta-item">
+           <div class="pregunta-item">
             <label for="pregunta3">
               <span class="pregunta-numero">3.</span>
               Pregunta 3:
@@ -110,6 +110,23 @@
                 placeholder="0.00"
                 step="0.01"
               />
+              <span class="input-unit">A</span>
+            </div>
+          </div>
+
+          <div class="pregunta-item">
+            <label for="pregunta4">
+              <span class="pregunta-numero">4.</span>
+              Pregunta 4:
+            </label>
+            <div class="input-div">
+              <input
+                type="number"
+                id="pregunta4"
+                [(ngModel)]="respuestas.pregunta4"
+                placeholder="0.00"
+                step="0.01"
+              />
               <span class="input-unit">W</span>
             </div>
           </div>
@@ -117,9 +134,11 @@
 
         <div class="preguntas-acciones">
           <button class="btn-comprobar" (click)="comprobarRespuestas()">
+            <i class="bi bi-check-circle"></i>
             Comprobar Respuestas
           </button>
           <button class="btn-limpiar" (click)="limpiarRespuestas()">
+            <i class="bi bi-trash"></i>
             Limpiar
           </button>
         </div>

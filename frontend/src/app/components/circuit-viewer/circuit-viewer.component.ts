@@ -4,39 +4,38 @@ import { CommonModule } from '@angular/common';
 // Representa un nodo del circuito dentro de una grilla.
 // Cada nodo tiene una posición (row, col) y un tipo visual.
 interface Nodo {
-  id: string;      // Identificador único del nodo
-  row: number;     // Fila dentro de la grilla
-  col: number;     // Columna dentro de la grilla
-  type: string;    // Tipo visual (esquina, borde, centro, etc.)
+  id: string; // Identificador único del nodo
+  row: number; // Fila dentro de la grilla
+  col: number; // Columna dentro de la grilla
+  type: string; // Tipo visual (esquina, borde, centro, etc.)
 }
 
 // Representa un componente eléctrico que conecta dos nodos.
 interface Componente {
-  id: string;             // Identificador único
-  source: string;         // ID del nodo origen
-  target: string;         // ID del nodo destino
-  type: string;           // Tipo de componente (resistor, capacitor, etc.)
-  value: string | null;   // Valor del componente (ej: 10Ω)
-  orientation: string;    // 'horizontal' o 'vertical'
-  labelPosition: string;  // Posición donde se dibuja el valor
+  id: string; // Identificador único
+  source: string; // ID del nodo origen
+  target: string; // ID del nodo destino
+  type: string; // Tipo de componente (resistor, capacitor, etc.)
+  value: string | null; // Valor del componente (ej: 10Ω)
+  orientation: string; // 'horizontal' o 'vertical'
+  labelPosition: string; // Posición donde se dibuja el valor
 }
 
 @Component({
   selector: 'app-circuit-viewer', // Nombre para usar el componente en HTML
-  standalone: true,               // No necesita módulo
-  imports: [CommonModule],        // Importa directivas básicas (*ngIf, *ngFor)
+  standalone: true, // No necesita módulo
+  imports: [CommonModule], // Importa directivas básicas (*ngIf, *ngFor)
   templateUrl: './circuit-viewer.component.html',
-  styleUrl: './circuit-viewer.component.css'
+  styleUrl: './circuit-viewer.component.css',
 })
 export class CircuitViewerComponent implements OnChanges {
-
   // Datos que recibe desde el componente padre
   @Input() circuitData: any;
 
   // Constantes de diseño (controlan el tamaño del dibujo)
-  public readonly CELL_SIZE = 200;   // Tamaño de cada celda de la grilla
-  public readonly NODE_RADIUS = 18;  // Radio visual del nodo
-  public readonly MARGIN = 80;       // Margen externo del dibujo
+  public readonly CELL_SIZE = 200; // Tamaño de cada celda de la grilla
+  public readonly NODE_RADIUS = 18; // Radio visual del nodo
+  public readonly MARGIN = 100; // Margen externo del dibujo
 
   // Dimensiones totales del lienzo
   imgWidth = 0;
@@ -56,43 +55,39 @@ export class CircuitViewerComponent implements OnChanges {
 
   // Procesa los datos recibidos y calcula dimensiones del circuito
   processCircuitData() {
-
     // Carga nodos y componentes o usa arreglo vacío si no existen
     this.nodos = this.circuitData.nodos || [];
+    console.log(this.circuitData.componentes)
     this.componentes = this.circuitData.componentes || [];
 
     // Obtiene cantidad de filas y columnas (valores por defecto si no vienen)
     const rows = this.circuitData.rows || 2;
     const cols = this.circuitData.cols || 3;
 
-    // Ajusta margen dinámicamente si el circuito es grande
-    const marginX = this.MARGIN + (cols > 4 ? 20 : 0);
-    const marginY = this.MARGIN + (rows > 3 ? 20 : 0);
 
     // Calcula ancho y alto total del área de dibujo
-    this.imgWidth = (cols + 1) * this.CELL_SIZE + marginX * 2;
-    this.imgHeight = (rows + 1) * this.CELL_SIZE + marginY * 2;
+    this.imgWidth = (cols - 1) * this.CELL_SIZE + this.MARGIN * 2;
+    this.imgHeight = (rows - 1) * this.CELL_SIZE + this.MARGIN * 2;
   }
 
   // Convierte una columna de la grilla en coordenada X (en píxeles)
   getNodeX(col: number): number {
-    return this.MARGIN + (col + 0.5) * this.CELL_SIZE;
+    return this.MARGIN + col * this.CELL_SIZE;
   }
 
   // Convierte una fila de la grilla en coordenada Y (en píxeles)
   getNodeY(row: number): number {
-    return this.MARGIN + (row + 0.5) * this.CELL_SIZE;
+    return this.MARGIN + row * this.CELL_SIZE;
   }
 
   // Busca un nodo por su ID
   getNode(nodeId: string): Nodo | undefined {
-    return this.nodos.find(n => n.id === nodeId);
+    return this.nodos.find((n) => n.id === nodeId);
   }
 
   // Calcula el punto medio entre el nodo origen y destino
   // Sirve para colocar el componente visualmente entre ambos
-  getComponentMidPoint(comp: Componente): { x: number, y: number } {
-
+  getComponentMidPoint(comp: Componente): { x: number; y: number } {
     const sourceNode = this.getNode(comp.source);
     const targetNode = this.getNode(comp.target);
 
@@ -101,7 +96,7 @@ export class CircuitViewerComponent implements OnChanges {
 
     return {
       x: (this.getNodeX(sourceNode.col) + this.getNodeX(targetNode.col)) / 2,
-      y: (this.getNodeY(sourceNode.row) + this.getNodeY(targetNode.row)) / 2
+      y: (this.getNodeY(sourceNode.row) + this.getNodeY(targetNode.row)) / 2,
     };
   }
 
@@ -111,8 +106,7 @@ export class CircuitViewerComponent implements OnChanges {
   }
 
   // Calcula la posición donde se dibujará el texto (valor del componente)
-  getLabelPosition(comp: Componente): { x: number, y: number } {
-
+  getLabelPosition(comp: Componente): { x: number; y: number } {
     const mid = this.getComponentMidPoint(comp);
     const offset = 40; // Separación respecto al centro
 
@@ -142,15 +136,14 @@ export class CircuitViewerComponent implements OnChanges {
 
   // Devuelve la ruta de la imagen según tipo de componente
   getComponentImgPath(type: string): string {
-
     const paths: Record<string, string> = {
-      'resistor': 'assets/components/resistor.png',
-      'capacitor': 'assets/components/capacitor.png',
-      'inductor': 'assets/components/inductor.png',
-      'v_source': 'assets/components/v_source.png',
-      'c_source': 'assets/components/c_source.png',
-      'shortcircuit': 'assets/components/shortcircuit.png',
-      'opencircuit': 'assets/components/opencircuit.png'
+      resistor: 'assets/components/resistor.png',
+      capacitor: 'assets/components/capacitor.png',
+      inductor: 'assets/components/inductor.png',
+      v_source: 'assets/components/v_source.png',
+      c_source: 'assets/components/c_source.png',
+      shortcircuit: 'assets/components/shortcircuit.png',
+      opencircuit: 'assets/components/opencircuit.png',
     };
 
     // Si no encuentra el tipo, usa resistor por defecto
@@ -159,7 +152,6 @@ export class CircuitViewerComponent implements OnChanges {
 
   // Devuelve la imagen correspondiente al tipo de nodo
   getNodeImgPath(type: string): string {
-
     const paths: Record<string, string> = {
       'corner-top-left': 'assets/nodes/corner-top-left.png',
       'corner-top-right': 'assets/nodes/corner-top-right.png',
@@ -169,7 +161,7 @@ export class CircuitViewerComponent implements OnChanges {
       'edge-bottom': 'assets/nodes/edge-bottom.png',
       'edge-left': 'assets/nodes/edge-left.png',
       'edge-right': 'assets/nodes/edge-right.png',
-      'center': 'assets/nodes/center.png'
+      center: 'assets/nodes/center.png',
     };
 
     // Si no coincide, usa nodo central por defecto

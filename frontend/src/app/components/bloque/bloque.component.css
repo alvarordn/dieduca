@@ -97,52 +97,6 @@ button {
 }
 
 
-
-.preguntas-section {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 2px solid #edf2f7;
-}
-
-.preguntas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.pregunta-item {
-  background: white;
-  padding: 1.2rem;
-  border-radius: 12px;
-  border: 1px solid #edf2f7;
-}
-
-.input-div {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.input-div input {
-  flex: 1;
-  padding: 0.8rem;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
-}
-
-.input-unit {
-  font-weight: 800;
-  color: #3b82f6;
-}
-
-.preguntas-acciones {
-  display: flex;
-  gap: 1rem;
-}
-
 .btn-comprobar {
   background: #10b981;
   color: white;
@@ -170,33 +124,143 @@ button {
   box-shadow: 0 10px 15px -3px rgba(226, 232, 240, 0.3);
 }
 
-.resultado-preguntas {
-  background: #ffebee;
-  color: #c62828;
-  padding: 0.75rem;
-  border-radius: 6px;
-  margin-top: 1rem;
+/* Sección de Preguntas */
+.preguntas-section {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #edf2f7;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.preguntas-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+}
+
+.preguntas-instruccion {
+  color: #718096;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+/* Grid de Preguntas */
+.preguntas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Item Individual (La Tarjeta) */
+.pregunta-item {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.pregunta-item:hover {
+  background: white;
+  border-color: #3b82f6;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(59, 130, 246, 0.08);
+}
+
+.pregunta-item label {
+  font-weight: 700;
   font-size: 0.9rem;
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3b82f6;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 20px auto;
+.pregunta-numero {
+  background: #3b82f6;
+  color: white;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+/* Contenedor del Input */
+.input-div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  padding: 2px 12px;
+  transition: border-color 0.2s;
 }
+
+.input-div:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-div input {
+  border: none !important;
+  background: transparent !important;
+  padding: 0.8rem 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #1a202c;
+  width: 100%;
+  outline: none;
+}
+
+.input-unit {
+  font-weight: 800;
+  color: #3b82f6;
+  background: #eff6ff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+
+.preguntas-acciones {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.resultado-preguntas {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -213,3 +277,5 @@ button {
     flex-direction: column;
   }
 }
+
+

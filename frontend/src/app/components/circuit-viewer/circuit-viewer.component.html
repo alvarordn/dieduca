@@ -5,11 +5,10 @@
 <div class="circuit-container">
 
   <!-- SVG donde se dibuja todo el circuito -->
-  <svg 
-    [attr.viewBox]="(-MARGIN) + ' ' + (-MARGIN) + ' ' + imgWidth + ' ' + imgHeight" 
-    
-    preserveAspectRatio="xMidYMid meet" 
-    class="circuit-svg">
+<svg 
+  [attr.viewBox]="'0 0 ' + imgWidth + ' ' + imgHeight" 
+  preserveAspectRatio="xMidYMid meet" 
+  class="circuit-svg">
 
     <g class="connections">
       @for (comp of componentes; track comp.id) {
@@ -35,9 +34,6 @@
     <g class="components">
       @for (comp of componentes; track comp.id) {
 
-        <!-- No dibujamos nada si es un circuito abierto -->
-        @if (comp.type !== 'opencircuit') {
-
           <!-- Calculamos el punto medio del componente -->
           @let mid = getComponentMidPoint(comp);
           
@@ -59,7 +55,7 @@
             height="100" 
             [attr.transform]="'rotate(' + getComponentRotation(comp) + ' ' + mid.x + ' ' + mid.y + ')'" 
             class="component-image"/>
-        }
+       
       }
     </g>
 

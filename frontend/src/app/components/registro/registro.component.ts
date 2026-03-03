@@ -12,42 +12,56 @@ import { Grado } from '../../models/grado';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css'
+  styleUrl: './registro.component.css',
 })
 export class RegistroComponent {
   // Inicializamos los campos siguiendo la interfaz Usuario
   uvus: string = '';
   email: string = '';
-  grado: string = ''; 
+  grado: string = '';
   password: string = '';
-  
+
   cargando: boolean = false;
   errorUvus: string = '';
   errorEmail: string = '';
-  error : string = '';
+  error: string = '';
 
   // Definimos la lista de grados usando la interfaz Grado
   grados: Grado[] = [
-    { id: 1, nombre: 'Grado de Ingeniería de Tecnologías Industriales', valor: 'GITI' },
-    { id: 2, nombre: 'Grado en Ingeniería de las Tecnologías de Telecomunicación', valor: 'GITT' },
+    {
+      id: 1,
+      nombre: 'Grado de Ingeniería de Tecnologías Industriales',
+      valor: 'GITI',
+    },
+    {
+      id: 2,
+      nombre: 'Grado en Ingeniería de las Tecnologías de Telecomunicación',
+      valor: 'GITT',
+    },
     { id: 3, nombre: 'Grado en Ingeniería Aeroespacial', valor: 'GIA' },
     { id: 4, nombre: 'Grado en Ingeniería Civil', valor: 'GIC' },
     { id: 5, nombre: 'Grado en Ingeniería Química', valor: 'GIQ' },
-    { id: 6, nombre: 'Grado en Ingeniería de Organización Industrial', valor: 'GIOI' },
+    {
+      id: 6,
+      nombre: 'Grado en Ingeniería de Organización Industrial',
+      valor: 'GIOI',
+    },
     { id: 7, nombre: 'Grado en Ingeniería de la Energía', valor: 'GIE' },
-    { id: 8, nombre: 'Grado en Ingeniería Electrónica, Robótica y Mecatrónica', valor: 'GIERM' }
+    {
+      id: 8,
+      nombre: 'Grado en Ingeniería Electrónica, Robótica y Mecatrónica',
+      valor: 'GIERM',
+    },
   ];
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
-  
 
   register() {
     this.errorUvus = '';
     this.errorEmail = '';
-    
 
     if (!this.uvus || !this.email || !this.grado || !this.password) {
       this.error = 'Por favor, completa todos los campos';
@@ -61,9 +75,9 @@ export class RegistroComponent {
       uvus: this.uvus,
       email: this.email,
       grado: this.grado,
-      password: this.password
+      password: this.password,
     };
-    localStorage.setItem('grado', this.grado); 
+    localStorage.setItem('grado', this.grado);
     console.log('Datos a enviar:', datos);
 
     this.authService.register(datos).subscribe({
@@ -73,13 +87,20 @@ export class RegistroComponent {
       },
       error: (err) => {
         if (err.status === 400) {
-          this.errorUvus = 'El UVUS ya está registrado';
-          this.errorEmail = 'El correo ya está registrado';
+          const serverMessage = err.error;
+          console.log("Mensaje servidor: ",serverMessage);
+
+          if (serverMessage.uvus) {
+            this.errorUvus = 'El UVUS ya está registrado';
+          }
+          if(serverMessage.email){
+            this.errorEmail = 'El email ya está registrado'
+          }
         } else {
           this.error = 'Error en el registro. Por favor, inténtalo de nuevo.';
         }
         this.cargando = false;
-      }
+      },
     });
   }
 }

@@ -32,6 +32,7 @@ export class TeoriaComponent implements OnInit {
   cargarTeoria() {
     if (this.bloqueId > 0) {
       this.teoriaService.getTeoria(this.bloqueId).subscribe(data => {
+        console.log("Esta es la teoria",data)
         this.teoria = data;
       });
     }

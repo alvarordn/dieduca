@@ -9,6 +9,8 @@ import { tap } from 'rxjs/operators';
 // aqui lo usamos para guardar el token, esta relacionado con el observable
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario';
+// Para contar los minutos, horas etc de cada usuario
+import { interval, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +23,7 @@ export class AuthService {
     this.hasToken(),
   );
   // como se dijo antes, behaviorSubject almacena el estado de autenticacion, mas concretamente en este caso un booleano, se inicializa con el resultado de hasToken()
-
+  private timerSub?: Subscription;
   private isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
   // Observable publico (de ahi el simbolo $), otros componentes pueden suscribirse para reaccionar a los cambios de autenticacion, como por ejemplo mostrar/ocultar botones de login o logout
   private uvusSubject = new BehaviorSubject<string | null>(
@@ -112,6 +114,22 @@ export class AuthService {
   }
   // cierra sesion, se eliminan ambos campos del local
   // redirige al login
+
+
+  startTracking(username: String){
+    this.timerSub = interval(60000).subscribe(() => {
+      this.http.post("http://localhost:8000/api/auth/track-time/", {uvus: username}).subscribe ({
+        error: (err) => console.error("error al registrar")
+      })
+    })
+    
+  }
+
+  stopTracking() {
+    if (this.timerSub) {
+      this.timerSub.unsubscribe();
+    }
+  }
 
   getToken(): string | null {
     return localStorage.getItem('token');

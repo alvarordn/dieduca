@@ -18,6 +18,7 @@ export class BloqueComponent implements OnInit {
   circuitoGenerado: any = null;
   cargando: boolean = false;
   errorCircuito: string = '';
+  listaPreguntas: any[] = [];
   
   // parametros predeterminados del circuito
   rows: number = 2;
@@ -26,7 +27,8 @@ export class BloqueComponent implements OnInit {
     respuestas = {
     pregunta1: null as number | null,
     pregunta2: null as number | null,
-    pregunta3: null as number | null
+    pregunta3: null as number | null,
+    pregunta4: null as number | null,
   };
   
   // Control del resultado
@@ -63,6 +65,12 @@ export class BloqueComponent implements OnInit {
     this.circuitosService.generarCircuito(datos) // llama al servicio (que devuelve un observable) 
       .subscribe({
         next: (respuesta) => { // se ejecuta cuando django responde bien
+          if(this.rows > 6 || this.cols > 6){
+            this.errorCircuito = "El circuito debe tener 6 o menos filas o columnas"
+            this.cargando = false
+            return
+          
+          }
           console.log('Respuesta del servidor:', respuesta);
           this.circuitoGenerado = respuesta;
           this.cargando = false;
@@ -93,7 +101,8 @@ limpiarRespuestas() {
   this.respuestas = {
     pregunta1: null,
     pregunta2: null,
-    pregunta3: null
+    pregunta3: null,
+    pregunta4: null
   };
   this.resultadoVisible = false;
   this.mensajeResultado = '';
