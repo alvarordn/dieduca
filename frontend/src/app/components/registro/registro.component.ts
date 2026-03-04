@@ -31,26 +31,26 @@ export class RegistroComponent {
     {
       id: 1,
       nombre: 'Grado de Ingeniería de Tecnologías Industriales',
-      valor: 'GITI',
+      valor: 'Grado de Ingeniería de Tecnologías Industriales',
     },
     {
       id: 2,
       nombre: 'Grado en Ingeniería de las Tecnologías de Telecomunicación',
-      valor: 'GITT',
+      valor: 'Grado en Ingeniería de las Tecnologías de Telecomunicación',
     },
-    { id: 3, nombre: 'Grado en Ingeniería Aeroespacial', valor: 'GIA' },
-    { id: 4, nombre: 'Grado en Ingeniería Civil', valor: 'GIC' },
-    { id: 5, nombre: 'Grado en Ingeniería Química', valor: 'GIQ' },
+    { id: 3, nombre: 'Grado en Ingeniería Aeroespacial', valor: 'Grado en Ingeniería Aeroespacial' },
+    { id: 4, nombre: 'Grado en Ingeniería Civil', valor: 'Grado en Ingeniería Civil' },
+    { id: 5, nombre: 'Grado en Ingeniería Química', valor: 'Grado en Ingeniería Química' },
     {
       id: 6,
       nombre: 'Grado en Ingeniería de Organización Industrial',
-      valor: 'GIOI',
+      valor: 'Grado en Ingeniería de Organización Industrial',
     },
-    { id: 7, nombre: 'Grado en Ingeniería de la Energía', valor: 'GIE' },
+    { id: 7, nombre: 'Grado en Ingeniería de la Energía', valor: 'Grado en Ingeniería de la Energía' },
     {
       id: 8,
       nombre: 'Grado en Ingeniería Electrónica, Robótica y Mecatrónica',
-      valor: 'GIERM',
+      valor: 'Grado en Ingeniería Electrónica, Robótica y Mecatrónica',
     },
   ];
 

@@ -213,7 +213,45 @@
   box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
   transition: all 0.3s ease;
 }
+.btn-seguimiento {
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  margin-right: 5px; 
+}
 
+.btn-seguimiento:hover {
+  background-color: #f8fafc;
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.btn-seguimiento:active {
+  transform: translateY(0);
+}
+
+
+.navbar-profile {
+  gap: 10px;
+  padding: 6px 12px;
+}
+
+
+
+.btn-seguimiento:hover svg {
+  color: var(--primary);
+}
 .btn-register:hover {
   background: var(--primary-dark);
   transform: translateY(-2px);

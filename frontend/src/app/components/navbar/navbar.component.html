@@ -3,9 +3,7 @@
     
     <div class="d-flex align-items-center">
       <button class="menu-ham me-2" [class.active]="menuMovilAbierto" (click)="toggleMenuMovil()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M3 18v-2h18v2zm0-5v-2h18v2zm0-5V6h18v2z" />
-        </svg>
+        <i class="bi bi-list fs-3"></i>
       </button>
 
       <div class="navbar-brand">
@@ -16,22 +14,29 @@
     </div>
 
     <ul class="navbar-menu mx-auto" [class.active]="menuMovilAbierto">
+      @if (authService.isLoggedIn()) {
+        <li class="navbar-item d-lg-none user-mobile-header">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-person-circle"></i>
+            <span class="user-name">{{ nombreUsuario }}</span>
+          </div>
+        </li>
+      }
+
       @for (bloque of bloques; track bloque.id) {
         <li class="navbar-item" (mouseenter)="abrirDesplegable(bloque.id)" (mouseleave)="cerrarDesplegable()">
           <span class="bloque-nombre" (click)="toggleDesplegableMovil(bloque.id)">
             {{ bloque.nombre }}
-            <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path fill="currentColor" d="M11.475 14.475L7.85 10.85q-.075-.075-.112-.162T7.7 10.5q0-.2.138-.35T8.2 10h7.6q.225 0 .363.15t.137.35q0 .05-.15.35l-3.625 3.625q-.125.125-.25.175T12 14.7t-.275-.05t-.25-.175" />
-            </svg>
+            <i class="bi bi-chevron-down arrow-icon ms-1"></i>
           </span>
 
           @if (estaAbierto(bloque.id)) {
-            <div class="desplegable">
+            <div class="desplegable shadow">
               <a [routerLink]="['/bloque', bloque.id, 'teoria']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
-                Teoría Bloque {{ bloque.id }}
+                <i class="bi bi-book me-2"></i> Teoría Bloque {{ bloque.id }}
               </a>
               <a [routerLink]="['/bloque', bloque.id, 'ejercicio']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
-                Ejercicio Bloque {{ bloque.id }}
+                <i class="bi bi-pencil-square me-2"></i> Ejercicio Bloque {{ bloque.id }}
               </a>
             </div>
           }
@@ -41,22 +46,33 @@
 
     <div class="d-flex align-items-center">
       @if (authService.isLoggedIn()) {
-        <div class="navbar-profile">
-          <svg class="user-icon d-none d-md-block" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
-            <path fill="#555" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
-          </svg>
+        <div class="navbar-profile shadow-sm">
+          <i class="bi bi-person-circle d-none d-md-block text-secondary fs-5"></i>
+          
           <span class="user-name d-none d-lg-inline">Hola, {{ nombreUsuario }}</span>
           <span class="divider d-none d-lg-inline">|</span>
-          <button class="logout-action" (click)="logout()">Salir</button>
+          
+          <button class="btn-seguimiento" routerLink="/resultados">
+            <i class="bi bi-graph-up-arrow me-1"></i>
+            <span class="d-none d-md-inline">Seguimiento</span>
+          </button>
+          
+          <button class="logout-action" (click)="logout()">
+            <span class="d-none d-sm-inline me-1">Salir</span>
+            <i class="bi bi-box-arrow-right"></i>
+          </button>
         </div>
       } @else {
         <div class="navbar-auth-buttons">
-          <a [routerLink]="['/login']" class="btn-login">Entrar</a>
-          <a [routerLink]="['/registro']" class="btn-register">Registrarse</a>
+          <a [routerLink]="['/login']" class="btn-login">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Entrar
+          </a>
+          <a [routerLink]="['/registro']" class="btn-register d-none d-sm-inline-block">
+            <i class="bi bi-person-plus me-1"></i> Registrarse
+          </a>
         </div>
       }
     </div>
-    
 
     @if (menuMovilAbierto) {
       <div class="overlay" (click)="cerrarMenuMovil()"></div>

@@ -16,6 +16,7 @@ import { TeoriaService } from '../../services/teoria.service';
 export class TeoriaComponent implements OnInit {
   bloqueId: number = 0;
   teoria: any = null;
+  contenidoTeoria: string = ""
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +28,14 @@ export class TeoriaComponent implements OnInit {
       this.bloqueId = +params['id'];
       this.cargarTeoria();
     });
+
+    this.teoriaService.getArchivoLatex("Prueba.tex").subscribe({
+      next: (data) =>{
+        this.contenidoTeoria = data;
+        console.log("Esta es la informacion: ",data)
+      },
+      error: error => console.error("Error al cargar")
+    })
   }
 
   cargarTeoria() {

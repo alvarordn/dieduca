@@ -17,4 +17,3 @@ class CustomUser(AbstractUser):
 
     # Si usas 'username' por defecto, simplemente borra la línea de 'uvus' arriba
     # y mapea 'uvus' del frontend a 'username' en el serializer.
-    pass
