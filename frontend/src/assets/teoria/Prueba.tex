@@ -1,7 +1,6 @@
 \documentclass{beamer}
 \setbeamercovered{transparent}
 
-
 \usetheme{CambridgeUS}
 \setbeamercolor{normal text}{bg=gray!20}
 \setbeamertemplate{blocks}[default]
@@ -9,10 +8,8 @@
 \setbeamercolor{block title}{fg=white,bg=red!60!black}
 \setbeamercolor{block body}{fg=black,bg=gray!15}
 
-
 \usepackage[spanish]{babel}
-
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc} % Cambiado a utf8 para evitar rombos
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amsfonts}
@@ -30,94 +27,61 @@
 \usepackage{comment}
 \usepackage{ragged2e}
 \usepackage{changepage}
-\usepackage{psfrag}
-
 
 \usefonttheme[onlymath]{serif}
-
 
 \setbeamertemplate{navigation symbols}{}  
 
 \let\oldtexttt\texttt
-\renewcommand{\texttt}[1]{\oldtexttt{\hspace{0pt}#1}} % evita problemas con monospace
+\renewcommand{\texttt}[1]{\oldtexttt{\hspace{0pt}#1}} 
 \let\oldraggedright\raggedright
 \let\raggedright\justifying
 
-
-
-\author[TeorÌa de Circuitos]{TeorÌa de Circuitos}
+\author[Teor√≠a de Circuitos]{Teor√≠a de Circuitos}
 \title[Tema 1]{\scshape Tema 1}
 \subtitle{Conceptos fundamentales y leyes de Kirchhoff}
 
 \date[]{}
-\institute[ETSI]{Departamento de IngenierÌa ElÈctrica \\ Escuela TÈcnica Superior de IngenierÌa\\ Universidad de Sevilla}
-
+\institute[ETSI]{Departamento de Ingenier√≠a El√©ctrica \\ Escuela T√©cnica Superior de Ingenier√≠a\\ Universidad de Sevilla}
 
 \begin{document}
-
 
 \begin{frame}
 \titlepage
 \end{frame}
 
-
-\section{Magnitudes elÈctricas}
-
+\section{Magnitudes el√©ctricas}
 
 \begin{frame}
-\frametitle{Carga elÈctrica}
+\frametitle{Carga el√©ctrica}
 \begin{columns}
 \begin{column}{10cm}
-\structure{\textbf{Carga elÈctrica}}, $q(t)$: propiedad de las partÌculas elementales que constituyen la materia y que se manifiesta por medio de fuerzas elÈctricas.
+\structure{\textbf{Carga el√©ctrica}}, $q(t)$: propiedad de las part√≠culas elementales que constituyen la materia y que se manifiesta por medio de fuerzas el√©ctricas.
 
 \medskip
 
 \begin{itemize}
-	\item El electrÛn, e$^-$, constituye la carga elÈctrica m·s pequeÒa posible, representada como $q_e$.
-	
-	\item Se toma la carga del electrÛn como negativa, y positiva la del protÛn.
-	
-	\item Aplicando energÌa se puede conseguir que los electrones se desplacen.
+    \item El electr√≥n, $e^-$, constituye la carga el√©ctrica m√°s peque√±a posible, representada como $q_e$.
+    
+    \item Se toma la carga del electr√≥n como negativa, y positiva la del prot√≥n.
+    
+    \item Aplicando energ√≠a se puede conseguir que los electrones se desplacen.
 \end{itemize}
 
 \medskip
 
-\structure{Unidad en el SI:} culombio [C] que equivale a $6.242\cdot 10^{18}$\,$q_e$.
+\structure{Unidad en el SI:} culombio [C] que equivale a $6.242\cdot 10^{18}$ $q_e$.
 \end{column}
+
 \begin{column}{2cm}
-\begin{figure}[hbt]
-\vspace*{-0.5cm}
-\epsfig{file=coulomb.eps,height=2cm}
-\label{coulomb}
-\end{figure}
-\vspace*{-0.5cm}
+% Nota: En web, esta figura no se ver√° si usas epsfig. 
+% Es mejor borrar este bloque si solo vas a usar el texto.
 \begin{center}
-\tiny{Charles-Augustin de Coulomb  \\
-(1736-1806)}
+
 \end{center}
 \end{column}
 \end{columns}
 
-
 \end{frame}
 
-
-
-
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

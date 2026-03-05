@@ -1,110 +1,75 @@
-<!-- Comprobamos que existan datos del circuito antes de renderizar -->
 @if (circuitData) {
+<div class="circuit-wrapper animate-fadeIn">
+  <div class="circuit-badge">
+    <i class="bi bi-gear-fill"></i> ESQUEMA TÉCNICO
+  </div>
 
-<!-- Contenedor principal del circuito -->
-<div class="circuit-container">
+  <div class="circuit-glass-card">
+    <div class="svg-container">
+      <svg 
+        [attr.viewBox]="'-50 -50 ' + (imgWidth + 100) + ' ' + (imgHeight + 100)" 
+        preserveAspectRatio="xMidYMid meet" 
+        class="circuit-svg">
 
-  <!-- SVG donde se dibuja todo el circuito -->
-<svg 
-  [attr.viewBox]="'0 0 ' + imgWidth + ' ' + imgHeight" 
-  preserveAspectRatio="xMidYMid meet" 
-  class="circuit-svg">
+        <g class="layer-wires">
+          @for (comp of componentes; track comp.id) {
+            @let source = getNode(comp.source);
+            @let target = getNode(comp.target);
+            @if (source && target) {
+              <line 
+                [attr.x1]="getNodeX(source.col)" 
+                [attr.y1]="getNodeY(source.row)" 
+                [attr.x2]="getNodeX(target.col)" 
+                [attr.y2]="getNodeY(target.row)" 
+                class="wire-line"/>
+            }
+          }
+        </g>
 
-    <g class="connections">
-      @for (comp of componentes; track comp.id) {
+        <g class="layer-components">
+          @for (comp of componentes; track comp.id) {
+            @let mid = getComponentMidPoint(comp);
+            
+            <circle 
+              [attr.cx]="mid.x" 
+              [attr.cy]="mid.y" 
+              r="35"
+              fill="white" />
 
-        <!-- Obtenemos nodo origen y destino del componente -->
-        @let source = getNode(comp.source);
-        @let target = getNode(comp.target);
-        
-        <!-- Solo dibujamos la línea si ambos nodos existen -->
-        @if (source && target) {
+            <image 
+              [attr.xlink:href]="getComponentImgPath(comp.type)" 
+              [attr.x]="mid.x - 50" 
+              [attr.y]="mid.y - 50" 
+              width="100" 
+              height="100" 
+              [attr.transform]="'rotate(' + getComponentRotation(comp) + ' ' + mid.x + ' ' + mid.y + ')'" 
+              class="component-image"/>
+          }
+        </g>
 
-          <!-- Línea que representa el cable entre nodos -->
-          <line 
-            [attr.x1]="getNodeX(source.col)" 
-            [attr.y1]="getNodeY(source.row)" 
-            [attr.x2]="getNodeX(target.col)" 
-            [attr.y2]="getNodeY(target.row)" 
-            class="wire-line"/>
-        }
-      }
-    </g>
+        <g class="layer-nodes">
+          @for (nodo of nodos; track nodo.id) {
+            <image 
+              [attr.xlink:href]="getNodeImgPath(nodo.type)" 
+              [attr.x]="getNodeX(nodo.col) - 50" 
+              [attr.y]="getNodeY(nodo.row) - 45" 
+              width="100" 
+              height="91" 
+              class="node-image"/>
+          }
+        </g>
 
-    <g class="components">
-      @for (comp of componentes; track comp.id) {
-
-          <!-- Calculamos el punto medio del componente -->
-          @let mid = getComponentMidPoint(comp);
-          
-          <!-- Rectángulo blanco de fondo para limpiar visualmente el cable -->
-          <rect 
-            [attr.x]="mid.x - 35" 
-            [attr.y]="mid.y - 35" 
-            width="70" 
-            height="70" 
-            fill="white" 
-            [attr.transform]="'rotate(' + getComponentRotation(comp) + ' ' + mid.x + ' ' + mid.y + ')'" />
-
-          <!-- Imagen del componente (resistencia, fuente, etc.) -->
-          <image 
-            [attr.xlink:href]="getComponentImgPath(comp.type)" 
-            [attr.x]="mid.x - 50" 
-            [attr.y]="mid.y - 50" 
-            width="100" 
-            height="100" 
-            [attr.transform]="'rotate(' + getComponentRotation(comp) + ' ' + mid.x + ' ' + mid.y + ')'" 
-            class="component-image"/>
-       
-      }
-    </g>
-
-    <g class="nodes">
-      @for (nodo of nodos; track nodo.id) {
-
-        <!-- Imagen que representa el nodo -->
-        <image 
-          [attr.xlink:href]="getNodeImgPath(nodo.type)" 
-          [attr.x]="getNodeX(nodo.col) - 50" 
-          [attr.y]="getNodeY(nodo.row) - 45" 
-          width="100" 
-          height="91" 
-          class="node-image"/>
-      }
-    </g>
-
-    <g class="labels">
-      @for (comp of componentes; track comp.id) {
-
-        <!-- Solo mostramos etiqueta si el componente tiene valor -->
-        @if (comp.value) {
-
-          <!-- Calculamos posición óptima del texto -->
-          @let pos = getLabelPosition(comp);
-
-          <!-- Texto con contorno (para mejor legibilidad sobre el circuito) -->
-          <text 
-            [attr.x]="pos.x" 
-            [attr.y]="pos.y" 
-            text-anchor="middle" 
-            dominant-baseline="middle" 
-            class="label-text-outline">
-            {{ comp.value }}
-          </text>
-
-          <!-- Texto principal encima del contorno -->
-          <text 
-            [attr.x]="pos.x" 
-            [attr.y]="pos.y" 
-            text-anchor="middle" 
-            dominant-baseline="middle" 
-            class="label-text-fill">
-            {{ comp.value }}
-          </text>
-        }
-      }
-    </g>
-    
-  </svg>
+        <g class="layer-labels">
+          @for (comp of componentes; track comp.id) {
+            @if (comp.value) {
+              @let pos = getLabelPosition(comp);
+              <text [attr.x]="pos.x" [attr.y]="pos.y" text-anchor="middle" class="label-outline">{{ comp.value }}</text>
+              <text [attr.x]="pos.x" [attr.y]="pos.y" text-anchor="middle" class="label-fill">{{ comp.value }}</text>
+            }
+          }
+        </g>
+      </svg>
+    </div>
+  </div>
 </div>
 }

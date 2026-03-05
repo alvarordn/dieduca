@@ -1,138 +1,164 @@
-/* Importamos la fuente para que coincida con el resto de la web */
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap");
 
 .login-container {
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
+  padding: 20px;
   position: relative;
-  overflow: hidden;
-  padding: 1.5rem;
   font-family: "Plus Jakarta Sans", sans-serif;
+  overflow: hidden;
+  background: #0f172a; 
 }
-.login-container::before {
-  content: "";
+
+/* Fondo difuminado */
+.background-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(15, 23, 42, 0.5) url("/assets/images/etsi.jpg");
-  background-position: center;
+  inset: 0;
+  background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)), 
+              url("/assets/images/etsi.jpg");
   background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  filter: blur(8px);
-  filter: brightness(1);
-  transform: scale(1.1);
-  z-index: -1;
+  background-position: center;
+  filter: blur(4px);
+  transform: scale(1.05);
+  z-index: 0;
 }
+
 .login-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 1;
   position: relative;
-  padding: 3rem;
-  border-radius: 24px;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: clamp(2rem, 5vw, 3rem);
+  border-radius: clamp(24px, 5vw, 32px);
   width: 100%;
-  max-width: 420px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-} 
+  max-width: 440px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
 
 .login-header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.brand-logo img {
+  height: 60px;
+  margin-bottom: 1rem;
 }
 
 .login-header h1 {
-  margin: 0;
-  color: #0f172a;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 800;
+  color: #0f172a;
   letter-spacing: -1px;
+  margin-bottom: 0.5rem;
 }
 
+.login-header p {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* Formulario */
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.6rem;
-  color: #475569;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  font-size: 0.85rem;
+  color: #1e293b;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-family: inherit;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-  background: white;
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.form-group input:focus {
+.input-wrapper i {
+  position: absolute;
+  left: 16px;
+  color: #3b82f6;
+  font-size: 1.2rem;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 14px 14px 14px 48px;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+}
+
+.input-wrapper input:focus {
   outline: none;
+  background: white;
   border-color: #3b82f6;
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
-.error-message {
-  background: #fee2e2;
-  color: #dc2626;
-  padding: 0.8rem;
-  border-radius: 10px;
+/* Mensaje de error */
+.error-bubble {
+  background: #fef2f2;
+  color: #b91c1c;
+  padding: 12px;
+  border-radius: 12px;
   margin-bottom: 1.5rem;
   font-size: 0.85rem;
   font-weight: 600;
-  border-left: 4px solid #dc2626;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #fee2e2;
 }
 
+/* Botón Login */
 .btn-login {
   width: 100%;
-  padding: 1rem;
+  padding: 14px;
   background: #3b82f6;
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 1rem;
   font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
 }
 
 .btn-login:hover:not(:disabled) {
   background: #2563eb;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 15px 25px -5px rgba(59, 130, 246, 0.5);
 }
 
 .btn-login:disabled {
-  background: #cbd5e0;
+  background: #94a3b8;
   cursor: not-allowed;
   box-shadow: none;
 }
 
+/* Enlace Registro */
 .registro-link {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
   color: #64748b;
-  font-size: 0.95rem;
 }
 
 .registro-link a {
@@ -142,46 +168,35 @@
   margin-left: 5px;
 }
 
-.registro-link a:hover {
-  text-decoration: underline;
-  color: #1d4ed8;
+/* Spinner animado */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
-.input-icon {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-.input-icon input {
-  width: 100%;
-  padding: 0.8rem 1rem 0.8rem 2.8rem ; 
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  transition: all 0.3s ease;
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
-.bi-person-fill{
-  position: absolute;
-  left: 15px;
-  color: #3b82f6; 
-  font-size: 1.2rem;
-  pointer-events: none;
+/* Animación de entrada */
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
 }
 
-.bi-lock-fill {
-  position: absolute;
-  left: 15px;
-  color: #3b82f6; 
-  font-size: 1.2rem;
-  pointer-events: none;
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
+/* Mobile Fixes */
 @media (max-width: 480px) {
   .login-card {
-    padding: 2.5rem 1.5rem;
-    border-radius: 0;
-  }
-  .login-container {
-    padding: 0;
+    padding: 1.75rem;
+    width: 100%;
+    border-radius: 28px;
   }
 }

@@ -1,9 +1,9 @@
 <nav class="navbar">
-  <div class="navbar-content d-flex align-items-center justify-content-between w-100">
+  <div class="navbar-content">
     
-    <div class="d-flex align-items-center">
-      <button class="menu-ham me-2" [class.active]="menuMovilAbierto" (click)="toggleMenuMovil()">
-        <i class="bi bi-list fs-3"></i>
+    <div class="nav-left">
+      <button class="menu-ham" [class.active]="menuMovilAbierto" (click)="toggleMenuMovil()">
+        <i class="bi bi-list"></i>
       </button>
 
       <div class="navbar-brand">
@@ -13,38 +13,40 @@
       </div>
     </div>
 
-    <ul class="navbar-menu mx-auto" [class.active]="menuMovilAbierto">
-      @if (authService.isLoggedIn()) {
-        <li class="navbar-item d-lg-none user-mobile-header">
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-person-circle"></i>
-            <span class="user-name">{{ nombreUsuario }}</span>
-          </div>
-        </li>
-      }
-
-      @for (bloque of bloques; track bloque.id) {
-        <li class="navbar-item" (mouseenter)="abrirDesplegable(bloque.id)" (mouseleave)="cerrarDesplegable()">
-          <span class="bloque-nombre" (click)="toggleDesplegableMovil(bloque.id)">
-            {{ bloque.nombre }}
-            <i class="bi bi-chevron-down arrow-icon ms-1"></i>
-          </span>
-
-          @if (estaAbierto(bloque.id)) {
-            <div class="desplegable shadow">
-              <a [routerLink]="['/bloque', bloque.id, 'teoria']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
-                <i class="bi bi-book me-2"></i> Teoría Bloque {{ bloque.id }}
-              </a>
-              <a [routerLink]="['/bloque', bloque.id, 'ejercicio']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
-                <i class="bi bi-pencil-square me-2"></i> Ejercicio Bloque {{ bloque.id }}
-              </a>
+    <div class="nav-center">
+      <ul class="navbar-menu" [class.active]="menuMovilAbierto">
+        @if (authService.isLoggedIn()) {
+          <li class="navbar-item d-lg-none user-mobile-header">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-person-circle"></i>
+              <span class="user-name">{{ nombreUsuario }}</span>
             </div>
-          }
-        </li>
-      }
-    </ul>
+          </li>
+        }
 
-    <div class="d-flex align-items-center">
+        @for (bloque of bloques; track bloque.id) {
+          <li class="navbar-item" (mouseenter)="abrirDesplegable(bloque.id)" (mouseleave)="cerrarDesplegable()">
+            <span class="bloque-nombre" (click)="toggleDesplegableMovil(bloque.id)">
+              {{ bloque.nombre }}
+              <i class="bi bi-chevron-down arrow-icon ms-1"></i>
+            </span>
+
+            @if (estaAbierto(bloque.id)) {
+              <div class="desplegable shadow">
+                <a [routerLink]="['/bloque', bloque.id, 'teoria']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
+                  <i class="bi bi-book me-2"></i> Teoría Bloque {{ bloque.id }}
+                </a>
+                <a [routerLink]="['/bloque', bloque.id, 'ejercicio']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
+                  <i class="bi bi-pencil-square me-2"></i> Ejercicio Bloque {{ bloque.id }}
+                </a>
+              </div>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="nav-right">
       @if (authService.isLoggedIn()) {
         <div class="navbar-profile shadow-sm">
           <i class="bi bi-person-circle d-none d-md-block text-secondary fs-5"></i>

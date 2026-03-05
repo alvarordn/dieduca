@@ -1,26 +1,41 @@
-@if (teoria) {
-  <div class="teoria-container">
-    <h1>Teoría del Bloque {{ bloqueId }}</h1>
-    <h2>{{ teoria.titulo }}</h2>
-    
-    <div class="teoria-content">
-      @for (seccion of teoria.secciones; track seccion.titulo) {
-        <section class="teoria-section">
-          <h2>{{ seccion.titulo }}</h2>
-          
-          <div class="teoria-body" [appMathJax]="seccion.contenido">
-          </div>
+<div class="teoria-page-wrapper">
+  <div class="background-overlay"></div>
 
-          @if (seccion.imagen_url) {
-            <div class="teoria-column-image">
-              <figure>
-                <img [src]="seccion.imagen_url" alt="Figura del bloque {{ bloqueId }}">
-                <figcaption>{{ seccion.imagen_caption }}</figcaption>
+  <div class="teoria-card animate-fadeIn">
+    @if (teoria) {
+      <header class="main-header">
+        <span class="header-badge">Bloque {{ bloqueId }}</span>
+        <h1>{{ teoria.titulo }}</h1>
+        <div class="header-line"></div>
+      </header>
+
+      <article class="teoria-content">
+        @if (contenidoTeoriaRenderizado) {
+          <div class="latex-content" 
+               [innerHTML]="contenidoTeoriaRenderizado" 
+               [appMathJax]="contenidoParaMathJax">
+          </div>
+        }
+
+        @for (seccion of teoria.secciones; track seccion.titulo) {
+          <section class="teoria-section">
+            @if (seccion.titulo) {
+              <h3 class="section-title">{{ seccion.titulo }}</h3>
+            }
+            
+            @if (seccion.imagen_url) {
+              <figure class="teoria-figure">
+                <div class="image-container">
+                  <img [src]="seccion.imagen_url" [alt]="seccion.titulo">
+                </div>
+                <figcaption>
+                  <i class="bi bi-info-circle-fill"></i> {{ seccion.imagen_caption }}
+                </figcaption>
               </figure>
-            </div>
-          }
-        </section>
-      }
-    </div>
+            }
+          </section>
+        }
+      </article>
+    }
   </div>
-}
+</div>
