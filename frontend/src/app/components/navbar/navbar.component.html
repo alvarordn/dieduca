@@ -54,7 +54,7 @@
           <span class="user-name d-none d-lg-inline">Hola, {{ nombreUsuario }}</span>
           <span class="divider d-none d-lg-inline">|</span>
           
-          <button class="btn-seguimiento" routerLink="/resultados">
+          <button class="btn-seguimiento" [routerLink]="['/resultados', idUsuario]">
             <i class="bi bi-graph-up-arrow me-1"></i>
             <span class="d-none d-md-inline">Seguimiento</span>
           </button>
@@ -67,10 +67,12 @@
       } @else {
         <div class="navbar-auth-buttons">
           <a [routerLink]="['/login']" class="btn-login">
-            <i class="bi bi-box-arrow-in-right me-1"></i> Entrar
+            <i class="bi bi-box-arrow-in-right me-1"></i>
+            <span class="btn-text-nav">Entrar</span>
           </a>
-          <a [routerLink]="['/registro']" class="btn-register d-none d-sm-inline-block">
-            <i class="bi bi-person-plus me-1"></i> Registrarse
+          <a [routerLink]="['/registro']" class="btn-register">
+            <i class="bi bi-person-plus me-1"></i>
+            <span class="btn-text-responsive">Registrarse</span>
           </a>
         </div>
       }

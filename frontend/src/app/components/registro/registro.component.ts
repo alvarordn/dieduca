@@ -38,15 +38,31 @@ export class RegistroComponent {
       nombre: 'Grado en Ingeniería de las Tecnologías de Telecomunicación',
       valor: 'Grado en Ingeniería de las Tecnologías de Telecomunicación',
     },
-    { id: 3, nombre: 'Grado en Ingeniería Aeroespacial', valor: 'Grado en Ingeniería Aeroespacial' },
-    { id: 4, nombre: 'Grado en Ingeniería Civil', valor: 'Grado en Ingeniería Civil' },
-    { id: 5, nombre: 'Grado en Ingeniería Química', valor: 'Grado en Ingeniería Química' },
+    {
+      id: 3,
+      nombre: 'Grado en Ingeniería Aeroespacial',
+      valor: 'Grado en Ingeniería Aeroespacial',
+    },
+    {
+      id: 4,
+      nombre: 'Grado en Ingeniería Civil',
+      valor: 'Grado en Ingeniería Civil',
+    },
+    {
+      id: 5,
+      nombre: 'Grado en Ingeniería Química',
+      valor: 'Grado en Ingeniería Química',
+    },
     {
       id: 6,
       nombre: 'Grado en Ingeniería de Organización Industrial',
       valor: 'Grado en Ingeniería de Organización Industrial',
     },
-    { id: 7, nombre: 'Grado en Ingeniería de la Energía', valor: 'Grado en Ingeniería de la Energía' },
+    {
+      id: 7,
+      nombre: 'Grado en Ingeniería de la Energía',
+      valor: 'Grado en Ingeniería de la Energía',
+    },
     {
       id: 8,
       nombre: 'Grado en Ingeniería Electrónica, Robótica y Mecatrónica',
@@ -88,13 +104,19 @@ export class RegistroComponent {
       error: (err) => {
         if (err.status === 400) {
           const serverMessage = err.error;
-          console.log("Mensaje servidor: ",serverMessage);
+          console.log('Mensaje servidor: ', serverMessage);
 
           if (serverMessage.uvus) {
             this.errorUvus = 'El UVUS ya está registrado';
           }
-          if(serverMessage.email){
-            this.errorEmail = 'El email ya está registrado'
+          if (serverMessage.email) {
+            const msgEmail = String(serverMessage.email).toLowerCase();
+
+            if (msgEmail.includes('valid') || msgEmail.includes('formato')) {
+              this.errorEmail = 'Introduce un correo electrónico válido';
+            } else {
+              this.errorEmail = 'Este email ya está en uso';
+            }
           }
         } else {
           this.error = 'Error en el registro. Por favor, inténtalo de nuevo.';

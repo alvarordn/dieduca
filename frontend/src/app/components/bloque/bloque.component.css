@@ -13,8 +13,11 @@
 /* Fondo Fijo ETSI */
 .background-overlay {
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
   background-size: cover;
   z-index: -1;
 }
@@ -33,7 +36,10 @@
 }
 
 /* Cabecera */
-.header-section { text-align: center; margin-bottom: 2.5rem; }
+.header-section {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
 
 .header-badge {
   background: #eff6ff;
@@ -45,9 +51,19 @@
   text-transform: uppercase;
 }
 
-h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; margin-top: 10px; }
+h1 {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 800;
+  margin-top: 10px;
+}
 
-.header-line { width: 50px; height: 4px; background: #3b82f6; margin: 15px auto; border-radius: 10px; }
+.header-line {
+  width: 50px;
+  height: 4px;
+  background: #3b82f6;
+  margin: 15px auto;
+  border-radius: 10px;
+}
 
 /* Configuración */
 .config-section {
@@ -58,7 +74,13 @@ h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; margin-top: 10px; 
   margin-bottom: 2rem;
 }
 
-.config-section h3 { font-size: 1rem; color: #64748b; margin-bottom: 1.5rem; display: flex; gap: 10px; }
+.config-section h3 {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 10px;
+}
 
 .controles-grid {
   display: grid;
@@ -67,7 +89,13 @@ h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; margin-top: 10px; 
   margin-bottom: 1.5rem;
 }
 
-.control-group label { display: block; font-size: 0.85rem; font-weight: 700; color: #475569; margin-bottom: 8px; }
+.control-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 8px;
+}
 
 .control-group input {
   width: 100%;
@@ -78,7 +106,10 @@ h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; margin-top: 10px; 
   transition: border-color 0.3s;
 }
 
-.control-group input:focus { border-color: #3b82f6; outline: none; }
+.control-group input:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
 
 /* Botón Generar */
 .btn-generar {
@@ -98,7 +129,10 @@ h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; margin-top: 10px; 
   transition: all 0.3s;
 }
 
-.btn-generar:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4); }
+.btn-generar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+}
 
 /* Grid de Preguntas */
 .preguntas-grid {
@@ -143,7 +177,10 @@ h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; margin-top: 10px; 
   outline: none;
 }
 
-.unit { font-weight: 800; color: #3b82f6; }
+.unit {
+  font-weight: 800;
+  color: #3b82f6;
+}
 
 /* Acciones Finales */
 .acciones-footer {
@@ -184,15 +221,33 @@ h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 800; margin-top: 10px; 
   animation: slideUp 0.3s ease-out;
 }
 
-.feedback-toast.success { background: #dcfce7; color: #166534; }
+.feedback-toast.success {
+  background: #dcfce7;
+  color: #166534;
+}
 
 /* Responsive iPhone 12 Pro */
 @media (max-width: 480px) {
   .page-wrapper {
     margin-top: 20px;
-    padding-top: 80px; }
-  .bloque-card { padding: 1.2rem; border-radius: 24px; }
-  .controles-grid { grid-template-columns: 1fr; }
+    padding-top: 80px;
+  }
+  .bloque-card {
+    padding: 1.2rem;
+    border-radius: 24px;
+  }
+  .controles-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-@keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

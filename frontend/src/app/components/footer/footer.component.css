@@ -124,6 +124,6 @@
   }
 
   .footer-section ul li a:hover {
-    transform: translateY(-3px); /* En móvil es mejor hacia arriba que hacia el lado */
+    transform: translateY(-3px); 
   }
 }

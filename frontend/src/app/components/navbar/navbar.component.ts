@@ -42,7 +42,8 @@ export class NavbarComponent {
             // El ID está en la segunda parte del token (payload), codificado en Base64
             const payload = JSON.parse(atob(token.split('.')[1]));
             console.log('Payload decodificado:', payload);
-            this.idUsuario = payload.user_id; // Ahora sí, idUsuario será "5"
+            this.idUsuario = payload.user_id; // Asignamos el idUsuario
+            console.log("ID del Usuario", this.idUsuario)
           } catch (e) {
             console.error('Error al decodificar el token', e);
           }

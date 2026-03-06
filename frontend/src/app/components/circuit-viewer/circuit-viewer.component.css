@@ -23,7 +23,7 @@
 
 .circuit-glass-card {
   width: 100%;
-  max-width: 500px; /* Tamaño máximo para que no se desparrame */
+  max-width: 500px; 
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);

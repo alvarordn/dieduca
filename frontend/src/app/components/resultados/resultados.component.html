@@ -4,8 +4,10 @@
   <div class="seguimiento-container animate-fadeIn">
     <header class="progreso-header">
       <div class="header-content">
-        <span class="badge-tech"><i class="bi bi-graph-up-arrow"></i> Dashboard Académico</span>
-        <h1>Tu Progreso Técnico</h1>
+        <span class="badge-tech"
+          ><i class="bi bi-graph-up-arrow"></i> Dashboard Académico</span
+        >
+        <h1>Tu Progreso Técnico, {{nombreUsuario}}</h1>
         <p>Análisis en tiempo real de tu rendimiento en Circuitos Eléctricos</p>
       </div>
     </header>
@@ -17,7 +19,7 @@
         </div>
         <div class="stat-info">
           <span class="label">Total Preguntas</span>
-          <span class="value">45</span>
+          <span class="value">{{ totalPreguntas }}</span>
         </div>
       </div>
 
@@ -27,7 +29,7 @@
         </div>
         <div class="stat-info">
           <span class="label">Correctas</span>
-          <span class="value text-green-strong">38</span>
+          <span class="value text-green-strong">{{ aciertos }}</span>
         </div>
       </div>
 
@@ -37,7 +39,7 @@
         </div>
         <div class="stat-info">
           <span class="label">Incorrectas</span>
-          <span class="value text-red-strong">7</span>
+          <span class="value text-red-strong">{{ fallos }}</span>
         </div>
       </div>
     </div>
@@ -67,15 +69,26 @@
               </td>
               <td>
                 <div class="progress-container">
-                  <div class="progress-bar bg-green" style="width: 90%"></div>
+                  <div
+                    class="progress-bar bg-green"
+                    [style.width.%]="totalPreguntas"
+                  ></div>
                 </div>
               </td>
-              <td class="text-center fw-bold">90%</td>
-              <td class="text-center">
+              <td class="text-center fw-bold">{{ exito }} %</td>
+           @if (totalPreguntas < 100) {
+                <td class="text-center">
+                  <span class="status-badge bg-warning-sub">
+                    <i class="bi bi-clock-history"></i> En proceso
+                  </span>
+                </td>
+              }@else {
+                  <td class="text-center">
                 <span class="status-badge bg-green-sub">
                   <i class="bi bi-trophy-fill"></i> Dominado
                 </span>
               </td>
+              }
             </tr>
             <tr>
               <td>
@@ -86,15 +99,26 @@
               </td>
               <td>
                 <div class="progress-container">
-                  <div class="progress-bar bg-warning" style="width: 45%"></div>
+                  <div
+                    class="progress-bar bg-warning"
+                    [style.width.%]="totalPreguntas"
+                  ></div>
                 </div>
               </td>
-              <td class="text-center fw-bold">45%</td>
-              <td class="text-center">
-                <span class="status-badge bg-warning-sub">
-                  <i class="bi bi-clock-history"></i> En proceso
+              <td class="text-center fw-bold">{{ exito }} %</td>
+              @if (totalPreguntas < 100) {
+                <td class="text-center">
+                  <span class="status-badge bg-warning-sub">
+                    <i class="bi bi-clock-history"></i> En proceso
+                  </span>
+                </td>
+              }@else {
+                  <td class="text-center">
+                <span class="status-badge bg-green-sub">
+                  <i class="bi bi-trophy-fill"></i> Dominado
                 </span>
               </td>
+              }
             </tr>
           </tbody>
         </table>

@@ -19,6 +19,7 @@ export class BloqueComponent implements OnInit {
   cargando: boolean = false;
   errorCircuito: string = '';
   listaPreguntas: any[] = [];
+  totalPreguntas = 0;
   
   // parametros predeterminados del circuito
   rows: number = 2;
@@ -85,6 +86,8 @@ export class BloqueComponent implements OnInit {
 
 
 comprobarRespuestas() {
+  this.totalPreguntas += 1;
+  console.log("total preguntas",this.totalPreguntas)
   if (this.respuestas.pregunta1 === null || 
       this.respuestas.pregunta2 === null || 
       this.respuestas.pregunta3 === null) {

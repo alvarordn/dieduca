@@ -11,8 +11,9 @@
 .background-overlay {
   position: fixed;
   inset: 0;
-  background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
-              url("/assets/images/etsi.jpg") no-repeat center center;
+  background:
+    linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
+    url("/assets/images/etsi.jpg") no-repeat center center;
   background-size: cover;
   z-index: -1;
 }
@@ -39,7 +40,11 @@
   text-transform: uppercase;
 }
 
-h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800; margin: 12px 0; }
+h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 800;
+  margin: 12px 0;
+}
 
 /* Grid de Tarjetas */
 .stats-grid {
@@ -65,7 +70,9 @@ h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800; margin: 12px 0; }
   transition: transform 0.3s ease;
 }
 
-.stat-card:hover { transform: translateY(-5px); }
+.stat-card:hover {
+  transform: translateY(-5px);
+}
 
 /* Iconos de las tarjetas */
 .stat-icon {
@@ -83,50 +90,139 @@ h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800; margin: 12px 0; }
   border: 1px solid #f1f5f9;
 }
 
-.bg-blue { background: #eff6ff; color: #3b82f6; }
+.bg-blue {
+  background: #eff6ff;
+  color: #3b82f6;
+}
 
-/* Colores de Éxito y Fallo */
-.text-green-strong { color: #16a34a !important; }
-.text-red-strong { color: #dc2626 !important; }
+/* Colores de Acertado y Fallado */
+.text-green-strong {
+  color: #16a34a !important;
+}
+.text-red-strong {
+  color: #dc2626 !important;
+}
 
-.success-border { border-left: 6px solid #16a34a; }
-.danger-border { border-left: 6px solid #dc2626; }
+.success-border {
+  border-left: 6px solid #16a34a;
+}
+.danger-border {
+  border-left: 6px solid #dc2626;
+}
 
 /* Texto de Stats */
-.stat-info .label { display: block; font-size: 0.85rem; color: #64748b; font-weight: 600; }
-.stat-info .value { font-size: 1.8rem; font-weight: 800; }
+.stat-info .label {
+  display: block;
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 600;
+}
+.stat-info .value {
+  font-size: 1.8rem;
+  font-weight: 800;
+}
 
 /* Tabla y Progreso */
-.rendimiento-section { padding: 1.5rem; }
-.section-header { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #f1f5f9; }
-.section-header h5 { font-weight: 800; color: #1e293b; margin: 0; }
+.rendimiento-section {
+  padding: 1.5rem;
+}
+.section-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+.section-header h5 {
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+}
 
-.progreso-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
-.progreso-table th { font-size: 0.7rem; color: #94a3b8; font-weight: 800; text-transform: uppercase; padding: 10px; }
-.progreso-table td { padding: 15px 10px; vertical-align: middle; }
+.progreso-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+.progreso-table th {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 10px;
+}
+.progreso-table td {
+  padding: 15px 10px;
+  vertical-align: middle;
+}
 
-.bloque-title { display: block; font-weight: 800; color: #1e293b; }
-.bloque-sub { font-size: 0.8rem; color: #64748b; }
+.bloque-title {
+  display: block;
+  font-weight: 800;
+  color: #1e293b;
+}
+.bloque-sub {
+  font-size: 0.8rem;
+  color: #64748b;
+}
 
-.progress-container { width: 100%; max-width: 200px; height: 8px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
-.progress-bar { height: 100%; border-radius: 10px; }
-.bg-green { background: #16a34a; }
-.bg-warning { background: #ca8a04; }
+.progress-container {
+  width: 100%;
+  max-width: 200px;
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  border-radius: 10px;
+}
+.bg-green {
+  background: #16a34a;
+}
+.bg-warning {
+  background: #ca8a04;
+}
 
-.status-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
-.bg-green-sub { background: #dcfce7; color: #166534; }
-.bg-warning-sub { background: #fef9c3; color: #854d0e; }
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.bg-green-sub {
+  background: #dcfce7;
+  color: #166534;
+}
+.bg-warning-sub {
+  background: #fef9c3;
+  color: #854d0e;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
-  .page-wrapper { margin-top: 20px;padding-top: 80px; }
-  .stats-grid { grid-template-columns: 1fr; }
-  .progreso-table th:nth-child(2), 
-  .progreso-table td:nth-child(2) { display: none; }
+  .page-wrapper {
+    margin-top: 20px;
+    padding-top: 80px;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .progreso-table th:nth-child(2),
+  .progreso-table td:nth-child(2) {
+    display: none;
+  }
 }
 
-.animate-fadeIn { animation: fadeIn 0.6s ease-out forwards; }
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

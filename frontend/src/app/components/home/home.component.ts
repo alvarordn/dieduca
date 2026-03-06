@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
-
 @Component({
   selector: 'app-home',
   imports: [],
@@ -9,18 +8,19 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  nombreUsuario: string | null = null ;
+  nombreUsuario: string | null = null;
   gradoUsuario: string | null = null;
   constructor(private service: AuthService) {}
 
   ngOnInit() {
     this.gradoUsuario = localStorage.getItem('grado');
-   this.service.uvus$.subscribe((uvus) => {
-    if (uvus) {
-      this.nombreUsuario = uvus.charAt(0).toUpperCase() + uvus?.slice(1).toLocaleLowerCase();
-    } else {
-      this.nombreUsuario = null;
-    }
+    this.service.uvus$.subscribe((uvus) => {
+      if (uvus) {
+        this.nombreUsuario =
+          uvus.charAt(0).toUpperCase() + uvus?.slice(1).toLocaleLowerCase();
+      } else {
+        this.nombreUsuario = null;
+      }
     });
 
     console.log('UVUS del usuario:', this.nombreUsuario);

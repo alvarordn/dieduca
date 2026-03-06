@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
 
-/* 1. EL FONDO GLOBAL (FIJO E INFINITO) */
+/* 1. EL FONDO GLOBAL */
 .background-overlay {
   position: fixed; /* No se mueve al hacer scroll */
   top: 0;
@@ -14,7 +14,7 @@
   pointer-events: none;
 }
 
-/* 2. CONTENEDOR DE LA PÁGINA (TRANSPARENTE) */
+
 .teoria-page-wrapper {
   position: relative;
   min-height: 100vh;
@@ -27,7 +27,6 @@
   box-sizing: border-box;
 }
 
-/* 3. LA TARJETA "FLOTANTE" */
 .teoria-card {
   background: rgba(255, 255, 255, 0.98); 
   backdrop-filter: blur(10px);
@@ -41,7 +40,6 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* --- TIPOGRAFÍA Y CABECERA --- */
 .main-header {
   text-align: center;
   margin-bottom: 2.5rem;
@@ -76,7 +74,7 @@ h1 {
   border-radius: 10px;
 }
 
-/* --- CONTENIDO DE TEORÍA --- */
+
 .latex-content {
   font-family: 'Lora', serif;
   font-size: 1.1rem;
@@ -84,7 +82,7 @@ h1 {
   color: #334155;
 }
 
-/* Estilos para las secciones internas */
+
 .teoria-section {
   margin-top: 2.5rem;
   padding-top: 1.5rem;
@@ -98,7 +96,7 @@ h1 {
   margin-bottom: 1.2rem;
 }
 
-/* --- IMÁGENES Y FIGURAS --- */
+
 figure {
   margin: 2rem 0;
   background: #f8fafc;
@@ -135,7 +133,7 @@ figcaption {
 @media (max-width: 480px) {
   .teoria-page-wrapper {
     margin-top: 20px;
-    padding-top: 80px; /* Un poco menos de margen arriba en móvil */
+    padding-top: 80px; 
     padding-left: 10px;
     padding-right: 10px;
   }
