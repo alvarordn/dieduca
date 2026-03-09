@@ -90,7 +90,7 @@ comprobarRespuestas() {
   console.log("total preguntas",this.totalPreguntas)
   if (this.respuestas.pregunta1 === null || 
       this.respuestas.pregunta2 === null || 
-      this.respuestas.pregunta3 === null) {
+      this.respuestas.pregunta3 === null || this.respuestas.pregunta4 === null) {
     this.mensajeResultado = 'Por favor, rellena todas las respuestas antes de comprobar.';
     this.resultadoVisible = true;
     return;

@@ -2,40 +2,13 @@
   <div class="background-overlay"></div>
 
   <div class="teoria-card animate-fadeIn">
-    @if (teoria) {
-      <header class="main-header">
-        <span class="header-badge">Bloque {{ bloqueId }}</span>
-        <h1>{{ teoria.titulo }}</h1>
-        <div class="header-line"></div>
-      </header>
+    <header class="main-header">
+      <span class="header-badge">Bloque {{ bloqueId }}</span>
+      <div class="header-line"></div>
+    </header>
 
-      <article class="teoria-content">
-        @if (contenidoTeoriaRenderizado) {
-          <div class="latex-content" 
-               [innerHTML]="contenidoTeoriaRenderizado" 
-               [appMathJax]="contenidoParaMathJax">
-          </div>
-        }
-
-        @for (seccion of teoria.secciones; track seccion.titulo) {
-          <section class="teoria-section">
-            @if (seccion.titulo) {
-              <h3 class="section-title">{{ seccion.titulo }}</h3>
-            }
-            
-            @if (seccion.imagen_url) {
-              <figure class="teoria-figure">
-                <div class="image-container">
-                  <img [src]="seccion.imagen_url" [alt]="seccion.titulo">
-                </div>
-                <figcaption>
-                  <i class="bi bi-info-circle-fill"></i> {{ seccion.imagen_caption }}
-                </figcaption>
-              </figure>
-            }
-          </section>
-        }
-      </article>
-    }
+    <div class="pdf-container">
+      <iframe [src]="pdfSafeUrl" title="PDF de Prueba"></iframe>
+    </div>
   </div>
 </div>
