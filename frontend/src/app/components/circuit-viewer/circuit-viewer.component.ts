@@ -102,7 +102,7 @@ export class CircuitViewerComponent implements OnChanges {
 
   // Devuelve la rotación en grados según orientación
   getComponentRotation(comp: Componente): number {
-    return comp.orientation === 'vertical' ? 90 : 0;
+    return comp.orientation === 'vertical' ? 180 : 90;
   }
 
   // Calcula la posición donde se dibujará el texto (valor del componente)
@@ -135,36 +135,13 @@ export class CircuitViewerComponent implements OnChanges {
   }
 
   // Devuelve la ruta de la imagen según tipo de componente
-  getComponentImgPath(type: string): string {
-    const paths: Record<string, string> = {
-      resistor: 'assets/components/resistor.png',
-      capacitor: 'assets/components/capacitor.png',
-      inductor: 'assets/components/inductor.png',
-      v_source: 'assets/components/v_source.png',
-      c_source: 'assets/components/c_source.png',
-      shortcircuit: 'assets/components/shortcircuit.png',
-      opencircuit: 'assets/components/opencircuit.png',
-    };
-
-    // Si no encuentra el tipo, usa resistor por defecto
-    return paths[type] || paths['resistor'];
-  }
+getComponentImgPath(type: string): string {
+  return `assets/components/${type}.png`;
+}
 
   // Devuelve la imagen correspondiente al tipo de nodo
-  getNodeImgPath(type: string): string {
-    const paths: Record<string, string> = {
-      'corner-top-left': 'assets/nodes/corner-top-left.png',
-      'corner-top-right': 'assets/nodes/corner-top-right.png',
-      'corner-bottom-left': 'assets/nodes/corner-bottom-left.png',
-      'corner-bottom-right': 'assets/nodes/corner-bottom-right.png',
-      'edge-top': 'assets/nodes/edge-top.png',
-      'edge-bottom': 'assets/nodes/edge-bottom.png',
-      'edge-left': 'assets/nodes/edge-left.png',
-      'edge-right': 'assets/nodes/edge-right.png',
-      center: 'assets/nodes/center.png',
-    };
-
-    // Si no coincide, usa nodo central por defecto
-    return paths[type] || paths['center'];
-  }
+getNodeImgPath(type: string): string {
+  // Coincide con tu carpeta assets/nodes/
+  return `assets/nodes/${type}.png`;
+}
 }

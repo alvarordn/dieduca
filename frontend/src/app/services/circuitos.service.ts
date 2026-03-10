@@ -1,26 +1,35 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CircuitosService {
-  private apiUrl = 'http://localhost:8000/api/circuitos';
+  // Base de la API para circuitos
+  private baseUrl = 'http://localhost:8000/api/circuitos';
 
   constructor(private http: HttpClient) { }
 
   generarCircuito(datos: any): Observable<any> {
-    const token = localStorage.getItem('access_token'); 
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.post(`${this.apiUrl}/generar-circuito/`, datos, { headers });
+    // Nota: Hemos quitado los headers de Authorization porque usamos AllowAny en el backend
+    // Esto evita errores si el token de la sesión ha expirado.
+    return this.http.post(`${this.baseUrl}/generar-circuito/`, datos).pipe(
+      map((res: any) => {
+        // Aprovechamos para limpiar los potenciales complejos (46.15+0j -> 46.15)
+        if (res.success && res.circuito) {
+          res.circuito.nodos.forEach((n: any) => {
+            n.potential = n.potential.replace(/\+0j|\(|\)/g, '');
+          });
+        }
+        return res;
+      })
+    );
   }
 
   testConnection(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/test/`);
+    // La ruta correcta según tu urls.py
+    return this.http.get(`${this.baseUrl}/test/`);
   }
 }

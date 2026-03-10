@@ -1,75 +1,106 @@
 @if (circuitData) {
-<div class="circuit-wrapper animate-fadeIn">
-  <div class="circuit-badge">
-    <i class="bi bi-gear-fill"></i> ESQUEMA TÉCNICO
-  </div>
+  <div class="circuit-wrapper animate-fadeIn">
+    <div class="circuit-badge">
+      <i class="bi bi-gear-fill"></i> ESQUEMA TÉCNICO
+    </div>
 
-  <div class="circuit-glass-card">
-    <div class="svg-container">
-      <svg 
-        [attr.viewBox]="'-50 -50 ' + (imgWidth + 100) + ' ' + (imgHeight + 100)" 
-        preserveAspectRatio="xMidYMid meet" 
-        class="circuit-svg">
-
-        <g class="layer-wires">
-          @for (comp of componentes; track comp.id) {
-            @let source = getNode(comp.source);
-            @let target = getNode(comp.target);
-            @if (source && target) {
-              <line 
-                [attr.x1]="getNodeX(source.col)" 
-                [attr.y1]="getNodeY(source.row)" 
-                [attr.x2]="getNodeX(target.col)" 
-                [attr.y2]="getNodeY(target.row)" 
-                class="wire-line"/>
+    <div class="circuit-glass-card">
+      <div class="svg-container">
+        <svg
+          [attr.viewBox]="'-120 -120 ' + (imgWidth + 240) + ' ' + (imgHeight + 240)"
+          preserveAspectRatio="xMidYMid meet"
+          class="circuit-svg"
+        >
+          <g class="layer-wires">
+            @for (comp of componentes; track comp.id) {
+              @let source = getNode(comp.source);
+              @let target = getNode(comp.target);
+              @if (source && target) {
+                <line
+                  [attr.x1]="getNodeX(source.col)"
+                  [attr.y1]="getNodeY(source.row)"
+                  [attr.x2]="getNodeX(target.col)"
+                  [attr.y2]="getNodeY(target.row)"
+                  class="wire-line"
+                />
+              }
             }
-          }
-        </g>
+          </g>
 
-        <g class="layer-components">
-          @for (comp of componentes; track comp.id) {
-            @let mid = getComponentMidPoint(comp);
-            
-            <circle 
-              [attr.cx]="mid.x" 
-              [attr.cy]="mid.y" 
-              r="35"
-              fill="white" />
+          <g class="layer-components">
+            @for (comp of componentes; track comp.id) {
+              @let mid = getComponentMidPoint(comp);
 
-            <image 
-              [attr.xlink:href]="getComponentImgPath(comp.type)" 
-              [attr.x]="mid.x - 50" 
-              [attr.y]="mid.y - 50" 
-              width="100" 
-              height="100" 
-              [attr.transform]="'rotate(' + getComponentRotation(comp) + ' ' + mid.x + ' ' + mid.y + ')'" 
-              class="component-image"/>
-          }
-        </g>
+              <circle [attr.cx]="mid.x" [attr.cy]="mid.y" r="35" fill="white" />
 
-        <g class="layer-nodes">
-          @for (nodo of nodos; track nodo.id) {
-            <image 
-              [attr.xlink:href]="getNodeImgPath(nodo.type)" 
-              [attr.x]="getNodeX(nodo.col) - 50" 
-              [attr.y]="getNodeY(nodo.row) - 45" 
-              width="100" 
-              height="91" 
-              class="node-image"/>
-          }
-        </g>
-
-        <g class="layer-labels">
-          @for (comp of componentes; track comp.id) {
-            @if (comp.value) {
-              @let pos = getLabelPosition(comp);
-              <text [attr.x]="pos.x" [attr.y]="pos.y" text-anchor="middle" class="label-outline">{{ comp.value }}</text>
-              <text [attr.x]="pos.x" [attr.y]="pos.y" text-anchor="middle" class="label-fill">{{ comp.value }}</text>
+              <image
+                [attr.xlink:href]="getComponentImgPath(comp.type)"
+                [attr.x]="mid.x - 50"
+                [attr.y]="mid.y - 50"
+                width="100"
+                height="100"
+                [attr.transform]="
+                  'rotate(' +
+                  getComponentRotation(comp) +
+                  ' ' +
+                  mid.x +
+                  ' ' +
+                  mid.y +
+                  ')'
+                "
+                class="component-image"
+              />
             }
-          }
-        </g>
-      </svg>
+          </g>
+
+          <g class="layer-nodes">
+            @for (nodo of nodos; track nodo.id) {
+              @if (nodo.id == "N00") {
+                <image
+                  xlink:href="assets/components/ground.png"
+                  [attr.x]="getNodeX(nodo.col) - 25"
+                  [attr.y]="getNodeY(nodo.row) + 20"
+                  width="50"
+                  height="50"
+                  class="node-image"
+                />
+              }
+              <image
+                [attr.xlink:href]="getNodeImgPath(nodo.type)"
+                [attr.x]="getNodeX(nodo.col) - 50"
+                [attr.y]="getNodeY(nodo.row) - 45"
+                width="100"
+                height="91"
+                class="node-image"
+              />
+            }
+          </g>
+
+          <g class="layer-labels">
+            @for (comp of componentes; track comp.id) {
+              @if (comp.value) {
+                @let pos = getLabelPosition(comp);
+                <text
+                  [attr.x]="pos.x"
+                  [attr.y]="pos.y"
+                  text-anchor="middle"
+                  class="label-outline"
+                >
+                  {{ comp.value }}
+                </text>
+                <text
+                  [attr.x]="pos.x"
+                  [attr.y]="pos.y"
+                  text-anchor="middle"
+                  class="label-fill"
+                >
+                  {{ comp.value }}
+                </text>
+              }
+            }
+          </g>
+        </svg>
+      </div>
     </div>
   </div>
-</div>
 }

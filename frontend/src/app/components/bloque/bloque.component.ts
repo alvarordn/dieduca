@@ -5,13 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { CircuitosService } from '../../services/circuitos.service';
 import { CircuitViewerComponent } from '../circuit-viewer/circuit-viewer.component';
 
-
 @Component({
   selector: 'app-bloque',
   standalone: true,
   imports: [CommonModule, FormsModule, CircuitViewerComponent],
   templateUrl: './bloque.component.html',
-  styleUrl: './bloque.component.css'
+  styleUrl: './bloque.component.css',
 })
 export class BloqueComponent implements OnInit {
   bloqueId: string = '';
@@ -20,94 +19,106 @@ export class BloqueComponent implements OnInit {
   errorCircuito: string = '';
   listaPreguntas: any[] = [];
   totalPreguntas = 0;
-  
+
   // parametros predeterminados del circuito
   rows: number = 2;
   cols: number = 3;
 
-    respuestas = {
+  respuestas = {
     pregunta1: null as number | null,
     pregunta2: null as number | null,
     pregunta3: null as number | null,
     pregunta4: null as number | null,
   };
-  
+
   // Control del resultado
   resultadoVisible: boolean = false;
   mensajeResultado: string = '';
 
   constructor(
     private route: ActivatedRoute, // para leer la URL
-    private circuitosService: CircuitosService // para hacer peticiones a Django.
+    private circuitosService: CircuitosService, // para hacer peticiones a Django.
   ) {}
 
-  ngOnInit() { // se ejecuta cada vez que se crea el componente
-    this.route.params.subscribe(params => { // Subscribe seria como para que avisase de que se actualiza un valor
+  ngOnInit() {
+    // se ejecuta cada vez que se crea el componente
+    this.route.params.subscribe((params) => {
+      // Subscribe seria como para que avisase de que se actualiza un valor
       this.bloqueId = params['id']; // si se va a /bloque/3, params['id']
       this.circuitoGenerado = null; // limpia el circuito anterior al cambiar de bloque
     });
-  
   }
-
-
 
   generarEjercicio() {
     this.cargando = true; // activa el cargando
     this.circuitoGenerado = null; // limpia el circuito anterior
 
     this.limpiarRespuestas();
-    
-    const datos = { // crea el objeto
+
+    const datos = {
+      // crea el objeto
       bloque: this.bloqueId,
       rows: this.rows,
-      cols: this.cols
+      cols: this.cols,
     };
-    
-    this.circuitosService.generarCircuito(datos) // llama al servicio (que devuelve un observable) 
+
+    this.circuitosService
+      .generarCircuito(datos) // llama al servicio (que devuelve un observable)
       .subscribe({
-        next: (respuesta) => { // se ejecuta cuando django responde bien
-          if(this.rows > 6 || this.cols > 6){
-            this.errorCircuito = "El circuito debe tener 6 o menos filas o columnas"
-            this.cargando = false
-            return
-          
+        next: (respuesta) => {
+          // se ejecuta cuando django responde bien
+          if (this.rows > 6 || this.cols > 6) {
+            this.errorCircuito =
+              'El circuito debe tener 6 o menos filas o columnas';
+            this.cargando = false;
+            return;
+          }
+          if (respuesta.valido === false) {
+            this.errorCircuito = 'Circuito singular generado. Reintentando...';
+            this.generarEjercicio();
+            return;
           }
           console.log('Respuesta del servidor:', respuesta);
           this.circuitoGenerado = respuesta;
           this.cargando = false;
         },
-        error: (error) => { // se ejecuta si algo falla
+        error: (error) => {
+          // se ejecuta si algo falla
           console.error('Error al generar circuito:', error);
-          this.errorCircuito = 'Error al generar el circuito. Debe Iniciar Sesion primero.';
+          this.errorCircuito =
+            'Error al generar el circuito. Debe Iniciar Sesion primero.';
           this.cargando = false;
-        }
+        },
       });
   }
 
+  comprobarRespuestas() {
+    this.totalPreguntas += 1;
+    console.log('total preguntas', this.totalPreguntas);
+    if (
+      this.respuestas.pregunta1 === null ||
+      this.respuestas.pregunta2 === null ||
+      this.respuestas.pregunta3 === null ||
+      this.respuestas.pregunta4 === null
+    ) {
+      this.mensajeResultado =
+        'Por favor, rellena todas las respuestas antes de comprobar.';
+      this.resultadoVisible = true;
+      return;
+    }
 
-comprobarRespuestas() {
-  this.totalPreguntas += 1;
-  console.log("total preguntas",this.totalPreguntas)
-  if (this.respuestas.pregunta1 === null || 
-      this.respuestas.pregunta2 === null || 
-      this.respuestas.pregunta3 === null || this.respuestas.pregunta4 === null) {
-    this.mensajeResultado = 'Por favor, rellena todas las respuestas antes de comprobar.';
+    this.mensajeResultado = 'Comprobando respuesta';
     this.resultadoVisible = true;
-    return;
   }
 
-  this.mensajeResultado = 'Comprobando respuesta';
-  this.resultadoVisible = true;
-}
-
-limpiarRespuestas() {
-  this.respuestas = {
-    pregunta1: null,
-    pregunta2: null,
-    pregunta3: null,
-    pregunta4: null
-  };
-  this.resultadoVisible = false;
-  this.mensajeResultado = '';
-}
+  limpiarRespuestas() {
+    this.respuestas = {
+      pregunta1: null,
+      pregunta2: null,
+      pregunta3: null,
+      pregunta4: null,
+    };
+    this.resultadoVisible = false;
+    this.mensajeResultado = '';
+  }
 }
