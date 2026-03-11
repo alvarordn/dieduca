@@ -14,75 +14,89 @@
         <div class="controles-grid">
           <div class="control-group">
             <label for="rows">Filas (2-6)</label>
-            <input type="number" id="rows" [(ngModel)]="rows" min="2" max="6" [disabled]="cargando" />
+            <input
+              type="number"
+              id="rows"
+              [(ngModel)]="rows"
+              min="2"
+              max="6"
+              [disabled]="cargando"
+            />
           </div>
 
           <div class="control-group">
             <label for="cols">Columnas (2-6)</label>
-            <input type="number" id="cols" [(ngModel)]="cols" min="2" max="6" [disabled]="cargando" />
+            <input
+              type="number"
+              id="cols"
+              [(ngModel)]="cols"
+              min="2"
+              max="6"
+              [disabled]="cargando"
+            />
           </div>
         </div>
 
-        <button class="btn-generar" (click)="generarEjercicio()" [disabled]="cargando">
+        <button
+          class="btn-generar"
+          (click)="generarEjercicio()"
+          [disabled]="cargando"
+        >
           @if (!cargando) {
-            <i class="bi bi-lightning-charge-fill"></i> Generar ejercicio ({{ rows }}x{{ cols }})
+            <i class="bi bi-lightning-charge-fill"></i> Generar ejercicio ({{
+              rows
+            }}x{{ cols }})
           } @else {
             <span class="loader"></span> Generando...
           }
         </button>
       </section>
 
-      @if (cargando) {
-        <div class="loading-state">
-          <div class="spinner"></div>
-          <p>{{errorCircuito}}</p>
+      @if (errorCircuito) {
+        <div class="error-content">
+          <i class="bi bi-exclamation-octagon-fill"></i>
+          <div class="error-text">
+            <strong>¡Atención!</strong>
+            <p>{{ errorCircuito }}</p>
+          </div>
         </div>
       }
 
       @if (circuitoGenerado && circuitoGenerado.success && !cargando) {
         <div class="circuit-display">
-          <app-circuit-viewer [circuitData]="circuitoGenerado.circuito"></app-circuit-viewer>
+          <app-circuit-viewer
+            [circuitData]="circuitoGenerado.circuito"
+          ></app-circuit-viewer>
         </div>
-
-        <section class="preguntas-section">
+           <section class="preguntas-section">
           <div class="section-title">
             <i class="bi bi-pencil-square"></i>
             <h3>Preguntas sobre el circuito</h3>
           </div>
-          <p class="instruccion">Calcula los valores solicitados para el circuito generado:</p>
+          <p class="instruccion">
+            Calcula la <strong>magnitud</strong> (módulo) de los siguientes valores:
+          </p>
 
           <div class="preguntas-grid">
-            <div class="pregunta-item">
-              <label for="pregunta1"><span class="badge-num">1</span> Tensión V1</label>
-              <div class="input-wrapper">
-                <input type="number" id="pregunta1" [(ngModel)]="respuestas.pregunta1" placeholder="0.00" step="0.01" />
-                <span class="unit">V</span>
-              </div>
-            </div>
+            @for (p of preguntasEjemplo; track p.id) {
+              <div class="pregunta-item">
+                <label [for]="'p' + p.id">
+                  <span class="badge-num">{{ p.id + 1 }}</span>
+                  {{ p.label }}
+                </label>
 
-            <div class="pregunta-item">
-              <label for="pregunta2"><span class="badge-num">2</span> Corriente I1</label>
-              <div class="input-wrapper">
-                <input type="number" id="pregunta2" [(ngModel)]="respuestas.pregunta2" placeholder="0.00" step="0.01" />
-                <span class="unit">A</span>
+                <div class="input-wrapper">
+                  <input
+                    type="number"
+                    [id]="'p' + p.id"
+                    [(ngModel)]="respuestas['p' + p.id]"
+                    placeholder="0.00"
+                    step="0.01"
+                  />
+                  <span class="unit">{{ p.unit || 'V' }}</span>
+                </div>
               </div>
-            </div>
-
-            <div class="pregunta-item">
-              <label for="pregunta3"><span class="badge-num">3</span> Corriente I2</label>
-              <div class="input-wrapper">
-                <input type="number" id="pregunta3" [(ngModel)]="respuestas.pregunta3" placeholder="0.00" step="0.01" />
-                <span class="unit">A</span>
-              </div>
-            </div>
-
-            <div class="pregunta-item">
-              <label for="pregunta4"><span class="badge-num">4</span> Potencia P1</label>
-              <div class="input-wrapper">
-                <input type="number" id="pregunta4" [(ngModel)]="respuestas.pregunta4" placeholder="0.00" step="0.01" />
-                <span class="unit">W</span>
-              </div>
-            </div>
+            }
           </div>
 
           <div class="acciones-footer">
@@ -93,13 +107,19 @@
               <i class="bi bi-arrow-counterclockwise"></i>
             </button>
           </div>
+          </section>
+        
+       
 
           @if (resultadoVisible) {
-            <div class="feedback-toast" [class.success]="mensajeResultado.includes('Correcto')">
+            <div
+              class="feedback-toast"
+              [class.success]="mensajeResultado.includes('Excelente')"
+            >
               {{ mensajeResultado }}
             </div>
           }
-        </section>
+        
       }
     </div>
   </div>

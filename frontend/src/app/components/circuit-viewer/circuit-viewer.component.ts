@@ -51,6 +51,11 @@ export class CircuitViewerComponent implements OnChanges {
     if (changes['circuitData'] && this.circuitData) {
       this.processCircuitData();
     }
+    
+  }
+
+  ngOnInit(){
+    console.log("Datos del circuito",this.circuitData)
   }
 
   // Procesa los datos recibidos y calcula dimensiones del circuito
@@ -61,8 +66,8 @@ export class CircuitViewerComponent implements OnChanges {
     this.componentes = this.circuitData.componentes || [];
 
     // Obtiene cantidad de filas y columnas (valores por defecto si no vienen)
-    const rows = this.circuitData.rows || 2;
-    const cols = this.circuitData.cols || 3;
+    const rows = this.circuitData.rows ;
+    const cols = this.circuitData.cols ;
 
 
     // Calcula ancho y alto total del área de dibujo
