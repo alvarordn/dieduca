@@ -78,22 +78,20 @@
           </p>
 
           <div class="preguntas-grid">
-            @for (p of preguntasEjemplo; track p.id) {
-              <div class="pregunta-item">
-                <label [for]="'p' + p.id">
-                  <span class="badge-num">{{ p.id + 1 }}</span>
+            @for (p of preguntasEjemplo; track $index) {
+              <div class="pregunta-item" [ngClass]="{'acierto': p.acertada === true, 'error': p.acertada === false}">
+                <label>
                   {{ p.label }}
                 </label>
 
                 <div class="input-wrapper">
                   <input
                     type="number"
-                    [id]="'p' + p.id"
-                    [(ngModel)]="respuestas['p' + p.id]"
                     placeholder="0.00"
+                    [(ngModel)]="p.respuestaUsuario"
                     step="0.01"
                   />
-                  <span class="unit">{{ p.unit || 'V' }}</span>
+                  <span class="unit">V</span>
                 </div>
               </div>
             }

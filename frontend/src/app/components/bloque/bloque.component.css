@@ -270,6 +270,24 @@ h1 {
   font-weight: 500;
 }
 
+/* Pregunta correcta: verde */
+.pregunta-item.acierto {
+  background-color: #4caf50;
+}
+
+/* Pregunta incorrecta: rojo */
+.pregunta-item.error {
+  background-color: #f44336;
+}
+
+/* Estilo general */
+.pregunta-item {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s, border-left 0.3s;
+}
+
 /* Animación de entrada suave */
 @keyframes slideIn {
   from {
