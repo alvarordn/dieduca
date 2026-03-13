@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CircuitosService } from '../../services/circuitos.service';
 import { CircuitViewerComponent } from '../circuit-viewer/circuit-viewer.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-bloque',
@@ -82,13 +83,40 @@ export class BloqueComponent implements OnInit {
   }
 
   comprobarRespuestas() {
-    const TOLERANCIA = 0.01; // tolerancia fija o ajustable
+    const tolerancia = 0.5;
     let aciertos = 0;
-
+    let contador = 0;
     this.preguntasEjemplo.forEach((p) => {
+      if (p.respuestaUsuario !== null && p.respuestaUsuario !== '') {
+        contador++;
+      }
+    });
+
+    if (contador < 4) {
+      this.mensajeResultado = 'Rellena todos los campos';
+      this.resultadoVisible = true;
+      return
+    }
+
+    Swal.fire({
+    title: '¿Estás seguro?',
+    text: "Se evaluarán tus respuestas del circuito",
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí, comprobar',
+    cancelButtonText: 'Revisar más',
+    background: '#f8f9fa',
+  }).then( result => {
+    if(result.isConfirmed){
+      this.preguntasEjemplo.forEach((p) => {
       if (p.respuestaUsuario != null) {
         const diferencia = Math.abs(p.respuestaUsuario - p.valorReal);
-        p.acertada = diferencia <= TOLERANCIA; // true si acierta, false si no
+        contador += 1;
+
+        p.acertada = diferencia <= tolerancia;
+
         if (p.acertada) aciertos++;
         const total = this.preguntasEjemplo.length;
         this.mensajeResultado =
@@ -97,22 +125,18 @@ export class BloqueComponent implements OnInit {
             : `Has acertado ${aciertos} de ${total}. Revisa tus cálculos.`;
 
         this.resultadoVisible = true;
-      } else {
-        this.mensajeResultado = 'Rellena todos los campos';
-        this.resultadoVisible = true;
       }
     });
   }
-
-  // bloque.component.ts
-
+})
+  }
   formatearEtiqueta(texto: string): string {
     if (!texto) return '';
 
     return texto
       .replace(/-/g, '') // Quita todos los guiones
       .replace(/micro/g, 'μ') // Cambia "micro" por "μ"
-      .replace(/micro-/g, 'μ') // Por si acaso viene con guion
+      .replace(/micro-/g, 'μ') // Tambien con guion
       .replace(/n-/g, 'n') // Limpia nano-faradios si aparecen
       .replace(/m-/g, 'm'); // Limpia mili-ohmios (ej: 30 m-Ω -> 30 mΩ)
   }

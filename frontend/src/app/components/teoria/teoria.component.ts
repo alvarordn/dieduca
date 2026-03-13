@@ -21,4 +21,5 @@ export class TeoriaComponent {
       this.bloqueId = +params['id'];
     });
   }
+  
 }

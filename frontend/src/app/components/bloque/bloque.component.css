@@ -145,7 +145,7 @@ h1 {
 .pregunta-item {
   background: #f8fafc;
   padding: 1.2rem;
-  border-radius: 20px;
+  border-radius: 30px;
   border: 1px solid #e2e8f0;
 }
 
@@ -273,11 +273,13 @@ h1 {
 /* Pregunta correcta: verde */
 .pregunta-item.acierto {
   background-color: #4caf50;
+  border-radius: 30px;
 }
 
 /* Pregunta incorrecta: rojo */
 .pregunta-item.error {
   background-color: #f44336;
+  border-radius: 30px;
 }
 
 /* Estilo general */
