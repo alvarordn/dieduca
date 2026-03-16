@@ -1,0 +1,787 @@
+\documentclass{beamer}
+\setbeamercovered{transparent}
+
+
+\usetheme{CambridgeUS}
+\setbeamercolor{normal text}{bg=gray!20}
+\setbeamertemplate{blocks}[default]
+\setbeamercolor{block title}{fg=white,bg=red!60!black}
+\setbeamercolor{block body}{fg=black,bg=gray!15}
+
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{psfrag}
+\usepackage{pstricks}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[scriptsize,tight]{subfigure}
+\usepackage{multimedia}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{comment}
+\usepackage{ragged2e}
+
+
+
+\usefonttheme[onlymath]{serif}
+
+
+\setbeamertemplate{navigation symbols}{}  
+
+
+\author[Teoría de Circuitos]{Teoría de Circuitos}
+\title[Tema 9]{\scshape Tema 9}
+\subtitle{Circuitos trifásicos}
+
+\date[]{}
+\institute[ETSI]{Departamento de Ingeniería Eléctrica \\ Escuela Técnica Superior de Ingeniería\\ Universidad de Sevilla}
+
+%\title[Proyecto fin de carrera]{\scshape Obtención de Equivalentes Externos
+%para el Estudio de Transitorios Electro
+%magnéticos en  Redes Eléctricas}
+%\subtitle{Proyecto Fin de Carrera}
+%\author[Alfonso Bachiller Soler]{Alfonso Bachiller Soler}
+%\date[mayo de 2009]{Sevilla, mayo de 2009}
+%%\institute[]{Proyecto Fin de Carrera}
+
+
+
+\AtBeginSection[]{
+\begin{frame}
+\frametitle{Índice}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+
+\begin{document}
+
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Índice}
+%\tableofcontents[pausesections]
+\tableofcontents
+\end{frame}
+
+\section{Sistemas trifásicos}
+
+\begin{frame}{Sistemas trifásicos. Un poco de historia...}
+\begin{columns}
+\begin{column}{7.5cm}
+{\small 
+\begin{itemize}
+	\justifying
+  \item \textbf{1888}: Nikola Tesla propone la distribución de electricidad en corriente alterna polifásica, aprovechando el descubrimiento del motor 
+  %asíncrono 
+polifásico.
+  \item \textbf{1891}: La compañía alemana AEG construye la primera línea de transporte trifásica del mundo, de 12\,kV y 175\,km de longitud.
+  \item \textbf{1896}: La compañía Westinghouse construye la central hidroeléctrica de las cataratas del Niagara, con generadores bifásicos. 
+  \item Generalización de los sistemas trifásicos en las redes eléctricas.
+\end{itemize}
+}
+\end{column}
+\begin{column}{4.5cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/tesla.eps,height=5.5cm}
+\end{figure}
+
+\begin{center}
+\tiny{Nikola Tesla  \\
+(1856-1943)}
+\end{center}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}{Sistemas trifásicos}
+\begin{block}{Algunas observaciones...}
+\begin{itemize}
+	\justifying
+  \item Los sistemas trifásicos se utilizan en la generación, transporte y distribución de energía eléctrica.
+  \item Las instalaciones domésticas y/o de pequeña potencia son monofásicas, a partir de una derivación del sistema trifásico.
+\end{itemize}
+\end{block}
+
+\begin{block}{Ventajas de los sistemas trifásicos}
+\begin{enumerate}
+	\justifying
+  \item Para una misma potencia y tensión, el sistema trifásico (tres fuentes) es más económico que el monofásico (una fuente).
+  \item La potencia instantánea es constante en una alimentación trifásica. 
+  \item Ventajas en las máquinas eléctricas rotativas (por ejemplo, menos vibraciones). 
+\end{enumerate}
+\end{block}
+
+\end{frame}
+
+
+
+%\section{Sistema trifásico de tensiones}
+
+
+\begin{frame}{Tensiones trifásicas equilibradas}
+
+Conjunto de tres tensiones sinusoidales de la misma frecuencia, igual amplitud y desfasadas entre sí $120^\circ$.
+%Cada una de las cuales se le denomina fase. Así:
+
+
+%\begin{columns}
+%\begin{column}{5cm}
+%\begin{center}
+%\structure{Dominio temporal}
+%\begin{equation*}
+%    \begin{split}
+%    e_R(t)&=\sqrt{2}\cdot E_R\,\sin(\omega t+ \varphi_R)\\
+%    e_S(t)&=\sqrt{2}\cdot E_S\,\sin(\omega t+ \varphi_S)\\
+%    e_T(t)&=\sqrt{2}\cdot E_T\,\sin(\omega t+ \varphi_T)
+%    \end{split}
+%\end{equation*}
+%  \end{center}
+%\end{column}
+%\begin{column}{5cm}
+%\begin{center}
+%\structure{Dominio fasorial}
+%\begin{equation*}
+% \begin{split}
+%    \mathcal{E}_R&=E_R\angle \varphi_R\\
+%    \mathcal{E}_S&=E_S\angle \varphi_S\\
+%    \mathcal{E}_T&=E_T\angle \varphi_T
+%    \end{split}
+%    \end{equation*}
+%    \end{center}
+%\end{column}
+%\end{columns}
+%\end{block}
+
+
+%\begin{block}{Condiciones para que dicho sistema trifásico esté \textbf{equilibrado}}
+%Todas las fases deben tener el mismo valor eficaz y estar desfasadas $120^\circ$:
+%\begin{equation*}
+%\mathcal{E}_R+\mathcal{E}_S+\mathcal{E}_T=0 \ \ ; \ \ E_R=E_S=E_T=E
+% \end{equation*}
+%\end{block}
+
+\begin{columns}
+\begin{column}{5cm}
+%\begin{center}
+\vspace*{-0.3cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/tensiones_instant.eps,height=1.8cm}
+\end{figure}
+\vspace*{-0.2cm}
+{\small
+\begin{equation*}
+    \begin{split}
+    e_R(t)&=\sqrt{2}\, E\,\cos(\omega t)\\
+    e_S(t)&=\sqrt{2}\, E\,\cos(\omega t-120^\circ)\\
+    e_T(t)&=\sqrt{2}\, E\,\cos(\omega t+120^\circ)
+    \end{split}
+\end{equation*}
+}
+%\end{center}
+\end{column}
+\begin{column}{4cm}
+\vspace*{-0.8cm}
+\begin{center}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/secuencia_directa.eps,height=2.5cm}
+\end{figure}
+ \end{center}
+\end{column}
+\end{columns}
+%\end{block}
+
+%\begin{alertblock}{Denominaciones comunes de las tensiones de un sistema trifásico:}
+{\small
+\begin{itemize}
+\item
+Etiquetas comunes para las tensiones de un sistema trifásico:
+\\
+$\{R,S,T\}$,
+$\{U,V,W\}$, $\{a,b,c\}$, $\{1,2,3\}$, 
+%$\{0,4,8\}$, 
+etc.
+\item
+Es importante etiquetar correctamente las tensiones (secuencia de fases). 
+\end{itemize}
+}
+
+
+
+\end{frame}
+
+
+\begin{frame}{Secuencia de fases de un sistema trifásico equilibrado}
+\justifying
+Orden en que se suceden temporalmente las ondas sinusoidales correspondientes a cada fase.
+
+\begin{columns}
+\begin{column}{5cm}
+\begin{center}
+\vspace{-0.3cm}
+\structure{Secuencia directa}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/secuencia_directa.eps,height=3cm}
+\end{figure}
+
+
+
+\end{center}
+\end{column}
+\begin{column}{5cm}
+\begin{center}
+\vspace{-0.3cm}
+\structure{Secuencia inversa}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/secuencia_inversa.eps,height=3cm}
+\end{figure}
+
+
+    \end{center}
+\end{column}
+\end{columns}
+
+\begin{alertblock}{Importancia de la secuencia de fases}
+\begin{itemize}
+  \item Conexión de una máquina rotativa trifásica a una instalación.
+  \item Interconexión de dos puntos de una misma instalación.
+  \item Modificación del sentido de rotación de un motor trifásico.
+\end{itemize}
+
+\end{alertblock}
+
+
+\end{frame}
+
+
+
+
+%\section{Generación de un sistema trifásico de tensiones}
+
+
+%\begin{frame}{Generación de un sistema trifásico de tensiones}
+%\vspace{-0.2cm}
+%\begin{block}{Secuencia directa}
+%\begin{figure}[hbt]
+%\epsfig{file=./figuras_tema_9/gener_sist_trif.eps,height=7cm}
+%\end{figure}
+%\end{block}
+%\end{frame}
+
+
+%\begin{frame}{Generación de un sistema trifásico de tensiones}
+%\vspace{-0.2cm}
+%\begin{block}{Secuencia inversa}
+%\begin{figure}[hbt]
+%\epsfig{file=./figuras_tema_9/gener_sist_trif_inv.eps,height=7cm}
+%\end{figure}
+%\end{block}
+%\end{frame}
+
+%\section{Fuente de tensión trifásica}
+
+\begin{frame}{Fuente de tensión trifásica}
+\begin{columns}
+\begin{column}{6cm}
+%\begin{center}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/T03.eps,height=2.5cm}
+\end{figure}
+%\end{center}
+\end{column}
+\begin{column}{3cm}
+{\small
+\begin{equation*}
+    \begin{split}
+    \mathcal{E}_a &= E_{\angle 0^\circ} \\
+    \mathcal{E}_b &= E_{\angle -120^\circ}\\
+    \mathcal{E}_c &= E_{\angle 120^\circ}
+    \end{split}
+\end{equation*}
+}
+\end{column}
+\end{columns}
+
+\begin{alertblock}{} 
+{\small
+	\justifying
+Se denomina \textbf{fase} a cada fuente individual y a las impedancias que alimenta. Aunque es la conexión más simple y directa, por motivos económicos  no se utiliza, ya que requiere 6 conductores.
+\begin{figure}[hbt]
+\centering
+\vspace*{-0.2cm}
+\epsfig{file=./figuras_tema_9/T05.eps,height=3.0cm}
+\end{figure}
+}
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}{Fuente de tensión trifásica}
+
+{\small 
+	\justifying
+Si las impedancias son iguales (carga equilibrada), las intensidades resultantes son trifásicas y equilibradas, desfasadas respecto a la tensión de cada fuente el ángulo que marca la impedancia que alimenta.
+}
+\begin{columns}
+\begin{column}{6cm}
+%\begin{center}
+\vspace*{-0.4cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/T05.eps,height=2.5cm}
+\end{figure}
+%\end{center}
+\end{column}
+\begin{column}{3cm}
+{\small
+\begin{equation*}
+    \begin{split}
+    \mathcal{V}_a + \mathcal{V}_b + \mathcal{V}_c & = 0 \\
+    \mathcal{I}_a + \mathcal{I}_b + \mathcal{I}_c &= 0
+    \end{split}
+\end{equation*}
+}
+\end{column}
+\end{columns}
+
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/T04.eps,height=2.5cm}
+\end{figure}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Conexiones básicas en sistemas trifásicos}
+\begin{block}{Conexión en estrella de fuente y carga}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/T06.eps,height=3cm}
+\end{figure}
+\vspace*{-0.3cm}
+{\small
+\begin{itemize}
+\item Se utiliza un conductor de neutro para unir ambos neutros (fuente y carga). 
+\item En cualquier caso, la simetría de las intensidades hace que la intensidad por el neutro sea nula:
+$$
+\mathcal{I}_N = \mathcal{I}_a + \mathcal{I}_b + \mathcal{I}_c = 0
+$$
+\item Ambos neutros están a la misma tensión, exista o no el conductor de neutro, pues $\mathcal{I}_N = 0$
+\end{itemize}
+}
+\end{block}
+\end{frame}
+
+\begin{frame}{Conexiones básicas en sistemas trifásicos}
+\begin{block}{Conexión en triángulo de fuente y carga}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/T08.eps,height=4.5cm}
+\end{figure}
+
+\begin{itemize}
+\item Cada fuente alimenta una de las impedancias.  
+\item No existe conductor de neutro. 
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Conexiones básicas en sistemas trifásicos}
+\begin{block}{Conexiones mixtas triángulo-estrella y estrella-triángulo}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/T10.eps,height=2.6cm}
+\end{figure}
+
+\end{block}
+\end{frame}
+
+
+
+
+%\begin{frame}{Conexiones básicas en sistemas trifásicos}
+%\begin{block}{Conexión en estrella de las fases de un generador trifásico}
+%\begin{columns}
+%\begin{column}{6cm}
+%\begin{block}{}
+%\begin{figure}[hbt]
+%\centering
+%\epsfig{file=./figuras_tema_9/estrella_gen.eps,height=4.5cm}
+%\end{figure}
+%\end{block}
+%\end{column}
+%\begin{column}{5.5cm}
+%\begin{block}{}
+%\begin{figure}[hbt]
+%\centering
+%\epsfig{file=./figuras_tema_9/estrella_gen_1.eps,height=4.5cm}
+%\end{figure}
+%\end{block}
+%\end{column}
+%\end{columns}
+%\end{block}
+%\begin{alertblock}{}
+%\textbf{Generador trifásico equilibrado en estrella:}
+%\begin{equation*}
+%\mathcal{Z}_{gR}=\mathcal{Z}_{gS}=\mathcal{Z}_{gT}=\mathcal{Z}_{g} \ \ ; \ \  |\mathcal{E}_R|=|\mathcal{E}_S|=|\mathcal{E}_T| \ \ ; \ \
+%\mathcal{E}_R+\mathcal{E}_S+\mathcal{E}_T=0
+%\end{equation*}
+%\end{alertblock}
+%\end{frame}
+
+%\begin{frame}{Conexiones básicas en sistemas trifásicos}
+%\begin{block}{Conexión en triángulo de las fases de un generador trifásico}
+%\begin{columns}
+%\begin{column}{6cm}
+%\begin{block}{}
+%\begin{figure}[hbt]
+%\centering
+%\epsfig{file=./figuras_tema_9/triangulo_gen.eps,height=4.5cm}
+%\end{figure}
+%\end{block}
+%\end{column}
+%\begin{column}{5.5cm}
+%\begin{block}{}
+%\begin{figure}[hbt]
+%\centering
+%\epsfig{file=./figuras_tema_9/triangulo_gen_1.eps,height=4.5cm}
+%\end{figure}
+%\end{block}
+%\end{column}
+%\end{columns}
+%\end{block}
+%\begin{alertblock}{}
+%\textbf{Generador trifásico equilibrado en triángulo:}
+%\begin{equation*}
+%\mathcal{Z}_{gR}=\mathcal{Z}_{gS}=\mathcal{Z}_{gT}=\mathcal{Z}_{g} \ \ ; \ \  |\mathcal{E}_R|=|\mathcal{E}_S|=|\mathcal{E}_T| \ \ %; \ \
+%\mathcal{E}_R+\mathcal{E}_S+\mathcal{E}_T=0
+%\end{equation*}
+%\end{alertblock}
+%\end{frame}
+
+%\begin{frame}{Conexiones básicas en sistemas trifásicos}
+%\begin{block}{Conexión en estrella y triángulo de cargas}
+%\vspace{-0.2cm}
+%\begin{columns}
+%\begin{column}{5cm}
+%\begin{block}{Conexión en triángulo}
+%\begin{figure}[hbt]
+%\centering
+%\epsfig{file=./figuras_tema_9/triangulo_carga.eps,height=2.6cm}
+%\end{figure}
+%\vspace{-0.4cm}
+%\begin{figure}[hbt]
+%\centering
+%\epsfig{file=./figuras_tema_9/triangulo_carga_1.eps,height=2.6cm}
+%\end{figure}
+%\end{block}
+%\end{column}
+
+%\begin{column}{5cm}
+%\begin{block}{Conexión en estrella}
+%\begin{figure}[hbt]
+%\centering
+%\epsfig{file=./figuras_tema_9/estrella_carga.eps,height=2.5cm}
+%\end{figure}
+%\vspace{-0.4cm}
+%\begin{figure}[hbt]
+%\centering
+%\epsfig{file=./figuras_tema_9/estrella_carga_1.eps,height=2.7cm}
+%\end{figure}
+%\end{block}
+%\end{column}
+
+%\end{columns}
+%\end{block}
+
+%\begin{alertblock}{}
+%\begin{equation*}
+%\textbf{Carga trifásica equilibrada:}\
+%\mathcal{Z}_R=\mathcal{Z}_S=\mathcal{Z}_T=\mathcal{Z}
+%\end{equation*}
+%\end{alertblock}
+%\end{frame}
+
+
+
+%\begin{frame}{Ejemplo de sistema trifásico equilibrado triángulo-estrella}
+%\begin{figure}[hbt]
+%\centering
+%\epsfig{file=./figuras_tema_9/sistema_triangulo_estrella.eps,height=5cm}
+%\end{figure}
+%\end{frame}
+
+%\begin{frame}{Conexiones básicas en sistemas trifásicos}
+%\begin{block}{Ejemplo de sistema trifásico equilibrado estrella-estrella}
+%\begin{figure}[hbt]
+%\centering
+%\epsfig{file=./figuras_tema_9/sistema_estrella_estrella.eps,height=5cm}
+%\end{figure}
+%\end{block}
+%\end{frame}
+
+
+
+\section{Tensiones e intensidades de línea y de fase}
+\begin{frame}{Tensiones e intensidades de línea y de fase}
+\begin{columns}
+\begin{column}{5.5cm}
+\begin{block}{Tensión de fase ($U_F$):}
+Tensión en cada una de las ramas monofásicas del circuito trifásico.
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/tension_fase.eps,height=4.5cm}
+\end{figure}
+\vspace*{\fill}
+\end{block}
+\vspace*{\fill}
+\end{column}
+\begin{column}{6cm}
+\begin{block}{Tensión de línea ($U_L$):}
+Tensión entre dos conductores de la línea del circuito trifásico.
+\vspace{1cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/tension_linea_1.eps,height=3.5cm}
+\end{figure}
+\vspace*{\fill}
+\end{block}
+\vspace*{\fill}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Tensiones e intensidades de línea y de fase}
+\begin{columns}
+\begin{column}{5.5cm}
+\begin{block}{Intensidad de fase ($I_F$):}
+Intensidad en cada una de las ramas monofásicas del circuito trifásico.
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/intensidad_fase.eps,height=4.5cm}
+\end{figure}
+\vspace*{\fill}
+\end{block}
+\vspace*{\fill}
+\end{column}
+\begin{column}{6cm}
+\begin{block}{Intensidad de línea ($I_L$):}
+Intensidad en cada uno de los conductores de la línea del circuito trifásico.
+\vspace{1cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/intensidad_linea_1.eps,height=3.5cm}
+\end{figure}
+\vspace*{\fill}
+\end{block}
+\vspace*{\fill}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Conexión en estrella}
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/T12.eps,height=3.8cm}
+\end{figure}
+\begin{itemize}
+\item Las intensidades de línea coinciden con las de fase.
+\item Cada tensión de línea es la diferencia de dos tensiones de fase, cumpliéndose:
+$$
+\mathcal{U}_L = \sqrt{3}_{\angle 30^\circ}\, \mathcal{U}_F 
+$$
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Conexión en triángulo}
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/T17.eps,height=3.8cm}
+\end{figure}
+\begin{itemize}
+\item Las tensiones de línea coinciden con las de fase.
+\item Cada intensidad de línea es la diferencia de dos intensidades de fase, cumpliéndose:
+$$
+\mathcal{I}_L = \sqrt{3}_{\angle -30^\circ}\, \mathcal{I}_F 
+$$
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}{Magnitudes de línea y de fase}
+\begin{exampleblock}{Ejemplo:}
+	\justifying
+Calcular las intensidades de línea, $\mathcal{I}_R$, $\mathcal{I}_S$, $\mathcal{I}_T$ del circuito de la figura, sabiendo que  $\mathcal{I}_{RS}=38_{\angle0^\circ}$\,A, $\mathcal{I}_{ST}=38_{\angle-120^\circ}$\,A y $\mathcal{I}_{TR}=38_{\angle120^\circ}$\,A.
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/ejerc_1.eps,height=3.5cm}
+\end{figure}
+
+{\small
+Solución: $\mathcal{I}_{R}$=$38\,\sqrt{3}_{\angle-30^\circ}$\,A, $\mathcal{I}_{S}$=$38\,\sqrt{3}_{\angle-150^\circ}$\,A, $\mathcal{I}_{T}$=$38\,\sqrt{3}_{\angle90^\circ}$\,A.
+}
+\end{exampleblock}
+\end{frame}
+
+
+
+\begin{frame}{Magnitudes de línea y de fase}
+\begin{exampleblock}{Ejemplo:}
+	\justifying
+Calcular las tensiones de línea, $\mathcal{U}_{RS}$, $\mathcal{U}_{ST}$, $\mathcal{U}_{TR}$ del circuito de la figura, sabiendo que  $\mathcal{U}_{RN}=230_{\angle0^\circ}$\,V, $\mathcal{U}_{SN}=230_{\angle 120^\circ}$\,V y $\mathcal{U}_{TN}=230_{\angle -120^\circ}$\,V.
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/ejerc_2.eps,height=3.5cm}
+\end{figure}
+
+{\small
+Solución: $\mathcal{U}_{RS}$=$230\,\sqrt{3}_{\angle -30^\circ}$\,V, $\mathcal{U}_{ST}$=$230\,\sqrt{3}_{\angle 90^\circ}$\,V, $\mathcal{U}_{TR}$=$230\,\sqrt{3}_{\angle -150^\circ}$\,V.
+}
+\end{exampleblock}
+
+\end{frame}
+
+
+
+\begin{frame}{Conversión triángulo-estrella}
+\justifying
+Para el análisis de circuitos trifásicos es de utilidad poder convertir las cargas de triángulo a estrella y viceversa:
+
+\begin{figure}[h]
+	\centering
+	\epsfig{file=./figuras_tema_9/conversion_estrella_triangulo.eps,height=5cm}
+\end{figure}
+	
+\end{frame}
+
+
+
+
+\begin{frame}{Conversión triángulo-estrella}
+
+Conversión triángulo-estrella de un generador trifásico equilibrado:
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[height=4cm]{./figuras_tema_9/conv_gen_tri_est.PNG}
+  \end{figure}
+
+\justifying
+Las tensiones de línea de las fuentes en triángulo se transforman en tensiones de fase de las fuentes en estrella, y las impedancias internas se convierten de triángulo a estrella.
+
+
+\end{frame}
+
+
+
+
+\section{Circuito monofásico equivalente de un sistema trifásico en estrella}
+
+
+\begin{frame}{Circuito monofásico equivalente de un sistema en estrella}
+%Convertir previamente todas las fuentes y cargas a estrella. 
+\begin{figure}[h]
+\centering
+\epsfig{file=./figuras_tema_9/T13.eps,height=4.0cm}
+ \end{figure}
+{\small
+Planteando la ecuación de la primera fase:
+$$
+\mathcal{E}_a = \left( \mathcal{Z}_g +  \mathcal{Z}_l +  \mathcal{Z}_c\right)\,  \mathcal{I}_a +  \mathcal{Z}_N \,  \mathcal{I}_N
+$$
+Como $\mathcal{I}_N =\mathcal{I}_a + \mathcal{I}_b +\mathcal{I}_ c = 0$, cada fase se puede analizar por separado:
+$$
+\mathcal{E}_a = \left( \mathcal{Z}_g +  \mathcal{Z}_l +  \mathcal{Z}_c\right)\,  \mathcal{I}_a 
+$$
+Asimismo, $\mathcal{V}_{NN'} = 0$
+}
+% \begin{equation*}
+%  \boxed{  \mathcal{E}_{R}+\mathcal{E}_{S}+\mathcal{E}_{T}=\left(\mathcal{Z}_g+\mathcal{Z}_L+\mathcal{Z}\right)\cdot \mathcal{I}_N +3\cdot \mathcal{U}_{N'N}}
+%\end{equation*}
+
+ \end{frame}
+ 
+
+
+\begin{frame}{Circuito monofásico equivalente de un sistema en estrella}
+
+$$
+\mathcal{E}_a = \left( \mathcal{Z}_g +  \mathcal{Z}_l +  \mathcal{Z}_c\right)\,  \mathcal{I}_a 
+$$
+\vspace*{-0.5cm}
+\begin{figure}[h]
+\centering
+\epsfig{file=./figuras_tema_9/T14.eps,height=2.8cm}
+ \end{figure}
+
+\justifying
+El equivalente monofásico permite analizar una única fase y extrapolar los resultados a las otras dos.
+
+Es necesario convertir previamente todas las fuentes y cargas a sus equivalentes en estrella.
+
+\end{frame}
+
+
+\begin{frame}{Circuito monofásico equivalente de un sistema en estrella}
+%{Sistema trifásico equilibrado con conexión estrella-estrella}
+\begin{exampleblock}{Ejemplo: }
+Obtener el circuito monofásico equivalente correspondiente a la fase R del circuito trifásico equilibrado de la figura.
+\begin{figure}[h]
+\centering
+\epsfig{file=./figuras_tema_9/ejercicio_mono.eps,height=5cm}
+ \end{figure}
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}
+\begin{exampleblock}{Ejercicio}
+\justifying
+El circuito de la figura está alimentado por una fuente trifásica de secuencia directa y tensión de fase de 230 V. Se sabe que $|z|$ = 6 $\Omega$ y que su factor de potencia es la unidad. Determinar la intensidad de línea $\mathcal{I}_c$ y el módulo de la corriente que circula por cada una de la impedancias. Datos: $X_L=2j$.
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_9/Ej_tri.eps,height=3.5cm}
+\end{figure}
+\end{exampleblock}
+\textbf{Solución}: $\mathcal{I}_c=81,32\angle 75^\circ$ A, $I_z=46,95$ A
+\end{frame}
+
+
+\end{document}
+
+

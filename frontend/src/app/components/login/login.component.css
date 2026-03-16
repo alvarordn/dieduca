@@ -13,7 +13,7 @@
   background: #0f172a; 
 }
 
-/* Fondo difuminado */
+
 .background-overlay {
   position: absolute;
   inset: 0;
@@ -62,7 +62,7 @@
   font-size: 0.9rem;
 }
 
-/* Formulario */
+
 .form-group {
   margin-bottom: 1.25rem;
 }
@@ -107,7 +107,7 @@
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
-/* Mensaje de error */
+
 .error-bubble {
   background: #fef2f2;
   color: #b91c1c;
@@ -122,7 +122,7 @@
   border: 1px solid #fee2e2;
 }
 
-/* Botón Login */
+
 .btn-login {
   width: 100%;
   padding: 14px;
@@ -153,7 +153,7 @@
   box-shadow: none;
 }
 
-/* Enlace Registro */
+
 .registro-link {
   text-align: center;
   margin-top: 1.5rem;
@@ -168,7 +168,7 @@
   margin-left: 5px;
 }
 
-/* Spinner animado */
+
 .spinner {
   width: 18px;
   height: 18px;
@@ -182,7 +182,7 @@
   to { transform: rotate(360deg); }
 }
 
-/* Animación de entrada */
+
 .animate-fadeIn {
   animation: fadeIn 0.6s ease-out;
 }

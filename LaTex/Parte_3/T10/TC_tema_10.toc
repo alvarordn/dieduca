@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{Potencia instant\'anea en circuitos trif\'asicos equilibrados}{3}{0}{1}
+\beamer@sectionintoc {2}{C\'alculo de potencia a trav\'es de magnitudes de fase y de l\IeC {\'\i }nea}{6}{0}{2}
+\beamer@sectionintoc {3}{Mejora del factor de potencia}{11}{0}{3}
+\beamer@sectionintoc {4}{Medici\'on de potencia con vat\IeC {\'\i }metros}{16}{0}{4}

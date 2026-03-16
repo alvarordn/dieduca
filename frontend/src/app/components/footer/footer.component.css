@@ -19,7 +19,7 @@
 .footer-logo {
   height: 50px;
   margin-bottom: 1.5rem;
-  filter: brightness(0) invert(1); /* Lo vuelve blanco */
+  filter: brightness(0) invert(1); 
 }
 
 .footer-section p {
@@ -39,7 +39,7 @@
   position: relative;
 }
 
-/* La rayita azul debajo del título */
+
 .footer-section h3::after {
   content: '';
   display: block;

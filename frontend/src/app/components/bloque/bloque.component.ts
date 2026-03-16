@@ -108,6 +108,10 @@ export class BloqueComponent implements OnInit {
     confirmButtonText: 'Sí, comprobar',
     cancelButtonText: 'Revisar más',
     background: '#f8f9fa',
+    didOpen: () => {
+            const popup = Swal.getPopup();
+            if (popup) popup.style.borderRadius = '24px';
+          },
   }).then( result => {
     if(result.isConfirmed){
       this.preguntasEjemplo.forEach((p) => {

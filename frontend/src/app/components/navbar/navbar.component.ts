@@ -17,13 +17,21 @@ export class NavbarComponent {
     { id: 3, nombre: 'Bloque 3' },
     { id: 4, nombre: 'Bloque 4' },
     { id: 5, nombre: 'Bloque 5' },
+    { id: 6, nombre: 'Bloque 6' },
+    { id: 7, nombre: 'Bloque 7' },
+    { id: 8, nombre: 'Bloque 8' },
+    { id: 9, nombre: 'Bloque 9' },
+    { id: 10, nombre: 'Bloque 10' },
+    { id: 11, nombre: 'Bloque 11' },
+
+   
   ];
   nombreUsuario: string | null = '';
   idUsuario: string | null = null;
   estaLogeado: boolean = false;
   bloqueAbierto: number | null = null;
   // bloqueAbierto se le asigna el valor nulo predeterminadamente y cuando no se pasa el raton por encima de ningun bloque
-
+  
   menuMovilAbierto: boolean = false;
 
   constructor(public authService: AuthService) {}

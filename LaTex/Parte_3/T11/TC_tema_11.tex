@@ -1,0 +1,445 @@
+\documentclass{beamer}
+\setbeamercovered{transparent}
+
+
+\usetheme{CambridgeUS}
+\setbeamercolor{normal text}{bg=gray!20}
+\setbeamertemplate{blocks}[default]
+\setbeamercolor{block title}{fg=white,bg=red!60!black}
+\setbeamercolor{block body}{fg=black,bg=gray!15}
+
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{psfrag}
+\usepackage{pstricks}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[scriptsize,tight]{subfigure}
+\usepackage{multimedia}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{comment}
+\usepackage{ragged2e}
+
+\usefonttheme[onlymath]{serif}
+
+
+\setbeamertemplate{navigation symbols}{}  
+
+
+\author[Teoría de Circuitos]{Teoría de Circuitos}
+\title[Tema 12]{\scshape Tema 11}
+\subtitle{Fundamentos de máquinas eléctricas}
+
+\date[]{}
+\institute[ETSI]{Departamento de Ingeniería Eléctrica \\ Escuela Técnica Superior de Ingeniería\\ Universidad de Sevilla}
+
+%\title[Proyecto fin de carrera]{\scshape Obtención de Equivalentes Externos
+%para el Estudio de Transitorios Electro
+%magnéticos en  Redes Eléctricas}
+%\subtitle{Proyecto Fin de Carrera}
+%\author[Alfonso Bachiller Soler]{Alfonso Bachiller Soler}
+%\date[mayo de 2009]{Sevilla, mayo de 2009}
+%%\institute[]{Proyecto Fin de Carrera}
+
+
+
+\AtBeginSection[]{
+\begin{frame}
+\frametitle{Índice}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+
+\begin{document}
+
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Índice}
+%\tableofcontents[pausesections]
+\tableofcontents
+\end{frame}
+
+
+\section{Transformador ideal}
+
+\begin{frame}{Transformador ideal}
+
+\justifying
+Bobinas {\bf perfectamente acopladas} que comparten flujo magnético a través de un núcleo de material ferromagnético de {\bf reluctancia nula}
+
+\begin{enumerate}
+\item Acoplamiento perfecto
+\vspace*{0.2cm}
+
+\begin{columns}
+\begin{column}{5cm}
+%\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_11/bobi_acop_nucleo_A_perfec.eps,height=2.5cm}
+%\end{figure}
+\end{column}
+\hspace{0.3cm}
+\begin{column}{3cm}
+\begin{equation*}
+ \phi_1(t)=\phi_2(t)
+% =\phi_{12}(t)+\phi_{21}(t)
+\end{equation*}
+\begin{equation*}
+  {\begin{split}
+    u_1(t)&=N_1\,\frac{d\phi_1}{dt}
+% =L_1\cdot \frac{d i_1}{dt}+M\cdot  \frac{d i_2}{dt}
+    \\
+  u_2(t)&=N_2\,\frac{d\phi_2}{dt}
+%   =M\cdot \frac{d i_1}{dt}+L_2 \cdot \frac{d i_2}{dt}
+    \end{split}}
+\end{equation*}
+\end{column}
+\end{columns}
+Por tanto, $u_1(t)=n\cdot u_2(t)$, con $n=N_1/N_2$
+
+\item Reluctancia nula, $\mathcal{R}\simeq 0$
+$$ \mathcal{F} = N_1\cdot i_1(t) + N_2\cdot i_2(t) = \mathcal{R} \cdot \phi(t) \simeq 0$$
+Por tanto, $i_1(t)=-\frac{1}{n}\, i_2(t)$
+\end{enumerate}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Transformador ideal}
+%\vspace{-0.1cm}
+\begin{block}{Símbolo del transformador ideal}
+\begin{columns}
+\begin{column}{5cm}
+%\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_11/T5_trafo1.eps,height=2cm}
+%\end{figure}
+\end{column}
+%\hspace{0.3cm}
+\begin{column}{6cm}
+\justifying
+{\small
+La relación de transformación (cociente de espiras) se expresa como:
+\begin{center}
+	\vspace{-0.2cm}
+$n\,:\,1$ 
+\\
+$N_1\,:\,N_2$
+\\
+$V_1\,:\,V_2$
+\end{center}
+}
+
+\end{column}
+\end{columns}
+\end{block}
+
+\begin{block}{Relaciones tensión-intensidad en el transformador ideal}
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_11/UI_trafo_ideal.eps,height=3.5cm}
+\end{figure}
+
+\end{block}
+
+\end{frame}
+
+
+
+\begin{frame}{Potencia en un transformador ideal}
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_11/T5_trafo1.eps,height=2.5cm}
+\end{figure}
+\begin{equation*}
+    p(t)=u_1(t)\cdot i_1(t)+u_2(t)\cdot i_2(t)=0
+\end{equation*}
+\vspace{-0.3cm}
+\begin{columns}
+\begin{column}{3cm}
+\centering
+\epsfig{file=./figuras_tema_11/T5_trafo2.eps,height=2.0cm}
+\end{column}
+%\hspace{0.3cm}
+\begin{column}{7cm}
+{\small
+\begin{itemize}
+	\justifying
+  \item Toda la potencia que entra por una bobina en cada instante está saliendo por la otra.
+%  Por tanto, la energía almacenada en el transformador ideal es nula.
+  \item Se usa para transferir potencia de una bobina (devanado \textbf{primario}) a la otra (devanado \textbf{secundario}).
+\end{itemize}
+}
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+
+\begin{frame}{Ejemplos de transformadores}
+\begin{figure}[h]
+ \centering
+ \hspace*{\fill}
+\epsfig{file=./figuras_tema_11/trafo1.eps,height=3.5cm}
+\hspace*{\fill}
+\epsfig{file=./figuras_tema_11/trafo2.eps,height=3.5cm}
+\hspace*{\fill}
+\\
+\vspace*{0.5cm}
+
+\epsfig{file=./figuras_tema_11/trafo3.eps,height=3cm}
+\hspace*{\fill}
+\epsfig{file=./figuras_tema_11/trafo4.eps,height=3cm}
+\hspace*{\fill}
+\epsfig{file=./figuras_tema_11/trafostoroidales.eps,height=3cm}
+  \end{figure}
+
+\end{frame}
+
+\begin{frame}{Adaptación de elementos pasivos}
+
+%\vspace{-0.2cm}
+
+\begin{figure}[h]
+ \centering
+ \epsfig{file=./figuras_tema_11/adaptacion.eps,height=2.0cm}
+  \end{figure}
+
+\vspace{-0.5cm}
+
+\begin{equation*}
+    u_1(t)=n\, u_2(t)=n\, f[i_2(t)]=n\, f[ni_1(t)]
+\end{equation*}
+donde $f(\cdot)$ es la función que define la característica $u-i$ del circuito lineal conectado en el secundario del transformador:
+\begin{equation*}
+    u_1(t)=n\, f[n\, i_1(t)]=n^2\, f[i_1(t)]
+\end{equation*}
+
+\begin{alertblock}{}
+	\justifying
+El conjunto formado por un transformador ideal y un elemento pasivo conectado en su secundario equivale desde el primario a un elemento de la misma naturaleza.
+Por ejemplo:
+\vspace{-0.4cm}
+\begin{equation*}
+    R_1=n^2\,R_2 \ \ ; \ \ L_1=n^2\,L_2 \ \ ; \ \ C_1=\frac{1}{n^2}\,C_2
+\end{equation*}
+
+\end{alertblock}
+\end{frame}
+
+\section{Transformador trifásico}
+
+\begin{frame}{Transformador trifásico}
+
+\begin{columns}
+
+	\begin{column}{6cm}
+		\justifying
+		Pueden usarse tanto tres transformadores monofásicos (uno por fase), como un transformador trifásico propiamente dicho.
+	\end{column}
+	
+	\begin{column}{3cm}
+		\includegraphics[width=\textwidth]{./figuras_tema_11/esquema_trafo_3f.PNG}
+	\end{column}
+\end{columns}
+
+\vspace{0.5cm}
+\textbf{Ejemplo}: transformador trifásico estrella-estrella
+
+\vspace{0.5cm}
+\centering
+\includegraphics[width=0.5\textwidth]{./figuras_tema_11/esquema_trafo_3f_2.PNG}
+
+
+\end{frame}
+
+\begin{frame}{Ejemplo de transformadores trifásicos reales}
+\begin{figure}[hbt]
+	\epsfig{file=./figuras_tema_11/trafos_3.eps,height=7cm}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+	\begin{exampleblock}{Ejercicio}
+		\justifying
+		Un transformador de distribución de energía eléctrica de relación de transformación 20/0.4 kV y conexión Dyn (triángulo en el primario y estrella con	neutro en el secundario), suministra 400 kW y 300 kvar a 400 V en el secundario. Determinar los valores eficaces de las intensidades de línea y fase en primario y secundario.
+		
+		\vspace{0.5cm}
+		
+		\textbf{Solución}: $I_{L_s} = 721,7$ A, $I_{L_p} = 14,43$ A, $I_{F_s} = 8,3$ A,
+	\end{exampleblock}
+\end{frame}
+
+\section{Principio de funcionamiento de las máquinas eléctricas rotativas}
+
+\begin{frame}{Principio de funcionamiento}
+
+\begin{columns}
+\begin{column}{6cm}
+\begin{figure}[h]
+ \centering
+ \epsfig{file=./figuras_tema_11/alternador_elemental.eps,height=3cm}
+  \end{figure}
+\end{column}
+\begin{column}{6cm}
+\begin{small}
+\begin{itemize}
+	\justifying
+  \item La bobina 1 (\textbf{rotor}) se alimenta con corriente continua
+  \item Parte del núcleo magnético, que soporta a la bobina 1, se separa mecánicamente del resto del núcleo y se la hace girar con velocidad $\omega$
+   \end{itemize}
+  \end{small}
+\end{column}
+\end{columns}
+
+\begin{small}
+\begin{itemize}
+   \item El flujo constante creado por la bobina  1 es visto como un flujo variable por la bobina 2 (\textbf{estátor}) debido al coeficiente de inducción mutua ($m(t)$)
+  \end{itemize}
+\end{small}
+\begin{equation*}
+    u_2(t)=N_2\cdot \frac{d \phi(t)}{dt}=\frac{d}{dt}\left[m(t) I_1  \right]=I_1\cdot \frac{d m(t)}{dt}
+\end{equation*}
+\justifying
+Con un diseño constructivo adecuado se puede conseguir que $m(t)$ sea aproximadamente sinusoidal, y en consecuencia el flujo $\phi(t)$ también lo será. \textbf{Por tanto $u_2(t)$ será una magnitud sinusoidal}
+
+\end{frame}
+
+
+
+\begin{frame}{Campo magnético giratorio mediante inductor móvil}
+    \vspace{-0.3cm}
+    \begin{figure}[h]
+    \centering
+      \epsfig{file=./figuras_tema_11/inductor_movil.eps,height=6.5cm}
+     \end{figure}
+    \vspace{-0.3cm}
+    %$\boxed{\mathcal{F}=F_{max}\cdot \sin(\alpha- \omega t)}$
+\end{frame}
+
+\begin{frame}{Mediante devanados polifásicos. Teorema de Ferraris}
+	\vspace{-0.2cm}
+	\begin{block}{Devanado trifásico de $1$ par de polos}
+	\begin{columns}
+	\begin{column}{6cm}
+	\vspace{-0.7cm}
+	\begin{figure}[h]
+	\centering
+	  \epsfig{file=./figuras_tema_11/m3_p1.eps,height=3.7cm}
+	 \end{figure}
+	\end{column}
+	\begin{column}{6cm}
+	\begin{small}
+	\begin{equation*}
+	    \mathcal{F}_r(\alpha,t)=\mathcal{F}_R(\alpha,t)+\mathcal{F}_S(\alpha,t)+\mathcal{F}_T(\alpha,t)
+	\end{equation*}
+	\vspace{-0.4cm}
+	\begin{equation*}
+	    \begin{split}
+	    \mathcal{F}_R(\alpha,t)&=F_{m,R}(t)\cdot \sin(\alpha)\\
+	    \mathcal{F}_S(\alpha,t)&=F_{m,S}(t)\cdot \sin(\alpha-120^\circ)\\
+	    \mathcal{F}_T(\alpha,t)&=F_{m,T}(t)\cdot \sin(\alpha+120^\circ)
+	    \end{split}
+	\end{equation*}
+	\end{small}
+	Según el teorema de Ampere:
+	\vspace{-0.2cm}
+	\begin{small}
+	\begin{equation*}
+	    F_{m,k}(t)\propto i_k(t)
+	\end{equation*}
+	\end{small}
+	\end{column}
+	\end{columns}
+	\vspace{0.2cm}
+	Si por las bobinas circula un sistema trifásico equilibrado de intensidades:
+	\begin{small}
+	\begin{equation*}
+	\left.
+	    \begin{split}
+	    \mathcal{F}_R&=F_m \cdot \sin(\omega t)\cdot \sin(\alpha)\\
+	    \mathcal{F}_S&=F_m \cdot \sin(\omega t-120^\circ)\cdot \sin(\alpha-120^\circ)\\
+	    \mathcal{F}_T&=F_m \cdot \sin(\omega t+120^\circ)\cdot \sin(\alpha+120^\circ)\\
+	    \end{split}
+	    \right\} \  \Rightarrow \  \boxed{\mathcal{F}_r(\alpha,t)=\frac{3}{2}F_m\cdot \sin(\alpha-\omega t)}
+	\end{equation*}
+	\end{small}
+	\vspace{-0.3cm}
+	\end{block}
+\end{frame}
+
+
+
+\begin{frame}{Mediante devanados polifásicos. Teorema de Ferraris}
+	
+	\begin{block}{Devanado trifásico de $p$ pares de polos}
+		\justifying
+	Si el devanado trifásico tiene $p$ pares de polos entonces la velocidad de giro del campo magnético giratorio (denominada \textbf{velocidad de sincronismo}) es:
+	\begin{equation*}
+	    n_e=\frac{60\cdot f}{p} \ \ [\text{rpm}]
+	\end{equation*}
+	donde $f$ es la frecuencia de las corrientes de alimentación y $p$ es el número de pares de polos
+	
+	%Se puede observar que dicha velocidad es función de la frecuencia y del número de pares de polos de la máquina.
+	\end{block}
+	
+	\vspace{-0.2cm}
+
+\end{frame}
+
+
+\begin{frame}{Alternador trifásico}
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_11/gener_sist_trif.eps,height=7cm}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Ejemplo de alternador trifásico}
+	\centering
+	
+	\includegraphics[width=0.8\textwidth]{./figuras_tema_11/alternador_hidraulico.PNG}
+\end{frame}
+
+\begin{frame}
+	\begin{exampleblock}{Ejercicio}
+		\justifying
+	Un alternador de la central hidroeléctrica de Guillena proporciona 70 MW con factor de potencia 0.8 inductivo a una tensión de 13.8 kV. Si el alternador tiene	una reactancia interna por fase de 2.6 $\Omega$ (la resistencia es despreciable frente a la reactancia), determinar el valor eficaz de la intensidad que suministra el alternador, y de la \textit{fuerza electromotriz interna}, $E$, del mismo (tensión de la fuente ideal del modelo como fuente trifásica real).
+	
+	\vspace{0.5cm}
+	
+	\textbf{Solución}: $I = 3,66$ kA, $E = 15,65$ kV
+	\end{exampleblock}
+\end{frame}
+
+
+
+\end{document}
+
+
+
+
+
+
+

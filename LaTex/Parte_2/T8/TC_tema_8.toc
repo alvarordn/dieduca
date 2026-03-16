@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{Potencia instant\'anea en circuitos de corriente alterna}{3}{0}{1}
+\beamer@sectionintoc {2}{Potencias activa, reactiva, aparente y compleja}{9}{0}{2}
+\beamer@sectionintoc {3}{Potencia y energ\IeC {\'\i }a de resistencias, bobinas y condensadores}{15}{0}{3}
+\beamer@sectionintoc {4}{M\'axima transferencia de potencia en alterna}{20}{0}{4}
+\beamer@sectionintoc {5}{Factor de potencia}{22}{0}{5}
+\beamer@sectionintoc {6}{Medida de la potencia activa}{27}{0}{6}

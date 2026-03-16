@@ -1,0 +1,10 @@
+\beamer@sectionintoc {1}{Contexto y justificaci\'on del uso de corriente alterna sinusoidal}{3}{0}{1}
+\beamer@sectionintoc {2}{Ondas sinusoidales}{5}{0}{2}
+\beamer@sectionintoc {3}{Concepto de fasor}{8}{0}{3}
+\beamer@sectionintoc {4}{Respuesta en alterna de resistencias, bobinas y condensadores}{14}{0}{4}
+\beamer@sectionintoc {5}{Definici\'on de impedancia y admitancia}{18}{0}{5}
+\beamer@sectionintoc {6}{An\'alisis de circuitos en r\'egimen permanente sinusoidal}{23}{0}{6}
+\beamer@subsectionintoc {6}{1}{Ecuaciones de nudos y mallas en corriente alterna}{28}{0}{6}
+\beamer@subsectionintoc {6}{2}{Equivalentes Th\'evenin y Norton}{33}{0}{6}
+\beamer@sectionintoc {7}{Diagramas fasoriales}{35}{0}{7}
+\beamer@sectionintoc {8}{Medidas de tensi\'on e intensidad en corriente alterna}{37}{0}{8}

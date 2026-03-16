@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap");
 
-/* Layout Base */
+
 .page-wrapper {
   min-height: 100vh;
   padding: 100px 15px 40px;
@@ -23,7 +23,7 @@
   margin: 0 auto;
 }
 
-/* Header */
+
 .progreso-header {
   text-align: left;
   margin-bottom: 2.5rem;
@@ -46,7 +46,6 @@ h1 {
   margin: 12px 0;
 }
 
-/* Grid de Tarjetas */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -74,7 +73,6 @@ h1 {
   transform: translateY(-5px);
 }
 
-/* Iconos de las tarjetas */
 .stat-icon {
   width: 56px;
   height: 56px;
@@ -95,7 +93,7 @@ h1 {
   color: #3b82f6;
 }
 
-/* Colores de Acertado y Fallado */
+
 .text-green-strong {
   color: #16a34a !important;
 }
@@ -110,7 +108,7 @@ h1 {
   border-left: 6px solid #dc2626;
 }
 
-/* Texto de Stats */
+
 .stat-info .label {
   display: block;
   font-size: 0.85rem;

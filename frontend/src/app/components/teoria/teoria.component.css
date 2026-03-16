@@ -1,7 +1,7 @@
-/* Import de fuentes */
+
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
 
-/* 1. EL FONDO GLOBAL */
+
 .background-overlay {
   position: fixed;
   top: 0;
@@ -13,7 +13,7 @@
   pointer-events: none;
 }
 
-/* Contenedor principal */
+
 .teoria-page-wrapper {
   position: relative;
   min-height: 100vh;
@@ -26,7 +26,7 @@
   box-sizing: border-box;
 }
 
-/* Tarjeta elegante */
+
 .teoria-card {
   background: rgba(255, 255, 255, 0.98); 
   backdrop-filter: blur(10px);
@@ -41,7 +41,7 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Header */
+
 .main-header {
   text-align: center;
   margin-bottom: 2rem;
@@ -68,7 +68,7 @@
   border-radius: 10px;
 }
 
-/* Contenedor del PDF */
+
 .pdf-container {
   margin-top: 2rem;
   border-radius: 20px;
@@ -85,7 +85,7 @@
   border-radius: 20px;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .pdf-container iframe {
     height: 400px;
@@ -109,7 +109,6 @@
   }
 }
 
-/* Animación */
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-out forwards;
 }

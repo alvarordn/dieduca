@@ -1,0 +1,876 @@
+\documentclass{beamer}
+\setbeamercovered{transparent}
+
+
+\usetheme{CambridgeUS}
+\setbeamercolor{normal text}{bg=gray!20}
+\setbeamertemplate{blocks}[default]
+\setbeamercolor{block title}{fg=white,bg=red!60!black}
+\setbeamercolor{block body}{fg=black,bg=gray!15}
+
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{psfrag}
+\usepackage{pstricks}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[scriptsize,tight]{subfigure}
+\usepackage{multimedia}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{comment}
+\usepackage{ragged2e}
+
+
+
+
+\usefonttheme[onlymath]{serif}
+
+
+\setbeamertemplate{navigation symbols}{}  
+
+
+
+\author[Teoría de Circuitos]{Teoría de Circuitos}
+\title[Tema 8]{\scshape Tema 8}
+\subtitle{Potencia y energía en circuitos de corriente alterna sinusoidal}
+
+\date[]{}
+\institute[ETSI]{Departamento de Ingeniería Eléctrica \\ Escuela Técnica Superior de Ingeniería\\ Universidad de Sevilla}
+
+%\title[Proyecto fin de carrera]{\scshape Obtención de Equivalentes Externos
+%para el Estudio de Transitorios Electro
+%magnéticos en  Redes Eléctricas}
+%\subtitle{Proyecto Fin de Carrera}
+%\author[Alfonso Bachiller Soler]{Alfonso Bachiller Soler}
+%\date[mayo de 2009]{Sevilla, mayo de 2009}
+%%\institute[]{Proyecto Fin de Carrera}
+
+
+
+\AtBeginSection[]{
+\begin{frame}
+\frametitle{Índice}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+
+\begin{document}
+
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Índice}
+%\tableofcontents[pausesections]
+\tableofcontents
+\end{frame}
+
+\section{Potencia instantánea en circuitos de corriente alterna}
+
+\begin{frame}
+\justifying
+Potencia consumida por un circuito sometido a tensión e intensidad sinusoidales de la misma frecuencia
+\begin{columns}
+\begin{column}{5cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_8/dipolo.eps,height=2.3cm}
+\end{figure}
+\end{column}
+\begin{column}{5cm}
+\begin{equation*}
+    \begin{split}
+    u(t)&=\sqrt{2}\,U\,\cos(\omega t +\varphi_u)\\%%
+    i(t)&=\sqrt{2}\,I\,\cos(\omega t +\varphi_i)\\
+    \end{split}
+    \end{equation*}
+\begin{equation*}
+    \varphi=\varphi_u-\varphi_i
+\end{equation*}
+\end{column}
+\end{columns}
+\bigskip
+\hrule
+\vspace*{0.3cm}
+\begin{equation*}
+%    \begin{split}
+    p(t)=u(t)\cdot i(t)
+%    &
+=2\,U\, I\, \cos(\omega t+\varphi_u)\, \cos(\omega t+\varphi_i)
+%\\
+%                       &=2\,U\, I\, \cos(\omega t+\varphi_u)\, \cos(\omega t+\varphi_u-\varphi)
+%                                                  \end{split}
+\end{equation*}
+Teniendo en cuenta que $\cos x \cdot \cos y = \frac{1}{2}\left[\cos(x+y) + \cos(x-y)\right]$, 
+\begin{equation*}
+       \boxed{ p(t)=U\, I\, \cos \varphi + U\, I\, \cos\left(2\omega t+\varphi_u +\varphi_i \right)
+%       \cdot \left[1+\cos\left(2\omega t+2\varphi_u \right)  \right] + U \,I\, \sin \varphi \cdot %\sin\left(2\omega t+2\varphi_u \right)
+}
+\end{equation*}
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_8/potencia_inst.eps,height=5cm}
+\end{figure}
+\begin{equation*}
+%       \boxed{ p(t)=U I \cos \varphi \cdot \left[1+\cos\left(2\omega t+2\varphi_u \right)  \right] + U I %\sin \varphi \cdot \sin\left(2\omega t+2\varphi_u \right)}
+\boxed{ p(t)=U\, I\, \cos \varphi + U\, I\, \cos\left(2\omega t+\varphi_u +\varphi_i \right)}
+\end{equation*}
+\vspace*{-0.4cm}
+\begin{itemize}
+  \item Término constante (potencia media): $U I \cos \varphi$
+  \item Término fluctuante  de frecuencia doble: 
+  $
+  U\, I\, \cos\left(2\omega t+\varphi_u +\varphi_i \right)
+  $
+%  $U I \cos \varphi \cdot \cos\left(2\omega t+2\varphi_u \right)+ U I \sin \varphi \cdot \sin\left(2\omega t+2\varphi_u \right)$\\
+%   de frecuencia doble de la fundamental.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+Trabajando con los fasores de tensión e intensidad,
+\vspace*{-0.7cm}
+\begin{columns}
+\begin{column}{5cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_8/dip_AC.eps,height=2.0cm}
+\end{figure}
+\end{column}
+\begin{column}{5cm}
+\begin{equation*}
+    \begin{split}
+    \mathcal{U}&=U_{\angle \varphi_u}\\%%
+    \mathcal{I}&=I_{\angle \varphi_i}\\%%
+       \end{split}
+    \end{equation*}
+\end{column}
+\end{columns}
+\vspace*{0.2cm}
+y descomponiendo la intensidad en dos componentes, una en fase con la tensión (activa), y otra en cuadratura con la tensión (reactiva),
+%\medskip
+%\hrule
+\vspace*{-0.2cm}
+\begin{columns}
+\begin{column}{5cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_8/int_AC.eps,height=2.5cm}
+\end{figure}
+\end{column}
+\begin{column}{7cm}
+\begin{equation*}
+    \begin{split}
+    \mathcal{I}&=\mathcal{I}_a+\mathcal{I}_r\\%%
+    \mathcal{I}_a&={I}\cos \varphi_{ \angle \varphi_u}={I_a}_{\angle \varphi_u}\\%%
+    \mathcal{I}_r&={I}\sin \varphi_{ \angle (\varphi_u-90^\circ)}={I_r}_{\angle (\varphi_u-90^\circ)}\\%%
+       \end{split}
+    \end{equation*}
+\end{column}
+\end{columns}
+\medskip
+\begin{equation*}
+    \boxed{p(t)=U\,I_a\,\left[1+\cos(2\omega t+ 2\varphi_u) \right]+ U\,I_r \,\sin(2\omega t+ 2\varphi_u)}
+\end{equation*}
+\end{frame}
+
+
+\begin{frame}
+\justifying
+La intensidad en fase con la tensión da lugar a un consumo de energía neto (potencia siempre positiva), mientras que la intensidad en cuadratura con la tensión no supone un consumo energético a lo largo del tiempo.
+
+%\vspace*{-0.2cm}
+\[
+p(t)=U\,I_a\,\left[1+\cos(2\omega t+ 2\varphi_u) \right]
++ U\,I_r\, \sin(2\omega t+ 2\varphi_u)
+\]
+\vspace*{-0.5cm}
+
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_8/pa_y_pr.eps,height=5.2cm}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+
+\[
+p(t)=U\,I_a\,\left[1+\cos(2\omega t+ 2\varphi_u) \right]
++ U\,I_r\, \sin(2\omega t+ 2\varphi_u)
+\]
+\vspace*{-0.4cm}
+\begin{itemize}
+	\justifying
+\item \textbf{Componente activa}: varía entre cero y dos veces la potencia media, siendo ésta $U\,I_a = U\,I\,\cos\varphi$. 
+%Está asociada al consumo de elementos disipativos (la potencia siempre es consumida).
+\item \textbf{Componente reactiva}: varía entre $U\,I_r$ y $-U\,I_r$, siendo sucesivamente consumida y cedida.
+% y estando asociada a la carga y descarga de elementos almacenadores de energía.
+\end{itemize}
+
+%\begin{figure}[hbt]
+%\epsfig{file=./figuras_tema_8/pa_y_pr.eps,height=5.0cm}
+%\end{figure}
+\vspace*{1ex}
+\justifying
+Para diferenciar ambos efectos, se definen dos potencias: \textbf{potencia activa} (P) y \textbf{potencia reactiva} (Q):
+\begin{equation*}
+    \begin{split}
+    P &= U\, I_a = U\, I \, \cos\varphi \\
+    Q &= U\, I_r = U\, I \, \sin\varphi \\
+\end{split}
+    \end{equation*}
+Conocidas P y Q, la potencia instantánea queda definida:
+\[
+p(t)= P \left[1+\cos(2\omega t+ 2\varphi_u) \right]
++ Q \sin(2\omega t+ 2\varphi_u)
+\]    
+\end{frame}
+
+
+
+\section{Potencias activa, reactiva, aparente y compleja}
+
+%\section{Términos de potencia}
+\begin{frame}
+\begin{itemize}
+	\justifying
+\item \textbf{Potencia activa}: valor medio de la potencia instantánea
+\begin{equation*}
+%\boxed{
+P=
+%\frac{1}{T}\int^{T}_0 p(t) dt=
+U\,I_a=
+U\,I\,\cos \varphi
+\ \ \ \ \ \ \ \
+\text{Unidad: vatio [W]}
+%} 
+\end{equation*}
+
+
+\item \textbf{Potencia reactiva}: valor máximo de la potencia asociada a la carga y descarga de elementos almacenadores 
+\begin{equation*}
+%\boxed{
+Q=U\,I_r=U\,I\,\sin \varphi
+%}
+\ \ \ \ \ \ \ \
+\text{Unidad: voltio-amperio reactivo [var]}
+\end{equation*}
+
+
+\item \textbf{Potencia aparente}: producto de los valores eficaces de tensión e intensidad
+%\begin{block}{Potencia Aparente}
+\begin{equation*}
+%   \boxed{ 
+S=
+%\left| \mathcal{S} \right|=
+\sqrt{P^2+Q^2}=U\,I 
+%}
+\ \ \ \ \ \ \ \
+\text{Unidad: voltio-amperio [VA]}
+\end{equation*}
+
+%\structure{Unidad:} Voltio-amperio [VA]
+\end{itemize}
+%\end{block}
+
+La potencia instantánea se puede expresar, en función de P, Q y S, como
+\begin{equation*}
+\begin{split}
+p(t)&=P + S \,\cos\left(2\omega t+\varphi_u +\varphi_i \right) =\\
+&= P \,\left[1+\cos(2\omega t+ 2\varphi_u) \right]
++ Q \,\sin(2\omega t+ 2\varphi_u) \\
+\end{split}
+\end{equation*}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Potencia compleja}
+	\justifying
+Número complejo cuya parte real es la potencia activa y la parte imaginaria es la potencia reactiva. Su módulo es la potencia aparente, y su fase se obtiene como $\varphi= \varphi_u - \varphi_i$.
+\begin{columns}
+\begin{column}{5cm}
+%{\small
+\vspace*{0.2cm}
+\begin{equation*}
+%    \boxed{
+\mathcal{S}=P+jQ= S_{\angle \varphi}
+%}
+\end{equation*}
+\vspace*{-0.2cm}
+{Unidad:} voltio-amperio [VA]
+%}
+\end{column}
+\begin{column}{5cm}
+\begin{figure}[hbt]
+\vspace*{-1cm}
+\hspace*{0.5cm}
+\fboxsep 5pt
+\fcolorbox{blue}{white}{\epsfig{file=./figuras_tema_8/triangulo.eps,height=2cm}}
+\end{figure}
+\end{column}
+\end{columns}
+
+\vspace*{0.3cm}
+
+%{\small
+En función de los fasores tensión e intensidad:
+\vspace*{-0.2cm}
+\begin{equation*}
+    \mathcal{S}=
+S_{\angle \varphi} =
+%    P+jQ=UI\cdot (\cos \varphi + j\sin\varphi)=
+%UI\cdot e^{j \varphi}=UI\cdot e^{j \varphi_u}\cdot e^{-\varphi_i=
+\mathcal{U}\cdot \mathcal{I}^* 
+= U_{\angle\varphi_u} \, \left(I_{\angle\varphi_i}\right)^* =
+U\, I_{\angle\varphi_u-\varphi_i}
+\end{equation*}
+
+\vspace*{-0.2cm}
+Permite calcular las potencias activa y reactiva a partir de los fasores de tensión e intensidad.
+%}
+
+\end{frame}
+
+
+
+%\section{Teorema de Boucherot}
+\begin{frame}
+\frametitle{Teorema de Boucherot}
+\justifying
+
+En un circuito en régimen permanente de alterna, el balance de potencia se expresa como balance de potencias complejas:
+% existe balance de potencia activa y de potencia reactiva:
+\begin{equation*}
+    \sum_k p_k(t) = \sum_k v_k(t)\, i_k(t) \ \ \ \
+\Longrightarrow  \ \ \ \ \sum_k \mathcal{S}_k= \sum_k  \mathcal{U}_k \,{\mathcal{I}_k}^* 
+\end{equation*}
+
+Por tanto, se deben cumplir tanto el balance en potencias activas como el balance en potencias reactivas por separado (teorema de Boucherot):
+\begin{equation*}
+    \sum_k \mathcal{S}_k= \sum_k (P_k+jQ_k)=0 \ \ \Longrightarrow \ \ \left\{   \begin{split}
+    \sum_k {P}_k&=0\\
+    \sum_k {Q}_k&=0
+    \end{split}
+           \right.
+\end{equation*}
+\vspace*{0.3cm
+}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Signos de la potencia activa y reactiva}
+\justifying
+El signo tanto la potencia activa como de la reactiva depende del desfase entre tensión e intensidad:
+\begin{equation*}
+P = U\,I\, \cos\varphi 
+\ \ \ \ \
+Q = U\,I\, \sin\varphi 
+\ \ \ \ \
+\varphi = \varphi_u - \varphi_i
+\end{equation*}
+Tomando como referencia la tensión:
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_8/PQ.eps,height=3.5cm}
+\end{figure}
+
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Potencias activa, reactiva, aparente y compleja}
+%\begin{exampleblock}{Ejemplo}
+%Para el circuito eléctrico y el diagrama fasorial de la figura, se pide:
+%\begin{enumerate}
+%	\justifying
+%  \item Determinar el carácter generador o consumidor de cada elemento en cuanto a la potencia media. 
+%  \item Para cada elemento, indicar si consume o cede potencia reactiva.
+%\end{enumerate}
+%
+%\begin{figure}[hbt]
+%\begin{center}
+%\epsfig{file=./figuras_tema_8/pb_4_23.eps,height=2.3cm}
+%\vspace{-0.3cm}
+%\end{center}
+%\end{figure}
+%{Solución:} E1: Genera P; E2: Consume P; E3: Consume P; E4: Genera P
+%\\ E1: Cede Q; E2: Cede Q; E3: Consume Q; E4: Consume Q
+%\end{exampleblock}
+%\end{frame}
+
+
+\begin{frame}
+\frametitle{Potencias consumidas por una impedancia (admitancia)}
+
+\begin{columns}
+\begin{column}{6cm}
+\begin{figure}[hbt]
+\vspace*{-0.5cm}
+\epsfig{file=./figuras_tema_8/imp.eps,height=1.3cm}
+\end{figure}
+\vspace*{-0.6cm}
+\begin{center}
+$\mathcal{U}=\mathcal{Z}\cdot \mathcal{I}$
+\end{center}
+\end{column}
+\begin{column}{6cm}
+\begin{figure}[hbt]
+\vspace*{-0.5cm}
+\epsfig{file=./figuras_tema_8/adm.eps,height=1.3cm}
+\end{figure}
+\vspace*{-0.6cm}
+\begin{center}
+$\mathcal{I}=\mathcal{Y}\cdot \mathcal{U}$
+\end{center}
+\end{column}
+\end{columns}
+
+\medskip
+\begin{itemize}
+  \item Potencia compleja:
+%   en función de la impedancia (admitancia) del elemento:
+\begin{columns}
+\begin{column}{6cm}
+\begin{center}
+$\mathcal{S}=\left(\mathcal{Z}\cdot \mathcal{I}\right)\cdot \mathcal{I}^*=\mathcal{Z}\cdot I^2$
+\end{center}
+\end{column}
+\begin{column}{6cm}
+\begin{center}
+$\mathcal{S}=\mathcal{U}\cdot \left( \mathcal{Y}^*\cdot \mathcal{U}^*\right)=\mathcal{Y}^*\cdot U^2$
+\end{center}
+\end{column}
+\end{columns}
+\medskip
+  \item Potencia aparente:
+%   en función de la impedancia (admitancia) del elemento:
+\begin{columns}
+\begin{column}{6cm}
+\begin{center}
+${S}={Z}\cdot I^2$
+\end{center}
+\end{column}
+\begin{column}{6cm}
+\begin{center}
+${S}=Y\cdot  U^2$
+\end{center}
+\end{column}
+\end{columns}
+\medskip
+  \item Potencias activa y reactiva:
+%   en función de las componentes real e imaginaria de la impedancia (admitancia):
+\begin{columns}
+\begin{column}{6cm}
+\begin{center}
+${P}={R}\cdot I^2$\\
+${Q}={X}\cdot I^2$
+\end{center}
+\end{column}
+\begin{column}{6cm}
+\begin{center}
+${P}={G}\cdot U^2$\\
+${Q}=-{B}\cdot U^2$
+\end{center}
+\end{column}
+\end{columns}
+\end{itemize}
+
+\end{frame}
+
+\section{Potencia y energía de resistencias, bobinas y condensadores}
+\begin{frame}
+\frametitle{Potencia y energía de resistencias}
+
+\begin{columns}
+\begin{column}{3cm}
+\begin{figure}[hbt]
+\vspace{-0.5cm}
+\epsfig{file=./figuras_tema_8/R.eps,height=2cm}
+\end{figure}
+\end{column}
+\begin{column}{8cm}
+\vspace{-0.5cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_8/potencia_inst_R.eps,height=3cm}
+\end{figure}
+\end{column}
+\end{columns}
+\vspace{-0.3cm}
+\begin{equation*}
+ \left.   \begin{split}
+    u(t)&=\sqrt{2}\,U\,\cos(\omega t)\\%%
+    i(t)&=\sqrt{2}\,I\,\cos(\omega t)\\
+    \end{split}\right\} \ \ \Rightarrow \ \
+%\begin{split}    
+     p_R(t)=u(t)\cdot i(t)=U I \cdot \left[1+\cos\left(2\omega t \right)  \right] 
+%\\
+\end{equation*}
+\begin{equation*}
+P = U\, I =  R\,I^2 = G\, U^2 \qquad \qquad \qquad {Q}=0
+% \end{split}
+\end{equation*}
+\hrule
+\vspace{0.3cm}
+%\begin{columns}
+%\begin{column}{2cm}
+%\begin{figure}[hbt]
+%\vspace*{-0.5cm}
+%\epsfig{file=./figuras_tema_8/R_f.eps,height=2cm}
+%\end{figure}
+%\end{column}
+%\begin{column}{8cm}
+%\begin{equation*}
+%\mathcal{S}_R=\mathcal{U}\cdot \mathcal{I}^*=RI^2=\frac{U^2}{R} \ \ \Rightarrow \ \
+%    \left\{
+%    \begin{split}
+%     {P}_R&=RI^2=\frac{U^2}{R}\\
+%    {Q}_R&=0
+%    \end{split}
+%    \right.
+%\end{equation*}
+%\end{column}
+%\end{columns}
+
+\begin{equation*}
+%\begin{split}
+    w_R(t) =\int R\, i^2(t)\, dt= P \left[t+ \frac{1}{2\omega}\sin(2\omega t)  \right]
+%\\
+% &=\int \frac{u^2(t)}{R}t=\frac{U^2}{R} \left[t+ \frac{1}{2\omega} \sin(2\omega t+2\varphi_u)  \right]
+%    \end{split}
+\end{equation*}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Potencia y energía de bobinas}
+
+\begin{columns}
+\begin{column}{2cm}
+\begin{figure}[hbt]
+\vspace{-0.5cm}
+\epsfig{file=./figuras_tema_8/L.eps,height=2cm}
+\end{figure}
+\end{column}
+\begin{column}{8cm}
+\begin{figure}[hbt]
+\vspace{-0.5cm}
+\epsfig{file=./figuras_tema_8/potencia_inst_L.eps,height=3cm}
+\end{figure}
+
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+\begin{equation*}
+ \left.   \begin{split}
+    u(t)&=\sqrt{2}\,U\,\cos(\omega t)\\%%
+    i(t)&=\sqrt{2}\,I\,\cos(\omega t-90^\circ)\\
+    \end{split}\right\} \ \ \Rightarrow \ \
+%\begin{split}
+     p_L(t)=u(t)\cdot i(t)=U\, I \cdot \sin\left(2\omega t \right)
+%\\
+%     P & = 0 \ \ \ \ Q = U\, I = L\omega\, I^2 = \frac{U^2}{L\omega} \\
+% \end{split}     
+\end{equation*}
+\vspace{-0.5cm}
+\begin{equation*}
+P  = 0 \qquad \qquad \qquad Q = U\, I = L\omega\, I^2 = \frac{U^2}{L\omega}
+\end{equation*}
+\hrule
+\vspace{0.3cm}
+
+
+\begin{equation*}
+    w_L(t)=\frac{1}{2}\,L\,i^2(t)=
+%\frac{L}{2}  \left[\sqrt{2} I \cos(\omega t+\varphi_i) \right]^2=
+\frac{1}{2}\, L\,I^2 \left[1- \cos(2\omega t)  \right]
+\end{equation*}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Potencia y energía de condensadores}
+
+\begin{columns}
+\begin{column}{2cm}
+\begin{figure}[hbt]
+\vspace{-0.5cm}
+\epsfig{file=./figuras_tema_8/C.eps,height=2cm}
+\end{figure}
+\end{column}
+\begin{column}{8cm}
+\begin{figure}[hbt]
+\vspace{-0.5cm}
+\epsfig{file=./figuras_tema_8/potencia_inst_C.eps,height=3cm}
+\end{figure}
+
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\begin{equation*}
+ \left.   \begin{split}
+    u(t)&=\sqrt{2}\,U\,\cos(\omega t)\\%%
+    i(t)&=\sqrt{2}\,I\,\cos(\omega t+90^\circ)\\
+    \end{split}\right\} \ \ \Rightarrow \ \
+%    \begin{split}
+     p_C(t)=u(t)\cdot i(t)=-U\,I \, \sin\left(2\omega t \right) 
+%\\
+\end{equation*}
+\vspace{-0.5cm}
+\begin{equation*}
+P  = 0 \qquad \qquad \qquad Q = -U\,I = \frac{- I^2}{C\,\omega}=-C\omega\, U^2
+\end{equation*}
+%     P =0 \ \ \ \ \ Q = -U\,I = \frac{- I^2}{C\,\omega}=-C\omega\, U^2
+%    \end{split}
+%\end{equation*}
+\hrule
+\vspace{0.3cm}
+
+
+\begin{equation*}
+    w_C(t)=\frac{1}{2}\,C\,u^2(t)=
+\frac{1}{2}\, C\,U^2\, \left[1+ \cos(2\omega t)  \right]
+\end{equation*}
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{exampleblock}{Ejercicio 8.1}
+
+En el circuito de la figura, $u_g(t)=\sqrt{2}\,750\, \cos(5000t+30^\circ)$\,V, $R=90$\,$\Omega$, $L=32$\,mH, y $C=5$\,$\mu$F.
+\begin{enumerate}
+\item
+Calcular las potencias activa y reactiva de cada uno de los elementos del circuito.
+\item
+Comprobar que se cumplen los balances de potencia activa y reactiva.
+\end{enumerate}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_8/ejercicio_4_1.eps,height=2.5cm}
+\end{figure}
+
+{\small
+\textbf{Solución}: $P_R$=$2250$\,W; $Q_L$=$4000$\,var; $Q_C$=$-1000$\,var; $\mathcal{S}_{g}=2250+j 3000$\,VA
+}
+
+\end{exampleblock}
+\end{frame}
+
+
+
+\section{Máxima transferencia de potencia en alterna}
+\begin{frame}
+\frametitle{Máxima transferencia de potencia en alterna}
+\justifying
+Se trata de maximizar la potencia media que consume una impedancia $\mathcal{Z}$ conectada a una fuente real de alterna (con impedancia interna $\mathcal{Z}_g$):
+%\vspace{-0.3cm}
+
+\begin{columns}
+\begin{column}{5cm}
+
+\begin{small}
+%\vspace{0.7cm}
+\begin{equation*}
+    P=R I^2=\cfrac{R\cdot U^2_g}{(R+R_g)^2+(X+X_g)^2}
+\end{equation*}
+\end{small}
+\end{column}
+\begin{column}{6cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_8/max_pot_AC.eps,height=2.7cm}
+\end{figure}
+
+%\vspace{-1.5cm}
+
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+
+%\begin{small}
+%\begin{itemize}
+%  \item $R$ constante y $X$ variable:
+%   $$ \frac{d P}{d X}=0 \ \ \Rightarrow  \ \ \boxed{X=-X_g} \ \ \Longrightarrow \ \ P_{max}=\frac{R\cdot U^2_g}{(R+ R_g)^2} $$
+%
+%  \item $R$ variable  y $X$ constante:
+%   $$ \frac{d P}{d R}=0 \ \ \Rightarrow  \ \ \boxed{R^2=R^2_g+(X+X_g)^2} \ \ \Longrightarrow \ \ P_{max}=\frac{U^2_g}{2(R+ R_g)}$$
+%   \item 
+
+El caso más favorable es cuando $R$ y $X$ se pueden elegir libremente: 
+  $$ \frac{\partial P}{\partial R}=0 \ \ ; \ \ \frac{\partial P}{\partial X}=0 \ \ \Rightarrow  \ \ \boxed{R=R_g \ \ ; \ \ X=-X_g} \ \ \Longrightarrow \ \ P_{max}=\frac{U^2_g}{4\cdot R_g}   $$
+%\end{itemize}
+%\end{small}
+
+
+\end{frame}
+
+
+\section{Factor de potencia}
+\begin{frame}
+\frametitle{Factor de potencia}
+
+\justifying
+El \textbf{factor de potencia} se define como el cociente entre la potencia activa y la potencia aparente: $P/S=\cos(\varphi)$
+
+Para que esté completamente determinado, es necesario indicar si es \textbf{inductivo} (en retraso), o \textbf{capacitivo} (en adelanto): 
+
+
+\vspace*{0.5cm}
+
+\begin{columns}
+\begin{column}{5cm}
+{\small
+\textbf{Carácter inductivo} (retraso)
+}
+\vspace*{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_8/fp_inductivo.eps,height=3.5cm}
+\end{figure}
+\end{column}
+\begin{column}{5cm}
+{\small
+\textbf{Carácter capacitivo} (adelanto)
+}
+\vspace*{-0.3cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_8/fp_capacitivo.eps,height=3.5cm}
+\end{figure}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Mejora del factor de potencia}
+
+\begin{columns}
+\begin{column}{5cm}
+\begin{figure}[hbt]
+\vspace*{-0.7cm}
+\epsfig{file=./figuras_tema_8/fdp_1.eps,height=2.6cm}
+\end{figure}
+\end{column}
+\begin{column}{7cm}
+\hspace{0.5cm}Para $\{P,U\}$ fijas:
+\begin{itemize}
+  \item Si $\cos \varphi$ aumenta \  $\Rightarrow$ \  $I$ disminuye
+  \item Si $\cos \varphi$ disminuye  \ $\Rightarrow$  \ $I$ aumenta
+\end{itemize}
+\end{column}
+\end{columns}
+\medskip
+\hrule
+\medskip
+\begin{small}
+Si la intensidad consumida aumenta:
+\begin{enumerate}
+  \item Aumentan las pérdidas en la alimentación: $R_L\,I^2$
+%   \  $\Rightarrow$ \ $\downarrow\eta=\frac{P}{P+P_j}$
+  \item Aumenta la caída de tensión: $\Delta U=E_g-U$
+  \item Líneas mal utilizadas al transportar $I_r$ (no realiza trabajo útil) en lugar de solamente $I_a$ (da lugar a la potencia media).
+\end{enumerate}
+\end{small}
+$\Rightarrow$ \ Es importante mantener factores de potencia próximos a $1$.
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Mejora del factor de potencia}
+
+\begin{figure}[hbt]
+%\vspace*{-0.5cm}
+\epsfig{file=./figuras_tema_8/fdp.eps,height=4.5cm}
+\end{figure}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Factor de potencia}
+\begin{exampleblock}{Ejercicio 8.2}
+	\justifying
+El circuito de la figura muestra una fuente  de $3\,800$\,V y $50$\,Hz que alimenta a una instalación que consume $40$\,kW para calefacción y $180$\,kVA para motores de inducción que operan con un $\cos \varphi=0.7$. Determinar:
+\begin{enumerate}
+  \item La intensidad total ${I}$ y el factor de potencia total de la instalación.
+    \item Determinar qué elemento hay que instalar y cómo debe estar conectado para mejorar el factor de potencia total de la instalación a  $\cos \varphi=0.9$\,inductivo.
+  %\item La intensidad total ${I}'$ que demanda la instalación una vez mejorado el factor de potencia.
+\end{enumerate}
+\begin{figure}[hbt]
+\centering
+\vspace{-0.5cm}
+\epsfig{file=./figuras_tema_8/ejercicio_4_2.eps,height=2.5cm}
+\end{figure}
+\vspace{-0.3cm}
+\textbf{Solución}: $I=55.26$\,A; $\cos \varphi_T=0.79$\,inductivo; $C=10.6$\,$\mu$F
+
+\end{exampleblock}
+\end{frame}
+
+
+
+\section{Medida de la potencia activa}
+\begin{frame}
+\frametitle{Medida de la potencia activa: vatímetro}
+
+El \textbf{vatímetro} es un elemento de cuatro terminales que miden la tensión, la intensidad, y el desfase entre ambas:
+\begin{columns}
+\begin{column}{5cm}
+\begin{figure}[hbt]
+\vspace*{-0.3cm}
+\epsfig{file=./figuras_tema_8/vatimetro.eps,height=2cm}
+\end{figure}
+\end{column}
+\begin{column}{5cm}
+$\boxed{W=U\cdot I \cdot \cos\left(\widehat{\mathcal{U},\mathcal{I}}  \right)}$
+\end{column}
+\end{columns}
+
+\vspace*{0.3cm}
+Para medir la potencia media consumida por un elemento, se conecta el vatímetro en la forma indicada:
+\begin{columns}
+\begin{column}{5cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_8/conexion_carga.eps,height=2.2cm}
+\end{figure}
+\end{column}
+\begin{column}{5cm}
+\begin{equation*}
+\begin{split}
+    W&=U\cdot I \cdot \cos\left(\widehat{\mathcal{U},\mathcal{I}}  \right)\\%%
+    &=U\cdot I \cdot \cos \varphi=P    \end{split}
+\end{equation*}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\end{document}
+
+

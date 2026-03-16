@@ -1,0 +1,3 @@
+\beamer@sectionintoc {1}{Transformador ideal}{3}{0}{1}
+\beamer@sectionintoc {2}{Transformador trif\'asico}{9}{0}{2}
+\beamer@sectionintoc {3}{Principio de funcionamiento de las m\'aquinas el\'ectricas rotativas}{13}{0}{3}

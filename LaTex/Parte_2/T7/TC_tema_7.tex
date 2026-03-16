@@ -1,0 +1,1134 @@
+\documentclass{beamer}
+\setbeamercovered{transparent}
+
+
+\usetheme{CambridgeUS}
+\setbeamercolor{normal text}{bg=gray!20}
+\setbeamertemplate{blocks}[default]
+\setbeamercolor{block title}{fg=white,bg=red!60!black}
+\setbeamercolor{block body}{fg=black,bg=gray!15}
+
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{psfrag}
+\usepackage{pstricks}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[scriptsize,tight]{subfigure}
+\usepackage{multimedia}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{comment}
+\usepackage{ragged2e}
+
+\usefonttheme[onlymath]{serif}
+
+
+\setbeamertemplate{navigation symbols}{}  
+
+
+
+\author[Teoría de Circuitos]{Teoría de Circuitos}
+\title[Tema 7]{\scshape Tema 7}
+\subtitle{Resolución de circuitos de corriente alterna sinusoidal}
+
+\date[]{}
+\institute[ETSI]{Departamento de Ingeniería Eléctrica \\ Escuela Técnica Superior de Ingeniería\\ Universidad de Sevilla}
+
+%\title[Proyecto fin de carrera]{\scshape Obtención de Equivalentes Externos
+%para el Estudio de Transitorios Electro
+%magnéticos en  Redes Eléctricas}
+%\subtitle{Proyecto Fin de Carrera}
+%\author[Alfonso Bachiller Soler]{Alfonso Bachiller Soler}
+%\date[mayo de 2009]{Sevilla, mayo de 2009}
+%%\institute[]{Proyecto Fin de Carrera}
+
+\setcounter{tocdepth}{1}
+
+\AtBeginSection[]{
+\begin{frame}
+\frametitle{Índice}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+\begin{document}
+
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Índice}
+%\tableofcontents[pausesections]
+\tableofcontents
+\end{frame}
+
+%\section{Regímenes transitorio y permanente en corriente alterna}
+%
+%\begin{frame}
+%\frametitle{Regímenes transitorio y permanente}
+%\begin{block}{Circuito dinámico en corriente alterna}
+%\begin{columns}
+%\begin{column}{4.5cm}
+%%\vspace{-0.5cm}
+%\begin{small}
+%Aparece una evolución que adapta las condiciones iniciales a la respuesta sinusoidal impuesta por las fuentes.
+%\end{small}
+%\end{column}
+%\begin{column}{7cm}
+%\epsfig{file=./figuras_tema_7/grafica_RC_AC.eps,height=2.9cm}
+%%\hspace*{\fill}
+%\end{column}
+%\end{columns}
+%\end{block}
+%\begin{exampleblock}{Conexión de un circuito RC a una fuente de corriente alterna}
+%%\vspace{-0.3cm}
+%\begin{columns}
+%\begin{column}{6cm}
+%\fboxsep 5pt
+%\fcolorbox{blue}{white}{\epsfig{file=./figuras_tema_7/RC_AC_1.eps,height=2cm}}
+%\end{column}
+%\begin{column}{6cm}
+%{\epsfig{file=./figuras_tema_7/grafica_RC_AC_1.eps,height=2.5cm}}
+%\end{column}
+%\end{columns}
+%\end{exampleblock}
+%%\vspace{-0.2cm}
+%
+%%\begin{itemize}
+%%  \item La respuesta natural está impuesta por los elementos almacenadores. 
+%%  \item El régimen permanente está impuesto por las fuentes. 
+%%\end{itemize}
+%
+%\end{frame}
+
+\section{Contexto y justificación del uso de corriente alterna sinusoidal}
+
+\begin{frame}
+\frametitle{Contexto histórico}
+
+\begin{itemize}
+	\justifying
+	\item El uso de corriente alterna sinusoidal está ligado a las máquinas eléctricas para generación y transporte de energía.
+	\item \textbf{1832}. Primer generador de corriente eléctrica de Hippolyte Pixii.
+	\item \textbf{Guerra de las corrientes}. Finales de la década de 1880:
+	\begin{itemize}
+		\item Thomas A. Edison, \textit{General Electric}. Corriente continua (DC).
+		\item Nikola Tesla, \textit{Westinghouse Electric}. Corriente alterna (AC).
+	\end{itemize}
+	\item Se impuso la corriente alterna, usada mayoritariamente hoy en día.
+	\item División entre empresas europeas (50 Hz) y americanas (60 Hz).
+\end{itemize}
+
+\begin{columns}
+	\begin{column}{3.5cm}
+	\begin{figure}[hbt]
+	\centering
+	\includegraphics[height=2.5cm]{./figuras_tema_7/Pixii.jpg}
+	\end{figure}
+	\vspace{-0.5cm}
+	\begin{center}
+		\tiny{Hippolyte Pixii  \\
+			(1808-1835)}
+	\end{center}
+	\end{column}
+	
+	\begin{column}{3.5cm}
+	\begin{figure}[hbt]
+		\centering
+		\includegraphics[height=2.5cm]{./figuras_tema_7/Edison.jpg}
+	\end{figure}
+	\vspace{-0.5cm}
+	\begin{center}
+		\tiny{Thomas Alva Edison  \\
+			(1847-1931)}
+	\end{center}
+\end{column}
+
+\begin{column}{3.5cm}
+	\begin{figure}[hbt]
+		\centering
+		\includegraphics[height=2.5cm]{./figuras_tema_7/Tesla.jpeg}
+	\end{figure}
+	\vspace{-0.5cm}
+	\begin{center}
+		\tiny{Nikola Tesla  \\
+			(1856-1943)}
+	\end{center}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section{Ondas sinusoidales}
+
+%\subsection{Ondas sinusoidales y fasores}
+
+\begin{frame}
+\frametitle{Parámetros de ondas sinusoidales}
+
+\begin{center}
+$\boxed{m(t)=\sqrt{2}\cdot M\cdot \cos(\omega t+\varphi)}$
+\end{center}
+\vspace*{-0.5cm}
+\begin{columns}
+\begin{column}{5.5cm}
+\begin{figure}[hbt]
+\vspace*{-0.5cm}
+\epsfig{file=./figuras_tema_7/senoide.eps,height=3.0cm}
+\end{figure}
+\end{column}
+\begin{column}{6cm}
+{\small
+\begin{enumerate}
+  \item  $M \equiv$ Valor eficaz o RMS.
+  \item  $M\,\sqrt{2}\equiv$ Valor máximo o de pico.
+  \item  $\omega\equiv$ Frecuencia angular [rad/s].
+  \item  $\varphi\equiv$ Fase inicial (rad. o grados).
+\end{enumerate}
+}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+
+\begin{columns}
+\begin{column}[t]{6cm}
+\begin{itemize}
+  \item $\omega =2\,\pi\, f=\frac{2\,\pi}{T}$\\[0.2cm]
+$f\equiv$ Frecuencia [Hz].\\[0.2cm]
+$T\equiv$ Periodo [s].
+  \end{itemize}
+\end{column}
+\begin{column}[t]{6cm}
+\begin{itemize}
+   \item $M=\sqrt{\frac{1}{T}\int^T_0 m^2(t) \, dt}=\frac{M_{max}}{\sqrt{2}}$
+%\item Valor medio$={\frac{1}{T}\int^T_0 m(t) dt}=0$
+\end{itemize}
+\end{column}
+\end{columns}
+
+
+%\end{frame}
+%
+%%\section{Régimen permanente sinusoidal}
+%\begin{frame}
+%\frametitle{Ondas sinusoidales}
+%\begin{figure}[hbt]
+%\vspace*{-0.1cm}
+%\epsfig{file=./figuras_tema_7/regimen_permanente_sinus.eps,height=4.1cm}
+%\end{figure}
+%\vspace*{-0.3cm}
+%\begin{block}{}
+%\vspace*{-0.3cm}
+%{\small
+%\begin{enumerate}
+%\item
+%En régimen permanente de alterna todas las tensiones e intensidades son ondas sinusoidales (\textbf{coseno}) de la misma frecuencia que la de las fuentes de excitación (frecuencia única en el circuito).
+%\item
+%En caso de existir fuentes de distintas frecuencias (incluida corriente continua), será necesario aplicar superposición para obtener la respuesta a cada frecuencia.
+%\end{enumerate}
+%}
+%\end{block}
+%
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Ondas sinusoidales}
+
+
+\begin{exampleblock}{Ejemplo de tensión sinusoidal}
+
+Determinar la frecuencia angular, fase inicial, frecuencia, valor de pico y valor eficaz de la siguiente tensión sinusoidal:
+ \begin{equation*}
+u(t)= 70\,\sqrt{2}\,\cos(50\,t+60^\circ)\,\text{V}
+ \end{equation*}
+
+
+\begin{small}
+\textbf{Solución}: $\omega =50$ rad/s; $\varphi=60^\circ$; $f=\frac{50}{2\,\pi}$\,Hz; $U_{p}=70\,\sqrt{2} $ V; $U=70$ V
+\end{small}
+
+\end{exampleblock}
+
+\begin{exampleblock}{Ejemplo de intensidad sinusoidal}
+
+Determinar la frecuencia angular, fase inicial, frecuencia, valor de pico  y valor eficaz de la siguiente intensidad sinusoidal:
+ \begin{equation*}
+i(t)=20\,\sin(\pi\,1000\,t+30^\circ)\,\text{A}
+ \end{equation*}
+
+\begin{small}
+	\textbf{Solución}: $\omega =3141.6$ rad/s; $\varphi=-60^\circ$; $f=500$ Hz; $I_p = 20$ A; $I =\frac{20}{\sqrt{2}}$ A  
+\end{small}
+
+
+\end{exampleblock}
+
+
+\end{frame}
+
+
+
+
+\section{Concepto de fasor}
+\begin{frame}
+\frametitle{Concepto de fasor}
+
+\justifying
+El \textbf{fasor} es un número complejo asociado a una señal sinusoidal, cuyo módulo es el valor eficaz y su fase la fase inicial de la señal.
+\vspace{-0.5cm}
+\begin{columns}
+\begin{column}[t]{6cm}
+\begin{center}
+\structure{Representación temporal}
+\end{center}
+\end{column}
+\begin{column}[t]{6cm}
+\begin{center}
+\structure{Representación Fasorial}
+\end{center}
+\end{column}
+\end{columns}
+\vspace{-0.3cm}
+\begin{columns}
+\begin{column}{6cm}
+\begin{equation*}
+\begin{split}
+m(t)&=\sqrt{2}\cdot M\cdot \cos(\omega t+\varphi)\\
+&=\Re e \{\sqrt{2}\cdot M e^{j\left(\omega t+\varphi\right)}\}\\
+&=\Re e \{\sqrt{2}\cdot e^{j\omega t}\cdot {\underbrace{M e^{j\varphi}}_{Fasor}} \}
+\end{split}
+\end{equation*}
+\end{column}
+\begin{column}{6cm}
+\begin{center}
+$\underbrace{\mathcal{M}\triangleq M e^{j\varphi}= M\angle \varphi}$\\
+$\Downarrow$\\
+Fasor asociado  a $m(t)$
+\end{center}
+\end{column}
+\end{columns}
+\vspace{-0.3cm}
+\begin{columns}
+\begin{column}{6cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/senoide.eps,height=2.5cm}
+\end{figure}
+\end{column}
+\begin{column}{6cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/fasor.eps,height=2.5cm}
+\end{figure}
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+
+%\section{Revisión de números complejos}
+\begin{frame}
+\vspace{-0.2cm}
+\begin{block}{Representación de números complejos}
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/complejos.eps,height=2.9cm}
+\end{figure}
+\vspace{-0.2cm}
+\end{block}
+\vspace{-0.2cm}
+\begin{block}{Multiplicación y división de números complejos}
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/multi_divi.eps,height=1.2cm}
+\end{figure}
+\vspace{-0.2cm}
+\end{block}
+\vspace{-0.2cm}
+\begin{block}{Suma de números complejos}
+\vspace{-0.3cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/suma.eps,height=1.1cm}
+\end{figure}
+\end{block}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\begin{exampleblock}{Ejemplos de fasores}
+
+Obtener los fasores asociados a las siguientes funciones sinusoidales:
+%\begin{equation*}
+$$    
+u_1(t)=150\,\sqrt{2}\cos(\omega\, t+60^\circ)
+$$
+%\end{equation*}
+%\begin{equation*}
+$$
+    u_2(t)= 55\,\cos(\omega\, t-90^\circ)
+$$
+%\end{equation*}
+
+
+\textbf{Solución}: $\mathcal{U}_1=150\angle 60^\circ$; $\mathcal{U}_2=\frac{55}{\sqrt{2}}\angle -90^\circ$
+\end{exampleblock}
+
+
+
+\begin{exampleblock}{Ejemplos de operaciones con fasores}
+
+Aplicando el análisis fasorial, calcular la siguiente suma:
+\begin{equation*}
+    u(t)=150\,\sqrt{2}\,\cos(\omega\, t+60^\circ)+55\,\sqrt{2}\,\cos(\omega\, t-90^\circ)
+\end{equation*}
+
+\textbf{Solución}: $u(t)=106\,\sqrt{2}\,\cos(\omega\, t+44.96^\circ)$
+\end{exampleblock}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Circuito en dominio temporal y fasorial}
+\vspace{-0.4cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/regimen_permanente_sinus_fasores.eps,height=6.4cm}
+\end{figure}
+\vspace{-0.2cm}
+\justifying
+Si en el circuito hubiera fuentes de distinta frecuencia, se aplicaría el \textbf{principio de superposición}.
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Fuentes en corriente alterna sinusoidal}
+\vspace{-0.3cm}
+\begin{block}{Fuente ideal de tensión sinusoidal}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/f_tension_alterna.eps,height=2.3cm}
+\end{figure}
+\vspace{-0.2cm}
+\alert{La intensidad depende del circuito exterior.}
+\end{block}
+\vspace{-0.3cm}
+\begin{block}{Fuente ideal de intensidad sinusoidal}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/f_intensidad_alterna.eps,height=2.3cm}
+\end{figure}
+\vspace{-0.2cm}
+\alert{La tensión depende del circuito exterior.}
+\end{block}
+\end{frame}
+
+
+\section{Respuesta en alterna de resistencias, bobinas y condensadores}
+\begin{frame}
+\frametitle{Respuesta en alterna de resistencias}
+
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/comport_R.eps,height=4.1cm}
+\vspace{-0.2cm}
+\end{figure}
+\hrule
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/R_AC.eps,height=2.2cm}
+\end{figure}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Respuesta en alterna de bobinas/inductancias}
+
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/comport_L.eps,height=4.1cm}
+\vspace{-0.2cm}
+\end{figure}
+\hrule
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/L_AC.eps,height=2.2cm}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Respuesta en alterna de condensadores}
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/comport_C.eps,height=4.1cm}
+\vspace{-0.2cm}
+\end{figure}
+\hrule
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/C_AC.eps,height=2.2cm}
+\end{figure}
+\end{frame}
+
+
+\section{Definición de impedancia y admitancia}
+\begin{frame}
+
+%\vspace*{-0.5cm}
+\begin{block}{Relación entre tensión e intensidad en fasores}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/imp.eps,height=1.8cm}
+\end{figure}
+\end{block}
+
+
+\begin{block}{Impedancia compleja [Ohmio, $\Omega$]}
+
+\begin{columns}
+\begin{column}{5.5cm}
+\begin{equation*}
+    \mathcal{Z}=\frac{{U}\angle \varphi_u}{{I}\angle \varphi_i}=Z\angle \varphi=R+jX
+\end{equation*}
+\vspace*{-0.3cm}
+$$\varphi = \varphi_u - \varphi_i$$
+\begin{equation*}
+\begin{split}
+R \  &\equiv \ \text{Resistencia}\\ %%
+%X \  &\equiv \ \text{Reactancia} 
+X>0 \  &\equiv \ \text{Reactancia inductiva}\\%%
+X<0 \  &\equiv \ \text{Reactancia capacitiva}
+\end{split}
+\end{equation*}
+%\structure{Unidades en el SI:} Ohmio [$\Omega$].
+%\end{small}
+%\vspace*{-0.2cm}
+\end{column}
+\begin{column}{5.7cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/triangulo_Z.eps,height=2cm}
+\end{figure}
+\end{column}
+\end{columns}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+
+
+\begin{block}{Admitancia compleja [Siemens, S]}
+\vspace*{-0.3cm}
+%\begin{small}
+\begin{columns}
+\begin{column}{5.5cm}
+\begin{equation*}
+    \mathcal{Y}=\frac{1}{\mathcal{Z}}=\frac{{I}\angle \varphi_i}{{U}\angle \varphi_u}=Y\angle \varphi'=G+jB
+\end{equation*}
+\vspace*{-0.3cm}
+$$\varphi' = - \varphi =\varphi_i - \varphi_u$$
+\begin{equation*}
+\begin{split}
+G \  &\equiv \ \text{Conductancia}\\ %%
+%B \  &\equiv \ \text{Susceptancia}
+B>0 \  &\equiv \ \text{Susceptancia capacitiva}\\%%
+B<0 \  &\equiv \ \text{Susceptancia inductiva}
+\end{split}
+\end{equation*}
+%\structure{Unidades en el SI:} Siemens [S].
+%\end{small}
+\end{column}
+\begin{column}{5.7cm}
+%\vspace*{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/triangulo_Y.eps,height=2cm}
+\end{figure}
+\end{column}
+\end{columns}
+\end{block}
+
+%\end{column}
+%\end{columns}
+%\vspace*{-0.2cm}
+\begin{alertblock}{}
+\begin{center}
+\alert{$\mathcal{Z}$ e $\mathcal{Y}$ son números complejos pero no son fasores. \\ 
+(los fasores están siempre asociados a señales sinusoidales)}
+\\ 
+Impedancia y admitancia juegan el papel de resistencia y conductancia en circuitos de corriente alterna sinusoidal en el dominio fasorial.
+\end{center}
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Impedancia y admitancia de resistencia, bobina y condensador}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|c||c||c|}
+\cline{1-3}
+%  \multicolumn{1}{c||}{}& \multicolumn{2}{c||}{$\mathcal{Z}$}& \multicolumn{2}{c|}{$\mathcal{Y}$}  \\ %
+%\cline{1-5}
+%  \multicolumn{7}{c||}{}& EISPACK & \multicolumn{2}{c|}{Proposed} & Ratio & \multicolumn{1}{c}{}  \\  \hline%
+\rule[-1em]{0pt}{3em}{Elemento} & $\bf \mathcal{Z}$ & $\bf \mathcal{Y}$  \\ \hline \hline%
+\rule[-1em]{0pt}{3em} \textbf{Resistencia} & $R$ & $\cfrac{1}{R}$    \\ \hline \hline%
+\rule[-1em]{0pt}{3em} \textbf{Bobina} & $j\,\omega\, L=j\,X_L$ & $\cfrac{-j}{\omega\, L}=j\,B_L$    \\ \hline \hline%
+\rule[-1em]{0pt}{3em} \textbf{Condensador} & $\cfrac{-j}{\omega\, C}=j\,X_C$ & $j\,\omega\, C=j\,B_C$   \\ \hline %
+\end{tabular}
+\end{center}
+\end{table}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+%\begin{block}{Impedancia genérica}
+%\begin{figure}[hbt]
+%\centering
+%\epsfig{file=./figuras_tema_7/imp_generica.eps,height=1.5cm}
+%\end{figure}
+%\end{block}
+
+%\vspace{-0.2cm}
+
+\begin{block}{Impedancia de carácter inductivo}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/imp_inductiva.eps,height=2.6cm}
+\end{figure}
+\end{block}
+
+\vspace{-0.2cm}
+
+\begin{block}{Impedancia de carácter capacitivo}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/imp_capacitiva.eps,height=2.6cm}
+\end{figure}
+\end{block}
+
+
+\end{frame}
+
+\section{Análisis de circuitos en régimen permanente sinusoidal}
+
+
+\begin{frame}
+\frametitle{Leyes de Kirchhoff en corriente alterna. Intensidades}
+
+\begin{equation*}
+\begin{split}
+    \sum_{k} i_k(t)&=\sum_{k} \sqrt{2}I_k\cos(\omega t+\varphi_k)\\
+    &=\sum_{k} \Re e [\sqrt{2}e^{j\omega t} I_k  e^{j\varphi_k}]\\
+    &=\sum_{k} \Re e [\sqrt{2}e^{j\omega t} \mathcal{I}_k]=0 \ \ \Leftrightarrow \ \ \boxed{\sum_{k}\mathcal{I}_k=0}
+\end{split}
+\end{equation*}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/1K_AC.eps,height=2cm}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Leyes de Kirchhoff en corriente alterna. Tensiones}
+
+\vspace{-0.3cm}
+\begin{equation*}
+\begin{split}
+ \sum_{k} u_k(t)&=\sum_{k} \sqrt{2}U_k\cos(\omega t+\varphi_k)\\
+    &=\sum_{k} \Re e [\sqrt{2}e^{j\omega t} U_k  e^{j\varphi_k}]\\
+    &=\sum_{k} \Re e [\sqrt{2}e^{j\omega t} \mathcal{U}_k]=0 \ \ \Leftrightarrow \ \ \boxed{\sum_{k}\mathcal{U}_k=0}
+    \end{split}
+ \end{equation*}
+
+%\end{block}
+\vspace{-0.6cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/2K_AC.eps,height=3.0cm}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Asociación de elementos pasivos}
+	\begin{block}{Asociación de impedancias: asociación en serie}
+		\vspace*{-0.3cm}
+		\begin{columns}
+			\begin{column}{8cm}
+				\begin{figure}[hbt]
+					\epsfig{file=./figuras_tema_7/serie_Z.eps,height=1.3cm}
+					\label{serie_R}
+				\end{figure}
+			\end{column}
+			\begin{column}{3cm}
+				$$\boxed{\mathcal{Z}_{eq}=\sum^n_{j=1} \mathcal{Z}_j}$$
+			\end{column}
+		\end{columns}
+		\vspace*{-0.2cm}
+		\begin{columns}
+			\begin{column}{3cm}
+				%\vspace{0.2cm}
+				%\begin{small}
+				\structure{Divisor de tensión:} 
+				%onocida $\mathcal{U}$ se puede determinar la caída de tensión en uno de los elementos, $\mathcal{U}_k$.
+				%\vspace{-0.5cm}
+			\end{column}
+			\begin{column}{8cm}
+				\begin{equation*}
+					\mathcal{U}_k=\mathcal{Z}_k\cdot \mathcal{I}=\mathcal{Z}_k\cdot \frac{\mathcal{U}}{\mathcal{Z}_{eq}} \ \ \rightsquigarrow \ \  \boxed{\mathcal{U}_k=\frac{\mathcal{Z}_k}{\sum^n_{j=1} \mathcal{Z}_j}\cdot \mathcal{U}}
+				\end{equation*}
+			\end{column}
+		\end{columns}
+		%\end{small}
+		%\vspace{-0.3cm}
+	\end{block}
+	\vspace{-0.2cm}
+	\begin{block}{Asociación de admitancias: asociación en paralelo}
+		
+		\vspace*{-0.2cm}
+		\begin{columns}
+			\begin{column}{8cm}
+				\begin{figure}[hbt]
+					\epsfig{file=./figuras_tema_7/paralelo_Z.eps,height=1.5cm}
+					\label{paralelo_R}
+				\end{figure}
+			\end{column}
+			\begin{column}{4cm}
+				$$\hspace{-0.5cm} \boxed{\mathcal{Y}_{eq}=\sum^n_{j=1} \mathcal{Y}_j=\sum^n_{j=1} \frac{1}{\mathcal{Z}_{j}}}$$
+			\end{column}
+		\end{columns}
+		\vspace*{-0.2cm}
+		\begin{columns}
+			\begin{column}{3.5cm}
+				%\vspace*{0.2cm}
+				%\begin{small}
+				\structure{Divisor de intensidad:} 
+				%Conocida $\mathcal{I}$ se puede determinar la intensidad en uno de los elementos, $\mathcal{I}_k$.
+				%\vspace*{-0.5cm}
+			\end{column}
+			\begin{column}{8cm}
+				\begin{equation*}
+					\mathcal{I}_k=\mathcal{Y}_k\cdot \mathcal{U}=\mathcal{Y}_k\cdot \frac{\mathcal{I}}{\mathcal{Y}_{eq}} \ \ \rightsquigarrow \ \  \boxed{\mathcal{I}_k=\frac{\mathcal{Y}_k}{\sum^n_{j=1} \mathcal{Y}_j}\cdot \mathcal{I}}
+				\end{equation*}
+				%\end{small}
+				%\vspace*{-0.4cm}
+			\end{column}
+		\end{columns}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+
+\begin{exampleblock}{Ejercicio 7.1}
+\justifying
+Calcular la intensidad $i(t)$ en el circuito de la figura sabiendo que $R=90 \,\Omega$, $L=32$ mH, $C=5$ $\mu$F y $u_g(t)=750\, \sqrt{2}\, \cos(5000\,t+30^\circ)$\,V.
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/ejercicio_3_1.eps,height=1.8cm}
+\end{figure}
+
+\textbf{Solución}: $i(t)= 5\, \sqrt{2}\,\cos(5000\,t-23.13^\circ)$\,A
+
+\end{exampleblock}
+\end{frame}
+
+\subsection{Ecuaciones de nudos y mallas en corriente alterna}
+
+\begin{frame}
+\frametitle{Ecuaciones de nudos y mallas en corriente alterna}
+\begin{block}{Ecuaciones de nudos}
+%\begin{small}
+\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    \mathcal{Y}_{N_{(1,1)}} & \cdots & \mathcal{Y}_{N_{(1,n-1)}} \\
+    \vdots & \ddots & \vdots \\
+    \mathcal{Y}_{N_{(n-1,1)}} & \cdots & \mathcal{Y}_{N_{(n-1,n-1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       \mathcal{U}_{N_1}  \\
+        \vdots \\
+        \mathcal{U}_{N_{n-1}}  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       \mathcal{I}_{N_1}  \\
+        \vdots \\
+         \mathcal{I}_{N_{n-1}}  \\
+      \end{array}
+    \right)}
+\end{equation*}
+$$\Downarrow$$
+$$\boxed{\textbf{Y}_N\cdot\textbf{U}_N=\textbf{I}_N}$$
+
+\vspace{0.5cm}
+\begin{description}
+  \item[\textbf{Y}$_N$] Matriz de admitancias nodales.
+  \item[\textbf{U}$_N$] Vector de tensiones de nudos.
+  \item[\textbf{I}$_N$] Vector de intensidades inyectadas en los nudos.
+\end{description}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ecuaciones de nudos y mallas en corriente alterna}
+\begin{block}{Ecuaciones de nudos}
+\begin{small}
+\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    \mathcal{Y}_{N_{(1,1)}} & \cdots & \mathcal{Y}_{N_{(1,n-1)}} \\
+    \vdots & \ddots & \vdots \\
+    \mathcal{Y}_{N_{(n-1,1)}} & \cdots & \mathcal{Y}_{N_{(n-1,n-1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       \mathcal{U}_{N_1}  \\
+        \vdots \\
+        \mathcal{U}_{N_{n-1}}  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       \mathcal{I}_{N_1}  \\
+        \vdots \\
+         \mathcal{I}_{N_{n-1}}  \\
+      \end{array}
+    \right)}
+\end{equation*}
+
+
+\begin{enumerate}
+  \item Elementos de la matriz \textbf{Y}$_N$
+\begin{equation*}
+\begin{split}
+\mathcal{Y}_{N_{(j,j)}}&=\sum_{k}\mathcal{Y}_{jk} \ \ \text{sumatorio de admitancias conectadas al nudo $j$}\\
+\mathcal{Y}_{N_{(j,k)}}&=-\mathcal{Y}_{jk} \ \ \text{admitancia total entre el nudo $j$ y el nudo $k$}
+\end{split}
+\end{equation*}
+
+  \item Elementos del vector \textbf{I}$_N$
+    \begin{equation*}
+\begin{array}{cl}
+  \mathcal{I}_{N_j}=\sum_{j} \mathcal{I}_{N_{pj}}-\mathcal{I}_{N_{nj}} &   \text{sumatorio de las fuentes de intensidad}\\
+   &  \text{que inciden en el nudo $j$, positivas si entran}\\
+   &  \text{en el nudo y negativas si salen}
+\end{array}
+ \end{equation*}
+\end{enumerate}
+\end{small}
+
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Ecuaciones de nudos y mallas en corriente alterna}
+\begin{block}{Ecuaciones de mallas}
+\begin{small}
+\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    \mathcal{Z}_{M_{(1,1)}} & \cdots & \mathcal{Z}_{M_{(1,c-n+1)}} \\
+    \vdots & \ddots & \vdots \\
+    \mathcal{Z}_{M_{(c-n+1,1)}} & \cdots & \mathcal{Z}_{M_{(c-n+1,c-n+1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       \mathcal{I}_{M_1}  \\
+        \vdots \\
+        \mathcal{I}_{M_{c-n+1}}  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       \mathcal{U}_{M_1}  \\
+        \vdots \\
+        \mathcal{U}_{M_{c-n+1}}  \\
+      \end{array}
+    \right)}
+\end{equation*}
+\end{small}
+$$\Downarrow$$
+$$\boxed{\textbf{Z}_M\cdot\textbf{I}_M=\textbf{U}_M}$$
+
+\vspace{0.5cm}
+\begin{description}
+  \item[\textbf{Z}$_M$] Matriz de impedancias de mallas.
+  \item[\textbf{I}$_M$] Vector de intensidades de mallas.
+  \item[\textbf{U}$_M$] Vector de tensiones aplicadas a las mallas.
+\end{description}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ecuaciones de nudos y mallas en corriente alterna}
+\vspace{-0.2cm}
+\begin{block}{Ecuaciones de mallas}
+\vspace{-0.4cm}
+\begin{small}
+\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    \mathcal{Z}_{M_{(1,1)}} & \cdots & \mathcal{Z}_{M_{(1,c-n+1)}} \\
+    \vdots & \ddots & \vdots \\
+    \mathcal{Z}_{M_{(c-n+1,1)}} & \cdots & \mathcal{Z}_{M_{(c-n+1,c-n+1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       \mathcal{I}_{M_1}  \\
+        \vdots \\
+        \mathcal{I}_{M_{c-n+1}}  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       \mathcal{U}_{M_1}  \\
+        \vdots \\
+        \mathcal{U}_{M_{c-n+1}}  \\
+      \end{array}
+    \right)}
+\end{equation*}
+\vspace{-0.3cm}
+\begin{enumerate}
+  \item Elementos de la matriz \textbf{Z}$_M$
+\begin{equation*}
+\begin{split}
+\mathcal{Z}_{M_{(j,j)}}&=\sum_{k}\mathcal{Z}_{jk} \ \ \text{sumatorio de impedancias pertenecientes a la malla $j$}\\
+\mathcal{Z}_{M_{(j,k)}}&=-\mathcal{Z}_{jk} \ \ \text{impedancia total común de la malla $j$ y la malla $k$}
+\end{split}
+\end{equation*}
+  \item Elementos del vector \textbf{U}$_M$
+    \begin{equation*}
+\begin{array}{cl}
+\mathcal{U}_{M_j}=\sum_{j} \mathcal{U}_{M_{pj}}-\mathcal{U}_{M_{nj}} &   \text{sumatorio de las fuentes de tensión que}\\
+   &  \text{pertenecen a la malla $j$, con signo positivo si }\\
+   & \text{la intensidad de malla sale por el terminal} \\
+   & \text{positivo de la fuente, y negativo si entra}
+   \end{array}
+ \end{equation*}
+\end{enumerate}
+\end{small}
+
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+	\begin{exampleblock}{Ejercicio 7.2}
+		\justifying
+		Determinar las intensidades de malla del circuito de la figura. 
+		
+		Datos: $\omega = 10$ rad/s, $L = 1$ H, $L_1 = 0,2$ H, $L_2 = 0,1$ H, $C = 10$ mF, $R = 1 \, \mathrm{\Omega}$, $\mathcal{U}_{g}=5\angle 0^\circ$ V, $\mathcal{I}_{g}=0,2\angle -90^\circ$ A.
+		
+		\begin{figure}[hbt]
+			\centering
+			\includegraphics[height=3.5cm]{./figuras_tema_7/Ej_mallas.PNG}
+		\end{figure}
+		\textbf{Solución}: $\mathcal{I}_{a}=0,625\angle -90^\circ$ A, $\mathcal{I}_{b}=0,272\angle -84^\circ$ A
+	\end{exampleblock}
+\end{frame}
+
+
+\subsection{Equivalentes Thévenin y Norton}
+\begin{frame}
+\frametitle{Equivalentes Thévenin y Norton}
+\begin{block}{Equivalente Thévenin}
+\vspace*{-0.2cm}
+\begin{columns}
+\begin{column}{8cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_7/thevenin_AC.eps,height=2.7cm}
+\end{figure}
+\end{column}
+\begin{column}{3cm}
+$$\boxed{\mathcal{U}_{th}=\left.\mathcal{U}_{ca}\right|_{{AB}}}$$
+$$\boxed{\mathcal{Z}_{th}=\left.\mathcal{Z}_{eq}\right|_{{AB}}}$$
+\end{column}
+\end{columns}
+\end{block}
+
+
+\begin{block}{Equivalente Norton}
+\vspace*{-0.2cm}
+\begin{columns}
+\begin{column}{8cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_7/norton_AC.eps,height=2.7cm}
+\end{figure}
+\end{column}
+\begin{column}{3cm}
+$$\boxed{\mathcal{I}_{nor}=\left.\mathcal{I}_{cc}\right|_{{AB}}}$$
+$$\boxed{\mathcal{Z}_{nor}=\left.\mathcal{Z}_{eq}\right|_{{AB}}}$$
+\end{column}
+\end{columns}
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+	\begin{exampleblock}{Ejercicio 7.3}
+		\justifying
+		Encontrar el equivalente Thévenin entre los terminales A y B del circuito de la figura. Datos: $E_g$ = 10 V, $Z_1$ = 2j $\Omega$, $Z_2$ = 5j $\Omega$ y $Z_c$ = -10j $\Omega$.
+		
+		\begin{figure}[hbt]
+			\centering
+			\epsfig{file=./figuras_tema_7/Ej_the.eps,height=3.5cm}
+		\end{figure}
+		\textbf{Solución}: $\mathcal{U}_{th}=\frac{50}{6}\angle 0^\circ$ V, $Z_{th}=\frac{5}{3}j \, \mathrm{\Omega}$
+	\end{exampleblock}
+\end{frame}
+
+
+
+
+\section{Diagramas fasoriales}
+\begin{frame}
+\frametitle{Diagramas fasoriales}
+\justifying
+Un \textbf{diagrama fasorial} es una representación, en el plano complejo, de los fasores asociados a las tensiones e intensidades de un circuito.
+%\end{block}
+%\begin{block}{Algunas observaciones}
+\begin{small}
+\begin{itemize}
+\item 
+Sirve de ayuda para la resolución de problemas en corriente alterna.
+\item La  solución geométrica puede ser más rápida e intuitiva que la analítica.
+\item Puede ayudar a identificar un error cometido durante el proceso de cálculo.
+\end{itemize}
+\end{small}
+%\end{block}
+%\end{frame}
+
+%\begin{frame}
+%\frametitle{}
+
+\begin{columns}
+\begin{column}{5cm}
+%\centering
+%Divisor de tensión inductivo
+\begin{exampleblock}{Divisor de tensión inductivo}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_7/divisor_inductivo.eps,height=2.6cm}
+\end{figure}
+\end{exampleblock}
+\end{column}
+\begin{column}{6cm}
+%\centering
+%Divisor de intensidad capacitivo
+\begin{exampleblock}{Divisor de intensidad capacitivo}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_7/divisor_capacitivo.eps,height=2.5cm}
+\end{figure}
+\end{exampleblock}
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+
+\section{Medidas de tensión e intensidad en corriente alterna}
+
+\begin{frame}
+\frametitle{Medidas de tensión e intensidad en corriente alterna}
+\begin{columns}
+\begin{column}{8cm}
+\begin{block}{Amperímetro}
+%\begin{itemize}
+%  \item 
+Mide el valor eficaz de la onda de intensidad.
+%  \end{itemize}
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/medida_intensidad.eps,height=2cm}
+\end{figure}
+
+\end{block}
+\begin{block}{Voltímetro}
+%\begin{itemize}
+%  \item 
+Mide el valor eficaz de la onda de tensión.
+%  \end{itemize}
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/medida_tension.eps,height=1.8cm}
+\end{figure}
+\end{block}
+\end{column}
+\begin{column}{3cm}
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_7/polimetro.eps,height=5cm}
+\end{figure}
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+
+\end{document}
+
+

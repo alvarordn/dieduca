@@ -1,0 +1,3 @@
+\beamer@sectionintoc {1}{Sistemas trif\'asicos}{3}{0}{1}
+\beamer@sectionintoc {2}{Tensiones e intensidades de l\IeC {\'\i }nea y de fase}{13}{0}{2}
+\beamer@sectionintoc {3}{Circuito monof\'asico equivalente de un sistema trif\'asico en estrella}{22}{0}{3}
