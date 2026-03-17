@@ -15,9 +15,10 @@
 
     <div class="nav-center">
       <ul class="navbar-menu" [class.active]="menuMovilAbierto">
+        
         @if (authService.isLoggedIn()) {
           <li class="navbar-item d-lg-none user-mobile-header">
-            <div class="d-flex align-items-center gap-2">
+            <div class="mobile-user-box">
               <i class="bi bi-person-circle"></i>
               <span class="user-name">{{ nombreUsuario }}</span>
             </div>
@@ -26,21 +27,23 @@
 
         @for (bloque of bloques; track bloque.id) {
           <li class="navbar-item" (mouseenter)="abrirDesplegable(bloque.id)" (mouseleave)="cerrarDesplegable()">
-            <span class="bloque-nombre" (click)="toggleDesplegableMovil(bloque.id)">
-              {{ bloque.nombre }}
-              <i class="bi bi-chevron-down arrow-icon ms-1"></i>
-            </span>
+            <div class="bloque-wrapper">
+              <span class="bloque-nombre" (click)="toggleDesplegableMovil(bloque.id)">
+                {{ bloque.nombre }}
+                <i class="bi bi-chevron-down arrow-icon"></i>
+              </span>
 
-            @if (estaAbierto(bloque.id)) {
-              <div class="desplegable shadow">
-                <a [routerLink]="['/bloque', bloque.id, 'teoria']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
-                  <i class="bi bi-book me-2"></i> Teoría Bloque {{ bloque.id }}
-                </a>
-                <a [routerLink]="['/bloque', bloque.id, 'ejercicio']" routerLinkActive="active" class="desplegable-item" (click)="cerrarMenuMovil()">
-                  <i class="bi bi-pencil-square me-2"></i> Ejercicio Bloque {{ bloque.id }}
-                </a>
-              </div>
-            }
+              @if (estaAbierto(bloque.id)) {
+                <div class="desplegable">
+                  <a [routerLink]="['/bloque', bloque.id, 'teoria']" class="desplegable-item" (click)="cerrarMenuMovil()">
+                    <i class="bi bi-book me-2"></i> Teoría Bloque {{ bloque.id }}
+                  </a>
+                  <a [routerLink]="['/bloque', bloque.id, 'ejercicio']" class="desplegable-item" (click)="cerrarMenuMovil()">
+                    <i class="bi bi-pencil-square me-2"></i> Ejercicio Bloque {{ bloque.id }}
+                  </a>
+                </div>
+              }
+            </div>
           </li>
         }
       </ul>

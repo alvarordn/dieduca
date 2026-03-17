@@ -4,120 +4,84 @@
   <div class="bloque-card animate-fadeIn">
     <header class="header-section">
       <span class="header-badge">Bloque {{ bloqueId }}</span>
-      <h1>Generador de Ejercicios</h1>
+      <h1>Análisis de Circuitos</h1>
       <div class="header-line"></div>
     </header>
 
     <div class="ejercicio-content">
       <section class="config-section">
-        <h3><i class="bi bi-gear-fill"></i> Configuración</h3>
+        <h3><i class="bi bi-gear-fill"></i> Parámetros de Generación</h3>
         <div class="controles-grid">
           <div class="control-group">
-            <label for="rows">Filas (2-6)</label>
-            <input
-              type="number"
-              id="rows"
-              [(ngModel)]="rows"
-              min="2"
-              max="6"
-              [disabled]="cargando"
-            />
+            <label>Filas</label>
+            <input type="number" [(ngModel)]="rows" min="2" max="6" [disabled]="cargando" />
           </div>
-
           <div class="control-group">
-            <label for="cols">Columnas (2-6)</label>
-            <input
-              type="number"
-              id="cols"
-              [(ngModel)]="cols"
-              min="2"
-              max="6"
-              [disabled]="cargando"
-            />
+            <label>Columnas</label>
+            <input type="number" [(ngModel)]="cols" min="2" max="6" [disabled]="cargando" />
           </div>
         </div>
 
-        <button
-          class="btn-generar"
-          (click)="generarEjercicio()"
-          [disabled]="cargando"
-        >
+        <button class="btn-generar" (click)="generarEjercicio()" [disabled]="cargando">
           @if (!cargando) {
-            <i class="bi bi-lightning-charge-fill"></i> Generar ejercicio ({{
-              rows
-            }}x{{ cols }})
+            <span><i class="bi bi-lightning-charge"></i> Generar Nuevo Circuito</span>
           } @else {
-            <span class="loader"></span> Generando...
+            <span class="loader"></span>
           }
+
         </button>
       </section>
-
+      
       @if (errorCircuito) {
         <div class="error-content">
-          <i class="bi bi-exclamation-octagon-fill"></i>
-          <div class="error-text">
-            <strong>¡Atención!</strong>
-            <p>{{ errorCircuito }}</p>
-          </div>
+          <i class="bi bi-exclamation-triangle"></i> {{ errorCircuito }}
         </div>
       }
 
-      @if (circuitoGenerado && circuitoGenerado.success && !cargando) {
-        <div class="circuit-display">
-          <app-circuit-viewer
-            [circuitData]="circuitoGenerado.circuito"
-          ></app-circuit-viewer>
-        </div>
-           <section class="preguntas-section">
-          <div class="section-title">
-            <i class="bi bi-pencil-square"></i>
-            <h3>Preguntas sobre el circuito</h3>
+      @if (circuitoGenerado?.success && !cargando) {
+        <div class="main-display">
+          
+          <div class="circuit-container">
+            <app-circuit-viewer [circuitData]="circuitoGenerado.circuito"></app-circuit-viewer>
           </div>
-          <p class="instruccion">
-            Calcula la <strong>magnitud</strong> (módulo) de los siguientes valores:
-          </p>
 
-          <div class="preguntas-grid">
-            @for (p of preguntasEjemplo; track $index) {
-              <div class="pregunta-item" [ngClass]="{'acierto': p.acertada === true, 'error': p.acertada === false}">
-                <label>
-                  {{ p.label }}
-                </label>
+          <section class="preguntas-section">
+            <div class="section-title">
+              <i class="bi bi-pencil-square"></i>
+              <h3>Evaluación Técnica</h3>
+            </div>
 
-                <div class="input-wrapper">
-                  <input
-                    type="number"
-                    placeholder="0.00"
-                    [(ngModel)]="p.respuestaUsuario"
-                    step="0.01"
-                  />
-                  <span class="unit">V</span>
+            <div class="preguntas-grid">
+              @for (p of preguntasEjemplo; track p.label) {
+                <div class="pregunta-item" 
+                     [ngClass]="{'acierto': p.acertada === true, 'error': p.acertada === false}">
+                  <label>{{ p.label }}</label>
+                  <div class="input-wrapper">
+                    <input type="number" [(ngModel)]="p.respuestaUsuario" placeholder="0.00" step="0.01">
+                    <span class="unit">{{ p.unidad }}</span>
+                    
+                    
+                  </div>
                 </div>
+              }
+            </div>
+
+            <div class="acciones-footer">
+              <button class="btn-comprobar" (click)="comprobarRespuestas()">
+                <i class="bi bi-send-check"></i>  Enviar Evaluación
+              </button>
+              <button class="btn-limpiar" (click)="limpiarRespuestas()">
+                <i class="bi bi-arrow-counterclockwise"></i>
+              </button>
+            </div>
+
+            @if (resultadoVisible) {
+              <div class="feedback-toast" [class.success]="mensajeResultado.includes('Excelente')">
+                {{ mensajeResultado }}
               </div>
             }
-          </div>
-
-          <div class="acciones-footer">
-            <button class="btn-comprobar" (click)="comprobarRespuestas()">
-              <i class="bi bi-check-circle-fill"></i> Comprobar
-            </button>
-            <button class="btn-limpiar" (click)="limpiarRespuestas()">
-              <i class="bi bi-arrow-counterclockwise"></i>
-            </button>
-          </div>
           </section>
-        
-       
-
-          @if (resultadoVisible) {
-            <div
-              class="feedback-toast"
-              [class.success]="mensajeResultado.includes('Excelente')"
-            >
-              {{ mensajeResultado }}
-            </div>
-          }
-        
+        </div>
       }
     </div>
   </div>

@@ -60,7 +60,7 @@
 }
 
 .wire-line {
-  stroke: #334155;
+  stroke: #000000;
   stroke-width: 4px;
   stroke-linecap: round;
 }

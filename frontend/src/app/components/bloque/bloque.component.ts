@@ -17,12 +17,11 @@ export class BloqueComponent implements OnInit {
   public bloqueId: number = 0;
   public cargando: boolean = false;
   public errorCircuito: string = '';
-  public circuitoGenerado = <any>{};
+  public circuitoGenerado: any = null;
   public mensajeResultado: string = '';
   public resultadoVisible: boolean = false;
 
   preguntasEjemplo: any[] = [];
-
   rows: number = 2;
   cols: number = 3;
 
@@ -38,154 +37,174 @@ export class BloqueComponent implements OnInit {
     });
   }
 
+  limpiarEstado() {
+    this.circuitoGenerado = null;
+    this.preguntasEjemplo = [];
+    this.resultadoVisible = false;
+  }
+
   limpiarRespuestas() {
     this.resultadoVisible = false;
     this.mensajeResultado = '';
-    this.resultadoVisible = false;
-    this.mensajeResultado = '';
-    this.errorCircuito = '';
     this.preguntasEjemplo.forEach((p) => {
-      p.respuestaUsuario = null; // Borra el número escrito
-      p.acertada = undefined; // <--- ESTO QUITA EL COLOR (verde/rojo)
+      p.respuestaUsuario = null;
+      p.acertada = undefined;
     });
   }
 
-  limpiarEstado() {}
+  // Procesa el string complejo "real+imagj" y devuelve la magnitud (módulo)
+  obtenerValorNumerico(val: any): number {
+    if (!val) return 0;
+    const str = val.toString().replace('j', '');
+    const partes = str.match(/[+-]?\d+(\.\d+)?([eE][+-]?\d+)?/g) || [];
+    const real = Number(partes[0] || 0);
+    const imag = Number(partes[1] || 0);
+    return Math.sqrt(real * real + imag * imag);
+  }
 
-  calcularMagnitud(seleccion: any[]) {
-    console.log('Calcular magnitud', seleccion);
-
-    this.preguntasEjemplo = seleccion.map((n) => {
-      //quitamos la j
-
-      const sinJ = n.potential.replace('j', '');
-      console.log('sin j', sinJ);
-
-      const partes = sinJ.match(/[+-]?\d+(\.\d+)?/g) || [];
-
-      console.log('partes', partes);
-
-      const real = Number(partes[0] || 0);
-      console.log('Real', real);
-
-      const imag = Number(partes[1] || 0);
-      console.log('imaginario', imag);
-
-      const magnitud = Math.sqrt(real * real + imag * imag);
-      console.log('magnitud', magnitud);
-
-      return {
-        label: `Magnitud de tensión en ${n.id}`,
-        valorReal: magnitud,
+  prepararPreguntas(circuito: any) {
+    this.preguntasEjemplo = [];
+    
+    // 1. TENSIÓN DE NODO (Potential en cir.G.nodes)
+    const nodosValidos = circuito.nodos.filter((n: any) => n.id !== 'N00');
+    if (nodosValidos.length > 0) {
+      const n = nodosValidos[Math.floor(Math.random() * nodosValidos.length)];
+      console.log("nodo random",n)
+      this.preguntasEjemplo.push({
+        id: 'potencial',
+        label: `Potencial eléctrico en el nodo ${n.id}`,
+        valorReal: this.obtenerValorNumerico(n.potential),
+        unidad: 'V',
         respuestaUsuario: null,
-      };
-    });
+        acertada: undefined
+      });
+    }
+
+    // 2. CORRIENTE Y CAÍDA DE TENSIÓN (Current y V_drop en cir.G.edges)
+    // Filtramos componentes reales (R, V, I) ignorando cables y esquinas
+    const comps = circuito.componentes.filter((c: any) => 
+      c.type !== 'wire' && c.type !== 'corner' && c.id
+    );
+    const aleatorios = [...comps].sort(() => Math.random() - 0.5);
+
+    // Preguntamos por corriente de uno
+    if (aleatorios[0]) {
+      this.preguntasEjemplo.push({
+        id: 'corriente',
+        label: `Intensidad de corriente en ${aleatorios[0].id}`,
+        valorReal: this.obtenerValorNumerico(aleatorios[0].current),
+        unidad: 'A',
+        respuestaUsuario: null,
+        acertada: undefined
+      });
+    }
+
+    // Preguntamos por caída de tensión de otro
+    if (aleatorios[1]) {
+      this.preguntasEjemplo.push({
+        id: 'vdrop',
+        label: `Caída de tensión (V_drop) en ${aleatorios[1].id}`,
+        valorReal: this.obtenerValorNumerico(aleatorios[1].v_drop),
+        unidad: 'V',
+        respuestaUsuario: null,
+        acertada: undefined
+      });
+    }
+
+    // 3. DIFERENCIA DE POTENCIAL Vab (Entre dos nodos aleatorios)
+    if (nodosValidos.length >= 2) {
+      const nA = nodosValidos[0];
+      const nB = nodosValidos[1];
+      const vab = Math.abs(this.obtenerValorNumerico(nA.potential) - this.obtenerValorNumerico(nB.potential));
+      this.preguntasEjemplo.push({
+        id: 'vab',
+        label: `Diferencia de potencial Vab entre ${nA.id} y ${nB.id}`,
+        valorReal: vab,
+        unidad: 'V',
+        respuestaUsuario: null,
+        acertada: undefined
+      });
+    }
   }
 
   comprobarRespuestas() {
-    const tolerancia = 0.5;
-    let aciertos = 0;
-    let contador = 0;
-    this.preguntasEjemplo.forEach((p) => {
-      if (p.respuestaUsuario !== null && p.respuestaUsuario !== '') {
-        contador++;
-      }
-    });
-
-    if (contador < 4) {
-      this.mensajeResultado = 'Rellena todos los campos';
+    const respondidas = this.preguntasEjemplo.filter(p => p.respuestaUsuario !== null).length;
+    
+    if (respondidas < this.preguntasEjemplo.length) {
+      this.mensajeResultado = 'Por favor, completa todas las preguntas.';
       this.resultadoVisible = true;
-      return
+      return;
     }
 
     Swal.fire({
-    title: '¿Estás seguro?',
-    text: "Se evaluarán tus respuestas del circuito",
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sí, comprobar',
-    cancelButtonText: 'Revisar más',
-    background: '#f8f9fa',
-    didOpen: () => {
-            const popup = Swal.getPopup();
-            if (popup) popup.style.borderRadius = '24px';
-          },
-  }).then( result => {
-    if(result.isConfirmed){
-      this.preguntasEjemplo.forEach((p) => {
-      if (p.respuestaUsuario != null) {
-        const diferencia = Math.abs(p.respuestaUsuario - p.valorReal);
-        contador += 1;
+      title: '¿Enviar respuestas?',
+      text: "",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, corregir',
+      cancelButtonText: 'Revisar',
+      confirmButtonColor: '#3085d6',
 
-        p.acertada = diferencia <= tolerancia;
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let aciertos = 0;
+        const tolerancia = 0.05;
 
-        if (p.acertada) aciertos++;
+        this.preguntasEjemplo.forEach(p => {
+          const real = Math.abs(p.valorReal);
+          const usuario = Math.abs(p.respuestaUsuario);
+          
+          if (real < 0.0001) { 
+            p.acertada = usuario < 0.01;
+          } else {
+            const errorRelativo = Math.abs(real - usuario) / real;
+            p.acertada = errorRelativo <= tolerancia;
+          }
+          if (p.acertada) aciertos++;
+        });
+
         const total = this.preguntasEjemplo.length;
-        this.mensajeResultado =
-          aciertos === total
-            ? `¡Excelente! Has acertado todas (${aciertos}/${total}).`
-            : `Has acertado ${aciertos} de ${total}. Revisa tus cálculos.`;
-
+        this.mensajeResultado = aciertos === total 
+          ? `¡Excelente! ${aciertos}/${total} correctas.` 
+          : `Has acertado ${aciertos} de ${total}. ¡Sigue intentándolo!`;
         this.resultadoVisible = true;
       }
     });
   }
-})
-  }
-  formatearEtiqueta(texto: string): string {
-    if (!texto) return '';
-
-    return texto
-      .replace(/-/g, '') // Quita todos los guiones
-      .replace(/micro/g, 'μ') // Cambia "micro" por "μ"
-      .replace(/micro-/g, 'μ') // Tambien con guion
-      .replace(/n-/g, 'n') // Limpia nano-faradios si aparecen
-      .replace(/m-/g, 'm'); // Limpia mili-ohmios (ej: 30 m-Ω -> 30 mΩ)
-  }
-
-  prepararPreguntas(nodos: any[]) {
-    console.log('nodos', nodos);
-
-    const nodosPosibles = nodos.filter((n) => n.id !== 'N00');
-    console.log('Nodos posibles', nodosPosibles);
-
-    const aleatorios = nodosPosibles.sort(() => Math.random() - 0.5);
-
-    const seleccion = aleatorios.slice(0, 4);
-    console.log('seleccion', seleccion);
-
-    this.preguntasEjemplo = seleccion.map((n) => ({
-      label: `Magnitud de tensión en  ${n.id}`,
-      respuestaUsuario: null,
-    }));
-    this.calcularMagnitud(seleccion);
-  }
 
   generarEjercicio() {
-    const datos = {
-      bloque: this.bloqueId,
-      rows: Number(this.rows),
-      cols: Number(this.cols),
-    };
-    console.log('Ejercicio Generado');
-    this.circuitosService.generarCircuito(datos).subscribe({
-      next: (datos) => {
-        console.log('Estos son los datos', datos);
-        this.circuitoGenerado = datos;
+    this.cargando = true;
+    this.errorCircuito = '';
+    const payload = { bloque: this.bloqueId, rows: this.rows, cols: this.cols };
 
-        datos.circuito.componentes.forEach((comp: any) => {
-          if (comp.value) {
-            comp.value = comp.value
-              .replace(/-/g, '')
-              .replace(/micro/g, 'μ')
-              .replace(/m-Ω/g, 'mΩ');
-          }
-        });
+    if(this.rows > 6 || this.cols > 6 ){
+      this.errorCircuito = "Las filas/columnas tienen que ser menores q 7";
+      this.cargando = false;
+      this.circuitoGenerado = false
+      return;
+    }
 
-        this.prepararPreguntas(datos.circuito.nodos);
+     if(this.rows < 2 || this.cols < 2 ){
+      this.errorCircuito = "Las filas/columnas tienen que ser mayores a 1";
+      this.cargando = false;
+      this.circuitoGenerado = false
+      return;
+    }
+
+    this.circuitosService.generarCircuito(payload).subscribe({
+      next: (res) => {
+        this.cargando = false;
+        if (res.success) {
+          this.circuitoGenerado = res;
+          this.prepararPreguntas(res.circuito);
+        } else {
+          this.errorCircuito = 'El circuito generado no es válido. Reintenta.';
+        }
       },
+      error: () => {
+        this.cargando = false;
+        this.errorCircuito = 'Error de conexión con el backend.';
+      }
     });
   }
 }
