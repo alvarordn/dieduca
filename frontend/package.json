@@ -21,6 +21,7 @@
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "mathjax": "^4.0.0",
+    "ng2-pdf-viewer": "^10.4.0",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.26.20",
     "tslib": "^2.3.0",

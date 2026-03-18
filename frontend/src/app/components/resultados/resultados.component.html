@@ -7,7 +7,7 @@
         <span class="badge-tech"
           ><i class="bi bi-graph-up-arrow"></i> Dashboard Académico</span
         >
-        <h1>Tu Progreso Técnico, {{nombreUsuario}}</h1>
+        <h1>Tu Progreso Técnico, {{ nombreUsuario }}</h1>
         <p>Análisis en tiempo real de tu rendimiento en Circuitos Eléctricos</p>
       </div>
     </header>
@@ -19,7 +19,7 @@
         </div>
         <div class="stat-info">
           <span class="label">Total Preguntas</span>
-          <span class="value">{{ totalPreguntas }}</span>
+          <span class="value">{{ totalPreguntasS }}</span>
         </div>
       </div>
 
@@ -60,66 +60,44 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <div class="bloque-info">
-                  <span class="bloque-title">Bloque 1</span>
-                  <span class="bloque-sub">Leyes de Kirchhoff</span>
-                </div>
-              </td>
-              <td>
-                <div class="progress-container">
-                  <div
-                    class="progress-bar bg-green"
-                    [style.width.%]="totalPreguntas"
-                  ></div>
-                </div>
-              </td>
-              <td class="text-center fw-bold">{{ exito }} %</td>
-           @if (totalPreguntas < 100) {
-                <td class="text-center">
-                  <span class="status-badge bg-warning-sub">
-                    <i class="bi bi-clock-history"></i> En proceso
-                  </span>
+            @for (bloque of bloques; track bloque.id) {
+              @let stats = obtenerEstadisticas(bloque.id);
+
+              <tr>
+                <td>
+                  <div class="bloque-info">
+                    <span class="bloque-title">Bloque {{ bloque.id }}</span>
+                    <span class="bloque-sub">{{ bloque.nombre }}</span>
+                  </div>
                 </td>
-              }@else {
-                  <td class="text-center">
-                <span class="status-badge bg-green-sub">
-                  <i class="bi bi-trophy-fill"></i> Dominado
-                </span>
-              </td>
-              }
-            </tr>
-            <tr>
-              <td>
-                <div class="bloque-info">
-                  <span class="bloque-title">Bloque 2</span>
-                  <span class="bloque-sub">Elementos de Circuitos</span>
-                </div> 
-              </td>
-              <td>
-                <div class="progress-container">
-                  <div
-                    class="progress-bar bg-warning"
-                    [style.width.%]="totalPreguntas"
-                  ></div>
-                </div>
-              </td>
-              <td class="text-center fw-bold">{{ exito }} %</td>
-              @if (totalPreguntas < 100) {
-                <td class="text-center">
-                  <span class="status-badge bg-warning-sub">
-                    <i class="bi bi-clock-history"></i> En proceso
-                  </span>
+                <td>
+                  <div class="progress-container">
+                    <div
+                      class="progress-bar"
+                      [ngClass]="
+                        stats.progreso >= 100 ? 'bg-green' : 'bg-warning'
+                      "
+                      [style.width.%]="stats.progreso"
+                    ></div>
+                  </div>
+                  <small class="text-muted"
+                    >{{ stats.aciertos }} / 20 aciertos</small
+                  >
                 </td>
-              }@else {
-                  <td class="text-center">
-                <span class="status-badge bg-green-sub">
-                  <i class="bi bi-trophy-fill"></i> Dominado
-                </span>
-              </td>
-              }
-            </tr>
+                <td class="text-center fw-bold">{{ stats.exito }} %</td>
+                <td class="text-center">
+                  @if (stats.progreso < 100) {
+                    <span class="status-badge bg-warning-sub">
+                      <i class="bi bi-clock-history"></i> En proceso
+                    </span>
+                  } @else {
+                    <span class="status-badge bg-green-sub">
+                      <i class="bi bi-trophy-fill"></i> Dominado
+                    </span>
+                  }
+                </td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>
