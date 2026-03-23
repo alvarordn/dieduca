@@ -32,7 +32,6 @@ export class TeoriaComponent {
       } else {
         parte = 'Parte_3';
       }
-      // En tu .ts, añade parámetros de visualización
       const rutaPdf = `assets/teoria/${parte}/T${this.bloqueId}/TC_tema_${this.bloqueId}.pdf`;
       this.pdfSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rutaPdf);
     });

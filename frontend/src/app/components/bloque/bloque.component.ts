@@ -220,7 +220,7 @@ export class BloqueComponent implements OnInit {
     const payload = { bloque: this.bloqueId, rows: this.rows, cols: this.cols };
 
     if (this.rows > 6 || this.cols > 6) {
-      this.errorCircuito = 'Las filas/columnas tienen que ser menores q 7';
+      this.errorCircuito = 'Las filas/columnas tienen que ser menores que 7';
       this.cargando = false;
       this.circuitoGenerado = false;
       return;
@@ -229,6 +229,7 @@ export class BloqueComponent implements OnInit {
     if (this.rows < 2 || this.cols < 2) {
       this.errorCircuito = 'Las filas/columnas tienen que ser mayores a 1';
       this.cargando = false;
+    
       this.circuitoGenerado = false;
       return;
     }
