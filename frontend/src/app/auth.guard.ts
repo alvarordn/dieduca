@@ -46,7 +46,7 @@ export class AuthGuard implements CanActivate {
       
       Swal.fire({
         title: '¡Acceso Restringido!',
-        text: 'Debes iniciar sesión con tu UVUS para acceder a este apartado.',
+        text: 'Debes iniciar sesión/registrarte para acceder a este apartado.',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3b82f6', 

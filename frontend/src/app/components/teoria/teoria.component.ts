@@ -23,7 +23,10 @@ export class TeoriaComponent {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
+      //obtenemos el bloque id
       this.bloqueId = +params['id'];
+      
+      //dividimos en partes para poder cambiar de temas 
       let parte = '';
       if (this.bloqueId < 7) {
         parte = 'Parte_1';
@@ -32,6 +35,8 @@ export class TeoriaComponent {
       } else {
         parte = 'Parte_3';
       }
+
+      //asignamos la ruta con las parte y el bloqueId para saber q tema es
       const rutaPdf = `assets/teoria/${parte}/T${this.bloqueId}/TC_tema_${this.bloqueId}.pdf`;
       this.pdfSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rutaPdf);
     });

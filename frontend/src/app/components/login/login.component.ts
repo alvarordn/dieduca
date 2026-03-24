@@ -21,9 +21,8 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
   ) {}
-
+  // Metodo que se ejecuta cuando se envia el login
   login() {
-    // metodo que se ejecuta cuando se envia el login
     this.error = '';
 
     if (!this.uvus || !this.password) {

@@ -27,7 +27,7 @@ export class AuthService {
   private isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
   // Observable publico (de ahi el simbolo $), otros componentes pueden suscribirse para reaccionar a los cambios de autenticacion, como por ejemplo mostrar/ocultar botones de login o logout
   private uvusSubject = new BehaviorSubject<string | null>(
-    localStorage.getItem('uvus'),
+    sessionStorage.getItem('uvus'),
   );
 
   public uvus$ = this.uvusSubject.asObservable();
@@ -38,9 +38,34 @@ export class AuthService {
   // inyecta las dependencias necesarias
 
   private hasToken(): boolean {
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token');
   }
   // funcion que le servira al behaviorSubject si el usuario esta autenticado o no, se usa el !! para convertir el resultado de (string o null) a (true o false)
+getUserId(): string | null {
+  const token: string | null = this.getToken();
+  
+  if (!token) {
+    return null;
+  }
+
+  const partes: string[] = token.split('.');
+
+  if (partes.length < 2) {
+    return null;
+  }
+
+  try {
+    const payloadBase64: string = partes[1];
+    
+    const payloadJson: string = atob(payloadBase64);
+    const payload = JSON.parse(payloadJson);
+    
+    return payload.user_id ? String(payload.user_id) : null;
+  } catch (e) {
+    console.error("Error al decodificar el token:", e);
+    return null;
+  }
+}
 
   login(uvus: string, password: string): Observable<any> {
     // se activa la secuencia de login
@@ -52,8 +77,8 @@ export class AuthService {
           tap((response: any) => {
             // Utiliza el operador tap para ejecutar código inmediatamente después de que la petición sea exitosa, pero antes de que el componente que llama reciba la respuesta
             if (response.token) {
-              localStorage.setItem('token', response.token);
-              localStorage.setItem('uvus', response.uvus);
+              sessionStorage.setItem('token', response.token);
+              sessionStorage.setItem('uvus', response.uvus);
               // si el login es exitoso, se guarda en local para que persista la sesion
               this.uvusSubject.next(response.uvus);
               this.isAuthenticatedSubject.next(true);
@@ -68,8 +93,8 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register/`, datos).pipe(
       tap((response: any) => {
         if (response.token) {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('uvus', response.uvus);
+          sessionStorage.setItem('token', response.token);
+          sessionStorage.setItem('uvus', response.uvus);
           // Actualiza el valor del UVUS en el BehaviorSubject
           this.uvusSubject.next(response.uvus);
           this.isAuthenticatedSubject.next(true);
@@ -87,14 +112,13 @@ export class AuthService {
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#3b82f6',
       cancelButtonColor: '#64748b',
-      // Inyectamos el estilo directamente al abrirse
       didOpen: (popup) => {
         popup.style.borderRadius = '24px';
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('uvus');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('uvus');
         this.uvusSubject.next(null);
         this.isAuthenticatedSubject.next(false);
         this.router.navigate(['/']);
@@ -115,14 +139,14 @@ export class AuthService {
   // cierra sesion, se eliminan ambos campos del local
   // redirige al login
 
-
-  startTracking(username: String){
+  startTracking(username: String) {
     this.timerSub = interval(60000).subscribe(() => {
-      this.http.post("http://localhost:8000/api/auth/track-time/", {uvus: username}).subscribe ({
-        error: (err) => console.error("error al registrar")
-      })
-    })
-    
+      this.http
+        .post('http://localhost:8000/api/auth/track-time/', { uvus: username })
+        .subscribe({
+          error: (err) => console.error('error al registrar'),
+        });
+    });
   }
 
   stopTracking() {
@@ -132,12 +156,12 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
   // Recupera el valor del token almacenado en local storage, en este caso si es string o nulo
 
   getUvus(): string | null {
-    return localStorage.getItem('uvus');
+    return sessionStorage.getItem('uvus');
   }
   // Recupera el campo uvus almacenado de igual forma
 

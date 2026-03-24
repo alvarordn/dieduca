@@ -13,7 +13,10 @@ export class HomeComponent {
   constructor(private service: AuthService) {}
 
   ngOnInit() {
+    // Obtenemos el grado del usuario
     this.gradoUsuario = localStorage.getItem('grado');
+
+    // Nos suscribimos para saber si hay o no uvus
     this.service.uvus$.subscribe((uvus) => {
       if (uvus) {
         this.nombreUsuario =

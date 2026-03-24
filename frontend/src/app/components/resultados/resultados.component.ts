@@ -17,7 +17,7 @@ export class ResultadosComponent {
   public totalPreguntasS: string = '';
   public totalPreguntas = 0;
   public nombreUsuario: string = '';
-
+  // Inicializamos los bloques en un array de objetos
   public bloques = [
     { id: 1, nombre: 'Conceptos fundamentales y leyes de Kirchhoff' },
     { id: 2, nombre: 'Circuitos Resistivos con Generadores Ideales' },
@@ -36,14 +36,18 @@ export class ResultadosComponent {
     private http: HttpClient,
     private route: ActivatedRoute,
   ) {
+    // Inicializamos los aciertos, fallos o totalPreguntas a 0 o lo que haya en el backend/localstorage
     this.aciertos = localStorage.getItem('Aciertos') || '0';
     this.fallos = localStorage.getItem('Fallos') || '0';
     this.totalPreguntasS = localStorage.getItem('TotalPreguntas') || '0';
   }
 
   ngOnInit() {
+    // Obtenemos de la ruta el id de usuario
     this.idUsuario = this.route.snapshot.params['id'];
     console.log(this.idUsuario);
+
+    // Obtenemos el uvus del usuario
     this.nombreUsuario =
       localStorage.getItem('uvus')?.toLocaleUpperCase() || '';
   }
@@ -60,6 +64,7 @@ export class ResultadosComponent {
     const metaAciertos = 20;
     const progreso = Math.min(Math.round((aciertos / metaAciertos) * 100), 100);
 
+    // Devolvemos un objeto con todos los datos
     return {
       total: total,
       aciertos: aciertos,

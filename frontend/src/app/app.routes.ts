@@ -9,10 +9,10 @@ import { ResultadosComponent } from './components/resultados/resultados.componen
 
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'registro', component: RegistroComponent },
+  { path: 'login', component: LoginComponent }, // Login
+  { path: 'registro', component: RegistroComponent }, // Registro
   { path: '', component: HomeComponent },  // Página de inicio
-  { path: 'bloque/:id/teoria', component: TeoriaComponent },  // Teoría
+  { path: 'bloque/:id/teoria', component: TeoriaComponent,canActivate: [AuthGuard] },  // Teoría
   { path: 'bloque/:id/ejercicio', component: BloqueComponent, canActivate: [AuthGuard] }, // Ejercicio
   {path: "resultados/:id", component: ResultadosComponent, canActivate: [AuthGuard]},
   { path: '**', redirectTo: '' }

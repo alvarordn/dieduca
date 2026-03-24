@@ -76,6 +76,7 @@ export class RegistroComponent {
   ) {}
 
   register() {
+    // Inicializamos los errores 
     this.errorUvus = '';
     this.errorEmail = '';
 
@@ -95,13 +96,14 @@ export class RegistroComponent {
     };
     localStorage.setItem('grado', this.grado);
     console.log('Datos a enviar:', datos);
-
+    // Nos suscribimos para registrarnos y enviar los datos
     this.authService.register(datos).subscribe({
       next: (response) => {
         console.log('Registro exitoso', response);
         this.router.navigate(['/']);
       },
       error: (err) => {
+        // Manejo de errores
         if (err.status === 400) {
           const serverMessage = err.error;
           console.log('Mensaje servidor: ', serverMessage);
