@@ -1,11 +1,26 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny # <-- Añade esta línea
-from rest_framework.decorators import api_view, permission_classes # <-- Cambia esta
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view, permission_classes
 from .alvaro.lib_new import Circuit
 
-# --- FUNCIONES DE APOYO (Pégalas aquí arriba para quitar los warnings) ---
+# api_view: seria un decorador el cual se coloca encima de cada funcion, y le dice a la funcion que será una API.
+# En Django normal, al crear una vista, se devuelve una pagina HTML para que se vea en el navegador, pero en este caso
+# si queremos crear una API, no se envia HTML, si no datos como datos JSON, que otras aplicaciones puedan leer, como en este caso Angular.
+
+# Response: es para devolver los datos en formato JSON.
+# Status: es para los codigos HTTP.
+# base64: para convertir las imagenes resultantes en texto enviable por JSON.
+# io: para trabajar en memoria y no con archivos en disco.
+# matplotlib.use('Agg'): matplotlib abre ventanas graficas, en un servidor no hay pantalla, y lo que hace 'Agg', es decirle que genere la
+# imagen en memoria, sin ventanas.
+
+@api_view(['GET']) # Solo responde a peticiones GET, como cuando se pone una URL.
+def test_connection(request):
+    return Response({"mensaje": "Conexión establecida correctamente"}, status=status.HTTP_200_OK)
+
+# Devuelve un simple mensaje en JSON.
 
 def determinar_tipo_nodo(row, col, total_rows, total_cols):
     es_primera_fila = (row == 0)
@@ -25,6 +40,9 @@ def determinar_tipo_nodo(row, col, total_rows, total_cols):
 
     return 'center'
 
+# Esto determina exactamente que tipo de nodo generar, las esquinas, o el centro si es que el circuito tiene.
+
+
 def calcular_posicion_etiqueta(source_row, source_col, target_row, target_col, total_rows, total_cols, orientation):
     mid_row = (source_row + target_row) / 2.0
     mid_col = (source_col + target_col) / 2.0
@@ -36,7 +54,7 @@ def calcular_posicion_etiqueta(source_row, source_col, target_row, target_col, t
 
     return 'inside-bottom' if orientation == 'horizontal' else 'inside-right'
 
-# --- TU API VIEW ---
+# Aqui esta la Api a la que se accederá
 
 @api_view(['POST', 'GET'])
 @permission_classes([AllowAny])
@@ -60,7 +78,7 @@ def generar_circuito(request):
         for node in circuito_motor.G.nodes():
             idx = int(node[1])
             jdx = int(node[2])
-            # Aquí ya no habrá warning porque la función está arriba
+
             node_type = determinar_tipo_nodo(idx, jdx, rows, cols)
 
             nodos.append({
@@ -78,7 +96,9 @@ def generar_circuito(request):
 
             orientation = 'horizontal' if source_row == target_row else 'vertical'
 
-            # Aquí tampoco habrá warning
+            # Esto determina si los nodos van:
+            # Seguidos (vertical)
+            # Uno abajo del otro (horizontal)
             label_position = calcular_posicion_etiqueta(source_row, source_col, target_row, target_col, rows, cols, orientation)
 
             edge_data = circuito_motor.G[source][target]
@@ -106,6 +126,4 @@ def generar_circuito(request):
     except Exception as e:
         return Response({'success': False, 'error': str(e)}, status=500)
 
-@api_view(['GET'])
-def test_connection(request):
-    return Response({"mensaje": "Conexión establecida correctamente"}, status=status.HTTP_200_OK)
+

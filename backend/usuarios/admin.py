@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
+from django.contrib import admin
+from .models import CustomUser, IntentoEjercicio
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
@@ -20,3 +22,20 @@ class CustomUserAdmin(UserAdmin):
             return f"{horas}h {minutos}min"
         return f"{minutos} min"
 
+@admin.register(IntentoEjercicio)
+class IntentoEjercicioAdmin(admin.ModelAdmin):
+    # Columnas que verás en la tabla principal
+    list_display = ('usuario', 'uvus_del_alumno', 'bloque_id', 'aciertos', 'fallos', 'fecha')
+
+    # Filtros laterales para encontrar rápido los datos
+    list_filter = ('bloque_id', 'fecha', 'usuario')
+
+    # Buscador por nombre de usuario o por su UVUS
+    search_fields = ('usuario__username', 'usuario__uvus')
+
+    # Hacemos que la fecha no se pueda editar manualmente
+    readonly_fields = ('fecha',)
+
+    # Función extra para ver el UVUS directamente en la tabla
+    def uvus_del_alumno(self, obj):
+        return obj.usuario.uvus

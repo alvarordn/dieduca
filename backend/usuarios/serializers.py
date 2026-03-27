@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
+from .models import IntentoEjercicio
 
 User = get_user_model()
 
@@ -38,3 +39,9 @@ class UserLoginSerializer(serializers.Serializer):
 
         data['user'] = user
         return data
+    
+class IntentoEjercicioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IntentoEjercicio
+        fields = ['id', 'bloque_id', 'fecha', 'aciertos', 'fallos', 'detalle_ejercicio']
+        # No incluimos 'usuario' aquí porque lo asignamos en la vista automáticamente

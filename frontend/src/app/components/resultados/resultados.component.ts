@@ -1,23 +1,22 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
-import { ActivatedRoute, Route, RouterLink } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http'; // Añadido HttpHeaders
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-resultados',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './resultados.component.html',
   styleUrl: './resultados.component.css',
 })
-export class ResultadosComponent {
-  public fallos: string = '';
-  public aciertos: string = '';
-  public exito = 0;
-  public idUsuario = 0;
-  public totalPreguntasS: string = '';
-  public totalPreguntas = 0;
+export class ResultadosComponent implements OnInit {
+  public fallos: number = 0;
+  public aciertos: number = 0;
+  public totalPreguntasS: number = 0;
   public nombreUsuario: string = '';
-  // Inicializamos los bloques en un array de objetos
+  public historial: any[] = []; // Aquí guardaremos todo lo que venga de Django
+
   public bloques = [
     { id: 1, nombre: 'Conceptos fundamentales y leyes de Kirchhoff' },
     { id: 2, nombre: 'Circuitos Resistivos con Generadores Ideales' },
@@ -29,47 +28,71 @@ export class ResultadosComponent {
     { id: 8, nombre: 'Potencia y energía en CA sinusoidal' },
     { id: 9, nombre: 'Circuitos trifásicos' },
     { id: 10, nombre: 'Potencia en circuitos trifásicos equilibrados' },
-    { id: 11, nombre: 'Fundamentos de máquinas eléctricas' }
+    { id: 11, nombre: 'Fundamentos de máquinas eléctricas' },
   ];
 
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-  ) {
-    // Inicializamos los aciertos, fallos o totalPreguntas a 0 o lo que haya en el backend/localstorage
-    this.aciertos = localStorage.getItem('Aciertos') || '0';
-    this.fallos = localStorage.getItem('Fallos') || '0';
-    this.totalPreguntasS = localStorage.getItem('TotalPreguntas') || '0';
-  }
+    private router: Router, 
+  ) {}
 
   ngOnInit() {
-    // Obtenemos de la ruta el id de usuario
-    this.idUsuario = this.route.snapshot.params['id'];
-    console.log(this.idUsuario);
-
-    // Obtenemos el uvus del usuario
-    this.nombreUsuario =
-      localStorage.getItem('uvus')?.toLocaleUpperCase() || '';
+    this.nombreUsuario = sessionStorage.getItem('uvus')?.toUpperCase() || 'USUARIO';
+    console.log(this.nombreUsuario)
+    this.cargarDatosDesdeServidor();
   }
 
-  obtenerEstadisticas(id: number) {
-    // 1. Recuperamos datos específicos del bloque (guardados en BloqueComponent)
-    const total = Number(localStorage.getItem(`Total_B${id}`)) || 0;
-    const aciertos = Number(localStorage.getItem(`Aciertos_B${id}`)) || 0;
+  cargarDatosDesdeServidor() {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    // 2. Cálculo de Éxito (% de aciertos sobre preguntas intentadas)
-    const exito = total > 0 ? Math.round((aciertos / total) * 100) : 0;
+    // Llamada a tu nuevo endpoint de Django
+    this.http.get<any[]>('http://localhost:8000/api/auth/historial/', { headers }).subscribe({
+      next: (data) => {
+        this.historial = data; // Django ya devuelve el historial del usuario logueado
+        this.calcularTotalesGlobales();
+      },
+      error: (err) => {
+        console.error('Error al cargar historial:', err);
+        if (err.status === 401) {
+          this.router.navigate(['/login']); // Redirigir si el token expiró
+        }
+      }
+    });
+  }
 
-    // 3. Cálculo de Progreso Visual (% sobre una meta de, por ejemplo, 20 aciertos)
+  calcularTotalesGlobales() {
+    // Sumamos todos los aciertos y fallos de todos los intentos del historial para saber las preguntas totales
+    this.aciertos = this.historial.reduce((sum, item) => sum + item.aciertos, 0);
+    this.fallos = this.historial.reduce((sum, item) => sum + item.fallos, 0);
+    this.totalPreguntasS = this.aciertos + this.fallos;
+  }
+
+  obtenerEstadisticas(bloqueId: number) {
+    // Filtramos los intentos que pertenecen a este bloque específico
+    const intentosBloque = this.historial.filter(h => h.bloque_id === bloqueId);
+    
+    const bAciertos = intentosBloque.reduce((sum, h) => sum + h.aciertos, 0);
+    const bFallos = intentosBloque.reduce((sum, h) => sum + h.fallos, 0);
+    const bTotal = bAciertos + bFallos;
+
+    const exito = bTotal > 0 ? Math.round((bAciertos / bTotal) * 100) : 0;
     const metaAciertos = 20;
-    const progreso = Math.min(Math.round((aciertos / metaAciertos) * 100), 100);
+    const progreso = Math.min(Math.round((bAciertos / metaAciertos) * 100), 100);
 
-    // Devolvemos un objeto con todos los datos
-    return {
-      total: total,
-      aciertos: aciertos,
-      exito: exito,
-      progreso: progreso,
+    return { total: bTotal, aciertos: bAciertos, exito, progreso };
+  }
+
+  verRevision(intento: any) {
+    // IMPORTANTE: Adaptamos los nombres a los que usa tu BloqueComponent (circuito y preguntas)
+    const dataRevision = {
+      circuito: intento.detalle_ejercicio.circuito,
+      preguntas: intento.detalle_ejercicio.preguntas
     };
+    
+    sessionStorage.setItem('intento_revision', JSON.stringify(dataRevision));
+    // En Django el campo es bloque_id (con guion bajo)
+    this.router.navigate(['/bloque', intento.bloque_id, "ejercicio"]);
   }
 }

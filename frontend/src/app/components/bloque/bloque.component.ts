@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CircuitosService } from '../../services/circuitos.service';
 import { CircuitViewerComponent } from '../circuit-viewer/circuit-viewer.component';
 import Swal from 'sweetalert2';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-bloque',
@@ -28,13 +29,30 @@ export class BloqueComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private circuitosService: CircuitosService,
+    private http: HttpClient,
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.bloqueId = params['id'];
+      this.bloqueId = +params['id'];
       this.limpiarEstado();
     });
+
+    const revision = sessionStorage.getItem('intento_revision');
+
+    if (revision) {
+      const data = JSON.parse(revision);
+      console.log(data);
+      this.circuitoGenerado = data.circuito;
+      this.preguntasEjemplo = data.preguntas;
+      this.resultadoVisible = true;
+      this.mensajeResultado = 'Revisando intento';
+      sessionStorage.removeItem('intento_revision');
+
+      setTimeout(() => {
+        window.scrollTo({ top: 500, behavior: 'smooth' });
+      }, 500);
+    }
   }
 
   limpiarEstado() {
@@ -137,26 +155,29 @@ export class BloqueComponent implements OnInit {
     ).length;
 
     if (respondidas < this.preguntasEjemplo.length) {
-      this.mensajeResultado = 'Por favor, completa todas las preguntas.';
-      this.resultadoVisible = true;
+      Swal.fire(
+        'Atención',
+        'Por favor, completa todas las preguntas.',
+        'warning',
+      );
       return;
     }
- 
+
     Swal.fire({
       title: '¿Enviar respuestas?',
-      text: '',
+      text: 'Se guardará tu progreso en el servidor',
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: 'Sí, corregir',
+      confirmButtonText: 'Sí, corregir y guardar',
       cancelButtonText: 'Revisar',
       confirmButtonColor: '#3085d6',
     }).then((result) => {
       if (result.isConfirmed) {
         let aciertos = 0;
         let fallos = 0;
-        let totalPreguntas = 0;
         const tolerancia = 0.05;
 
+        // 1. Lógica de corrección
         this.preguntasEjemplo.forEach((p) => {
           const real = Math.abs(p.valorReal);
           const usuario = Math.abs(p.respuestaUsuario);
@@ -167,49 +188,53 @@ export class BloqueComponent implements OnInit {
             const errorRelativo = Math.abs(real - usuario) / real;
             p.acertada = errorRelativo <= tolerancia;
           }
-          if (p.acertada) {
-            aciertos++;
-            totalPreguntas++;
-          } else {
-            fallos++;
-            totalPreguntas++;
-          }
-
+          p.acertada ? aciertos++ : fallos++;
         });
 
-        
-          const aciertosPrevios = +(localStorage.getItem('Aciertos') || 0);
-          const fallosPrevios = +(localStorage.getItem('Fallos') || 0);
-          const totalPrevio = +(localStorage.getItem('TotalPreguntas') || 0);
+        // 2. Preparar envío a Django
+        const token = localStorage.getItem('token');
+        const headers = new HttpHeaders().set(
+          'Authorization',
+          `Bearer ${token}`,
+        );
 
-          localStorage.setItem(
-            'Aciertos',
-            (aciertosPrevios + aciertos).toString(),
-          );
-          localStorage.setItem(
-            'Fallos',
-            (fallosPrevios + fallos).toString(),
-          );
-          localStorage.setItem(
-            'TotalPreguntas',
-            (totalPrevio + totalPreguntas).toString(),
-          );
+        const datosEnvio = {
+          bloque_id: Number(this.bloqueId),
+          aciertos: aciertos,
+          fallos: fallos,
+          detalle_ejercicio: {
+            circuito: this.circuitoGenerado,
+            preguntas: this.preguntasEjemplo, // Incluye las respuestas del usuario y si acertó
+          },
+        };
 
-        const total = this.preguntasEjemplo.length;
-        const id = this.bloqueId;
+        // 3. Petición POST al historial
+        this.http
+          .post('http://localhost:8000/api/auth/historial/', datosEnvio, { headers })
+          .subscribe({
+            next: () => {
+              const total = this.preguntasEjemplo.length;
+              this.mensajeResultado =
+                aciertos === total
+                  ? `¡Excelente! ${aciertos}/${total} correctas.`
+                  : `Has acertado ${aciertos} de ${total}.`;
 
-        const bAciertos = +(localStorage.getItem(`Aciertos_B${this.bloqueId}`) || 0);
-        const bFallos = +(localStorage.getItem(`Fallos_B${this.bloqueId}`) || 0);
-        const bTotal = +(localStorage.getItem(`Total_B${this.bloqueId}`) || 0);
-
-        localStorage.setItem(`Aciertos_B${this.bloqueId}`, (bAciertos + aciertos).toString());
-        localStorage.setItem(`Fallos_B${this.bloqueId}`, (bFallos + fallos).toString());
-        localStorage.setItem(`Total_B${this.bloqueId}`, (bTotal + totalPreguntas).toString());
-        this.mensajeResultado =
-          aciertos === total
-            ? `¡Excelente! ${aciertos}/${total} correctas.`
-            : `Has acertado ${aciertos} de ${total}. ¡Sigue intentándolo!`;
-        this.resultadoVisible = true;
+              this.resultadoVisible = true;
+              Swal.fire(
+                '¡Enviado!',
+                'Tu intento ha sido registrado correctamente.',
+                'success',
+              );
+            },
+            error: (err) => {
+              console.error('Error al guardar:', err);
+              Swal.fire(
+                'Error',
+                'No se pudo conectar con el servidor para guardar el progreso.',
+                'error',
+              );
+            },
+          });
       }
     });
   }
@@ -229,7 +254,7 @@ export class BloqueComponent implements OnInit {
     if (this.rows < 2 || this.cols < 2) {
       this.errorCircuito = 'Las filas/columnas tienen que ser mayores a 1';
       this.cargando = false;
-    
+
       this.circuitoGenerado = false;
       return;
     }

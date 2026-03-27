@@ -48,8 +48,8 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     // Ejecutamos el envío cada 60 segundos (1 minuto)
     this.intervalId = setInterval(() => {
-      // Obtenemos el uvus del localStorage (asegúrate de guardarlo ahí al hacer login)
-      const userUvus = localStorage.getItem('uvus'); 
+      // Obtenemos el uvus del sessionStorage
+      const userUvus = sessionStorage.getItem('uvus'); 
       //si tenemos uvus y esta activo se ejecuta esto 
       if (userUvus && this.estarActivo) {
         this.http.post('http://localhost:8000/api/auth/track-time/', { uvus: userUvus })

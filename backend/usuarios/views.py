@@ -6,6 +6,9 @@ from .serializers import UserRegisterSerializer, UserLoginSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
+from rest_framework import generics, permissions
+from .models import IntentoEjercicio
+from .serializers import IntentoEjercicioSerializer
 
 User = get_user_model()
 
@@ -60,3 +63,15 @@ def track_time(request):
         return Response({'status': 'ok'}, status=status.HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+class HistorialEjerciciosView(generics.ListCreateAPIView):
+    serializer_class = IntentoEjercicioSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # El alumno solo recupera sus propios intentos
+        return IntentoEjercicio.objects.filter(usuario=self.request.user)
+
+    def perform_create(self, serializer):
+        # Al guardar un ejercicio, Django le asigna el usuario autenticado
+        serializer.save(usuario=self.request.user)

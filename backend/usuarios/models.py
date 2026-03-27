@@ -17,3 +17,15 @@ class CustomUser(AbstractUser):
 
     # Si usas 'username' por defecto, simplemente borra la línea de 'uvus' arriba
     # y mapea 'uvus' del frontend a 'username' en el serializer.
+
+class IntentoEjercicio(models.Model):
+    usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='intentos')
+    bloque_id = models.IntegerField()
+    fecha = models.DateTimeField(auto_now_add=True)
+    aciertos = models.IntegerField()
+    fallos = models.IntegerField()
+    # Guardamos el JSON completo del circuito y las respuestas para la revisión
+    detalle_ejercicio = models.JSONField()
+
+    class Meta:
+        ordering = ['-fecha']
