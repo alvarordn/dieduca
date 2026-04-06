@@ -25,7 +25,7 @@ class IntentoEjercicio(models.Model):
     aciertos = models.IntegerField()
     fallos = models.IntegerField()
     # Guardamos el JSON completo del circuito y las respuestas para la revisión
-    detalle_ejercicio = models.JSONField()
+    detalle_ejercicio = models.JSONField(default=dict, blank=True)
 
     class Meta:
         ordering = ['-fecha']

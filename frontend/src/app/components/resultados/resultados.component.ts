@@ -67,6 +67,7 @@ export class ResultadosComponent implements OnInit {
     this.aciertos = this.historial.reduce((sum, item) => sum + item.aciertos, 0);
     this.fallos = this.historial.reduce((sum, item) => sum + item.fallos, 0);
     this.totalPreguntasS = this.aciertos + this.fallos;
+    this.aciertos.toExponential(1)
   }
 
   obtenerEstadisticas(bloqueId: number) {
@@ -77,7 +78,7 @@ export class ResultadosComponent implements OnInit {
     const bFallos = intentosBloque.reduce((sum, h) => sum + h.fallos, 0);
     const bTotal = bAciertos + bFallos;
 
-    const exito = bTotal > 0 ? Math.round((bAciertos / bTotal) * 100) : 0;
+    const exito = bTotal > 0 ? Math.round((bAciertos / 20) * 100) : 0;
     const metaAciertos = 20;
     const progreso = Math.min(Math.round((bAciertos / metaAciertos) * 100), 100);
 

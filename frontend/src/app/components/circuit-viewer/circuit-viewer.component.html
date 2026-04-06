@@ -7,7 +7,9 @@
     <div class="circuit-glass-card">
       <div class="svg-container">
         <svg
-          [attr.viewBox]="'-100 -100 ' + (imgWidth + 200) + ' ' + (imgHeight + 200)"
+          [attr.viewBox]="
+            '-100 -100 ' + (imgWidth + 200) + ' ' + (imgHeight + 200)
+          "
           preserveAspectRatio="xMidYMid meet"
           class="circuit-svg"
         >
@@ -94,7 +96,8 @@
                   text-anchor="middle"
                   class="label-fill"
                 >
-                  {{ comp.value }}
+                  {{ (comp.value || "").split(" ")[0] | number: "1.0-2" }}
+                  {{ (comp.value || "").split(" ")[1] || "" }}
                 </text>
               }
             }
