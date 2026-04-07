@@ -1,0 +1,7 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Magnitudes el\'ectricas}{3}{0}{1}
+\beamer@sectionintoc {2}{Terminales y puertas}{11}{0}{2}
+\beamer@sectionintoc {3}{Referencias de polaridad}{13}{0}{3}
+\beamer@sectionintoc {4}{Clasificaci\'on de circuitos}{16}{0}{4}
+\beamer@sectionintoc {5}{Leyes de Kirchhoff}{20}{0}{5}
+\beamer@sectionintoc {6}{Balance de potencia}{24}{0}{6}

@@ -1,0 +1,8 @@
+\beamer@sectionintoc {1}{Generadores ideales}{3}{0}{1}
+\beamer@sectionintoc {2}{Asociaci\'on de generadores ideales}{6}{0}{2}
+\beamer@sectionintoc {3}{Resistencia y conductancia. Ley de Ohm}{8}{0}{3}
+\beamer@sectionintoc {4}{Simplificaci\'on de circuitos resistivos}{11}{0}{4}
+\beamer@sectionintoc {5}{Principio de superposici\'on}{15}{0}{5}
+\beamer@sectionintoc {6}{Circuitos equivalentes}{19}{0}{6}
+\beamer@sectionintoc {7}{Regla de sustituci\'on}{21}{0}{7}
+\beamer@sectionintoc {8}{Desacoplamiento debido a fuentes ideales}{23}{0}{8}

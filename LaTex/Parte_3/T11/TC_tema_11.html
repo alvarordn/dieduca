@@ -1,0 +1,298 @@
+<div class="frame">
+
+</div>
+<section id="índice" class="frame">
+<h3>Índice</h3>
+</section>
+<h1 id="transformador-ideal">Transformador ideal</h1>
+<div class="frame">
+<p><span>Transformador ideal</span></p>
+<p>Bobinas <span><strong>perfectamente acopladas</strong></span> que
+comparten flujo magnético a través de un núcleo de material
+ferromagnético de <span><strong>reluctancia nula</strong></span></p>
+<ol>
+<li><p>Acoplamiento perfecto</p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+</div><div class="column">
+<p><span>3cm</span> <span class="math display">\[\begin{equation*}
+\phi_1(t)=\phi_2(t)
+% =\phi_{12}(t)+\phi_{21}(t)
+\end{equation*}\]</span> <span class="math display">\[\begin{equation*}
+  {\begin{split}
+    u_1(t)&amp;=N_1\,\frac{d\phi_1}{dt}
+% =L_1\cdot \frac{d i_1}{dt}+M\cdot  \frac{d i_2}{dt}
+    \\
+  u_2(t)&amp;=N_2\,\frac{d\phi_2}{dt}
+%   =M\cdot \frac{d i_1}{dt}+L_2 \cdot \frac{d i_2}{dt}
+    \end{split}}
+\end{equation*}\]</span></p>
+</div>
+</div>
+<p>Por tanto, <span class="math inline">\(u_1(t)=n\cdot u_2(t)\)</span>,
+con <span class="math inline">\(n=N_1/N_2\)</span></p></li>
+<li><p>Reluctancia nula, <span class="math inline">\(\mathcal{R}\simeq
+0\)</span> <span class="math display">\[\mathcal{F} = N_1\cdot i_1(t) +
+N_2\cdot i_2(t) = \mathcal{R} \cdot \phi(t) \simeq 0\]</span> Por tanto,
+<span class="math inline">\(i_1(t)=-\frac{1}{n}\,
+i_2(t)\)</span></p></li>
+</ol>
+</div>
+<div class="frame">
+<p><span>Transformador ideal</span></p>
+<div class="block">
+<p><span>Símbolo del transformador ideal</span></p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+</div><div class="column">
+<p><span>6cm</span></p>
+<p>La relación de transformación (cociente de espiras) se expresa
+como:</p>
+<div class="center">
+<p><span class="math inline">\(n\,:\,1\)</span><br />
+<span class="math inline">\(N_1\,:\,N_2\)</span><br />
+<span class="math inline">\(V_1\,:\,V_2\)</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="block">
+<p><span>Relaciones tensión-intensidad en el transformador
+ideal</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+<div class="frame">
+<p><span>Potencia en un transformador ideal</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><span class="math display">\[\begin{equation*}
+    p(t)=u_1(t)\cdot i_1(t)+u_2(t)\cdot i_2(t)=0
+\end{equation*}\]</span></p>
+<div class="columns">
+<div class="column">
+<p><span>3cm</span></p>
+</div><div class="column">
+<p><span>7cm</span></p>
+<ul>
+<li><p>Toda la potencia que entra por una bobina en cada instante está
+saliendo por la otra.</p></li>
+<li><p>Se usa para transferir potencia de una bobina (devanado
+<strong>primario</strong>) a la otra (devanado
+<strong>secundario</strong>).</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="frame">
+<p><span>Ejemplos de transformadores</span></p>
+<figure data-latex-placement="h">
+<p><br />
+</p>
+</figure>
+</div>
+<div class="frame">
+<p><span>Adaptación de elementos pasivos</span></p>
+<figure data-latex-placement="h">
+
+</figure>
+<p><span class="math display">\[\begin{equation*}
+    u_1(t)=n\, u_2(t)=n\, f[i_2(t)]=n\, f[ni_1(t)]
+\end{equation*}\]</span> donde <span
+class="math inline">\(f(\cdot)\)</span> es la función que define la
+característica <span class="math inline">\(u-i\)</span> del circuito
+lineal conectado en el secundario del transformador: <span
+class="math display">\[\begin{equation*}
+    u_1(t)=n\, f[n\, i_1(t)]=n^2\, f[i_1(t)]
+\end{equation*}\]</span></p>
+<div class="alertblock">
+<p>El conjunto formado por un transformador ideal y un elemento pasivo
+conectado en su secundario equivale desde el primario a un elemento de
+la misma naturaleza. Por ejemplo: <span
+class="math display">\[\begin{equation*}
+    R_1=n^2\,R_2 \ \ ; \ \ L_1=n^2\,L_2 \ \ ; \ \ C_1=\frac{1}{n^2}\,C_2
+\end{equation*}\]</span></p>
+</div>
+</div>
+<h1 id="transformador-trifásico">Transformador trifásico</h1>
+<div class="frame">
+<p><span>Transformador trifásico</span></p>
+<div class="columns">
+<div class="column">
+<p><span>6cm</span> Pueden usarse tanto tres transformadores monofásicos
+(uno por fase), como un transformador trifásico propiamente dicho.</p>
+</div><div class="column">
+<p><span>3cm</span> <img src="./figuras_tema_11/esquema_trafo_3f.PNG"
+alt="image" /></p>
+</div>
+</div>
+<p><strong>Ejemplo</strong>: transformador trifásico
+estrella-estrella</p>
+<p><img src="./figuras_tema_11/esquema_trafo_3f_2.PNG"
+style="width:50.0%" alt="image" /></p>
+</div>
+<div class="frame">
+<p><span>Ejemplo de transformadores trifásicos reales</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+<div class="frame">
+<div class="exampleblock">
+<p><span>Ejercicio</span> Un transformador de distribución de energía
+eléctrica de relación de transformación 20/0.4 kV y conexión Dyn
+(triángulo en el primario y estrella con neutro en el secundario),
+suministra 400 kW y 300 kvar a 400 V en el secundario. Determinar los
+valores eficaces de las intensidades de línea y fase en primario y
+secundario.</p>
+<p><strong>Solución</strong>: <span class="math inline">\(I_{L_s} =
+721,7\)</span> A, <span class="math inline">\(I_{L_p} = 14,43\)</span>
+A, <span class="math inline">\(I_{F_s} = 8,3\)</span> A,</p>
+</div>
+</div>
+<h1
+id="principio-de-funcionamiento-de-las-máquinas-eléctricas-rotativas">Principio
+de funcionamiento de las máquinas eléctricas rotativas</h1>
+<div class="frame">
+<p><span>Principio de funcionamiento</span></p>
+<div class="columns">
+<div class="column">
+<p><span>6cm</span></p>
+<figure data-latex-placement="h">
+
+</figure>
+</div><div class="column">
+<p><span>6cm</span></p>
+<div class="small">
+<ul>
+<li><p>La bobina 1 (<strong>rotor</strong>) se alimenta con corriente
+continua</p></li>
+<li><p>Parte del núcleo magnético, que soporta a la bobina 1, se separa
+mecánicamente del resto del núcleo y se la hace girar con velocidad
+<span class="math inline">\(\omega\)</span></p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="small">
+<ul>
+<li><p>El flujo constante creado por la bobina 1 es visto como un flujo
+variable por la bobina 2 (<strong>estátor</strong>) debido al
+coeficiente de inducción mutua (<span
+class="math inline">\(m(t)\)</span>)</p></li>
+</ul>
+</div>
+<p><span class="math display">\[\begin{equation*}
+    u_2(t)=N_2\cdot \frac{d \phi(t)}{dt}=\frac{d}{dt}\left[m(t)
+I_1  \right]=I_1\cdot \frac{d m(t)}{dt}
+\end{equation*}\]</span> Con un diseño constructivo adecuado se puede
+conseguir que <span class="math inline">\(m(t)\)</span> sea
+aproximadamente sinusoidal, y en consecuencia el flujo <span
+class="math inline">\(\phi(t)\)</span> también lo será. <strong>Por
+tanto <span class="math inline">\(u_2(t)\)</span> será una magnitud
+sinusoidal</strong></p>
+</div>
+<div class="frame">
+<p><span>Campo magnético giratorio mediante inductor móvil</span></p>
+<figure data-latex-placement="h">
+
+</figure>
+</div>
+<div class="frame">
+<p><span>Mediante devanados polifásicos. Teorema de Ferraris</span></p>
+<div class="block">
+<p><span>Devanado trifásico de <span class="math inline">\(1\)</span>
+par de polos</span></p>
+<div class="columns">
+<div class="column">
+<p><span>6cm</span></p>
+<figure data-latex-placement="h">
+
+</figure>
+</div><div class="column">
+<p><span>6cm</span></p>
+<div class="small">
+<p><span class="math display">\[\begin{equation*}
+        \mathcal{F}_r(\alpha,t)=\mathcal{F}_R(\alpha,t)+\mathcal{F}_S(\alpha,t)+\mathcal{F}_T(\alpha,t)
+\end{equation*}\]</span> <span class="math display">\[\begin{equation*}
+        \begin{split}
+        \mathcal{F}_R(\alpha,t)&amp;=F_{m,R}(t)\cdot \sin(\alpha)\\
+        \mathcal{F}_S(\alpha,t)&amp;=F_{m,S}(t)\cdot
+\sin(\alpha-120^\circ)\\
+        \mathcal{F}_T(\alpha,t)&amp;=F_{m,T}(t)\cdot
+\sin(\alpha+120^\circ)
+        \end{split}
+\end{equation*}\]</span></p>
+</div>
+<p>Según el teorema de Ampere:</p>
+<div class="small">
+<p><span class="math display">\[\begin{equation*}
+        F_{m,k}(t)\propto i_k(t)
+\end{equation*}\]</span></p>
+</div>
+</div>
+</div>
+<p>Si por las bobinas circula un sistema trifásico equilibrado de
+intensidades:</p>
+<div class="small">
+<p><span class="math display">\[\begin{equation*}
+    \left.
+        \begin{split}
+        \mathcal{F}_R&amp;=F_m \cdot \sin(\omega t)\cdot \sin(\alpha)\\
+        \mathcal{F}_S&amp;=F_m \cdot \sin(\omega t-120^\circ)\cdot
+\sin(\alpha-120^\circ)\\
+        \mathcal{F}_T&amp;=F_m \cdot \sin(\omega t+120^\circ)\cdot
+\sin(\alpha+120^\circ)\\
+        \end{split}
+        \right\} \  \Rightarrow
+\  \boxed{\mathcal{F}_r(\alpha,t)=\frac{3}{2}F_m\cdot \sin(\alpha-\omega
+t)}
+\end{equation*}\]</span></p>
+</div>
+</div>
+</div>
+<div class="frame">
+<p><span>Mediante devanados polifásicos. Teorema de Ferraris</span></p>
+<div class="block">
+<p><span>Devanado trifásico de <span class="math inline">\(p\)</span>
+pares de polos</span> Si el devanado trifásico tiene <span
+class="math inline">\(p\)</span> pares de polos entonces la velocidad de
+giro del campo magnético giratorio (denominada <strong>velocidad de
+sincronismo</strong>) es: <span class="math display">\[\begin{equation*}
+        n_e=\frac{60\cdot f}{p} \ \ [\text{rpm}]
+\end{equation*}\]</span> donde <span class="math inline">\(f\)</span> es
+la frecuencia de las corrientes de alimentación y <span
+class="math inline">\(p\)</span> es el número de pares de polos</p>
+</div>
+</div>
+<div class="frame">
+<p><span>Alternador trifásico</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+<div class="frame">
+<p><span>Ejemplo de alternador trifásico</span></p>
+<p><img src="./figuras_tema_11/alternador_hidraulico.PNG"
+style="width:80.0%" alt="image" /></p>
+</div>
+<div class="frame">
+<div class="exampleblock">
+<p><span>Ejercicio</span> Un alternador de la central hidroeléctrica de
+Guillena proporciona 70 MW con factor de potencia 0.8 inductivo a una
+tensión de 13.8 kV. Si el alternador tiene una reactancia interna por
+fase de 2.6 <span class="math inline">\(\Omega\)</span> (la resistencia
+es despreciable frente a la reactancia), determinar el valor eficaz de
+la intensidad que suministra el alternador, y de la <em>fuerza
+electromotriz interna</em>, <span class="math inline">\(E\)</span>, del
+mismo (tensión de la fuente ideal del modelo como fuente trifásica
+real).</p>
+<p><strong>Solución</strong>: <span class="math inline">\(I =
+3,66\)</span> kA, <span class="math inline">\(E = 15,65\)</span> kV</p>
+</div>
+</div>

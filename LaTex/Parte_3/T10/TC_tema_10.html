@@ -1,0 +1,246 @@
+<div class="frame">
+
+</div>
+<section id="índice" class="frame">
+<h3>Índice</h3>
+</section>
+<h1
+id="potencia-instantánea-en-circuitos-trifásicos-equilibrados">Potencia
+instantánea en circuitos trifásicos equilibrados</h1>
+<div class="frame">
+<p><span>Potencia instantánea trifásica</span></p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>5cm</span> <span class="math display">\[\begin{equation*}
+\begin{split}
+u_1(t)&amp;=\sqrt{2}U_F\cos(\omega t)\\
+i_1(t)&amp;=\sqrt{2}I_F\cos(\omega t-\varphi)\\
+\\
+u_2(t)&amp;=\sqrt{2}U_F\cos(\omega t-120^\circ)\\
+i_2(t)&amp;=\sqrt{2}I_F\cos(\omega t-120^\circ-\varphi)\\
+\\
+u_3(t)&amp;=\sqrt{2}U_F\cos(\omega t+120^\circ)\\
+i_3(t)&amp;=\sqrt{2}I_F\cos(\omega t+120^\circ-\varphi)
+\end{split}
+\end{equation*}\]</span></p>
+</div>
+</div>
+<hr />
+<p><span class="math display">\[\begin{equation*}
+    p(t)=\underbrace{u_1(t)\cdot
+i_1(t)}_{p_1(t)}+\underbrace{u_2(t)\cdot
+i_2(t)}_{p_2(t)}+\underbrace{u_3(t)\cdot i_3(t)}_{p_3(t)}=3U_FI_F\cos
+\varphi
+\end{equation*}\]</span></p>
+</div>
+<div class="frame">
+<p><span>Potencia instantánea</span> <span
+class="math display">\[\begin{equation*}
+  \boxed{p(t)=3U_FI_F\cos \varphi}
+\end{equation*}\]</span></p>
+<ul>
+<li><p>La potencia instantánea total de un sistema trifásico equilibrado
+es constante, no apareciendo términos fluctuantes. Esto conlleva
+beneficios como disminución de vibraciones, ruido y fatiga en las
+máquinas eléctricas rotativas.</p></li>
+<li><p>Si el sistema no está equilibrado, la potencia instantánea
+contendrá en general términos fluctuantes.</p></li>
+<li><p>Si bien los términos fluctuantes se cancelan entre sí, ello no
+evita que exista un intercambio de potencia reactiva entre cada una de
+las fases y el circuito exterior (puede existir un desfase entre la
+tensión e intensidad de cada fase).</p></li>
+</ul>
+</div>
+<h1
+id="cálculo-de-potencia-a-través-de-magnitudes-de-fase-y-de-línea">Cálculo
+de potencia a través de magnitudes de fase y de línea</h1>
+<div class="frame">
+<p><span>Potencia activa trifásica</span> En términos de las magnitudes
+de fase: <span class="math display">\[\begin{equation*}
+\boxed{P=\frac{1}{T}\int^{T}_0 p(t) dt=3 U_F I_F\cos \varphi}
+\end{equation*}\]</span></p>
+<p>En términos de las magnitudes de línea: <span
+class="math display">\[\begin{equation*}
+\left.
+    \begin{split}
+    \text{Conexión en estrella:} &amp; \ U_F=\frac{U_L}{\sqrt{3}} \ ; \
+I_F=I_L\\
+    \text{Conexión en triángulo:} &amp; \ U_F=U_L \ ; \
+I_F=\frac{I_L}{\sqrt{3}}
+    \end{split}\right\} \ \ \Rightarrow  \ \ \boxed{P=\sqrt{3} U_L
+I_L\cos \varphi}
+\end{equation*}\]</span></p>
+<p>El ángulo <span class="math inline">\(\varphi\)</span> es el desfase
+entre las correspondientes tensiones e intensidades de fase (en un
+sistema equilibrado, las tres fases tienen el mismo desfase).</p>
+</div>
+<div class="frame">
+<p><span>Potencia reactiva trifásica</span> Definida como la suma de las
+potencias reactivas en cada fase. En términos de las magnitudes de fase:
+<span class="math display">\[\begin{equation*}
+\boxed{Q=3 U_F I_F\sin \varphi}
+\end{equation*}\]</span></p>
+<p>En términos de las magnitudes de línea: <span
+class="math display">\[\begin{equation*}
+\left.
+    \begin{split}
+   \text{Conexión en estrella:} &amp; \ U_F=\frac{U_L}{\sqrt{3}} \ ; \
+I_F=I_L\\
+    \text{Conexión en triángulo:} &amp; \ U_F=U_L \ ; \
+I_F=\frac{I_L}{\sqrt{3}}
+    \end{split}\right\} \ \ \Rightarrow  \ \ \boxed{Q=\sqrt{3} U_L
+I_L\sin \varphi}
+\end{equation*}\]</span></p>
+<p>El ángulo <span class="math inline">\(\varphi\)</span> es el desfase
+entre las correspondientes tensiones e intensidades de fase (en un
+sistema equilibrado, las tres fases tienen el mismo desfase).</p>
+</div>
+<div class="frame">
+<p><span>Potencia compleja y aparente en sistemas trifásicos</span>
+tiene una expresión análoga a la vista para circuitos monofásicos. <span
+class="math display">\[\begin{equation*}
+\boxed{\mathcal{S}=3\cdot \mathcal{S}_F=3\cdot
+\mathcal{U}_{F}\mathcal{I}^*_{F}=\sqrt{3}\cdot
+\mathcal{U}_{L}\mathcal{I}^*_{L}=P+jQ }
+\end{equation*}\]</span></p>
+<p>se corresponde con el módulo de la potencia compleja. <span
+class="math display">\[\begin{equation*}
+\boxed{{S}=|\mathcal{S}|=3\cdot {U}_{F}{I}_F=\sqrt{3}\cdot {U}_{L}
+{I}_L=\sqrt{P^2+Q^2}}
+\end{equation*}\]</span></p>
+</div>
+<div class="frame">
+<div class="exampleblock">
+<p><span>Ejercicio 10.1</span> La carga trifásica de la figura no
+consume potencia reactiva y su potencia aparente es 25 kVA. Sabiendo que
+<span class="math inline">\(R=\frac{1}{\sqrt{3}} \,
+\mathrm{\Omega}\)</span>, determinar las lecturas de los
+amperímetros.</p>
+<figure data-latex-placement="hbt">
+<img src="./figuras_tema_10/Ejer_10_1.PNG" style="height:3.5cm" />
+</figure>
+<p><strong>Solución</strong>: <span
+class="math inline">\(A_1=65,608\)</span> A; <span
+class="math inline">\(A_2=285,608\)</span> A</p>
+</div>
+</div>
+<h1 id="mejora-del-factor-de-potencia">Mejora del factor de
+potencia</h1>
+<section id="definición-de-factor-de-potencia" class="frame">
+<h3>Definición de factor de potencia</h3>
+<p>Al igual que en circuitos monofásicos, el <strong>factor de
+potencia</strong> se define como el cociente entre la potencia activa y
+la potencia aparente: <span class="math display">\[\begin{equation*}
+    \boxed{\text{fdp}=\frac{P}{S}=\frac{P}{\sqrt{P^2+Q^2}}=\frac{\sqrt{3}\cdot
+U_L I_L\cos \varphi}{\sqrt{3}\cdot U_L I_L}=\cos \varphi}
+\end{equation*}\]</span></p>
+<div class="alertblock">
+<p>El factor de potencia <strong>NO</strong> da información sobre el
+signo de la potencia reactiva. Es necesario indicar el carácter
+inductivo o capacitivo.</p>
+</div>
+</section>
+<section id="mejora-del-factor-de-potencia-1" class="frame">
+<h3>Mejora del factor de potencia</h3>
+<figure data-latex-placement="hbt">
+
+</figure>
+</section>
+<section id="mejora-del-factor-de-potencia-2" class="frame">
+<h3>Mejora del factor de potencia</h3>
+<div class="block">
+<p><span>Capacidad de los condensadores conectados en
+estrella</span></p>
+<figure data-latex-placement="h">
+
+</figure>
+</div>
+<div class="block">
+<p><span>Capacidad de los condensadores conectados en
+triángulo</span></p>
+<figure data-latex-placement="h">
+
+</figure>
+</div>
+</section>
+<div class="frame">
+<div class="exampleblock">
+<p><span>Ejercicio 10.2</span></p>
+<p>Determinar la capacidad de los condensadores a conectar en triángulo
+para que el factor de potencia del conjunto sea de 0.9 inductivo, así
+como la potencia reactiva inyectada por estos al sistema, sabiendo que
+las potencias absorbidas por las cargas son las siguientes: <span
+class="math inline">\(P_1\)</span> = 400 W, <span
+class="math inline">\(Q_1\)</span> = 200 var, <span
+class="math inline">\(P_2\)</span>=400 W, <span
+class="math inline">\(Q_2\)</span> = 400 var. La frecuencia del sistema
+es <span class="math inline">\(f = 50\)</span> Hz.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><strong>Solución</strong>: <span class="math inline">\(C=1,562 \,
+\mathrm{\mu F}\)</span>; <span class="math inline">\(Q_c=212,54\)</span>
+var</p>
+</div>
+</div>
+<h1 id="medición-de-potencia-con-vatímetros">Medición de potencia con
+vatímetros</h1>
+<div class="frame">
+<p><span>Medida de potencia activa en sistemas con neutro
+accesible</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><span class="math display">\[\begin{equation*}
+  W=U_{RN}\cdot I_R\cdot
+  \cos(\widehat{\mathcal{U}_{RN},\mathcal{I}_R})=U_F\cdot
+  I_F\cdot \cos \varphi=\frac{P}{3} \ \ \Rightarrow \ \ \boxed{P=3\cdot
+W}
+\end{equation*}\]</span></p>
+</div>
+<div class="frame">
+<p><span>Método de los dos vatímetros</span></p>
+<p>Solo se considerará el desarrollo para <strong>secuencia
+directa</strong>.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+<div class="frame">
+<p><span>Medida de potencia reactiva con un vatímetro</span></p>
+<p>Solo se considerará el desarrollo para <strong>secuencia
+directa</strong>.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><span class="math display">\[\begin{equation*}
+  W=U_{ST}\cdot I_R\cdot
+  \cos(\widehat{\mathcal{U}_{ST},\mathcal{I}_R})=U_{ST}\cdot I_{R}\cdot
+\cos(90^\circ-\varphi)=U_{L}\cdot I_{L}\cdot \sin
+  \varphi=\frac{Q}{\sqrt{3}}
+\end{equation*}\]</span> <span class="math display">\[\begin{equation*}
+\boxed{Q=\sqrt{3}\cdot W}
+\end{equation*}\]</span></p>
+</div>
+<div class="frame">
+<div class="exampleblock">
+<p><span>Ejercicio 10.3</span> En el sistema de la figura, equilibrado y
+de secuencia directa, se conocen las lecturas de los dos vatímetros,
+<span class="math inline">\(W_1 =200\)</span> y <span
+class="math inline">\(W_2=100\)</span>, así como las potencias activa y
+reactiva consumidas por la carga 1, <span
+class="math inline">\(P_1=250\)</span> W y <span
+class="math inline">\(Q_1=100\)</span> var. Encontrar la potencia
+compleja consumida por la carga 2.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><strong>Solución</strong>: <span class="math inline">\(\mathcal{S}_2=
+50 + j73,21\)</span> VA</p>
+</div>
+</div>

@@ -1,0 +1,642 @@
+<div class="frame">
+
+</div>
+<section id="índice" class="frame">
+<h3>Índice</h3>
+</section>
+<h1 id="potencia-instantánea-en-circuitos-de-corriente-alterna">Potencia
+instantánea en circuitos de corriente alterna</h1>
+<div class="frame">
+<p>Potencia consumida por un circuito sometido a tensión e intensidad
+sinusoidales de la misma frecuencia</p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>5cm</span> <span class="math display">\[\begin{equation*}
+    \begin{split}
+    u(t)&amp;=\sqrt{2}\,U\,\cos(\omega t +\varphi_u)\\%%
+    i(t)&amp;=\sqrt{2}\,I\,\cos(\omega t +\varphi_i)\\
+    \end{split}
+\end{equation*}\]</span> <span class="math display">\[\begin{equation*}
+    \varphi=\varphi_u-\varphi_i
+\end{equation*}\]</span></p>
+</div>
+</div>
+<hr />
+<p><span class="math display">\[\begin{equation*}
+%    \begin{split}
+    p(t)=u(t)\cdot i(t)
+%    &amp;
+=2\,U\, I\, \cos(\omega t+\varphi_u)\, \cos(\omega t+\varphi_i)
+%\\
+%                       &amp;=2\,U\, I\, \cos(\omega t+\varphi_u)\,
+\cos(\omega t+\varphi_u-\varphi)
+%                                                  \end{split}
+\end{equation*}\]</span> Teniendo en cuenta que <span
+class="math inline">\(\cos x \cdot \cos y = \frac{1}{2}\left[\cos(x+y) +
+\cos(x-y)\right]\)</span>, <span
+class="math display">\[\begin{equation*}
+       \boxed{ p(t)=U\, I\, \cos \varphi + U\, I\, \cos\left(2\omega
+t+\varphi_u +\varphi_i \right)
+%       \cdot \left[1+\cos\left(2\omega t+2\varphi_u \right)  \right] +
+U \,I\, \sin \varphi \cdot %\sin\left(2\omega t+2\varphi_u \right)
+}
+\end{equation*}\]</span></p>
+</div>
+<div class="frame">
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><span class="math display">\[\begin{equation*}
+%       \boxed{ p(t)=U I \cos \varphi \cdot \left[1+\cos\left(2\omega
+t+2\varphi_u \right)  \right] + U I %\sin \varphi \cdot
+\sin\left(2\omega t+2\varphi_u \right)}
+\boxed{ p(t)=U\, I\, \cos \varphi + U\, I\, \cos\left(2\omega
+t+\varphi_u +\varphi_i \right)}
+\end{equation*}\]</span></p>
+<ul>
+<li><p>Término constante (potencia media): <span class="math inline">\(U
+I \cos \varphi\)</span></p></li>
+<li><p>Término fluctuante de frecuencia doble: <span
+class="math inline">\(U\, I\, \cos\left(2\omega t+\varphi_u +\varphi_i
+\right)\)</span></p></li>
+</ul>
+</div>
+<div class="frame">
+<p>Trabajando con los fasores de tensión e intensidad,</p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>5cm</span> <span class="math display">\[\begin{equation*}
+    \begin{split}
+    \mathcal{U}&amp;=U_{\angle \varphi_u}\\%%
+    \mathcal{I}&amp;=I_{\angle \varphi_i}\\%%
+       \end{split}
+\end{equation*}\]</span></p>
+</div>
+</div>
+<p>y descomponiendo la intensidad en dos componentes, una en fase con la
+tensión (activa), y otra en cuadratura con la tensión (reactiva),</p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>7cm</span> <span class="math display">\[\begin{equation*}
+    \begin{split}
+    \mathcal{I}&amp;=\mathcal{I}_a+\mathcal{I}_r\\%%
+    \mathcal{I}_a&amp;={I}\cos \varphi_{ \angle \varphi_u}={I_a}_{\angle
+\varphi_u}\\%%
+    \mathcal{I}_r&amp;={I}\sin \varphi_{ \angle
+(\varphi_u-90^\circ)}={I_r}_{\angle (\varphi_u-90^\circ)}\\%%
+       \end{split}
+\end{equation*}\]</span></p>
+</div>
+</div>
+<p><span class="math display">\[\begin{equation*}
+    \boxed{p(t)=U\,I_a\,\left[1+\cos(2\omega t+ 2\varphi_u) \right]+
+U\,I_r \,\sin(2\omega t+ 2\varphi_u)}
+\end{equation*}\]</span></p>
+</div>
+<div class="frame">
+<p>La intensidad en fase con la tensión da lugar a un consumo de energía
+neto (potencia siempre positiva), mientras que la intensidad en
+cuadratura con la tensión no supone un consumo energético a lo largo del
+tiempo.</p>
+<p><span class="math display">\[p(t)=U\,I_a\,\left[1+\cos(2\omega t+
+2\varphi_u) \right]
++ U\,I_r\, \sin(2\omega t+ 2\varphi_u)\]</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+<div class="frame">
+<p><span class="math display">\[p(t)=U\,I_a\,\left[1+\cos(2\omega t+
+2\varphi_u) \right]
++ U\,I_r\, \sin(2\omega t+ 2\varphi_u)\]</span></p>
+<ul>
+<li><p><strong>Componente activa</strong>: varía entre cero y dos veces
+la potencia media, siendo ésta <span class="math inline">\(U\,I_a =
+U\,I\,\cos\varphi\)</span>.</p></li>
+<li><p><strong>Componente reactiva</strong>: varía entre <span
+class="math inline">\(U\,I_r\)</span> y <span
+class="math inline">\(-U\,I_r\)</span>, siendo sucesivamente consumida y
+cedida.</p></li>
+</ul>
+<p>Para diferenciar ambos efectos, se definen dos potencias:
+<strong>potencia activa</strong> (P) y <strong>potencia
+reactiva</strong> (Q): <span class="math display">\[\begin{equation*}
+    \begin{split}
+    P &amp;= U\, I_a = U\, I \, \cos\varphi \\
+    Q &amp;= U\, I_r = U\, I \, \sin\varphi \\
+\end{split}
+\end{equation*}\]</span> Conocidas P y Q, la potencia instantánea queda
+definida: <span class="math display">\[p(t)= P \left[1+\cos(2\omega t+
+2\varphi_u) \right]
++ Q \sin(2\omega t+ 2\varphi_u)\]</span></p>
+</div>
+<h1 id="potencias-activa-reactiva-aparente-y-compleja">Potencias activa,
+reactiva, aparente y compleja</h1>
+<div class="frame">
+<ul>
+<li><p><strong>Potencia activa</strong>: valor medio de la potencia
+instantánea <span class="math display">\[\begin{equation*}
+%\boxed{
+P=
+%\frac{1}{T}\int^{T}_0 p(t) dt=
+U\,I_a=
+U\,I\,\cos \varphi
+\ \ \ \ \ \ \ \
+\text{Unidad: vatio [W]}
+%}
+\end{equation*}\]</span></p></li>
+<li><p><strong>Potencia reactiva</strong>: valor máximo de la potencia
+asociada a la carga y descarga de elementos almacenadores <span
+class="math display">\[\begin{equation*}
+%\boxed{
+Q=U\,I_r=U\,I\,\sin \varphi
+%}
+\ \ \ \ \ \ \ \
+\text{Unidad: voltio-amperio reactivo [var]}
+\end{equation*}\]</span></p></li>
+<li><p><strong>Potencia aparente</strong>: producto de los valores
+eficaces de tensión e intensidad <span
+class="math display">\[\begin{equation*}
+%   \boxed{
+S=
+%\left| \mathcal{S} \right|=
+\sqrt{P^2+Q^2}=U\,I
+%}
+\ \ \ \ \ \ \ \
+\text{Unidad: voltio-amperio [VA]}
+\end{equation*}\]</span></p></li>
+</ul>
+<p>La potencia instantánea se puede expresar, en función de P, Q y S,
+como <span class="math display">\[\begin{equation*}
+\begin{split}
+p(t)&amp;=P + S \,\cos\left(2\omega t+\varphi_u +\varphi_i \right) =\\
+&amp;= P \,\left[1+\cos(2\omega t+ 2\varphi_u) \right]
++ Q \,\sin(2\omega t+ 2\varphi_u) \\
+\end{split}
+\end{equation*}\]</span></p>
+</div>
+<section id="potencia-compleja" class="frame">
+<h3>Potencia compleja</h3>
+<p>Número complejo cuya parte real es la potencia activa y la parte
+imaginaria es la potencia reactiva. Su módulo es la potencia aparente, y
+su fase se obtiene como <span class="math inline">\(\varphi= \varphi_u -
+\varphi_i\)</span>.</p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span> <span class="math display">\[\begin{equation*}
+%    \boxed{
+\mathcal{S}=P+jQ= S_{\angle \varphi}
+%}
+\end{equation*}\]</span> <span>Unidad:</span> voltio-amperio [VA]</p>
+</div><div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+<p>En función de los fasores tensión e intensidad: <span
+class="math display">\[\begin{equation*}
+    \mathcal{S}=
+S_{\angle \varphi} =
+%    P+jQ=UI\cdot (\cos \varphi + j\sin\varphi)=
+%UI\cdot e^{j \varphi}=UI\cdot e^{j \varphi_u}\cdot e^{-\varphi_i=
+\mathcal{U}\cdot \mathcal{I}^*
+= U_{\angle\varphi_u} \, \left(I_{\angle\varphi_i}\right)^* =
+U\, I_{\angle\varphi_u-\varphi_i}
+\end{equation*}\]</span></p>
+<p>Permite calcular las potencias activa y reactiva a partir de los
+fasores de tensión e intensidad.</p>
+</section>
+<section id="teorema-de-boucherot" class="frame">
+<h3>Teorema de Boucherot</h3>
+<p>En un circuito en régimen permanente de alterna, el balance de
+potencia se expresa como balance de potencias complejas: <span
+class="math display">\[\begin{equation*}
+    \sum_k p_k(t) = \sum_k v_k(t)\, i_k(t) \ \ \ \
+\Longrightarrow  \ \ \ \ \sum_k \mathcal{S}_k= \sum_k  \mathcal{U}_k
+\,{\mathcal{I}_k}^*
+\end{equation*}\]</span></p>
+<p>Por tanto, se deben cumplir tanto el balance en potencias activas
+como el balance en potencias reactivas por separado (teorema de
+Boucherot): <span class="math display">\[\begin{equation*}
+    \sum_k \mathcal{S}_k= \sum_k (P_k+jQ_k)=0 \ \ \Longrightarrow \ \
+\left\{   \begin{split}
+    \sum_k {P}_k&amp;=0\\
+    \sum_k {Q}_k&amp;=0
+    \end{split}
+           \right.
+\end{equation*}\]</span></p>
+</section>
+<section id="signos-de-la-potencia-activa-y-reactiva" class="frame">
+<h3>Signos de la potencia activa y reactiva</h3>
+<p>El signo tanto la potencia activa como de la reactiva depende del
+desfase entre tensión e intensidad: <span
+class="math display">\[\begin{equation*}
+P = U\,I\, \cos\varphi
+\ \ \ \ \
+Q = U\,I\, \sin\varphi
+\ \ \ \ \
+\varphi = \varphi_u - \varphi_i
+\end{equation*}\]</span> Tomando como referencia la tensión:</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</section>
+<section id="potencias-consumidas-por-una-impedancia-admitancia"
+class="frame">
+<h3>Potencias consumidas por una impedancia (admitancia)</h3>
+<div class="columns">
+<div class="column">
+<p><span>6cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<div class="center">
+<p><span class="math inline">\(\mathcal{U}=\mathcal{Z}\cdot
+\mathcal{I}\)</span></p>
+</div>
+</div><div class="column">
+<p><span>6cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<div class="center">
+<p><span class="math inline">\(\mathcal{I}=\mathcal{Y}\cdot
+\mathcal{U}\)</span></p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Potencia compleja:</p>
+<div class="columns">
+<div class="column">
+<p><span>6cm</span></p>
+<div class="center">
+<p><span class="math inline">\(\mathcal{S}=\left(\mathcal{Z}\cdot
+\mathcal{I}\right)\cdot \mathcal{I}^*=\mathcal{Z}\cdot I^2\)</span></p>
+</div>
+</div><div class="column">
+<p><span>6cm</span></p>
+<div class="center">
+<p><span class="math inline">\(\mathcal{S}=\mathcal{U}\cdot \left(
+\mathcal{Y}^*\cdot \mathcal{U}^*\right)=\mathcal{Y}^*\cdot
+U^2\)</span></p>
+</div>
+</div>
+</div></li>
+<li><p>Potencia aparente:</p>
+<div class="columns">
+<div class="column">
+<p><span>6cm</span></p>
+<div class="center">
+<p><span class="math inline">\({S}={Z}\cdot I^2\)</span></p>
+</div>
+</div><div class="column">
+<p><span>6cm</span></p>
+<div class="center">
+<p><span class="math inline">\({S}=Y\cdot  U^2\)</span></p>
+</div>
+</div>
+</div></li>
+<li><p>Potencias activa y reactiva:</p>
+<div class="columns">
+<div class="column">
+<p><span>6cm</span></p>
+<div class="center">
+<p><span class="math inline">\({P}={R}\cdot I^2\)</span><br />
+<span class="math inline">\({Q}={X}\cdot I^2\)</span></p>
+</div>
+</div><div class="column">
+<p><span>6cm</span></p>
+<div class="center">
+<p><span class="math inline">\({P}={G}\cdot U^2\)</span><br />
+<span class="math inline">\({Q}=-{B}\cdot U^2\)</span></p>
+</div>
+</div>
+</div></li>
+</ul>
+</section>
+<h1
+id="potencia-y-energía-de-resistencias-bobinas-y-condensadores">Potencia
+y energía de resistencias, bobinas y condensadores</h1>
+<section id="potencia-y-energía-de-resistencias" class="frame">
+<h3>Potencia y energía de resistencias</h3>
+<div class="columns">
+<div class="column">
+<p><span>3cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>8cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+<p><span class="math display">\[\begin{equation*}
+\left.   \begin{split}
+    u(t)&amp;=\sqrt{2}\,U\,\cos(\omega t)\\%%
+    i(t)&amp;=\sqrt{2}\,I\,\cos(\omega t)\\
+    \end{split}\right\} \ \ \Rightarrow \ \
+%\begin{split}    
+     p_R(t)=u(t)\cdot i(t)=U I \cdot \left[1+\cos\left(2\omega t
+\right)  \right]
+%\\
+\end{equation*}\]</span> <span class="math display">\[\begin{equation*}
+P = U\, I =  R\,I^2 = G\, U^2 \qquad \qquad \qquad {Q}=0
+% \end{split}
+\end{equation*}\]</span></p>
+<hr />
+<p><span class="math display">\[\begin{equation*}
+%\begin{split}
+    w_R(t) =\int R\, i^2(t)\, dt= P \left[t+
+\frac{1}{2\omega}\sin(2\omega t)  \right]
+%\\
+% &amp;=\int \frac{u^2(t)}{R}t=\frac{U^2}{R} \left[t+ \frac{1}{2\omega}
+\sin(2\omega t+2\varphi_u)  \right]
+%    \end{split}
+\end{equation*}\]</span></p>
+</section>
+<section id="potencia-y-energía-de-bobinas" class="frame">
+<h3>Potencia y energía de bobinas</h3>
+<div class="columns">
+<div class="column">
+<p><span>2cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>8cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+<p><span class="math display">\[\begin{equation*}
+\left.   \begin{split}
+    u(t)&amp;=\sqrt{2}\,U\,\cos(\omega t)\\%%
+    i(t)&amp;=\sqrt{2}\,I\,\cos(\omega t-90^\circ)\\
+    \end{split}\right\} \ \ \Rightarrow \ \
+%\begin{split}
+     p_L(t)=u(t)\cdot i(t)=U\, I \cdot \sin\left(2\omega t \right)
+%\\
+%     P &amp; = 0 \ \ \ \ Q = U\, I = L\omega\, I^2 =
+\frac{U^2}{L\omega} \\
+% \end{split}
+\end{equation*}\]</span> <span class="math display">\[\begin{equation*}
+P  = 0 \qquad \qquad \qquad Q = U\, I = L\omega\, I^2 =
+\frac{U^2}{L\omega}
+\end{equation*}\]</span></p>
+<hr />
+<p><span class="math display">\[\begin{equation*}
+    w_L(t)=\frac{1}{2}\,L\,i^2(t)=
+%\frac{L}{2}  \left[\sqrt{2} I \cos(\omega t+\varphi_i) \right]^2=
+\frac{1}{2}\, L\,I^2 \left[1- \cos(2\omega t)  \right]
+\end{equation*}\]</span></p>
+</section>
+<section id="potencia-y-energía-de-condensadores" class="frame">
+<h3>Potencia y energía de condensadores</h3>
+<div class="columns">
+<div class="column">
+<p><span>2cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>8cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+<p><span class="math display">\[\begin{equation*}
+\left.   \begin{split}
+    u(t)&amp;=\sqrt{2}\,U\,\cos(\omega t)\\%%
+    i(t)&amp;=\sqrt{2}\,I\,\cos(\omega t+90^\circ)\\
+    \end{split}\right\} \ \ \Rightarrow \ \
+%    \begin{split}
+     p_C(t)=u(t)\cdot i(t)=-U\,I \, \sin\left(2\omega t \right)
+%\\
+\end{equation*}\]</span> <span class="math display">\[\begin{equation*}
+P  = 0 \qquad \qquad \qquad Q = -U\,I = \frac{-
+I^2}{C\,\omega}=-C\omega\, U^2
+\end{equation*}\]</span></p>
+<hr />
+<p><span class="math display">\[\begin{equation*}
+    w_C(t)=\frac{1}{2}\,C\,u^2(t)=
+\frac{1}{2}\, C\,U^2\, \left[1+ \cos(2\omega t)  \right]
+\end{equation*}\]</span></p>
+</section>
+<section id="section" class="frame">
+<h3></h3>
+<div class="exampleblock">
+<p><span>Ejercicio 8.1</span></p>
+<p>En el circuito de la figura, <span
+class="math inline">\(u_g(t)=\sqrt{2}\,750\,
+\cos(5000t+30^\circ)\)</span> V, <span
+class="math inline">\(R=90\)</span> <span
+class="math inline">\(\Omega\)</span>, <span
+class="math inline">\(L=32\)</span> mH, y <span
+class="math inline">\(C=5\)</span> <span
+class="math inline">\(\mu\)</span>F.</p>
+<ol>
+<li><p>Calcular las potencias activa y reactiva de cada uno de los
+elementos del circuito.</p></li>
+<li><p>Comprobar que se cumplen los balances de potencia activa y
+reactiva.</p></li>
+</ol>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><span> <strong>Solución</strong>: <span
+class="math inline">\(P_R\)</span>=<span
+class="math inline">\(2250\)</span> W; <span
+class="math inline">\(Q_L\)</span>=<span
+class="math inline">\(4000\)</span> var; <span
+class="math inline">\(Q_C\)</span>=<span
+class="math inline">\(-1000\)</span> var; <span
+class="math inline">\(\mathcal{S}_{g}=2250+j 3000\)</span> VA
+</span></p>
+</div>
+</section>
+<h1 id="máxima-transferencia-de-potencia-en-alterna">Máxima
+transferencia de potencia en alterna</h1>
+<section id="máxima-transferencia-de-potencia-en-alterna-1"
+class="frame">
+<h3>Máxima transferencia de potencia en alterna</h3>
+<p>Se trata de maximizar la potencia media que consume una impedancia
+<span class="math inline">\(\mathcal{Z}\)</span> conectada a una fuente
+real de alterna (con impedancia interna <span
+class="math inline">\(\mathcal{Z}_g\)</span>):</p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<div class="small">
+<p><span class="math display">\[\begin{equation*}
+    P=R I^2=\cfrac{R\cdot U^2_g}{(R+R_g)^2+(X+X_g)^2}
+\end{equation*}\]</span></p>
+</div>
+</div><div class="column">
+<p><span>6cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+<p>El caso más favorable es cuando <span
+class="math inline">\(R\)</span> y <span
+class="math inline">\(X\)</span> se pueden elegir libremente: <span
+class="math display">\[\frac{\partial P}{\partial R}=0 \ \ ; \ \
+\frac{\partial P}{\partial X}=0 \ \ \Rightarrow  \ \ \boxed{R=R_g \ \ ;
+\ \ X=-X_g} \ \ \Longrightarrow \ \ P_{max}=\frac{U^2_g}{4\cdot
+R_g}\]</span></p>
+</section>
+<h1 id="factor-de-potencia">Factor de potencia</h1>
+<section id="factor-de-potencia-1" class="frame">
+<h3>Factor de potencia</h3>
+<p>El <strong>factor de potencia</strong> se define como el cociente
+entre la potencia activa y la potencia aparente: <span
+class="math inline">\(P/S=\cos(\varphi)\)</span></p>
+<p>Para que esté completamente determinado, es necesario indicar si es
+<strong>inductivo</strong> (en retraso), o <strong>capacitivo</strong>
+(en adelanto):</p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span> <span> <strong>Carácter inductivo</strong> (retraso)
+</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>5cm</span> <span> <strong>Carácter capacitivo</strong>
+(adelanto) </span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+</section>
+<section id="mejora-del-factor-de-potencia" class="frame">
+<h3>Mejora del factor de potencia</h3>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>7cm</span> Para <span class="math inline">\(\{P,U\}\)</span>
+fijas:</p>
+<ul>
+<li><p>Si <span class="math inline">\(\cos \varphi\)</span> aumenta
+ <span class="math inline">\(\Rightarrow\)</span>  <span
+class="math inline">\(I\)</span> disminuye</p></li>
+<li><p>Si <span class="math inline">\(\cos \varphi\)</span> disminuye
+ <span class="math inline">\(\Rightarrow\)</span>  <span
+class="math inline">\(I\)</span> aumenta</p></li>
+</ul>
+</div>
+</div>
+<hr />
+<div class="small">
+<p>Si la intensidad consumida aumenta:</p>
+<ol>
+<li><p>Aumentan las pérdidas en la alimentación: <span
+class="math inline">\(R_L\,I^2\)</span></p></li>
+<li><p>Aumenta la caída de tensión: <span class="math inline">\(\Delta
+U=E_g-U\)</span></p></li>
+<li><p>Líneas mal utilizadas al transportar <span
+class="math inline">\(I_r\)</span> (no realiza trabajo útil) en lugar de
+solamente <span class="math inline">\(I_a\)</span> (da lugar a la
+potencia media).</p></li>
+</ol>
+</div>
+<p><span class="math inline">\(\Rightarrow\)</span>  Es importante
+mantener factores de potencia próximos a <span
+class="math inline">\(1\)</span>.</p>
+</section>
+<section id="mejora-del-factor-de-potencia-1" class="frame">
+<h3>Mejora del factor de potencia</h3>
+<figure data-latex-placement="hbt">
+
+</figure>
+</section>
+<section id="factor-de-potencia-2" class="frame">
+<h3>Factor de potencia</h3>
+<div class="exampleblock">
+<p><span>Ejercicio 8.2</span> El circuito de la figura muestra una
+fuente de <span class="math inline">\(3\,800\)</span> V y <span
+class="math inline">\(50\)</span> Hz que alimenta a una instalación que
+consume <span class="math inline">\(40\)</span> kW para calefacción y
+<span class="math inline">\(180\)</span> kVA para motores de inducción
+que operan con un <span class="math inline">\(\cos \varphi=0.7\)</span>.
+Determinar:</p>
+<ol>
+<li><p>La intensidad total <span class="math inline">\({I}\)</span> y el
+factor de potencia total de la instalación.</p></li>
+<li><p>Determinar qué elemento hay que instalar y cómo debe estar
+conectado para mejorar el factor de potencia total de la instalación a
+<span class="math inline">\(\cos
+\varphi=0.9\)</span> inductivo.</p></li>
+</ol>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><strong>Solución</strong>: <span
+class="math inline">\(I=55.26\)</span> A; <span
+class="math inline">\(\cos \varphi_T=0.79\)</span> inductivo; <span
+class="math inline">\(C=10.6\)</span> <span
+class="math inline">\(\mu\)</span>F</p>
+</div>
+</section>
+<h1 id="medida-de-la-potencia-activa">Medida de la potencia activa</h1>
+<section id="medida-de-la-potencia-activa-vatímetro" class="frame">
+<h3>Medida de la potencia activa: vatímetro</h3>
+<p>El <strong>vatímetro</strong> es un elemento de cuatro terminales que
+miden la tensión, la intensidad, y el desfase entre ambas:</p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>5cm</span> <span class="math inline">\(\boxed{W=U\cdot I \cdot
+\cos\left(\widehat{\mathcal{U},\mathcal{I}}  \right)}\)</span></p>
+</div>
+</div>
+<p>Para medir la potencia media consumida por un elemento, se conecta el
+vatímetro en la forma indicada:</p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>5cm</span> <span class="math display">\[\begin{equation*}
+\begin{split}
+    W&amp;=U\cdot I \cdot
+\cos\left(\widehat{\mathcal{U},\mathcal{I}}  \right)\\%%
+    &amp;=U\cdot I \cdot \cos \varphi=P    \end{split}
+\end{equation*}\]</span></p>
+</div>
+</div>
+</section>

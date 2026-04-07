@@ -1,0 +1,561 @@
+\documentclass{beamer}
+\setbeamercovered{transparent}
+
+
+\usetheme{CambridgeUS}
+\setbeamercolor{normal text}{bg=gray!20}
+\setbeamertemplate{blocks}[default]
+\setbeamercolor{block title}{fg=white,bg=red!60!black}
+\setbeamercolor{block body}{fg=black,bg=gray!15}
+
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{psfrag}
+\usepackage{pstricks}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[scriptsize,tight]{subfigure}
+\usepackage{multimedia}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{comment}
+\usepackage{ragged2e}
+
+
+\usefonttheme[onlymath]{serif}
+
+
+\setbeamertemplate{navigation symbols}{}  
+
+
+\author[Teoría de Circuitos]{Teoría de Circuitos}
+\title[Tema 2]{\scshape Tema 2}
+\subtitle{Circuitos Resistivos con Generadores Ideales}
+
+\date[]{}
+\institute[ETSI]{Departamento de Ingeniería Eléctrica \\ Escuela Técnica Superior de Ingeniería\\ Universidad de Sevilla}
+
+
+\AtBeginSection[]{
+\begin{frame}
+\frametitle{Índice}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+\begin{document}
+\justifying
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Índice}
+%\tableofcontents[pausesections]
+\tableofcontents
+\end{frame}
+
+
+
+\section{Generadores ideales}
+\begin{frame}\frametitle{Generador (fuente) ideal de tensión}
+
+Especifica una tensión entre sus bornes, $u_g(t)$, que no depende del circuito al cual está conectado. Por su parte, la intensidad, $i(t)$, sí depende del resto del circuito.
+
+\begin{columns}
+\begin{column}{4cm}
+\vspace*{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\psfrag{u}[][]{$u_g(t)$}
+\psfrag{i}[][]{$i(t)$}
+\fboxsep 5pt
+\fcolorbox{red}{white}{\epsfig{file=./figuras_tema_2/f_tension.eps,height=1.5cm}}
+\label{f_tension}
+\end{figure}
+\end{column}
+\begin{column}{8cm}
+\structure{Potencia:}\ \ $p_g(t)=u_g(t)\cdot i(t)\lessgtr 0$
+dependiendo del circuito al que se conecte.
+\end{column}
+\end{columns}
+
+\vspace*{0.3cm}
+\begin{columns}
+\begin{column}{6cm}
+\centering
+\structure{Símbolos}
+\end{column}
+\begin{column}{6cm}
+\centering
+\structure{Montajes incompatibles\\ (conexión en paralelo)}
+\end{column}
+\end{columns}
+
+\begin{columns}
+\begin{column}{6cm}
+\begin{figure}[hbt]
+\centering
+\vspace{-0.5cm}
+\epsfig{file=./figuras_tema_2/f_tension_2.eps,height=2cm}
+\label{f_tension_2}
+\end{figure}
+\end{column}
+\begin{column}{6cm}
+\begin{figure}[hbt]
+\centering
+\vspace{-0.5cm}
+\epsfig{file=./figuras_tema_2/f_tension_incom.eps,height=2cm}
+\label{f_tension_incom}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Generador (fuente) ideal  de intensidad}
+
+Especifica la intensidad que la atraviesa, $i_g(t)$, independiente del circuito al que se conecta. Por su parte, la tensión entre sus terminales, $u(t)$, sí depende del resto del circuito.
+
+\begin{columns}
+\begin{column}{4cm}
+%\vspace*{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\psfrag{u}[][]{$u(t)$}
+\psfrag{i}[][]{$i_g(t)$}
+\psfrag{A}[][]{\scriptsize{A}}
+\psfrag{B}[][]{\scriptsize{B}}
+\fboxsep 5pt
+\fcolorbox{red}{white}{\epsfig{file=./figuras_tema_2/f_intensidad.eps,height=2.3cm}}
+\label{f_intensidad}
+\end{figure}
+\end{column}
+\begin{column}{8cm}
+\structure{Potencia:}\ \ $p_g(t)=u(t)\cdot i_g(t)\lessgtr 0$
+dependiendo del circuito al que se conecte.
+\end{column}
+\end{columns}
+
+\vspace*{-0.8cm}
+\begin{columns}
+\begin{column}{4cm}
+\end{column}
+\begin{column}{8cm}
+\centering
+\structure{Montajes incompatibles\\ (conexión en serie)}
+\end{column}
+\end{columns}
+
+\begin{columns}
+\begin{column}{4cm}
+\end{column}
+\begin{column}{8cm}
+
+\begin{figure}[hbt]
+\vspace{-0.3cm}
+\epsfig{file=./figuras_tema_2/f_int_incom.eps,height=2cm}
+\label{f_int_incom}
+\end{figure}
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section[]{Asociación de generadores ideales}
+
+\begin{frame}
+\frametitle{Asociación de generadores ideales}
+
+\begin{block}{Asociación serie de generadores de tensión}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_2/f_tension_serie.eps,height=1.3cm}
+\label{f_tension_serie}
+\end{figure}
+\end{block}
+\begin{block}{Asociación paralelo de generadores de intensidad}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_2/f_int_paralelo.eps,height=2cm}
+\label{f_int_paralelo}
+\end{figure}
+\end{block}
+
+\end{frame}
+
+
+
+\section[]{Resistencia y conductancia. Ley de Ohm}
+
+\begin{frame}\frametitle{Resistencia y conductancia. Ley de Ohm}
+\begin{columns}
+\begin{column}{4cm}
+\vspace*{-0.3cm}
+\begin{figure}[hbt]
+\fboxsep 5pt
+\fcolorbox{blue}{white}{\epsfig{file=./figuras_tema_2/R.eps,height=2.5cm}}
+\label{R}
+\end{figure}
+\end{column}
+\begin{column}{8cm}
+\centering
+\structure{Relación $u(t)\leftrightarrow i(t)$}
+%\vspace*{-0.3cm}
+\begin{columns}
+\begin{column}{4cm}
+\begin{equation*}
+  \boxed{u(t)=R\cdot i(t)}
+\end{equation*}
+\begin{flushleft}
+$R\equiv$ Resistencia.\\
+\structure{Unidad SI:} Ohmio [$\Omega$]
+\end{flushleft}
+\end{column}
+\begin{column}{4cm}
+\begin{equation*}
+  \boxed{i(t)=G\cdot u(t)}
+\end{equation*}
+\begin{flushleft}
+$G\triangleq \frac{1}{R}\equiv$ Conductancia.\\
+\structure{Unidad SI:} Siemens [S]\\
+\end{flushleft}
+\end{column}
+\end{columns}
+\end{column}
+\end{columns}
+
+
+\vspace*{0.5cm}
+
+\structure{\textbf{Ley de Ohm}:}\ para un conjunto de materiales (óhmicos) el valor de $R$ (y por tanto de $G$) no depende de la tensión ni la intensidad en la resistencia.
+
+\vspace*{0.5cm}
+
+\structure{\textbf{Potencia}:}\ \ $p_R(t)=u(t)\cdot i(t)=R\cdot i^2(t)=G\cdot u^2(t)\geq 0$ (siempre absorbe)
+
+\vspace*{0.2cm}
+
+\structure{\textbf{Energía}:}\ \ $w_R(t)=\int^t_{-\infty}R\cdot i^2(\tau)d\tau=\int^t_{-\infty}G\cdot u^2(\tau)d\tau\geq 0$
+\\
+\vspace*{0.2cm}
+Toda la energía que absorbe del circuito la disipa en forma de calor por efecto Joule.
+\\
+%\vspace*{0.2cm}
+%\begin{columns}
+%\vspace*{0.3cm}
+%\begin{column}[t]{9cm}
+%\structure{Casos extremos:}
+%\begin{itemize}
+%  \item $R=0$, $G=\infty$ \ \ $\Rrightarrow$ \ \ Cortocircuito \includegraphics{./figuras_tema_2/c_circuito.eps}
+%  \item $R=\infty$, $G=0$ \ \ $\Rrightarrow$ \ \ Circuito abierto \includegraphics{./figuras_tema_2/c_abierto.eps}
+%\end{itemize}
+%\end{column}
+%\begin{column}[t]{3cm}
+%\begin{figure}[hbt]
+%\vspace*{-1.2cm}
+%\epsfig{file=./figuras_tema_2/Ohm.eps,height=1.5cm}
+%\label{Ohm}
+%\end{figure}
+%\vspace*{-0.4cm}
+%\begin{center}
+%\tiny{Georg Simon Ohm \\
+%(1789-1854)}
+%\end{center}
+%\end{column}
+%\end{columns}
+
+\end{frame}
+
+\begin{frame}\frametitle{Resistencia y conductancia. Casos particulares}
+	\vspace{-0.2cm}
+	\begin{block}{\textbf{Cortocircuito}}
+		
+		\begin{columns}
+			\begin{column}{7cm}
+				\justifying
+				Elemento en el cual la tensión es nula para toda intensidad que lo atraviese.
+				\vspace{-0.2cm}
+				\begin{center}
+				$R=0$; $G=\infty$
+				\end{center}
+			\end{column}
+			\begin{column}{4cm}
+				\vspace{-0.2cm}
+				\begin{figure}[hbt]
+					\centering
+					\fbox{\includegraphics[height=1.5cm]{./figuras_tema_2/CC_MAGC.png}}
+					\label{CC_MAGC}
+				\end{figure} 
+			\end{column}
+		\end{columns}
+		
+	\end{block}
+	\vspace{-0.2cm}
+	\begin{block}{\textbf{Circuito abierto}}
+		\vspace{-0.1cm}
+		\begin{columns}
+			\begin{column}{7cm}
+				\justifying
+				Elemento en el cual la intensidad es nula para toda tensión que se le aplique.
+				\vspace{-0.2cm}
+				\begin{center}
+				$R=\infty$; $G=0$
+				\end{center}
+			\end{column}
+			\begin{column}{4cm}
+				\vspace{-0.1cm}
+				\begin{figure}[hbt]
+					\centering
+					\fbox{\includegraphics[height=1.5cm]{./figuras_tema_2/CA_MAGC.png}}
+					\label{CA_MAGC}
+				\end{figure} 
+			\end{column}
+		\end{columns}
+	\end{block}
+	\vspace{-0.2cm}
+	\begin{block}{\textbf{Interruptor}}
+				\justifying
+				Elemento no lineal con dos posibles estados:
+				\begin{itemize}
+					\item Posición abierto: se comporta como un circuito abierto. \includegraphics[width=1.5cm]{./figuras_tema_2/c_abierto.eps}
+					\item Posición cerrado: se comporta como un cortocircuito. \includegraphics[width=1.5cm]{./figuras_tema_2/c_circuito.eps}
+				\end{itemize}
+	\end{block}
+	
+\end{frame}
+
+
+
+\section{Simplificación de circuitos resistivos}
+
+\begin{frame}
+\frametitle{Asociación serie}
+\vspace*{-0.5cm}
+Dos elementos están \textbf{en serie} cuando son recorridos por la misma intensidad.
+
+%\alert{Dos elementos están en serie cuando los atraviesa la misma intensidad.}
+\begin{block}{Resistencias}
+\vspace*{-0.5cm}
+\begin{columns}
+\begin{column}{8cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_2/serie_R.eps,height=1.5cm}
+\label{serie_R}
+\end{figure}
+\end{column}
+\begin{column}{3cm}
+$$\boxed{R_{eq}=\sum^n_{j=1} R_j}$$
+\end{column}
+\end{columns}
+\structure{\textbf{Divisor de tensión}:} conocida $u(t)$ se puede determinar la caída de tensión en uno de los elementos, $u_k(t)$.
+\begin{equation*}
+    u_k(t)=R_k\cdot i(t)=R_k\cdot \frac{u(t)}{R_{eq}} \ \ \rightsquigarrow \ \  \boxed{u_k(t)=\frac{R_k}{\sum^n_{j=1} R_j}\cdot u(t)}
+\end{equation*}
+Es consecuencia de que todas las resistencias son atravesadas por la misma intensidad.
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Asociación paralelo}
+
+Dos elementos están \textbf{en paralelo} cuando están sometidos a  la misma tensión.
+\begin{block}{Resistencias}
+
+\vspace*{-0.5cm}
+\begin{columns}
+\begin{column}{8cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_2/paralelo_R.eps,height=2cm}
+\label{paralelo_R}
+\end{figure}
+\end{column}
+\begin{column}{3cm}
+	\vspace{0.1cm}
+$$\boxed{G_{eq}=\sum^n_{j=1} G_j}$$
+\vspace{-0.3cm}
+$$\boxed{\frac{1}{R_{eq}}=\sum^n_{j=1} \frac{1}{R_{j}}}$$
+\end{column}
+\end{columns}
+\vspace*{0.1cm}
+\structure{\textbf{Divisor de intensidad}:} conocida $i(t)$ se puede determinar la intensidad en uno de los elementos, $i_k(t)$.
+\vspace*{-0.4cm}
+\begin{equation*}
+    i_k(t)=G_k\cdot u(t)=G_k\cdot \frac{i(t)}{G_{eq}} \ \ \rightsquigarrow \ \  \boxed{i_k(t)=\frac{G_k}{\sum^n_{j=1} G_j}\cdot i(t)}
+\end{equation*}
+
+Es consecuencia inmediata de que todas las resistencias están sometidas a la misma tensión.
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Configuración estrella-triángulo}
+
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_2/configuracion_estrella_triangulo.eps,height=7.5cm}
+\label{configuracion_estrella_triangulo}
+\end{figure}
+
+
+
+\end{frame}
+
+
+\section{Principio de superposición}
+
+\begin{frame}\frametitle{Principio de superposición}
+%\vspace{-1cm}
+
+Permite encontrar la respuesta de un circuito lineal excitado por varias fuentes como suma de las respuesta de dicho circuito a cada una de las fuentes actuando por separado.
+
+\vspace{-0.4cm}
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_2/Superposicion.eps,height=3cm}
+\end{figure}
+
+%\vspace{-0.8cm}
+
+\begin{equation*}
+\boxed{
+  u(t)=u_1(t)+u_2(t) \ \ ; \ \ i(t)=i_1(t)+i_2(t)}
+\end{equation*}
+
+\end{frame}
+
+\begin{frame}\frametitle{Principio de superposición}
+\vspace{-0.3cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_2/Superposicion_1.eps,height=6cm}
+\end{figure}
+
+\vspace{-0.1cm}
+
+\structure{Aplicando superposición y proporcionalidad:}
+\begin{equation*}
+\boxed{
+  u(t)=\alpha u_1(t)+\beta u_2(t) \ \ ; \ \ i(t)=\alpha i_1(t)+\beta i_2(t)}
+\end{equation*}
+
+
+\end{frame}
+
+\begin{frame}
+\begin{exampleblock}{Ejercicio 2.1}
+
+Conocidos los datos que se indican a continuación, determinar la tensión denominada como $V_{Rc}$. 
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_2/Ej_super.eps,height=1.8cm}
+\end{figure}
+\textbf{Solución}: $V_{Rc}=19$ V.
+\end{exampleblock}
+\end{frame}
+
+
+\section[]{Circuitos equivalentes}
+
+\begin{frame}
+\frametitle{Circuitos equivalentes}
+\begin{block}{Objetivo}
+	\justifying
+Simplificar parte de un circuito del cual no interesa su estudio, reemplazando varios componentes por un número más reducido, con la condición de que las respuestas en el resto del circuito no queden afectadas por dicha sustitución.
+\end{block}
+
+
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_2/circ_equivalentes.eps,height=3cm}
+\label{circ_equivalentes}
+\end{figure}
+
+Para que ambas situaciones tenga la misma solución:
+\begin{equation*}
+f_o[u(t),i(t)]=f_e[u(t),i(t)] \ \ \Rightarrow \ \  \boxed{  u_e(t)=u_o(t)\ \ ; \ \  i_e(t)=i_o(t)}
+\end{equation*}
+
+
+\end{frame}
+
+
+\section[]{Regla de sustitución}
+
+
+\begin{frame}
+\frametitle{Regla de sustitución}
+
+\begin{small}
+Si se reemplaza un circuito monopuerta por una fuente ideal de tensión (intensidad), cuyo valor sea el de la tensión (intensidad) en la puerta, entonces la intensidad (tensión) de la puerta, y por tanto el resto de respuestas en el circuito exterior no se alteran, como consecuencia de la unicidad de la solución en circuitos lineales.
+\end{small}
+
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_2/regla_sustitucion.eps,height=3.8cm}
+\label{regla_sustitucion}
+\end{figure}
+
+
+\vspace{-0.4cm}
+
+\begin{small}
+Las fuentes utilizadas en la regla de sustitución dependen de la topología y de los componentes de ambos circuitos. Por lo tanto,  \textbf{no constituyen un equivalente del circuito}.
+\end{small}
+
+\end{frame}
+
+
+
+\section[]{Desacoplamiento debido a fuentes ideales}
+
+\begin{frame}
+\frametitle{Desacoplamiento debido a fuentes ideales}
+
+\begin{block}{Circuitos desacoplados por fuente ideal de tensión}
+\vspace{-0.1cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_2/desacop_tension.eps,height=2.3cm}
+\end{figure}
+\end{block}
+
+\begin{block}{Circuitos desacoplados por fuente ideal de intensidad}
+\vspace{-0.1cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_2/desacop_intensidad.eps,height=2.7cm}
+\end{figure}
+\end{block}
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exampleblock}{Ejercicio 2.2}
+\justifying
+Conocidos los datos indicados y sabiendo que los circuitos CA y CB no poseen fuentes independientes ni están acoplados eléctrica o magnéticamente, se pide la lectura del amperímetro y la potencia que cede la fuente de tensión del esquema (c).
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_2/Ej_desacople.eps,height=3.5cm}
+\end{figure}
+\textbf{Solución}: El amperímetro mide 3,2 A y la fuente cede 115,2 W.
+\end{exampleblock}
+\end{frame}
+
+
+
+\end{document}
+
+

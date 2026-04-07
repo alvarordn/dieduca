@@ -1,0 +1,376 @@
+<div class="frame">
+
+</div>
+<section id="índice" class="frame">
+<h3>Índice</h3>
+</section>
+<h1 id="generadores-ideales">Generadores ideales</h1>
+<section id="generador-fuente-ideal-de-tensión" class="frame">
+<h3>Generador (fuente) ideal de tensión</h3>
+<p>Especifica una tensión entre sus bornes, <span
+class="math inline">\(u_g(t)\)</span>, que no depende del circuito al
+cual está conectado. Por su parte, la intensidad, <span
+class="math inline">\(i(t)\)</span>, sí depende del resto del
+circuito.</p>
+<div class="columns">
+<div class="column">
+<p><span>4cm</span></p>
+<figure id="f_tension" data-latex-placement="hbt">
+<p>[][]<span><span class="math inline">\(u_g(t)\)</span></span>
+[][]<span><span class="math inline">\(i(t)\)</span></span> <span
+id="f_tension" data-label="f_tension"></span></p>
+</figure>
+</div><div class="column">
+<p><span>8cm</span>   <span class="math inline">\(p_g(t)=u_g(t)\cdot
+i(t)\lessgtr 0\)</span> dependiendo del circuito al que se conecte.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<p><span>6cm</span></p>
+</div><div class="column">
+<p><span>6cm</span></p>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<p><span>6cm</span></p>
+<figure id="f_tension_2" data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>6cm</span></p>
+<figure id="f_tension_incom" data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+</section>
+<section id="generador-fuente-ideal-de-intensidad" class="frame">
+<h3>Generador (fuente) ideal de intensidad</h3>
+<p>Especifica la intensidad que la atraviesa, <span
+class="math inline">\(i_g(t)\)</span>, independiente del circuito al que
+se conecta. Por su parte, la tensión entre sus terminales, <span
+class="math inline">\(u(t)\)</span>, sí depende del resto del
+circuito.</p>
+<div class="columns">
+<div class="column">
+<p><span>4cm</span></p>
+<figure id="f_intensidad" data-latex-placement="hbt">
+<p>[][]<span><span class="math inline">\(u(t)\)</span></span>
+[][]<span><span class="math inline">\(i_g(t)\)</span></span>
+[][]<span><span>A</span></span> [][]<span><span>B</span></span> <span
+id="f_intensidad" data-label="f_intensidad"></span></p>
+</figure>
+</div><div class="column">
+<p><span>8cm</span>   <span class="math inline">\(p_g(t)=u(t)\cdot
+i_g(t)\lessgtr 0\)</span> dependiendo del circuito al que se
+conecte.</p>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<p><span>4cm</span></p>
+</div><div class="column">
+<p><span>8cm</span></p>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<p><span>4cm</span></p>
+</div><div class="column">
+<p><span>8cm</span></p>
+<figure id="f_int_incom" data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+</section>
+<h1 id="asociación-de-generadores-ideales">Asociación de generadores
+ideales</h1>
+<section id="asociación-de-generadores-ideales-1" class="frame">
+<h3>Asociación de generadores ideales</h3>
+<div class="block">
+<p><span>Asociación serie de generadores de tensión</span></p>
+<figure id="f_tension_serie" data-latex-placement="hbt">
+
+</figure>
+</div>
+<div class="block">
+<p><span>Asociación paralelo de generadores de intensidad</span></p>
+<figure id="f_int_paralelo" data-latex-placement="hbt">
+
+</figure>
+</div>
+</section>
+<h1 id="resistencia-y-conductancia.-ley-de-ohm">Resistencia y
+conductancia. Ley de Ohm</h1>
+<section id="resistencia-y-conductancia.-ley-de-ohm-1" class="frame">
+<h3>Resistencia y conductancia. Ley de Ohm</h3>
+<div class="columns">
+<div class="column">
+<p><span>4cm</span></p>
+<figure id="R" data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>8cm</span></p>
+<div class="columns">
+<div class="column">
+<p><span>4cm</span> <span class="math display">\[\begin{equation*}
+  \boxed{u(t)=R\cdot i(t)}
+\end{equation*}\]</span></p>
+<div class="flushleft">
+<p><span class="math inline">\(R\equiv\)</span> Resistencia.<br />
+Ohmio [<span class="math inline">\(\Omega\)</span>]</p>
+</div>
+</div><div class="column">
+<p><span>4cm</span> <span class="math display">\[\begin{equation*}
+  \boxed{i(t)=G\cdot u(t)}
+\end{equation*}\]</span></p>
+<div class="flushleft">
+<p><span class="math inline">\(G\triangleq \frac{1}{R}\equiv\)</span>
+Conductancia.<br />
+Siemens [S]<br />
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p> para un conjunto de materiales (óhmicos) el valor de <span
+class="math inline">\(R\)</span> (y por tanto de <span
+class="math inline">\(G\)</span>) no depende de la tensión ni la
+intensidad en la resistencia.</p>
+<p>  <span class="math inline">\(p_R(t)=u(t)\cdot i(t)=R\cdot
+i^2(t)=G\cdot u^2(t)\geq 0\)</span> (siempre absorbe)</p>
+<p>  <span class="math inline">\(w_R(t)=\int^t_{-\infty}R\cdot
+i^2(\tau)d\tau=\int^t_{-\infty}G\cdot u^2(\tau)d\tau\geq
+0\)</span><br />
+Toda la energía que absorbe del circuito la disipa en forma de calor por
+efecto Joule.<br />
+</p>
+</section>
+<section id="resistencia-y-conductancia.-casos-particulares"
+class="frame">
+<h3>Resistencia y conductancia. Casos particulares</h3>
+<div class="block">
+<p><span><strong>Cortocircuito</strong></span></p>
+<div class="columns">
+<div class="column">
+<p><span>7cm</span> Elemento en el cual la tensión es nula para toda
+intensidad que lo atraviese.</p>
+<div class="center">
+<p><span class="math inline">\(R=0\)</span>; <span
+class="math inline">\(G=\infty\)</span></p>
+</div>
+</div><div class="column">
+<p><span>4cm</span></p>
+<figure id="CC_MAGC" data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+</div>
+<div class="block">
+<p><span><strong>Circuito abierto</strong></span></p>
+<div class="columns">
+<div class="column">
+<p><span>7cm</span> Elemento en el cual la intensidad es nula para toda
+tensión que se le aplique.</p>
+<div class="center">
+<p><span class="math inline">\(R=\infty\)</span>; <span
+class="math inline">\(G=0\)</span></p>
+</div>
+</div><div class="column">
+<p><span>4cm</span></p>
+<figure id="CA_MAGC" data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+</div>
+<div class="block">
+<p><span><strong>Interruptor</strong></span> Elemento no lineal con dos
+posibles estados:</p>
+<ul>
+<li><p>Posición abierto: se comporta como un circuito abierto. <embed
+src="./figuras_tema_2/c_abierto.eps" style="width:1.5cm" /></p></li>
+<li><p>Posición cerrado: se comporta como un cortocircuito. <embed
+src="./figuras_tema_2/c_circuito.eps" style="width:1.5cm" /></p></li>
+</ul>
+</div>
+</section>
+<h1 id="simplificación-de-circuitos-resistivos">Simplificación de
+circuitos resistivos</h1>
+<section id="asociación-serie" class="frame">
+<h3>Asociación serie</h3>
+<p>Dos elementos están <strong>en serie</strong> cuando son recorridos
+por la misma intensidad.</p>
+<div class="block">
+<p><span>Resistencias</span></p>
+<div class="columns">
+<div class="column">
+<p><span>8cm</span></p>
+<figure id="serie_R" data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>3cm</span> <span
+class="math display">\[\boxed{R_{eq}=\sum^n_{j=1} R_j}\]</span></p>
+</div>
+</div>
+<p>conocida <span class="math inline">\(u(t)\)</span> se puede
+determinar la caída de tensión en uno de los elementos, <span
+class="math inline">\(u_k(t)\)</span>. <span
+class="math display">\[\begin{equation*}
+    u_k(t)=R_k\cdot i(t)=R_k\cdot \frac{u(t)}{R_{eq}} \ \
+\rightsquigarrow \ \  \boxed{u_k(t)=\frac{R_k}{\sum^n_{j=1} R_j}\cdot
+u(t)}
+\end{equation*}\]</span> Es consecuencia de que todas las resistencias
+son atravesadas por la misma intensidad.</p>
+</div>
+</section>
+<section id="asociación-paralelo" class="frame">
+<h3>Asociación paralelo</h3>
+<p>Dos elementos están <strong>en paralelo</strong> cuando están
+sometidos a la misma tensión.</p>
+<div class="block">
+<p><span>Resistencias</span></p>
+<div class="columns">
+<div class="column">
+<p><span>8cm</span></p>
+<figure id="paralelo_R" data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>3cm</span> <span
+class="math display">\[\boxed{G_{eq}=\sum^n_{j=1} G_j}\]</span> <span
+class="math display">\[\boxed{\frac{1}{R_{eq}}=\sum^n_{j=1}
+\frac{1}{R_{j}}}\]</span></p>
+</div>
+</div>
+<p>conocida <span class="math inline">\(i(t)\)</span> se puede
+determinar la intensidad en uno de los elementos, <span
+class="math inline">\(i_k(t)\)</span>. <span
+class="math display">\[\begin{equation*}
+    i_k(t)=G_k\cdot u(t)=G_k\cdot \frac{i(t)}{G_{eq}} \ \
+\rightsquigarrow \ \  \boxed{i_k(t)=\frac{G_k}{\sum^n_{j=1} G_j}\cdot
+i(t)}
+\end{equation*}\]</span></p>
+<p>Es consecuencia inmediata de que todas las resistencias están
+sometidas a la misma tensión.</p>
+</div>
+</section>
+<section id="configuración-estrella-triángulo" class="frame">
+<h3>Configuración estrella-triángulo</h3>
+<figure id="configuracion_estrella_triangulo"
+data-latex-placement="hbt">
+
+</figure>
+</section>
+<h1 id="principio-de-superposición">Principio de superposición</h1>
+<section id="principio-de-superposición-1" class="frame">
+<h3>Principio de superposición</h3>
+<p>Permite encontrar la respuesta de un circuito lineal excitado por
+varias fuentes como suma de las respuesta de dicho circuito a cada una
+de las fuentes actuando por separado.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><span class="math display">\[\begin{equation*}
+\boxed{
+  u(t)=u_1(t)+u_2(t) \ \ ; \ \ i(t)=i_1(t)+i_2(t)}
+\end{equation*}\]</span></p>
+</section>
+<section id="principio-de-superposición-2" class="frame">
+<h3>Principio de superposición</h3>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><span class="math display">\[\begin{equation*}
+\boxed{
+  u(t)=\alpha u_1(t)+\beta u_2(t) \ \ ; \ \ i(t)=\alpha i_1(t)+\beta
+i_2(t)}
+\end{equation*}\]</span></p>
+</section>
+<div class="frame">
+<div class="exampleblock">
+<p><span>Ejercicio 2.1</span></p>
+<p>Conocidos los datos que se indican a continuación, determinar la
+tensión denominada como <span class="math inline">\(V_{Rc}\)</span>.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><strong>Solución</strong>: <span
+class="math inline">\(V_{Rc}=19\)</span> V.</p>
+</div>
+</div>
+<h1 id="circuitos-equivalentes">Circuitos equivalentes</h1>
+<section id="circuitos-equivalentes-1" class="frame">
+<h3>Circuitos equivalentes</h3>
+<div class="block">
+<p><span>Objetivo</span> Simplificar parte de un circuito del cual no
+interesa su estudio, reemplazando varios componentes por un número más
+reducido, con la condición de que las respuestas en el resto del
+circuito no queden afectadas por dicha sustitución.</p>
+</div>
+<figure id="circ_equivalentes" data-latex-placement="hbt">
+
+</figure>
+<p>Para que ambas situaciones tenga la misma solución: <span
+class="math display">\[\begin{equation*}
+f_o[u(t),i(t)]=f_e[u(t),i(t)] \ \ \Rightarrow \
+\  \boxed{  u_e(t)=u_o(t)\ \ ; \ \  i_e(t)=i_o(t)}
+\end{equation*}\]</span></p>
+</section>
+<h1 id="regla-de-sustitución">Regla de sustitución</h1>
+<section id="regla-de-sustitución-1" class="frame">
+<h3>Regla de sustitución</h3>
+<div class="small">
+<p>Si se reemplaza un circuito monopuerta por una fuente ideal de
+tensión (intensidad), cuyo valor sea el de la tensión (intensidad) en la
+puerta, entonces la intensidad (tensión) de la puerta, y por tanto el
+resto de respuestas en el circuito exterior no se alteran, como
+consecuencia de la unicidad de la solución en circuitos lineales.</p>
+</div>
+<figure id="regla_sustitucion" data-latex-placement="hbt">
+
+</figure>
+<div class="small">
+<p>Las fuentes utilizadas en la regla de sustitución dependen de la
+topología y de los componentes de ambos circuitos. Por lo tanto,
+<strong>no constituyen un equivalente del circuito</strong>.</p>
+</div>
+</section>
+<h1 id="desacoplamiento-debido-a-fuentes-ideales">Desacoplamiento debido
+a fuentes ideales</h1>
+<section id="desacoplamiento-debido-a-fuentes-ideales-1" class="frame">
+<h3>Desacoplamiento debido a fuentes ideales</h3>
+<div class="block">
+<p><span>Circuitos desacoplados por fuente ideal de tensión</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+<div class="block">
+<p><span>Circuitos desacoplados por fuente ideal de
+intensidad</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</section>
+<div class="frame">
+<div class="exampleblock">
+<p><span>Ejercicio 2.2</span> Conocidos los datos indicados y sabiendo
+que los circuitos CA y CB no poseen fuentes independientes ni están
+acoplados eléctrica o magnéticamente, se pide la lectura del amperímetro
+y la potencia que cede la fuente de tensión del esquema (c).</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><strong>Solución</strong>: El amperímetro mide 3,2 A y la fuente cede
+115,2 W.</p>
+</div>
+</div>

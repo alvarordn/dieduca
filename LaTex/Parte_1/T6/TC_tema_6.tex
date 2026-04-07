@@ -1,0 +1,722 @@
+\documentclass{beamer}
+\setbeamercovered{transparent}
+
+
+\usetheme{CambridgeUS}
+\setbeamercolor{normal text}{bg=gray!20}
+\setbeamertemplate{blocks}[default]
+\setbeamercolor{block title}{fg=white,bg=red!60!black}
+\setbeamercolor{block body}{fg=black,bg=gray!15}
+
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{psfrag}
+\usepackage{pstricks}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[scriptsize,tight]{subfigure}
+\usepackage{multimedia}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{comment}
+\usepackage{ragged2e}
+
+\usefonttheme[onlymath]{serif}
+
+
+\setbeamertemplate{navigation symbols}{}  
+
+
+\author[Teoría de Circuitos]{Teoría de Circuitos}
+\title[Tema 6]{\scshape Tema 6}
+\subtitle{Análisis de circuitos de corriente continua en distintos regímenes temporales}
+
+\date[]{}
+\institute[ETSI]{Departamento de  Ingeniería Eléctrica \\ Escuela Técnica Superior de Ingeniería\\ Universidad de Sevilla}
+
+\AtBeginSection[]{
+\begin{frame}
+\frametitle{Índice}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+\begin{document}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Índice}
+%\tableofcontents[pausesections]
+\tableofcontents
+\end{frame}
+
+\section{Respuesta de un circuito eléctrico alimentado con corriente continua}
+
+\begin{frame}
+\frametitle{Regímenes transitorio y permanente}
+\begin{block}{Circuito \textbf{estático} (no contiene elementos almacenadores de energía)}
+\begin{columns}
+\begin{column}{4.5cm}
+\begin{small}
+Respuesta instantánea ante cambios en la excitación.
+\end{small}
+\end{column}
+
+\begin{column}{7cm}
+
+\begin{columns}
+\begin{column}{3.5cm}
+\epsfig{file=./figuras_tema_6/T6_CE.eps,height=1.5cm}
+\end{column}
+\begin{column}{3.5cm}
+%\hspace*{\fill}
+\epsfig{file=./figuras_tema_6/resp_estatico.eps,height=2.5cm}
+%\end{figure}
+\end{column}
+\end{columns}
+\end{column}
+\end{columns}
+\end{block}
+\begin{block}{Circuito \textbf{dinámico} (contiene elementos almacenadores de energía)}
+\begin{columns}
+\begin{column}{4.5cm}
+	\justifying
+%\vspace{-0.5cm}
+\begin{small}
+%\begin{itemize}
+%  \item 
+\justifying
+Aparece una evolución en la respuesta ante cambios en la excitación debido a que la energía almacenada no puede cambiar bruscamente.
+%  \item En este caso las formas de onda de las excitaciones son relevantes, porque cada instante de tiempo está acoplado con los anteriores.
+%\end{itemize}
+\end {small}
+\end{column}
+\begin{column}{7cm}
+\begin{columns}
+\begin{column}{3.5cm}
+%\vspace{-0.5cm}
+%\begin{figure}[hbt]
+%\fboxsep 5pt
+%\fcolorbox{blue}{white}{}
+\epsfig{file=./figuras_tema_6/T6_CD.eps,height=2cm}
+%\hspace*{\fill}
+\end{column}
+\begin{column}{3.5cm}
+\epsfig{file=./figuras_tema_6/resp_dinamico.eps,height=2.8cm}
+%\end{figure}
+\end{column}
+\end{columns}
+
+\end{column}
+\end{columns}
+\end{block}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Regímenes transitorio y permanente}
+\vspace{-0.3cm}
+\begin{block}{Conexión de un circuito RC a una fuente de corriente continua}
+\vspace{-0.3cm}
+\begin{columns}
+\begin{column}{6cm}
+\begin{figure}[hbt]
+%\fboxsep 5pt
+%\fcolorbox{blue}{white}{}
+\epsfig{file=./figuras_tema_6/RC_DC.eps,height=2cm}
+\end{figure}
+\end{column}
+\begin{column}{6cm}
+\begin{figure}[hbt]
+%\fboxsep 5pt
+%\fcolorbox{blue}{white}{}
+\epsfig{file=./figuras_tema_6/grafica_RC_DC.eps,height=2.5cm}
+\end{figure}
+\end{column}
+\end{columns}
+\end{block}
+\vspace{-0.2cm}
+
+\begin{itemize}
+	\justifying
+  \item La transición de un régimen permanente a otro diferente involucra en general un periodo transitorio, si existen bobinas y/o condensadores.
+  \item Durante el régimen transitorio se produce una redistribución de energía almacenada en bobinas y condensadores. 
+ \item El régimen transitorio puede estar provocado por:
+ \begin{itemize}
+   \item Apertura-cierre de interruptores.
+   \item Cortocircuitos.
+   \item Cambios bruscos en los valores de las fuentes aplicadas. 
+ \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+
+\section{Circuitos dinámicos en régimen permanente de continua}
+
+\begin{frame}
+\frametitle{Circuitos dinámicos en régimen permanente de continua}
+\vspace{-0.1cm}
+
+En régimen permanente de continua todas las magnitudes tienen un valor constante, anulándose cualquier derivada. En el caso particular de bobinas y condensadores:
+
+%\vspace{-0.8cm}
+
+\begin{columns}
+\hspace{-0.5cm}
+\begin{column}{5cm}
+\begin{itemize}
+	\justifying
+  \item Las \textbf{bobinas} se comportan como cortocircuitos, esto es, $U=0$.
+  \item Los \textbf{condensadores} se comportan como circuitos abiertos, es decir, $I=0$.
+\end{itemize}
+\end{column}
+\hspace{-0.5cm}
+\begin{column}{6cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_6/analisis_DC.eps,height=4cm}
+\end{figure}
+
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+
+\justifying
+\begin{small}
+	
+A diferencia de un circuito estático, hay energía almacenada en bobinas y condensadores. 
+Dicha energía estará involucrada en futuros transitorios cuando se produzca un cambio en el circuito. 
+\end{small}
+
+\end{frame}
+
+
+
+\begin{frame}{Análisis de circuitos en régimen permanente de continua}
+\vspace{-0.25cm}
+\begin{block}{Resistencia}
+\begin{columns}
+\begin{column}{4cm}
+\vspace{-0.4cm}
+\begin{figure}[hbt]
+\fboxsep 2pt
+\fcolorbox{blue}{white}{\epsfig{file=./figuras_tema_6/R_DC.eps,height=1.4cm}}
+\end{figure}
+\end{column}
+\begin{column}{8.5cm}
+\vspace{-0.4cm}
+\begin{small}
+\begin{flushleft}
+\structure{Relación $U\leftrightarrow I$:}  $\boxed{U=R\cdot I}$ \ \ $\boxed{I=G\cdot U}$ \\
+\vspace{0.1cm}
+\structure{Potencia:}\ \ $p_R(t)=U\cdot I=R\cdot I^2=G\cdot U^2 \geq 0$ \\
+\vspace{0.1cm}
+%\vspace*{0.2cm}
+\structure{Energía:}\ \ $w_R(t)=R\cdot I^2\cdot t=G\cdot U^2\cdot t$
+\end{flushleft}
+\end{small}
+\end{column}
+\end{columns}
+\end{block}
+
+\vspace{-0.25cm}
+\begin{block}{Bobina}
+\begin{columns}
+\begin{column}{4cm}
+\vspace*{-0.55cm}
+\begin{figure}[hbt]
+\fboxsep 2pt
+\fcolorbox{blue}{white}{\epsfig{file=./figuras_tema_6/L_DC.eps,height=1.4cm}}
+\end{figure}
+\end{column}
+\begin{column}{8.5cm}
+\vspace{-0.45cm}
+\begin{small}
+\begin{flushleft}
+\structure{Relación $U\leftrightarrow I$:} \ \ $\boxed{U=L\cdot \frac{dI}{dt}=0}$ \ , \ $I$=cte\\
+\vspace{0.1cm}
+\structure{Potencia:}\ \ $p_L(t)=U\cdot I=0$\\
+\vspace{0.1cm}
+%\vspace*{0.2cm}
+\structure{Energía:}\ \ $w_L(t)=\frac{1}{2}\cdot L \cdot I^2 =\text{cte} \geq 0$
+\end{flushleft}
+\end{small}
+\end{column}
+\end{columns}
+\end{block}
+\vspace{-0.25cm}
+\begin{block}{Condensador}
+\begin{columns}
+\begin{column}{4cm}
+\vspace*{-0.55cm}
+\begin{figure}[hbt]
+\fboxsep 2pt
+\fcolorbox{blue}{white}{\epsfig{file=./figuras_tema_6/C_DC.eps,height=1.4cm}}
+\end{figure}
+\end{column}
+\begin{column}{8.5cm}
+\vspace{-0.45cm}
+\begin{small}
+\begin{flushleft}
+\structure{Relación $U\leftrightarrow I$:} \ \ $\boxed{I=C\cdot \frac{dU}{dt}=0} $\ , \ $U$=cte\\
+\vspace{0.1cm}
+\structure{Potencia:}\ \ $p_C(t)=U\cdot I=0$\\
+\vspace{0.1cm}
+%\vspace*{0.2cm}
+\structure{Energía:}\ \ $w_C(t)=\frac{1}{2}\cdot C \cdot U^2=\text{cte} \geq 0$
+\end{flushleft}
+\end{small}
+\end{column}
+\end{columns}
+\vspace{-0.1cm}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{}
+\begin{exampleblock}{Ejemplo}
+\vspace*{0.2cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_6/ejemplo_DC.eps,height=7cm}
+\end{figure}
+\vspace*{0.2cm}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}
+	\begin{exampleblock}{Ejercicio 6.1}
+		\justifying
+		\begin{small}
+			El circuito de la figura se encuentra en régimen permanente con el interruptor abierto. Calcular la energía almacenada por las bobinas $L_1$ y $L_2$ y el condensador. 
+			
+			Datos: $L_1$ = 2 H; $L_2$ = 1 H; $C$ = 2 F; $V_g$ = 6 V; $I_g$ = 3 A.
+		\end{small}
+		\begin{figure}[hbt]
+			\centering
+			\epsfig{file=./figuras_tema_6/Ej_perm.eps,height=3.5cm}
+		\end{figure}
+		
+		\textbf{Solución}: $E_{L1}=9$ J, $E_{L2}=0$ J, $E_{C}=36$ J
+		
+	\end{exampleblock}
+\end{frame}
+
+\section{Análisis de circuitos dinámicos en un instante arbitrario}
+
+\begin{frame}
+\frametitle{Análisis de circuitos dinámicos en un instante arbitrario}
+\justifying
+
+Hay aplicaciones en las que interesa determinar las magnitudes de un  circuito en un instante concreto $t_0$ (condiciones iniciales de un transitorio).
+
+
+\begin{enumerate}
+	\justifying
+  \item Las fuentes de excitación, $e_g(t)$ e $i_g(t)$, se sustituyen por fuentes de valor fijo:
+  \begin{equation*}
+    E_g=e_g(t_0) \ \ ; \ \ I_g=i_g(t_0)
+  \end{equation*}
+\item Condensadores e inductancias se sustituyen por fuentes de tensión e intensidad de valor la tensión y la intensidad en el condensador y en la inductancia, respectivamente:
+  \begin{equation*}
+    U_0=u_C(t_0)
+%  \end{equation*}
+%  \item Cada bobina se sustituye por una fuente de intensidad de valor:
+%  \begin{equation*}
+\hspace*{1cm}
+    I_0=i_L(t_0)
+  \end{equation*}
+
+
+
+\end{enumerate}
+
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_6/analisis_DC_instante.eps,height=1.8cm}
+\end{figure}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Análisis de circuitos dinámicos en un instante arbitrario}
+\justifying
+\begin{small}
+Analizar un circuito dinámico en un instante cualquiera se reduce a resolver un circuito resistivo con fuentes constantes, válido únicamente en dicho instante.
+\end{small}
+
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_6/analisis_DC_instante_1.eps,height=4.2cm}
+\end{figure}
+
+\begin{small}
+Se utiliza para determinar el estado inicial de un circuito al comienzo de un transitorio, en función del estado del circuito (energía almacenada).
+\end{small}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{exampleblock}{Ejercicio 6.2}
+\begin{small}
+\justifying
+El circuito de la figura se encuentra en régimen permanente. En t = 0 se cierra el interruptor. Calcular la potencia absorbida por la bobina $L_1$ en el instante posterior al cierre del interruptor. Datos: $V_g$ = 6 V; $I_g$ = 3 A.
+
+
+\end{small}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_6/Ej_instante.eps,height=3.5cm}
+\end{figure}
+
+\textbf{Solución}: $P_{abs}=18$ W
+\end{exampleblock}
+\end{frame}
+
+
+
+\section{Circuitos dinámicos en régimen transitorio de primer orden}
+
+
+\begin{frame}{Orden de un circuito}
+
+
+\justifying
+
+El orden de un circuito es el número de elementos almacenadores existentes en el mismo, y coincide con el orden de las ecuaciones diferenciales que definen su dinámica.
+
+\begin{itemize}
+  \item Circuitos de \textbf{primer orden}: un único elemento almacenador.
+  \vspace{0.3cm}
+  \begin{figure}[hbt]
+\fboxsep 5pt
+{\epsfig{file=./figuras_tema_6/CPO_1.eps,height=1.6cm}}
+\end{figure}
+
+  \item Circuitos de \textbf{segundo orden}: dos elementos almacenadores. 
+  \vspace{0.3cm}
+  
+ \begin{figure}[hbt]
+\fboxsep 5pt
+{\epsfig{file=./figuras_tema_6/CSO_1.eps,height=1.6cm}}
+\fboxsep 5pt
+{\epsfig{file=./figuras_tema_6/CSO_2.eps,height=1.6cm}}
+\end{figure}
+    \end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}{Transitorios de primer orden. Circuito RC}
+
+Utilizando el equivalente Thévenin en bornas del condensador:
+\begin{figure}[hbt]
+\fboxsep 5pt
+{\epsfig{file=./figuras_tema_6/RC_1.eps,height=2.2cm}}
+\end{figure}
+\vspace{-0.3cm}
+\begin{small}
+%Aplicando la ley de Kirchhoff de tensiones:
+\begin{equation*}
+   u(t)+ R \,i(t) = u_g(t) = V_g
+%\end{equation*}
+%y teniendo en cuenta la ecuación de definición del condensador,
+%\begin{equation*}
+\hspace*{1cm}
+   i(t) = C\,\frac{du(t)}{dt}
+\end{equation*}
+\vspace{-0.1cm}
+
+Ecuación diferencial de primer orden que gobierna la evolución de la tensión en el condensador:
+\begin{equation*}
+   \boxed{\frac{du(t)}{dt}+\frac{1}{RC}\,u(t)  = \frac{V_g}{RC}} \ \ \text{Ecuación diferencial lineal de coeficientes constantes}
+\end{equation*}
+\end{small}
+
+\end{frame}
+
+\begin{frame}{Transitorios de primer orden. Circuito RL}
+
+Utilizando el equivalente Norton en bornas de la bobina:
+\begin{figure}[hbt]
+\fboxsep 5pt
+{\epsfig{file=./figuras_tema_6/RL_1.eps,height=2.2cm}}
+\end{figure}
+\vspace{-0.3cm}
+\begin{small}
+%Aplicando la ley de Kirchhoff de intensidades:
+\begin{equation*}
+   i(t)+ \frac{u(t)}{R} = i_g(t) = I_g
+%\end{equation*}
+%y teniendo en cuenta la ecuación de definición del condensador,
+%\begin{equation*}
+\hspace*{1cm}
+   u(t) = L\,\frac{di(t)}{dt}
+\end{equation*}
+\vspace*{-0.2cm}
+%resulta
+
+Ecuación diferencial de primer orden que gobierna la evolución de la intensidad en la bobina:
+\begin{equation*}
+   \boxed{\frac{di(t)}{dt}+\frac{R}{L}\,i(t)  = \frac{R}{L}\,I_g} \ \ \text{Ecuación diferencial lineal de coeficientes constantes}
+\end{equation*}
+\end{small}
+
+\end{frame}
+
+
+
+%\section{Respuesta transitoria de los circuitos de primer orden}
+\begin{frame}{Solución de la ecuación diferencial}
+
+\begin{equation*}
+\mathrm{RC:}\ \ \boxed{\frac{du(t)}{dt}+\frac{1}{RC}\,u(t)  = \frac{V_g}{RC}}
+\hspace*{1cm}
+\mathrm{RL:}\ \ \boxed{\frac{di(t)}{dt}+\frac{R}{L}\,i(t)  = \frac{R}{L}\,I_g}
+\end{equation*}
+
+La solución se compone de dos términos:
+\begin{equation*}
+\mathrm{RC:}\ \ \ u(t)=u_n(t)+U_\infty \hspace*{1cm}
+\mathrm{RL:}\ \ \ i(t)=i_n(t)+I_\infty 
+\end{equation*}
+\vspace{-0.6cm}   
+\begin{enumerate}
+  \item \textbf{Respuesta natural:} $u_n(t)$ e $i_n(t)$
+  \begin{itemize}
+    \item Matemáticamente, es la solución de la ecuación diferencial homogénea.
+    \item Es la respuesta del circuito cuando se anulan las fuentes. 
+  \end{itemize}
+  \item \textbf{Respuesta forzada:} $U_\infty$ e $I_\infty$
+  \begin{itemize}
+  	\justifying
+    \item Depende únicamente del nuevo estado estacionario.
+    \item Matemáticamente, es la solución particular de la ecuación diferencial completa .
+  \end{itemize}
+
+
+\end{enumerate}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}{Respuesta natural}
+\justifying
+La respuesta natural se obtiene resolviendo la ecuación diferencial de primer orden homogénea:
+\vspace{-0.2cm}
+\begin{equation*}
+\mathrm{RC:}\ \ \boxed{\frac{du(t)}{dt}+\frac{1}{\tau}\,u(t)  = 0}
+\hspace*{1cm}
+\mathrm{RL:}\ \ \boxed{\frac{di(t)}{dt}+\frac{1}{\tau}\,i(t)  = 0}
+\end{equation*}
+
+cuya solución, para $t\geq 0$ es
+
+\begin{equation*}
+\mathrm{RC:}\ \ \boxed{u_n(t)=K \cdot \text{e}^{-t/\tau}}
+\hspace*{1cm}
+\mathrm{RL:}\ \ \boxed{i_n(t)=K \cdot \text{e}^{-t/\tau}}
+\end{equation*}
+\vspace{-0.6cm}
+\begin{itemize}
+  \item $\tau$ es la constante de tiempo característica del circuito:
+  \vspace{-0.2cm}
+%  \begin{itemize}
+%    \item 
+$$
+\mathrm{Circuito\  RC:}\ \ \tau=RC
+\hspace*{1cm}
+%    \item 
+\mathrm{Circuito\  RL:}\ \ \tau=L/R
+\vspace{-0.2cm}
+$$
+%  \end{itemize}
+donde $R$ es la resistencia equivalente en bornas de $L$ o $C$.
+     \item $K$ se determina a partir de las condiciones iniciales, $u(0)$ e $i(0)$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Significado de la constante de tiempo}
+
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_6/constante_tiempo.eps,height=6.2cm}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Respuesta completa (circuito RC)}
+
+\begin{columns}
+\begin{column}{4.5cm}
+\begin{figure}[hbt]
+\fboxsep 5pt
+\fcolorbox{blue}{white}{\epsfig{file=./figuras_tema_6/RC_DC_1.eps,height=2cm}}
+\end{figure}
+\end{column}
+\begin{column}{6.5cm}
+\begin{equation*}
+    {u(t)=U_\infty +\left[U_0-U_\infty \right] \text{e}^{-t/\tau}}
+\end{equation*}
+\begin{equation*}
+U_\infty=E \ \ ; \ \ \tau=RC
+\end{equation*}
+\begin{equation*}
+u(0^-)=u(0^+)=U_0
+\end{equation*}
+%\vspace{-0.5cm}
+%$$\Downarrow$$
+%\begin{equation*}
+%    \boxed{u(t)=E+(U_0-E)\cdot  \text{e}^{-t/RC}}
+%\end{equation*}
+\end{column}
+\end{columns}
+\vspace{0.4cm}
+
+Tipo de evolución dependiendo del valor inicial y el valor final:
+\vspace{-0.2cm}
+
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_6/grafica_RC_DC_1.eps,height=2.3cm}
+\end{figure}
+\vspace{0.2cm}
+
+\end{frame}
+
+
+%\section{Respuesta transitoria de un circuito RL}
+
+
+\begin{frame}{Respuesta completa (circuito RL)}
+
+\begin{columns}
+\begin{column}{5cm}
+\begin{figure}[hbt]
+\fboxsep 5pt
+\fcolorbox{blue}{white}{\epsfig{file=./figuras_tema_6/RL_DC_1.eps,height=2cm}}
+\end{figure}
+\end{column}
+\begin{column}{6cm}
+\begin{equation*}
+  {i(t)=I_\infty +\left[I_0-I_\infty \right] \text{e}^{-t/\tau}}
+%    {i(t)=i_p(t)+\left[i(0^+)-i_p(0^+) \right] \text{e}^{-t/\tau}}
+\end{equation*}
+\begin{equation*}
+I_\infty =I_g \ \ ; \ \ \tau=L/R
+\end{equation*}
+\begin{equation*}
+i(0^-)=i(0^+)=I_0
+\end{equation*}
+%\vspace{-0.5cm}
+%$$\Downarrow$$
+%\begin{equation*}
+%    \boxed{i(t)=I_g+(I_0-I_g)\cdot  \text{e}^{-tR/L}}
+%\end{equation*}
+\end{column}
+\end{columns}
+\vspace{0.4cm}
+
+Tipo de evolución dependiendo del valor inicial y el valor final:
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_6/grafica_RL_DC_1.eps,height=2.3cm}
+\end{figure}
+
+\end{frame}
+
+
+%\section{Generalización de la respuesta transitoria}
+
+\begin{frame}{Cálculo de otras variables del circuito}
+
+\begin{itemize}
+	\justifying
+\item Cualquier tensión o intensidad del circuito evoluciona desde su valor inicial a su valor final 
+exponencialmente con la constante de tiempo determinada por el condensador o la bobina. 
+\item Circuito de primer orden con condensador (RC):
+\begin{columns}
+\begin{column}{3cm}
+\epsfig{file=./figuras_tema_6/T6_RCo.eps,height=1.9cm}
+\end{column}
+\begin{column}{5cm}
+$$
+  {i(t)=I_\infty +\left[I_0-I_\infty \right] \text{e}^{-t/(RC)}}
+$$
+$$
+{v(t)=V_\infty +\left[V_0-V_\infty \right] \text{e}^{-t/(RC)}}
+$$
+\end{column}
+\end{columns}
+\vspace*{0.3cm}
+
+\item Circuito de primer orden con bobina (RL):
+\begin{columns}
+\begin{column}{3cm}
+\epsfig{file=./figuras_tema_6/T6_RLo.eps,height=1.9cm}
+\end{column}
+\begin{column}{5cm}
+$$
+  {i(t)=I_\infty +\left[I_0-I_\infty \right] \text{e}^{-t/(L/R)}}
+$$
+$$
+{v(t)=V_\infty +\left[V_0-V_\infty \right] \text{e}^{-t/(L/R)}}
+$$
+\end{column}
+\end{columns}
+
+\end{itemize}
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\begin{exampleblock}{Ejercicio 6.3}
+\begin{small}
+	\justifying
+El circuito de la figura está en régimen permanente de corriente continua cuando en t=0 se abre el interruptor. Obtener la expresión temporal de $i(t)$. 
+
+\textbf{Datos}: $v_1 = 10\,V$, $v_2=20\,V$, $R_1 = 2\,\Omega$, $R_2 = 5\,\Omega$, $R_3 = 8\,\Omega$ y $L=1\,H$.
+\end{small}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_6/Ej_trans.eps,height=3cm}
+\end{figure}
+
+\textbf{Solución}: $i(t)=5+ (8,2-5) \cdot e^{-t/0,625}$ A
+\end{exampleblock}
+\end{frame}
+
+
+
+
+
+\end{document}
+
+

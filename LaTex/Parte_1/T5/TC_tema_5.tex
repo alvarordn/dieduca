@@ -1,0 +1,628 @@
+\documentclass{beamer}
+\setbeamercovered{transparent}
+
+
+\usetheme{CambridgeUS}
+\setbeamercolor{normal text}{bg=gray!20}
+\setbeamertemplate{blocks}[default]
+\setbeamercolor{block title}{fg=white,bg=red!60!black}
+\setbeamercolor{block body}{fg=black,bg=gray!15}
+
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{psfrag}
+\usepackage{pstricks}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[scriptsize,tight]{subfigure}
+\usepackage{multimedia}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{comment}
+\usepackage{ragged2e}
+
+
+\usefonttheme[onlymath]{serif}
+
+
+\setbeamertemplate{navigation symbols}{}  
+
+
+
+\author[Teoría de Circuitos]{Teoría de Circuitos}
+\title[Tema 5]{\scshape Tema 5}
+\subtitle{Componentes dinámicos }
+
+\date[]{}
+\institute[ETSI]{Departamento de Ingeniería Eléctrica \\ Escuela Técnica Superior de Ingeniería\\ Universidad de Sevilla}
+
+
+
+\AtBeginSection[]{
+\begin{frame}
+\frametitle{Índice}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Índice}
+%\tableofcontents[pausesections]
+\tableofcontents
+\end{frame}
+
+
+\section[]{Condensador}
+
+\begin{frame}
+\frametitle{Condensador}
+\begin{columns}
+\begin{column}{3.5cm}
+\vspace*{-0.3cm}
+\begin{figure}[hbt]
+\fboxsep 5pt
+\fcolorbox{blue}{white}{\epsfig{file=./figuras_tema_5/C.eps,height=2.5cm}}
+\end{figure}
+\end{column}
+\begin{column}{8cm}
+%\centering
+%\hspace{2.95cm} 
+\structure{\small Carga almacenada \\ (Culombios)}\hspace{\fill}$\boxed{q(t)=C\cdot u(t)}$
+
+\vspace{0.12cm}
+
+\structure{Relación u-i}\hspace{\fill}$\boxed{i(t)=\frac{dq(t)}{dt}=C\cdot \frac{du(t)}{dt}}$
+
+\vspace{0.3cm}
+
+{\small $C\equiv$ Capacidad del condensador (faradios, F)} 
+%\end{center}
+\end{column}
+\end{columns}
+
+  \vspace*{0.3cm}
+
+\structure{Potencia:}\hspace{\fill}$p_C(t)=u(t)\cdot i(t)=C\cdot u(t) \cdot \frac{du(t)}{dt}=\frac{C}{2}\cdot \frac{du^2(t)}{dt}\lessgtr 0$
+
+\vspace*{0.2cm}
+
+\structure{Energía:}\hspace{\fill}$w_C(t)=\int^t_{-\infty} \frac{C}{2}\cdot \frac{du^2(\tau)}{d\tau}\, d\tau=\frac{C}{2}\cdot u^2(t)  \geq 0$
+\mbox{}\\
+\mbox{}\\
+
+\begin{itemize}
+	\item El condensador almacena energía en el campo eléctrico.
+	\item La energía almacenada en cada instante depende de la tensión en el condensador.
+\end{itemize}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Asociación de condensadores}
+\justifying
+El objetivo es agrupar los condensadores en uno único equivalente.
+\begin{block}{Asociación serie de condensadores}
+\begin{columns}
+\begin{column}{8cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_5/serie_C.eps,height=1.6cm}
+\label{serie_C}
+\end{figure}
+\end{column}
+\begin{column}{3cm}
+$$\boxed{\frac{1}{C_{eq}}=\sum^n_{j=1} \frac{1}{C_j}}$$
+\end{column}
+\end{columns}
+\end{block}
+\begin{block}{Asociación paralelo de condensadores}
+\begin{columns}
+\begin{column}{8cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_5/paralelo_C.eps,height=1.8cm}
+\label{paralelo_C}
+\end{figure}
+\end{column}
+\begin{column}{3cm}
+$$\boxed{{C_{eq}}=\sum^n_{j=1} {C_j}}$$
+\end{column}
+\end{columns}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Ejemplos de condensadores reales}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_5/condensadores.eps,height=7.5cm}
+\end{figure}
+
+
+\end{frame}
+
+
+\section[]{Inductancia o bobina}
+
+\begin{frame}
+\frametitle{Inductancia o bobina}
+
+\begin{columns}
+\begin{column}{3.5cm}
+\vspace*{-0.3cm}
+\begin{figure}[hbt]
+\fboxsep 5pt
+\fcolorbox{blue}{white}{\epsfig{file=./figuras_tema_5/L.eps,height=2.5cm}}
+\end{figure}
+\end{column}
+\begin{column}{8cm}
+%\centering
+
+%\hspace{3.1cm} 
+\structure{Flujo magnético (weber, Wb) }\hspace{\fill}$\boxed{\phi(t)=L\cdot i(t)}$
+
+\vspace{0.12cm}
+
+
+%\hspace{0.75cm}
+\structure{Relación u-i} \hspace{\fill}
+%\hspace{0.2cm} 
+$\boxed{u(t)=\frac{d\phi(t)}{dt}=L\cdot \frac{di(t)}{dt}}$
+
+%\vspace*{-0.3cm}
+%\begin{column}{7cm}
+$$
+%\begin{equation*}
+  \boxed{i(t)=\frac{1}{L}\int^t_{ -\infty }u(\tau)\,d\tau=i(t_0)+\frac{1}{L}\int^t_{t_0}u(\tau)\,d\tau}
+$$
+%\end{equation*}
+%\end{column}
+
+\begin{center}
+$L\equiv$ Inductancia \structure{(H, Henrio)} 
+\end{center}
+\end{column}
+\end{columns}
+
+  \vspace*{0.3cm}
+
+\structure{Potencia:}\hspace{\fill}$p_L(t)=u(t)\cdot i(t)=L\cdot i(t) \cdot \frac{di(t)}{dt}=\frac{1}{2}\cdot L \cdot \frac{di^2(t)}{dt}\lessgtr 0$
+
+\vspace*{0.2cm}
+
+\structure{Energía:}\hspace{\fill}$w_L(t)=\int^t_{-\infty} \frac{L}{2}\cdot \frac{di^2(\tau)}{d\tau} d\tau=\frac{1}{2}\cdot L \cdot i^2(t)  \geq 0$
+\mbox{}\\
+
+\vspace*{0.1cm}
+
+\begin{small}
+
+\begin{itemize}
+	\item La bobina almacena energía en el campo magnético.
+	\item La energía almacenada en cada instante depende de la intensidad.
+\end{itemize}
+
+\end{small}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Asociación de inductancias}
+El objetivo es agrupar las inductancias en una equivalente.
+\begin{block}{Asociación serie de inductancias}
+\begin{columns}
+\begin{column}{8cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_5/serie_L.eps,height=1.5cm}
+%\label{serie_L}
+\end{figure}
+\end{column}
+\begin{column}{3cm}
+$$\boxed{L_{eq}=\sum^n_{j=1} L_j}$$
+\end{column}
+\end{columns}
+\end{block}
+
+\begin{block}{Asociación paralelo de inductancias}
+\begin{columns}
+\begin{column}{8cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_5/paralelo_L.eps,height=2cm}
+%\label{paralelo_L}
+\end{figure}
+\end{column}
+\begin{column}{3cm}
+$$\boxed{\frac{1}{L_{eq}}=\sum^n_{j=1} \frac{1}{L_j}}$$
+\end{column}
+\end{columns}
+
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Inductancia o bobina}
+\begin{block}{Orientación del campo magnético}
+\begin{columns}
+\begin{column}{5cm}
+%\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_5/solenoide2.eps,height=2.5cm}
+%\label{serie_L}
+%\end{figure}
+\end{column}
+\begin{column}{6cm}
+	\justifying
+La orientación N-S del campo magnético depende del arrollamiento de la bobina y del sentido de circulación de la intensidad.
+\end{column}
+\end{columns}
+\end{block}
+
+\begin{block}{Inductancias con núcleo ferromagnético}
+{\small
+\begin{columns}
+\begin{column}{5cm}
+%\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_5/inductancia1.eps,height=2.5cm}
+\epsfig{file=./figuras_tema_5/bobinaconnucleo.eps,height=2.5cm}
+%\label{paralelo_L}
+%\end{figure}
+\end{column}
+\begin{column}{6cm}
+	\justifying
+Se utilizan núcleos de material ferromagnético en bobinas para ``concentrar'' el flujo magnético en su interior (el flujo magnético en el aire es muy inferior al del interior del material).
+\end{column}
+\end{columns}
+}
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Fuerza magnetomotriz en bobinas con núcleo magnético}
+\justifying
+La Ley de Amp\`{e}re aplicada al material ferromagnético proporciona la relación entre la intensidad aplicada y el flujo magnético resultante, a través de la reluctancia del núcleo magnético ($\mathcal{R}$).
+\vspace*{0.5cm}
+
+\begin{columns}
+\begin{column}{5cm}
+%\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_5/fmm.eps,height=3.7cm}
+%\label{serie_L}
+%\end{figure}
+\end{column}
+\begin{column}{4.8cm}
+
+$$ \mathcal{F} = N\cdot i(t) = \mathcal{R} \cdot \phi(t) $$
+$$ \mathcal{R} = \frac{l_c}{\mu\, A_c}$$
+
+\justifying
+
+siendo $\phi$ el flujo magnético y $\mu$ la permeabilidad magnética del material.  
+
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Ejemplos de bobinas reales}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_5/bobinas.eps,height=7.5cm}
+\end{figure}
+
+\end{frame}
+
+
+
+\section{Acoplamiento magnético}
+
+\begin{frame}
+\frametitle{Acoplamiento magnético}
+
+\justifying
+
+Dos bobinas están acopladas magnéticamente cuando comparten un flujo magnético no despreciable.
+{\small
+\begin{itemize}
+	\justifying
+\item Para aumentar el grado de acoplamiento se montan compartiendo un núcleo de material ferromagnético. 
+\item El acoplamiento puede ser positivo o negativo en función de que los flujos creados por cada bobina se sumen o resten.
+\end{itemize}
+}
+%\end{block}
+
+\begin{columns}
+\begin{column}{6cm}
+\begin{center}
+\textit{Acoplamiento positivo}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_5/bobi_acop_nucleo_A.eps,height=2cm}
+\end{figure}
+\textbf{Los flujos parciales se suman}
+\end{center}
+\end{column}
+\begin{column}{6cm}
+\begin{center}
+\textit{Acoplamiento negativo}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_5/bobi_acop_nucleo_B.eps,height=2cm}
+\end{figure}
+\textbf{Los flujos parciales se restan}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Relaciones tensión-intensidad con acoplamiento positivo}
+
+%\begin{block}{Relaciones $u-i$. Configuración A}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_5/UI_bobi_acop_nucleo_A.eps,height=7cm}
+\end{figure}
+%\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Relaciones tensión-intensidad con acoplamiento negativo}
+
+%\begin{block}{Relaciones $u-i$. Configuración B}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_5/UI_bobi_acop_nucleo_B.eps,height=7cm}
+\end{figure}
+%\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Terminales correspondientes}
+\vspace{-0.2cm}
+%\begin{block}{Terminales correspondientes}
+\begin{small}
+Dos terminales de bobinas acopladas son correspondientes si al entrar (o salir)
+las intensidades por ambos terminales los flujos resultantes en el núcleo se suman.
+\end{small}
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_5/bobi_acop_terminales.eps,height=5cm}
+\end{figure}
+%\end{block}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{}
+\begin{exampleblock}{Ejemplo de terminales correspondientes}
+	\vspace{0.5cm}
+\begin{columns}
+\begin{column}{5cm}
+Escribir las ecuaciones de las bobinas acopladas de la figura.
+
+\begin{figure}[hbt]
+\centering
+\vspace{-0.3cm}
+\epsfig{file=./figuras_tema_5/ejerc_1_1.eps,height=2cm}
+\end{figure}
+\end{column}
+\vline
+\hspace{0.3cm}
+\begin{column}{6cm}
+\textbf{Solución:}
+
+\begin{equation*}
+    \boxed{\begin{split}
+    u_1(t)&=-L_1\cdot \frac{d i_1}{dt}-M\cdot  \frac{d i_2}{dt}\\
+   u_2(t)&=M\cdot \frac{d i_1}{dt}+L_2 \cdot \frac{d i_2}{dt}
+    \end{split}}
+\end{equation*}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\hrule
+\vspace{0.3cm}
+\begin{small}
+\textbf{Observaciones:}
+\begin{itemize}
+	\justifying
+  \item Los signos de los términos propios ($L_1\frac{di_1}{dt}$, $L_2\frac{di_2}{dt}$) dependen de la tensión e intensidad en cada bobina (referencias activas o pasivas). 
+  \item Los signos de los acoplamientos ($M\frac{di_1}{dt}$, $M\frac{di_2}{dt}$) se obtienen teniendo en cuenta la caída de tensión que producen en cada bobina y la referencia de tensión adoptada en cada una.
+\end{itemize}
+\end{small}
+
+\end{exampleblock}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Potencia y energía en bobinas acopladas}
+%\begin{block}{Potencia y energía}
+\begin{figure}[hbt]
+\centering
+\vspace{-0.3cm}
+\epsfig{file=./figuras_tema_5/T5_bobacop.eps,height=2cm}
+\end{figure}
+%\vspace{-0.3cm}
+\begin{equation*}
+    p(t)=u_1(t)\cdot i_1(t)+u_2(t)\cdot i_2(t)
+\end{equation*}
+Sustituyendo las ecuaciones de las bobinas ($\pm$ según el acoplamiento),
+     \begin{equation*}
+   \begin{split}
+    p(t)&=L_1\, i_1\,\frac{d i_1(t)}{dt}+  L_2 \, i_2\, \frac{d i_2(t)}{dt}\pm M \,i_1\,\frac{d i_2(t)}{dt}\pm M \,i_2\,\frac{d i_1(t)}{dt}\\
+    w(t)&=\frac{1}{2}\, L_1\, i^2_1+ \frac{1}{2} \,L_2 \,i^2_2 \pm M \,i_1(t)\, i_2(t)
+    \end{split}
+\end{equation*}
+La energía almacenada es superior o inferior a la que almacena cada bobina por separado dependiendo que el acoplamiento sea positivo o negativo.
+%\end{block}
+\end{frame}
+
+\begin{comment}
+\begin{frame}
+\frametitle{Acoplamiento perfecto}
+\begin{block}{}
+\begin{center}
+\textbf{Acoplamiento perfecto} $\longleftrightarrow$  Los flujos de dispersión son nulos.
+\end{center}
+\end{block}
+
+Suponiendo acoplamiento positivo,
+\vspace{0.3cm}
+\begin{columns}
+\begin{column}{5cm}
+%\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_5/bobi_acop_nucleo_A_perfec.eps,height=2.5cm}
+%\end{figure}
+\end{column}
+\hspace{0.3cm}
+\begin{column}{7cm}
+\begin{equation*}
+ \phi_1(t)=\phi_2(t)=\phi_{12}(t)+\phi_{21}(t)
+\end{equation*}
+\begin{equation*}
+   {\begin{split}
+    u_1(t)&=N_1\frac{d\phi_1}{dt}=L_1\cdot \frac{d i_1}{dt}+M\cdot  \frac{d i_2}{dt}\\
+   u_2(t)&=N_2\frac{d\phi_2}{dt}=M\cdot \frac{d i_1}{dt}+L_2 \cdot \frac{d i_2}{dt}
+    \end{split}}
+\end{equation*}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+Por tanto, $u_1(t)=\frac{N_1}{N_2}\cdot u_2(t)$, y en consecuencia:
+\begin{equation*}
+       \frac{L_1}{N_1}\cdot \frac{d i_1}{dt}+\frac{M}{N_1}\cdot  \frac{d i_2}{dt}=
+   \frac{M}{N_2}\cdot \frac{d i_1}{dt}+\frac{L_2}{N_2} \cdot \frac{d i_2}{dt} \ \ \Longrightarrow \ \
+   \left\{
+   \begin{split}
+   L_1=& n^2 L_2\\
+   M=& \frac{L_1}{n}=n L_2=\sqrt{L_1L_2}
+   \end{split}
+\right.
+        \end{equation*}
+siendo $n=N_1/N_2$, cociente del número de espiras en cada bobina.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Grado de acoplamiento de dos bobinas}
+%\begin{block}{Coeficiente de acoplamiento $k$}
+\vspace{-0.8cm}
+\begin{columns}
+\begin{column}{5cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_5/bobi_acop_dispersion.eps,height=3cm}
+\end{figure}
+\end{column}
+\begin{column}{7cm}
+\begin{equation*}
+    k_1=\frac{\phi_{21}}{\phi_{11}}=\frac{\phi_{21}}{\phi_{21}+\phi_{1d}}\leq 1
+\end{equation*}
+\begin{equation*}
+    k_2=\frac{\phi_{12}}{\phi_{22}}=\frac{\phi_{12}}{\phi_{12}+\phi_{2d}}\leq 1
+\end{equation*}
+\end{column}
+\end{columns}
+
+\vspace{0.5cm}
+
+El \textbf{coeficiente de acoplamiento} de dos bobinas se define como:
+\begin{equation*}
+    k=\sqrt{k_1\cdot k_2}=\frac{M}{\sqrt{L_1\cdot L_2}}\leq 1
+\end{equation*}
+
+Si $k=1$ el \textbf{acoplamiento es perfecto} (no existen flujos de dispersión).
+\\
+Si $k=0$ las bobinas están desacopladas. 
+
+
+%\end{block}
+\end{frame}
+
+\end{comment}
+
+\section{Elementos pasivos reales}
+
+%\subsection[]{Bobina de núcleo de aire}
+\begin{frame}
+\frametitle{Inductancia real}
+
+\begin{block}{Observaciones}
+\begin{itemize}
+  \item El conductor de la bobina tiene una resistencia eléctrica no nula.
+  \item Cada pareja de espiras constituye un condensador, al estar el conductor aislado mediante un dieléctrico.
+\end{itemize}
+\end{block}
+\vspace{-0.2cm}
+\begin{block}{Modelo equivalente de una bobina real}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_5/Lreal.eps,height=2cm}
+\end{figure}
+{\small
+\begin{itemize}
+\item La resistencia se intenta minimizar usando conductores de cobre.
+\item El efecto de la capacidad será apreciable a altas frecuencias.
+\end{itemize}
+}
+\end{block}
+\end{frame}
+
+
+%\subsection[]{Condensador}
+\begin{frame}
+\frametitle{Condensador real}
+
+\begin{block}{Observaciones}
+\begin{itemize}
+	\justifying
+  \item El dieléctrico ofrece una pequeña resistencia eléctrica (responsable de la descarga de un condensador aislado al cabo del tiempo).
+   \item Los terminales presentan una resistencia y una autoinducción asociada.
+\end{itemize}
+\end{block}
+\vspace{-0.2cm}
+\begin{block}{Modelo equivalente de un condensador real}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_5/Creal1.eps,height=2cm}
+\hspace*{0.5cm}
+\epsfig{file=./figuras_tema_5/Creal2.eps,height=2cm}
+\end{figure}
+\vspace{-0.2cm}
+{\small
+\begin{itemize}
+\item La conductancia del dieléctrico se debe tener en cuenta siempre. 
+\item El efecto de la inductancia parásita será apreciable a altas frecuencias.
+\end{itemize}
+}
+\end{block}
+
+\end{frame}
+
+
+\end{document}
+
+

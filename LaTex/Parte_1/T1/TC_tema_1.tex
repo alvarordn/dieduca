@@ -1,0 +1,787 @@
+\documentclass{beamer}
+\setbeamercovered{transparent}
+
+
+\usetheme{CambridgeUS}
+\setbeamercolor{normal text}{bg=gray!20}
+\setbeamertemplate{blocks}[default]
+
+\setbeamercolor{block title}{fg=white,bg=red!60!black}
+\setbeamercolor{block body}{fg=black,bg=gray!15}
+
+%\setbeamercolor{block title}{bg=white,fg=black}
+%\setbeamercolor{block body}{bg=white,fg=black}
+
+\usepackage[spanish]{babel}
+%\usepackage[utf8]{inputenc}    % Para codificación de entrada (si es necesario)
+%\usepackage[T1]{fontenc}       % Muy importante para que los guiones se vean bien
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{psfrag}
+\usepackage{pstricks}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[scriptsize,tight]{subfigure}
+\usepackage{multimedia}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{comment}
+\usepackage{ragged2e}
+\usepackage{changepage}
+\usepackage{psfrag}
+
+
+\usefonttheme[onlymath]{serif}
+
+
+\setbeamertemplate{navigation symbols}{}  
+
+\let\oldtexttt\texttt
+\renewcommand{\texttt}[1]{\oldtexttt{\hspace{0pt}#1}} % evita problemas con monospace
+\let\oldraggedright\raggedright
+\let\raggedright\justifying
+
+
+
+\author[Teoría de Circuitos]{Teoría de Circuitos}
+\title[Tema 1]{\scshape Tema 1}
+\subtitle{Conceptos fundamentales y leyes de Kirchhof}
+
+\date[]{}
+\institute[ETSI]{Departamento de Ingeniería Eléctrica \\ Escuela Técnica Superior de Ingeniería\\ Universidad de Sevilla}
+
+
+
+\AtBeginSection[]{
+\begin{frame}
+\frametitle{Índice}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+
+\begin{document}
+
+
+
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Índice}
+\tableofcontents
+\end{frame}
+
+
+
+
+\section{Magnitudes eléctricas}
+
+
+\begin{frame}
+\frametitle{Carga eléctrica}
+\begin{columns}
+\begin{column}{10cm}
+\structure{\textbf{Carga eléctrica}}, $q(t)$: propiedad de las partículas elementales que constituyen la materia y que se manifiesta por medio de fuerzas eléctricas.
+
+\medskip
+
+\begin{itemize}
+	\item El electrón, e$^-$, constituye la carga eléctrica más pequeña posible, representada como $q_e$.
+	
+	\item Se toma la carga del electrón como negativa, y positiva la del protón.
+	
+	\item Aplicando energía se puede conseguir que los electrones se desplacen.
+\end{itemize}
+
+\medskip
+
+\structure{Unidad en el SI:} culombio [C] que equivale a $6.242\cdot 10^{18}$\,$q_e$.
+\end{column}
+\begin{column}{2cm}
+\begin{figure}[hbt]
+\vspace*{-0.5cm}
+\epsfig{file=./figuras_tema_1/coulomb.eps,height=2cm}
+\label{coulomb}
+\end{figure}
+\vspace*{-0.5cm}
+\begin{center}
+\tiny{Charles-Augustin de Coulomb  \\
+(1736-1806)}
+\end{center}
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+
+	
+
+\begin{frame}
+\frametitle{Corriente eléctrica}
+
+\structure{\textbf{Corriente eléctrica}}, $i(t)$: cantidad de carga que atraviesa una superficie de interés en la unidad de tiempo.
+
+\begin{columns}
+\begin{column}{6cm}
+\begin{equation*}
+    i(t)=\frac{dq(t)}{dt}
+\end{equation*}
+\end{column}
+\begin{column}{6cm}
+\fboxsep 1pt
+\fcolorbox{green}{white}{
+\vspace*{-0.5cm}
+\epsfig{file=./figuras_tema_1/corriente_electrica.eps,height=2cm}
+}
+\end{column}
+\end{columns}
+\medskip
+
+\begin{columns}
+\begin{column}{10cm}
+
+\begin{itemize}
+	
+	\item Por motivos históricos, se asocia el sentido del movimiento al de las cargas positivas (aunque el desplazamiento real en conductores metálicos es de los electrones).
+	
+	\item Se conoce como \textbf{conductividad eléctrica} a la capacidad de un material para permitir a los electrones circular a través de él.
+	
+	
+\end{itemize}
+
+\medskip
+
+\structure{Unidad en el SI:} amperio [A].
+
+\medskip
+
+\end{column}
+
+\begin{column}{2cm}
+
+
+\begin{figure}[hbt]
+\vspace*{-0.5cm}
+\epsfig{file=./figuras_tema_1/ampere.eps,height=2cm}
+\label{ampere}
+\end{figure}
+\vspace*{-0.5cm}
+\begin{center}
+\tiny{André-Marie Ampère  \\
+(1775-1836)}
+\end{center}
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Voltaje (tensión, diferencia de potencial,...)}
+
+\structure{\textbf{Diferencia de potencial}}, $v(t)$ o $u(t)$: se define como la energía, $w(t)$, necesaria para trasladar la unidad de carga entre dos puntos.
+
+\medskip
+
+\begin{columns}
+\begin{column}{8cm}
+\begin{equation*}
+    u(t)=\frac{dw(t)}{dq(t)}
+\end{equation*}
+
+\medskip
+
+\begin{itemize}
+	
+	\item Es necesario indicar el punto de mayor (+) y menor (-) potencial.
+	
+	\item Tomando como referencia de potencial un punto del circuito, la tensión entre dos puntos se calcula a partir de los potenciales respecto a dicha referencia: $v_{ab}(t)=v_a(t)-v_b(t)$.
+	
+\end{itemize}
+
+\medskip
+
+\structure{Unidad en el SI:} voltio [V].
+
+\medskip
+
+
+\end{column}
+\begin{column}{3cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_1/volta.eps,height=2cm}
+\label{volta}
+\end{figure}
+\vspace*{-0.5cm}
+\begin{center}
+\tiny{Alessandro Giuseppe\\ Antonio Anastasio Volta  \\
+(1745-1827)}
+\end{center}
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+	
+	\frametitle{Flujo magnético}
+	
+	\structure{\textbf{Electricidad-Magnetismo}}. Toda corriente eléctrica por un conductor crea un campo magnético alrededor del mismo (ley de Ampère-Maxwell).
+	\begin{figure}[hbt]
+		\epsfig{file=./figuras_tema_1/flujo_conductor.eps,height=2.5cm}
+	\end{figure}
+	
+			\begin{columns}
+				\begin{column}{7.5cm}
+					\structure{\textbf{Flujo magnético}}, $\phi(t)$: conjunto de líneas de campo magnético que atraviesan una superficie determinada.
+				
+					\medskip
+					
+					\structure{Unidad en el SI:} weber [Wb].	
+				\end{column}
+				\begin{column}{4cm}
+					\begin{figure}[hbt]
+						\epsfig{file=./figuras_tema_1/flujo_superficie.eps,height=2cm}
+					\end{figure}
+				\end{column}
+			\end{columns}
+		
+
+\end{frame}
+
+
+\begin{frame}
+	\justifying
+\frametitle{Flujo magnético}
+
+\structure{\textbf{Ley de Faraday}}. Si el flujo magnético que atraviesa una superficie delimitada por una espira varía con el tiempo, en los bornes de dicha espira se genera una tensión (fuerza electromotriz) proporcional y de signo contrario a la variación de dicho flujo concatenado.
+\begin{equation*}
+    u(t)=-\frac{d \phi(t)}{dt}
+\end{equation*}
+
+\begin{itemize}
+  \item El flujo puede provenir de un imán permanente, un \textbf{electroimán}, o de la intensidad que recorre la propia espira.
+  \item Esta ley constituye la base de los generadores de energía eléctrica tradicionales.
+\end{itemize}
+\vspace{-0.1cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_1/flujo_espira.eps, height=2.6cm}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Potencia y energía}
+
+\begin{columns}
+	\begin{column}{9cm}
+		\structure{\textbf{Potencia}}, $p(t)$: cantidad de trabajo (energía) intercambiado por unidad de tiempo.
+		\begin{equation*}
+    		p(t)=\frac{dw(t)}{dt}=\frac{dw(t)}{dq(t)}\cdot\frac{dq(t)}{dt}=u(t)\cdot i(t)
+		\end{equation*}
+		Se obtiene a partir del voltaje entre dos puntos y la corriente que circula entre ellos.
+		
+		\structure{Unidad en el SI:} vatio [W].
+	\end{column}
+	\begin{column}{3cm}
+		\begin{figure}[hbt]
+			\epsfig{file=./figuras_tema_1/watt.eps,height=2cm}
+			\label{watt}
+		\end{figure}
+		\vspace*{-0.5cm}
+	\begin{center}
+		\tiny{James Watt \\
+		(1736-1819)}
+	\end{center}
+	\end{column}
+\end{columns}
+
+\medskip
+\medskip
+
+\begin{columns}
+	\begin{column}{9cm}
+		\structure{\textbf{Energía}}, $w(t)$: se obtiene a partir de la potencia.
+		\begin{equation*}
+    		w(t)=\int^t_{-\infty}p(\tau) d\tau
+		\end{equation*}
+
+		\structure{Unidad en el SI:} julio [J].
+
+		\structure{Otras unidades muy utilizadas:} vatio-hora [Wh].
+
+	\end{column}
+	\begin{column}{3cm}
+		\begin{figure}[hbt]
+			\epsfig{file=./figuras_tema_1/Joule.eps,height=2cm}
+			\label{Joule}
+		\end{figure}
+		\vspace*{-0.5cm}
+		\begin{center}
+			\tiny{James Joule \\
+			(1818-1889)}
+		\end{center}
+	\end{column}
+
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+	\justifying
+\frametitle{Potencia y energía}
+\begin{exampleblock}{Ejercicio 1.1}
+Calcular el tiempo que tarda un circuito de $2\,000$\,W en consumir $16$\,kWh.\\%%
+Solución: $8$\,horas.
+\end{exampleblock}
+\begin{exampleblock}{Ejercicio 1.2}
+	\justifying
+Una máquina de tren tiene una potencia nominal de $500$\,kW. En un trayecto de $1$\,hora se sabe que la máquina permanece el $50$\,\% del tiempo absorbiendo su potencia nominal mientras que el resto del tiempo absorbe solo la mitad de la potencia nominal. Calcular la energía absorbida por la máquina en dicho trayecto.\\%%
+Solución: $375$\,kWh.
+\end{exampleblock}
+\end{frame}
+
+
+
+\section{Terminales y puertas}
+\begin{frame}
+\frametitle{}
+\begin{columns}
+\begin{column}{6.5cm}
+
+\begin{block}{\textbf{Terminal (borne, borna)}}
+	\justifying
+Extremo de un conductor, preparado para facilitar su conexión con un componente elemental de un circuito.
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_1/terminales.eps,height=1.6cm}
+\label{terminales}
+\end{figure}
+\end{block}
+
+\end{column}
+\begin{column}{5.04cm}
+
+\begin{block}{\textbf{Puerta}}
+\justifying
+Pareja de terminales donde la intensidad  que entra por uno sale por el otro.
+
+\begin{figure}[hbt]
+	\centering
+	\epsfig{file=./figuras_tema_1/puerta.eps,height=1.5cm}
+	\label{puerta}
+\end{figure}
+
+%\begin{columns}
+
+%	\begin{column}{5cm}
+				
+%	\end{column}
+%	\begin{column}{5cm}
+%		Ejemplo: transformador		
+%	\end{column}
+%\end{columns}
+
+
+
+\end{block}
+
+
+\end{column}
+\end{columns}
+
+
+\begin{block}{\textbf{Bipuerta}}
+Elemento de cuatro terminales, agrupados en dos puertas.
+\vspace{0.15cm}
+\begin{columns}
+
+	\begin{column}{5cm}
+		\begin{figure}[hbt]
+			\centering
+			\epsfig{file=./figuras_tema_1/bipuerta.eps,height=1.3cm}
+			\label{bipuerta}
+		\end{figure}
+	\end{column}
+	\begin{column}{5cm}
+			\centering
+			\small{Ejemplo: transformador}
+			\vspace{-0.3cm}		
+			\begin{figure}[hbt]
+				\centering
+				\fbox{\includegraphics[height=2cm]{./figuras_tema_1/trafo.png}}
+				\label{trafo}
+			\end{figure}
+	\end{column}
+\end{columns}
+
+
+
+
+\end{block}
+
+
+\end{frame}
+
+
+
+
+\section{Referencias de polaridad}
+
+\begin{frame}
+\frametitle{}
+\justifying
+\structure{\textbf{Objetivo}}: unificar los criterios de signos de las magnitudes eléctricas. Es normal asignar referencias asociadas al comportamiento habitual del componente.
+
+
+\medskip
+
+\structure{\textbf{Referencias pasivas}}: una vez definido el sentido positivo de la tensión, la intensidad entra por el terminal positivo. 
+			\begin{figure}[hbt]
+				\centering
+				\includegraphics[height=2.5cm]{./figuras_tema_1/ref_pas_2.eps}
+				\label{ref_pas}
+			\end{figure}
+	
+\begin{equation*}
+	\begin{split}
+		\text{Si } p(t)&=u(t)\cdot i(t) > 0 \ \ \longrightarrow \ \ \text{Absorbe potencia}\\
+		\text{Si } p(t)&=u(t)\cdot i(t) < 0 \ \ \longrightarrow \ \ \text{Cede potencia}
+	\end{split}
+\end{equation*}
+
+
+
+Normalmente se tomarán referencias pasivas para las resistencias.
+
+	
+
+\end{frame}
+
+
+
+
+\begin{frame}
+	\frametitle{}
+
+	\structure{\textbf{Referencias activas}}: una vez definido el sentido positivo de la tensión, la intensidad entra por el terminal negativo. 
+	
+	\begin{figure}[hbt]
+		\centering
+		\includegraphics[height=2.5cm]{./figuras_tema_1/ref_pas_3.eps}
+		\label{ref_act}
+	\end{figure}
+	
+	\vspace{-0.7cm}
+	
+	\begin{equation*}
+		\begin{split}
+			\text{Si } p(t)&=u(t)\cdot i(t) > 0 \ \ \longrightarrow \ \ \text{Cede potencia}\\
+			\text{Si } p(t)&=u(t)\cdot i(t) < 0 \ \ \longrightarrow \ \ \text{Absorbe potencia}
+		\end{split}
+	\end{equation*}
+	
+	\justifying
+	
+	\medskip
+	
+	Normalmente se tomarán referencias activas para las fuentes de tensión e intensidad.
+	
+	\medskip
+	
+	Las referencias son solamente un criterio de signos, la realidad  no se ve afectada por utilizar unas u otras en el estudio del circuito.
+
+\end{frame}
+
+
+
+
+
+\section{Clasificación de circuitos}
+\begin{frame}\frametitle{}
+\vspace{-0.1cm}
+\begin{block}{\textbf{Circuitos lineales}}
+\begin{small}
+	\justifying
+Son circuitos en los que existe una relación lineal entre las excitaciones (tensiones e intensidades impuestas por las fuentes) y las respuestas.
+
+\medskip
+
+Conocidas las respuestas de un circuito ($i_1, i_2$) ante diversas excitaciones ($u_1, u_2$), la respuesta a cualquier combinación lineal de las excitaciones se corresponde con la misma combinación lineal de las respuestas.
+
+\begin{figure}[hbt]
+\centering
+\fbox{\includegraphics[height=2cm]{./figuras_tema_1/propor_MAGC.png}}
+\label{propor}
+\end{figure}
+
+Es consecuencia de los principios de proporcionalidad y superposición asociados a las ecuaciones lineales.
+
+\end{small}
+
+\end{block}
+\vspace{-0.2cm}
+\begin{block}{\textbf{Circuitos no lineales}}
+\begin{small}
+Generalmente son circuitos cuyos parámetros son función de la intensidad que lo recorre o de la tensión aplicada y  casi siempre conducen a ecuaciones no lineales.
+\end{small}
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{}
+
+\begin{block}{\textbf{Circuitos estáticos}}
+	\justifying
+Gobernados estrictamente por ecuaciones algebraicas.
+\end{block}
+\begin{block}{\textbf{Circuitos dinámicos}}
+	\justifying
+Gobernados por ecuaciones algebraicas y diferenciales, cuya solución en un instante dado requiere conocer la historia pasada del circuito.
+\end{block}
+
+
+\begin{block}{\textbf{Circuitos invariantes en el tiempo}}
+	\justifying
+Caracterizados por ecuaciones algebraicas o diferenciales de coeficientes constantes.
+\end{block}
+
+\begin{block}{\textbf{En función del tipo de excitación}}
+	\justifying
+\begin{itemize}
+  \item Circuitos de \textbf{corriente continua}. Excitaciones constantes en el tiempo.
+  \item Circuitos de \textbf{corriente alterna sinusoidal}. Las excitaciones son señales sinusoidales. A su vez se dividen en circuitos monofásicos y trifásicos.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+
+\begin{frame}\frametitle{}
+\begin{block}{\textbf{Circuitos activos y pasivos}}
+
+\begin{columns}
+\begin{column}{4cm}
+\begin{center}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_1/dipolo_1.eps,height=1.5cm}
+\label{dipolo}
+\end{figure}
+\end{center}
+\end{column}
+\begin{column}{8cm}
+\begin{center}
+\vspace*{-1.2cm}
+\begin{equation*}
+    w_{abs}(t)=\int^t_{-\infty} p_{abs}(\tau) d\tau=\int^t_{-\infty} u(\tau)\cdot i(\tau) d\tau
+\end{equation*}
+\end{center}
+    \end{column}
+\end{columns}
+
+\textbf{Circuitos pasivos:} $w_{abs}(t)\geq 0, \ \forall t$
+
+
+		\begin{figure}[hbt]
+			\centering
+			\epsfig{file=./figuras_tema_1/circ_pasivos.eps,height=3.5cm}
+			\label{circ_pasivos}
+		\end{figure}
+
+\vspace*{-1.7cm}
+\hspace*{3cm} $p_{abs}(t)\geq0, \forall t$
+\hspace*{1.5cm} $\exists t_0 \, \vert \, p_{abs}(t_0)<0$
+
+\vspace*{0.07cm}
+
+\hspace*{3.2cm} \textbf{Disipativo}
+\hspace*{2cm} \textbf{Almacenador}
+
+\vspace*{1cm}
+
+\textbf{Circuitos activos:} Si \ $\exists t_0$ tal que $w_{abs}(t_0)< 0$
+\vspace*{-1.8cm}
+
+\begin{figure}[hbt]
+\hspace*{7.5cm}
+\epsfig{file=./figuras_tema_1/circ_activos.eps,height=2.5cm}
+\label{circ_activos}
+\end{figure}
+
+
+\vspace*{-0.7cm}
+
+\end{block}
+\end{frame}
+
+
+
+
+\section{Leyes de Kirchhoff}
+\begin{frame}
+\frametitle{Ley de Kirchhoff de corrientes}
+En un nudo (corte) eléctrico donde inciden $k$ conductores cuyas corrientes se suponen entrando al nudo se cumple que
+\begin{equation*}
+\boxed{\sum_k i_k(t)=0} \ \ \Leftrightarrow \ \ \boxed{\sum_{i,entran} i_i(t)=\sum_{j,salen} i_j(t)}
+\end{equation*}
+\vspace{-0.5cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_1/1K_bis.eps,height=2.6cm}
+\label{1K}
+\end{figure}
+\structure{\textcolor{red}{\textbf{Nudo}}}: interconexión de varios terminales del circuito.
+
+\structure{\textbf{Corte}}: conjunto de interconexiones de una región del circuito con el resto.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Ley de Kirchhoff de tensiones}
+\justifying
+En un bucle (malla) eléctrico formado por $k$ elementos cuyas tensiones se suponen en el mismo sentido en el que se recorre el bucle (malla) se cumple:
+\begin{equation*}
+\boxed{\sum_k u_k(t)=0 }
+\end{equation*}
+
+\structure{\textcolor{red}{\textbf{Bucle}}}: camino cerrado en un circuito.
+
+\structure{\textbf{Malla}}: caso particular de bucle que no contiene ningún otro bucle en su interior.
+\vspace*{-0.2cm}
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_1/2K.eps,height=3cm}
+\label{2K}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{exampleblock}{Ejercicio 1.3}
+Aplicando las leyes de Kirchhoff, determinar $i_1$, $i_2$, $u_{ab}$ y $u_x$.
+ \begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_1/ejercicio_K.eps,height=4cm}
+\end{figure}
+Solución: $i_1=5$\,A, $i_2=2$\,A, $u_{ab}=15$\,V y $u_x=12$\,V
+\end{exampleblock}
+\end{frame}
+
+%%SECCIÓN BALANCE DE POTENCIA
+
+\section{Balance de potencia}
+\begin{frame}
+\frametitle{}
+\begin{block}{\textbf{Principio conservación de la energía}}
+%\structure{\textbf{Principio conservación de la energía:}}\\
+\vspace{-0.3cm}
+\begin{columns}
+\begin{column}{5cm}
+\begin{center}
+ \vspace{0.2cm}
+$w_g(t)=w_a(t)+w_d(t)$\\
+\vspace{0.1cm}
+$\downarrow$\\
+\vspace{0.1cm}
+$w_d(t)+w_a(t)-w_g(t)=0$\\
+\vspace{0.15cm}
+\hspace{1cm}$\downarrow$ \footnotesize{[$d/dt$]} \\
+\vspace{0.15cm}
+$p_d(t)+p_a(t)-p_g(t)=0$\\
+\mbox{}\\
+%$\Downarrow$
+%\mbox{}\\
+
+\end{center}
+\end{column}
+\begin{column}{6cm}
+\begin{center}
+\begin{figure}[hbt]
+%\hspace*{8cm}
+\fboxsep 8pt
+\ovalbox{\epsfig{file=./figuras_tema_1/balance.eps,height=2.3cm}}
+\label{balance}
+\end{figure}
+\end{center}
+    \end{column}
+\end{columns}
+
+\end{block}
+\vspace{-0.2cm}
+\begin{block}{\textbf{Balance de potencia}}
+%\structure{\textbf{Balance de potencia:}}
+El sumatorio de potencias absorbidas (o cedidas) es igual a cero. 
+\vspace{0.5cm}
+\begin{columns}
+	\begin{column}{5cm}
+  \begin{equation*}
+  \boxed{  \sum_k p_k(t)=0}
+  \end{equation*}
+\end{column}
+\begin{column}{5cm}
+
+  \vspace{-0.4cm}
+Alternativamente:
+  \vspace{-0.1cm}
+ \begin{equation*}
+  \boxed{\sum_{i,cedida} p_i(t)=\sum_{j,absorbida} p_j(t) }
+  \end{equation*}
+  \end{column}
+  \end{columns}
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{}
+\begin{exampleblock}{Ejercicio 1.4}
+Calcular la potencia de cada uno de los elementos del circuito y efectuar el balance de potencia.
+\begin{figure}[hbt]
+{\epsfig{file=./figuras_tema_1/ejercicio_balance.eps,height=3cm}}
+\end{figure}
+
+Solución: las fuentes ceden 132.2 W, que es la potencia que consumen las resistencias.
+
+\end{exampleblock}
+\end{frame}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

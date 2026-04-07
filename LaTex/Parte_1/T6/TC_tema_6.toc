@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{Respuesta de un circuito el\'ectrico alimentado con corriente continua}{3}{0}{1}
+\beamer@sectionintoc {2}{Circuitos din\'amicos en r\'egimen permanente de continua}{6}{0}{2}
+\beamer@sectionintoc {3}{An\'alisis de circuitos din\'amicos en un instante arbitrario}{11}{0}{3}
+\beamer@sectionintoc {4}{Circuitos din\'amicos en r\'egimen transitorio de primer orden}{15}{0}{4}

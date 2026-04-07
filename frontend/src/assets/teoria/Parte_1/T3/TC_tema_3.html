@@ -1,0 +1,301 @@
+<div class="frame">
+
+</div>
+<section id="índice" class="frame">
+<h3>Índice</h3>
+</section>
+<h1 id="fuente-real-de-tensión-continua">Fuente real de tensión
+continua</h1>
+<section id="fuente-real-de-tensión-continua-1" class="frame">
+<h3>Fuente real de tensión continua</h3>
+<div class="block">
+<p><span>Algunas observaciones</span></p>
+<ol>
+<li><p>Toda fuente real tiene una potencia máxima que puede
+suministrar.</p></li>
+<li><p>La tensión en bornes de una fuente real de tensión depende del
+circuito al que se conecte.</p></li>
+<li><p>Las fuentes reales sufren un calentamiento durante su
+uso.</p></li>
+</ol>
+</div>
+<div class="block">
+<p><span>Modelo lineal de una fuente real de tensión</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</section>
+<h1 id="fuente-real-de-corriente-continua">Fuente real de corriente
+continua</h1>
+<section id="fuente-real-de-corriente-continua-1" class="frame">
+<h3>Fuente real de corriente continua</h3>
+<div class="block">
+<p><span>Algunas observaciones</span></p>
+<ol>
+<li><p>Toda fuente real tiene una potencia máxima que puede
+suministrar.</p></li>
+<li><p>La intensidad en bornes de una fuente real de corriente depende
+del circuito al que se conecte.</p></li>
+<li><p>Las fuentes reales sufren un calentamiento durante su
+uso.</p></li>
+</ol>
+</div>
+<div class="block">
+<p><span>Modelo lineal y característica <span
+class="math inline">\(U\)</span>-<span
+class="math inline">\(I\)</span></span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</section>
+<h1 id="equivalencia-entre-fuentes-reales">Equivalencia entre fuentes
+reales</h1>
+<section id="equivalencia-entre-fuentes-reales-1" class="frame">
+<h3>Equivalencia entre fuentes reales</h3>
+<p>Para toda fuente real de tensión existe una fuente real de corriente
+equivalente, y viceversa.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</section>
+<h1 id="asociación-de-fuentes-reales">Asociación de fuentes reales</h1>
+<section id="asociación-de-fuentes-reales-conectadas-en-serie"
+class="frame">
+<h3>Asociación de fuentes reales conectadas en serie</h3>
+<p>Varias fuentes reales de tensión en serie pueden agruparse en una
+única fuente equivalente. En el caso de fuentes reales de corriente,
+primero habría que obtener sus respectivas fuentes reales de tensión
+equivalentes.</p>
+<figure id="f_tension_serie" data-latex-placement="hbt">
+
+</figure>
+</section>
+<section id="asociación-de-fuentes-reales-conectadas-en-paralelo"
+class="frame">
+<h3>Asociación de fuentes reales conectadas en paralelo</h3>
+<p>Varias fuentes reales de corriente en paralelo pueden agruparse en
+una única fuente equivalente. En el caso de fuentes reales de tensión,
+primero habría que obtener sus respectivas fuentes reales de corriente
+equivalentes.</p>
+<figure id="f_int_paralelo" data-latex-placement="hbt">
+
+</figure>
+</section>
+<h1 id="circuitos-equivalente-thévenin-y-norton">Circuitos equivalente
+Thévenin y Norton</h1>
+<section id="circuito-equivalente-thévenin" class="frame">
+<h3>Circuito equivalente Thévenin</h3>
+<p>Todo circuito compuesto exclusivamente por fuentes y resistencias
+equivale a una fuente real de tensión (equivalente Thévenin).</p>
+<div class="columns">
+<div class="column">
+<p><span>8cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>3cm</span> <span
+class="math display">\[\boxed{U_{th}=\left.u_{ca}\right|_{{AB}}}\]</span>
+<span
+class="math display">\[\boxed{R_{th}=\left.R_{eq}\right|_{{AB}}}\]</span></p>
+</div>
+</div>
+<p>El valor de la tensión de la fuente ideal es el que presenta el
+circuito original a intensidad nula (circuito abierto), mientras que la
+resistencia equivalente es la que presenta el circuito original anuladas
+las fuentes (circuito pasivo).</p>
+</section>
+<section id="circuito-equivalente-norton" class="frame">
+<h3>Circuito equivalente Norton</h3>
+<p>Todo circuito compuesto exclusivamente por fuentes y resistencias
+equivale a una fuente real de intensidad (equivalente Norton).</p>
+<div class="columns">
+<div class="column">
+<p><span>8cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>3cm</span> <span
+class="math display">\[\boxed{I_{nor}=\left.i_{cc}\right|_{{AB}}}\]</span>
+<span
+class="math display">\[\boxed{R_{nor}=\left.R_{eq}\right|_{{AB}}}\]</span></p>
+</div>
+</div>
+<p>El valor de la corriente de la fuente ideal es el que presenta el
+circuito original a tensión nula (cortocircuito), mientras que la
+resistencia equivalente es la que presenta el circuito original anuladas
+las fuentes (circuito pasivo).</p>
+</section>
+<section id="circuitos-equivalente-thévenin-y-norton-1" class="frame">
+<h3>Circuitos equivalente Thévenin y Norton</h3>
+<div class="columns">
+<div class="column">
+<p><span>4cm</span></p>
+<div class="block">
+<p><span>Obtención de <span class="math inline">\(u_{ca}\)</span> e
+<span class="math inline">\(i_{cc}\)</span></span></p>
+<div class="small">
+<p>Se obtienen resolviendo los circuitos siguientes:</p>
+</div>
+<figure data-latex-placement="hbt">
+
+</figure>
+<div class="small">
+<p><strong>CA</strong>: circuito activo.</p>
+</div>
+</div>
+</div><div class="column">
+<p><span>7.5cm</span></p>
+<div class="block">
+<p><span>Obtención de <span
+class="math inline">\(R_{eq}\)</span></span></p>
+<div class="small">
+<p><strong>1ª forma</strong>: A partir de <span
+class="math inline">\(u_{ca}\)</span> y <span
+class="math inline">\(i_{cc}\)</span>:</p>
+<p><span class="math display">\[\begin{equation*}
+    R_{eq}=\frac{u_{ca}}{i_{cc}}, \ \  \text{salvo indeterminación:}\
+0/0
+\end{equation*}\]</span></p>
+<p><strong>2ª forma</strong>: Conectando al circuito pasivo una fuente
+de prueba externa. Esto es:</p>
+<div class="columns">
+<div class="column">
+<p><span>2cm</span> <span class="math display">\[\begin{equation*}
+   R_{eq}=\cfrac{U_g}{I_g}
+\end{equation*}\]</span></p>
+</div><div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+<p><strong>3ª forma</strong>: Asociación de resistencias del circuito
+pasivo. <em>No aplicable si hay fuentes dependientes</em>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="frame">
+<div class="exampleblock">
+<p><span>Ejercicio 3.1</span> En el circuito en corriente continua de la
+figura, se pide obtener el equivalente de Thévenin entre los terminales
+a y b.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><strong>Solución</strong>: <span
+class="math inline">\(U_{th}=-1\)</span> V, <span
+class="math inline">\(R_{th}=10 \, \mathrm{\Omega}\)</span></p>
+</div>
+</div>
+<h1 id="máxima-transferencia-de-potencia">Máxima transferencia de
+potencia</h1>
+<section id="máxima-potencia-de-una-fuente-real-de-tensión"
+class="frame">
+<h3>Máxima potencia de una fuente real de tensión</h3>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>6cm</span> <span class="math inline">\(P=U I=R
+I^2=\cfrac{R}{(R+R_g)^2}\cdot U^2_g\)</span> <span
+class="math display">\[P_{max} \ \ \Longrightarrow \ \ \frac{dP}{dR}=0 \
+\ \Rightarrow  \ \ \boxed{R=R_g}\]</span></p>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<p><span>6cm</span></p>
+<ul>
+<li><p>Potencia máxima:</p>
+<div class="small">
+<p><span class="math display">\[\begin{equation*}
+    P_{max}=\frac{U^2_g}{4\cdot R_g}
+\end{equation*}\]</span></p>
+</div></li>
+<li><p>Rendimiento:</p>
+<div class="small">
+<p><span class="math display">\[\begin{equation*}
+    \eta=\frac{U I}{U_g  I}=\frac{R}{R+R_g}
+\end{equation*}\]</span> Si <span class="math inline">\(R=R_g \ \
+\Rightarrow \ \ \left.\eta \right|_{P_{max}}=0.5\)</span></p>
+</div></li>
+</ul>
+</div><div class="column">
+<p><span>6cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+</section>
+<section id="máxima-potencia-de-una-fuente-real-de-intensidad"
+class="frame">
+<h3>Máxima potencia de una fuente real de intensidad</h3>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>6cm</span> <span class="math inline">\(P=U I=G
+U^2=\cfrac{G}{(G+G_g)^2}\cdot I^2_g\)</span> <span
+class="math display">\[P_{max} \ \ \Longrightarrow \ \ \frac{dP}{dR}=0 \
+\ \Rightarrow  \ \ \boxed{G=G_g}\]</span></p>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<p><span>6cm</span></p>
+<ul>
+<li><p>Potencia máxima:</p>
+<div class="small">
+<p><span class="math display">\[\begin{equation*}
+    P_{max}=\frac{I^2_g}{4\cdot G_g}
+\end{equation*}\]</span></p>
+</div></li>
+<li><p>Rendimiento:</p>
+<div class="small">
+<p><span class="math display">\[\begin{equation*}
+    \eta=\frac{U I}{U  I_g}=\frac{G}{G+G_g}
+\end{equation*}\]</span> Si <span class="math inline">\(G=G_g \ \
+\Rightarrow \ \ \left.\eta \right|_{P_{max}}=0.5\)</span></p>
+</div></li>
+</ul>
+</div><div class="column">
+<p><span>6cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</div>
+</section>
+<div class="frame">
+<div class="exampleblock">
+<p><span>Ejercicio 3.2</span> Determinar el valor de la resistencia R
+para que la fuente real de intensidad trabaje con un rendimiento del 80
+%. Datos: <span class="math inline">\(R_g = 4 \,
+\mathrm{k\Omega}\)</span> .</p>
+<figure data-latex-placement="hbt">
+<img src="./figuras_tema_3/Ej_3_2.PNG" style="height:3.5cm" />
+</figure>
+<p><strong>Solución</strong>: <span class="math inline">\(R=600 \,
+\mathrm{\Omega}\)</span></p>
+</div>
+</div>

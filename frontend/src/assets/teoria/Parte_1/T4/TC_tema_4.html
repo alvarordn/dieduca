@@ -1,0 +1,440 @@
+<div class="frame">
+
+</div>
+<section id="índice" class="frame">
+<h3>Índice</h3>
+</section>
+<h1 id="balance-de-incógnitas-y-ecuaciones">Balance de incógnitas y
+ecuaciones</h1>
+<section id="balance-de-incógnitas-y-ecuaciones-1" class="frame">
+<h3>Balance de incógnitas y ecuaciones</h3>
+<p>Dado un circuito eléctrico formado por <span
+class="math inline">\(n\)</span> nudos y <span
+class="math inline">\(c\)</span> elementos de una puerta (dos
+terminales):</p>
+<ul>
+<li><p><strong>Número de incógnitas</strong>: <span
+class="math inline">\(2c\)</span> (tensión e intensidad en cada
+elemento)</p></li>
+<li><p>Número de ecuaciones linealmente independientes:</p>
+<ul>
+<li><p><strong>Definición de los elementos</strong>: <span
+class="math inline">\(c\)</span> ecuaciones.</p></li>
+<li><p><strong>Ley de Kirchhoff de intensidad</strong>: <span
+class="math inline">\(n-1\)</span> ecuaciones.</p></li>
+<li><p><strong>Ley de Kirchhoff de tensión</strong>: <span
+class="math inline">\(c-n+1\)</span> ecuaciones (número de
+mallas).</p></li>
+</ul></li>
+</ul>
+<hr />
+<div class="center">
+<p>Por tanto:<br />
+Nº Incognitas = Nº Ecuaciones<br />
+¿Es necesario plantear <span class="math inline">\(2c\)</span>
+ecuaciones?<br />
+<span class="math inline">\(\Downarrow\)</span><br />
+</p>
+</div>
+</section>
+<section id="balance-de-incógnitas-y-ecuaciones-2" class="frame">
+<h3>Balance de incógnitas y ecuaciones</h3>
+<div class="exampleblock">
+<p><span>Ejemplo</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</section>
+<h1 id="ecuaciones-de-nudos">Ecuaciones de nudos</h1>
+<section id="tensiones-de-nudos-como-variables-básicas" class="frame">
+<h3>Tensiones de nudos como variables básicas</h3>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>6cm</span> <span
+class="math display">\[\boxed{u_{jk}(t)=u_{N_j}(t)-u_{N_k}(t)}\]</span></p>
+</div>
+</div>
+<ul>
+<li><p>La tensión de un nudo <span class="math inline">\(j\)</span>,
+<span class="math inline">\(u_{N_j}\)</span>, se define como la
+diferencia de potencial entre dicho nudo y un nudo arbitrario que se
+toma como referencia.</p></li>
+<li><p>A partir de las tensiones nodales se puede calcular cualquier
+tensión del circuito y, por tanto, cualquier magnitud
+eléctrica.</p></li>
+<li><p>Por este motivo, se dice que las tensiones nodales son
+<strong>variables básicas</strong> de un circuito.</p></li>
+</ul>
+</section>
+<section id="ecuación-de-un-nudo-genérico" class="frame">
+<h3>Ecuación de un nudo genérico</h3>
+<ul>
+<li><p>En cada nudo se plantea la ley de Kirchhoff de intensidades,
+distinguiendo aquellas corrientes que provienen de fuentes de intensidad
+(<strong>supuestas entrantes en el nudo</strong>) de las que circulan
+por las conductancias conectadas en dicho nudo (<strong>supuestas
+salientes</strong>).</p></li>
+<li><p>Estas intensidades por las conductancias se pueden expresar en
+función de las tensiones nodales.</p></li>
+</ul>
+<figure data-latex-placement="hbt">
+
+</figure>
+</section>
+<section id="ecuaciones-de-nudos-1" class="frame">
+<h3>Ecuaciones de nudos</h3>
+<div class="exampleblock">
+<p><span>Ejemplo</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</section>
+<section id="sistema-de-ecuaciones-de-nudos" class="frame">
+<h3>Sistema de ecuaciones de nudos</h3>
+<p>Extendiendo el balance anterior a todos los nudos del circuito
+(excepto el de referencia), se llega a la siguiente expresión en forma
+matricial: <span class="math display">\[\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    G_{N_{(1,1)}} &amp; \cdots &amp; G_{N_{(1,n-1)}} \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    G_{N_{(n-1,1)}} &amp; \cdots &amp; G_{N_{(n-1,n-1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       u_{N_1}(t)  \\
+        \vdots \\
+        u_{N_{n-1}}(t)  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       i_{N_1}(t)  \\
+        \vdots \\
+        i_{N_{n-1}}(t)  \\
+      \end{array}
+    \right)}
+\end{equation*}\]</span> <span
+class="math display">\[\Downarrow\]</span> <span
+class="math display">\[\boxed{\textbf{G}_N\textbf{U}_N=\textbf{I}_N}\]</span></p>
+<dl>
+<dt><strong>G</strong><span class="math inline">\(_N\)</span></dt>
+<dd>
+<p>Matriz de conductancias nodales.</p>
+</dd>
+<dt><strong>U</strong><span class="math inline">\(_N\)</span></dt>
+<dd>
+<p>Vector de tensiones de nudos.</p>
+</dd>
+<dt><strong>I</strong><span class="math inline">\(_N\)</span></dt>
+<dd>
+<p>Vector de intensidades inyectadas en los nudos.</p>
+</dd>
+</dl>
+</section>
+<section id="formulación-por-inspección" class="frame">
+<h3>Formulación por inspección</h3>
+<div class="small">
+<p><span class="math display">\[\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    G_{N_{(1,1)}} &amp; \cdots &amp; G_{N_{(1,n-1)}} \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    G_{N_{(n-1,1)}} &amp; \cdots &amp; G_{N_{(n-1,n-1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       u_{N_1}(t)  \\
+        \vdots \\
+        u_{N_{n-1}}(t)  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       i_{N_1}(t)  \\
+        \vdots \\
+        i_{N_{n-1}}(t)  \\
+      \end{array}
+    \right)}
+\end{equation*}\]</span></p>
+<ol>
+<li><p>Elementos de la matriz <strong>G</strong><span
+class="math inline">\(_N\)</span> <span
+class="math display">\[\begin{equation*}
+\begin{split}
+G_{N_{(j,j)}}&amp;=\sum_{k}G_{jk} \ \ \text{(suma de conductancias
+conectadas al nudo $j$)}\\
+G_{N_{(j,k)}}&amp;=-G_{jk} \ \ \text{(conductancia total entre el nudo
+$j$ y el nudo $k$)}
+\end{split}
+\end{equation*}\]</span></p></li>
+<li><p>Elementos del vector <strong>I</strong><span
+class="math inline">\(_N\)</span>: suma de las fuentes de intensidad que
+inciden en el nudo <span class="math inline">\(j\)</span>, positivas si
+entran en el nudo y negativas si salen. <span
+class="math display">\[\begin{equation*}
+  i_{N_j}=\sum_{j} i_{N_{pj}}-i_{N_{nj}}
+\end{equation*}\]</span></p></li>
+</ol>
+</div>
+</section>
+<section id="ecuaciones-de-nudos.-casos-particulares" class="frame">
+<h3>Ecuaciones de nudos. Casos particulares</h3>
+<div class="block">
+<p><span>Circuitos con fuentes <strong>reales</strong> de tensión</span>
+Sustituir cada fuente real de tensión por su fuente de intensidad
+equivalente.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+<div class="block">
+<p><span>Circuitos con fuentes <strong>ideales</strong> de
+tensión</span></p>
+<div class="small">
+<ol>
+<li><p>Sustituir cada fuente de tensión por una fuente de intensidad de
+valor <span class="math inline">\(I_x\)</span> desconocido.</p></li>
+<li><p>Plantear las ecuaciones de nudos.</p></li>
+<li><p>Por cada fuente de tensión ideal, añadir al sistema de ecuaciones
+anterior una ecuación que relacione la tensión de la fuente con las
+tensiones de los nudos.</p></li>
+</ol>
+</div>
+</div>
+</section>
+<div class="frame">
+<div class="exampleblock">
+<p><span>Ejercicio 4.1</span> Determinar las tensiones de los nudos en
+el circuito de la figura y la potencia cedida por la fuente. Datos:
+<span class="math inline">\(E_g\)</span> = 11 V, <span
+class="math inline">\(R_1\)</span> = 2 <span
+class="math inline">\(\Omega\)</span>, <span
+class="math inline">\(R_2\)</span> = 4 <span
+class="math inline">\(\Omega\)</span>, <span
+class="math inline">\(R_3\)</span> = 2 <span
+class="math inline">\(\Omega\)</span>, <span
+class="math inline">\(R_4\)</span> = 4 <span
+class="math inline">\(\Omega\)</span> y <span
+class="math inline">\(R_5\)</span> = 1 <span
+class="math inline">\(\Omega\)</span>.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><strong>Solución</strong>: <span
+class="math inline">\(U_A=-5\)</span> V, <span
+class="math inline">\(U_B=6\)</span> V, <span
+class="math inline">\(U_C=1\)</span> V, <span
+class="math inline">\(P_{ced}=44\)</span> W</p>
+</div>
+</div>
+<h1 id="ecuaciones-de-mallas">Ecuaciones de mallas</h1>
+<section id="intensidades-de-malla" class="frame">
+<h3>Intensidades de malla</h3>
+<ul>
+<li><p>Recorre todos los elementos del circuito que conforma dicha
+malla.</p></li>
+<li><p>No se corresponden necesariamente con ninguna corriente eléctrica
+real.</p></li>
+<li><p>Se representa habitualmente mediante una flecha, ubicada en el
+interior de la malla respectiva, que indica el sentido que
+arbitrariamente se le asigna a dicha intensidad.</p></li>
+<li><p>Por conveniencia, todas las intensidades de mallas se orientan en
+el mismo sentido.</p>
+<figure data-latex-placement="hbt">
+
+</figure></li>
+<li><p>Solo están definidas en circuitos planos, si no lo son, se pueden
+plantear las ecuaciones de bucles en su lugar.</p></li>
+</ul>
+</section>
+<section id="ecuaciones-de-mallas-1" class="frame">
+<h3>Ecuaciones de mallas</h3>
+<div class="block">
+<p><span>Intensidades de malla como variables básicas</span></p>
+<div class="columns">
+<div class="column">
+<p><span>5cm</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div><div class="column">
+<p><span>6cm</span></p>
+<div class="small">
+<p>A partir de las intensidades de malla se puede obtener cualquier
+magnitud de dicho circuito, son <strong>variables básicas</strong>.</p>
+</div>
+<p><span
+class="math display">\[\boxed{i_{jk}(t)=i_{M_j}(t)-i_{M_k}(t)}\]</span></p>
+</div>
+</div>
+</div>
+<div class="block">
+<p><span>Ecuación de una malla genérica</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</section>
+<section id="ecuaciones-de-mallas-2" class="frame">
+<h3>Ecuaciones de mallas</h3>
+<div class="exampleblock">
+<p><span>Ejemplo</span></p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+</section>
+<section id="sistema-de-ecuaciones-de-mallas" class="frame">
+<h3>Sistema de ecuaciones de mallas</h3>
+<p>Extendiendo a todas las mallas del circuito:</p>
+<div class="small">
+<p><span class="math display">\[\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    R_{M_{(1,1)}} &amp; \cdots &amp; R_{M_{(1,c-n+1)}} \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    R_{M_{(c-n+1,1)}} &amp; \cdots &amp; R_{M_{(c-n+1,c-n+1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       i_{M_1}(t)  \\
+        \vdots \\
+        i_{M_{c-n+1}}(t)  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       u_{M_1}(t)  \\
+        \vdots \\
+        u_{M_{c-n+1}}(t)  \\
+      \end{array}
+    \right)}
+\end{equation*}\]</span></p>
+</div>
+<p><span class="math display">\[\Downarrow\]</span> <span
+class="math display">\[\boxed{\textbf{R}_M\textbf{I}_M=\textbf{U}_M}\]</span></p>
+<dl>
+<dt><strong>R</strong><span class="math inline">\(_M\)</span></dt>
+<dd>
+<p>Matriz de resistencias de mallas.</p>
+</dd>
+<dt><strong>I</strong><span class="math inline">\(_M\)</span></dt>
+<dd>
+<p>Vector de intensidades de mallas.</p>
+</dd>
+<dt><strong>U</strong><span class="math inline">\(_M\)</span></dt>
+<dd>
+<p>Vector de tensiones aplicadas a las mallas.</p>
+</dd>
+</dl>
+</section>
+<section id="formulación-por-inspección-1" class="frame">
+<h3>Formulación por inspección</h3>
+<div class="small">
+<p><span class="math display">\[\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    R_{M_{(1,1)}} &amp; \cdots &amp; R_{M_{(1,c-n+1)}} \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    R_{M_{(c-n+1,1)}} &amp; \cdots &amp; R_{M_{(c-n+1,c-n+1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       i_{M_1}(t)  \\
+        \vdots \\
+        i_{M_{c-n+1}}(t)  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       u_{M_1}(t)  \\
+        \vdots \\
+        u_{M_{c-n+1}}(t)  \\
+      \end{array}
+    \right)}
+\end{equation*}\]</span></p>
+<ol>
+<li><p>Elementos de la matriz <strong>R</strong><span
+class="math inline">\(_M\)</span> <span
+class="math display">\[\begin{equation*}
+\begin{split}
+R_{M_{(j,j)}}&amp;=\sum_{k}R_{jk} \ \ \text{(suma de resistencias
+pertenecientes a la malla $j$)}\\
+R_{M_{(j,k)}}&amp;=-R_{jk} \ \ \text{(resistencia total común de la
+malla $j$ y la malla $k$)}
+\end{split}
+\end{equation*}\]</span></p></li>
+<li><p>Elementos del vector <strong>U</strong><span
+class="math inline">\(_M\)</span>: suma de las fuentes de tensión que
+pertenecen a la malla <span class="math inline">\(j\)</span>, con signo
+positivo si la intensidad de la malla sale por el terminal positivo de
+la fuente y signo negativo si entra.</p>
+<p><span class="math display">\[\begin{equation*}
+    U_{M_j}=\sum_{j} u_{M_{pj}}-u_{M_{nj}}
+\end{equation*}\]</span></p></li>
+</ol>
+</div>
+</section>
+<section id="ecuaciones-de-mallas.-casos-particulares" class="frame">
+<h3>Ecuaciones de mallas. Casos particulares</h3>
+<div class="block">
+<p><span>Circuitos con fuentes <strong>reales</strong> de
+intensidad</span></p>
+<p>Se sustituye cada fuente real de intensidad por su fuente de tensión
+equivalente.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+</div>
+<div class="block">
+<p><span>Circuitos con fuentes <strong>ideales</strong> de
+intensidad</span></p>
+<div class="small">
+<ol>
+<li><p>Sustituir cada fuente de intensidad por una fuente de tensión de
+valor <span class="math inline">\(U_x\)</span> desconocido.</p></li>
+<li><p>Plantear las ecuaciones de mallas.</p></li>
+<li><p>Añadir al sistema de ecuaciones anterior ecuaciones que
+relacionen las intensidades de cada fuente ideal con las intensidades de
+malla.</p></li>
+</ol>
+</div>
+</div>
+</section>
+<div class="frame">
+<div class="exampleblock">
+<p><span>Ejercicio 4.2</span> Determinar las intensidades de malla en el
+circuito de la figura y la potencia cedida por la fuente. Datos: <span
+class="math inline">\(I_g\)</span> = 8 A, <span
+class="math inline">\(R_1\)</span> = 2 <span
+class="math inline">\(\Omega\)</span>, <span
+class="math inline">\(R_2\)</span> = 1 <span
+class="math inline">\(\Omega\)</span>, <span
+class="math inline">\(R_3\)</span> = 2 <span
+class="math inline">\(\Omega\)</span>, <span
+class="math inline">\(R_4\)</span> = 1 <span
+class="math inline">\(\Omega\)</span> y <span
+class="math inline">\(R_5\)</span> = 1 <span
+class="math inline">\(\Omega\)</span>.</p>
+<figure data-latex-placement="hbt">
+
+</figure>
+<p><strong>Solución</strong>: <span
+class="math inline">\(I_a=0,5\)</span> A, <span
+class="math inline">\(I_b=-3\)</span> A, <span
+class="math inline">\(I_c=5\)</span> A, <span
+class="math inline">\(P_{ced}=76\)</span> W</p>
+</div>
+</div>

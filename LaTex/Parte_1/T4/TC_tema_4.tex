@@ -1,0 +1,506 @@
+\documentclass{beamer}
+\setbeamercovered{transparent}
+
+
+\usetheme{CambridgeUS}
+\setbeamercolor{normal text}{bg=gray!20}
+\setbeamertemplate{blocks}[default]
+\setbeamercolor{block title}{fg=white,bg=red!60!black}
+\setbeamercolor{block body}{fg=black,bg=gray!15}
+
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\usepackage{psfrag}
+\usepackage{pstricks}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage[scriptsize,tight]{subfigure}
+\usepackage{multimedia}
+\usepackage{color}
+\usepackage{fancybox}
+\usepackage{comment}
+\usepackage{ragged2e}
+
+\usefonttheme[onlymath]{serif}
+
+
+\setbeamertemplate{navigation symbols}{}  
+
+
+
+\author[Teoría de Circuitos]{Teoría de Circuitos}
+\title[Tema 4]{\scshape Tema 4}
+\subtitle{Técnicas de análisis de circuitos}
+
+\date[]{}
+\institute[ETSI]{Departamento de Ingeniería Eléctrica \\ Escuela Técnica Superior de Ingeniería\\ Universidad de Sevilla}
+
+%\title[Proyecto fin de carrera]{\scshape Obtención de Equivalentes Externos
+%para el Estudio de Transitorios Electro
+%magnéticos en  Redes Eléctricas}
+%\subtitle{Proyecto Fin de Carrera}
+%\author[Alfonso Bachiller Soler]{Alfonso Bachiller Soler}
+%\date[mayo de 2009]{Sevilla, mayo de 2009}
+%%\institute[]{Proyecto Fin de Carrera}
+
+
+
+\AtBeginSection[]{
+\begin{frame}
+\frametitle{Índice}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+
+\begin{document}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Índice}
+%\tableofcontents[pausesections]
+\tableofcontents
+\end{frame}
+
+\section[]{Balance de incógnitas y ecuaciones}
+
+\begin{frame}\frametitle{Balance de incógnitas y ecuaciones}
+	\justifying
+Dado un circuito eléctrico formado por $n$ nudos y $c$ elementos de una puerta (dos terminales):
+\begin{itemize}
+  \item \textbf{Número de incógnitas}: $2c$ (tensión e intensidad en cada elemento)
+  \item Número de ecuaciones linealmente independientes:
+  \begin{itemize}
+  	\justifying
+  \item \textbf{Definición de los elementos}: $c$ ecuaciones.
+  \item \textbf{Ley de Kirchhoff de intensidad}: $n-1$ ecuaciones.
+  \item \textbf{Ley de Kirchhoff de tensión}: $c-n+1$ ecuaciones (número de mallas).
+  \end{itemize}
+\end{itemize}
+\vspace{0.3cm}
+\hrule
+\begin{center}
+Por tanto:\\
+
+ \vspace{0.1cm}
+ Nº Incognitas = Nº Ecuaciones\\
+
+  \vspace{0.1cm}
+ ¿Es necesario plantear $2c$ ecuaciones?\\
+
+ $\Downarrow$\\
+  \vspace{0.1cm}
+ \structure{Ecuaciones de nudos ($n-1$ ecuaciones) o mallas ($c-n+1$ ecuaciones)}
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}\frametitle{Balance de incógnitas y ecuaciones}
+\begin{exampleblock}{Ejemplo}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_4/ejemplo_1.eps,height=6.5cm}
+\end{figure}
+\end{exampleblock}
+\end{frame}
+
+
+\section[]{Ecuaciones de nudos}
+
+%\subsection[]{Circuitos resistivos}
+
+\begin{frame}\frametitle{Tensiones de nudos como variables básicas}
+%\vspace{-0.2cm}
+
+%\vspace{-0.5cm}
+\begin{columns}
+\begin{column}{5cm}
+\vspace{-0.5cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_4/refer_tension.eps,height=3cm}
+\end{figure}
+\end{column}
+\begin{column}{6cm}
+$$\boxed{u_{jk}(t)=u_{N_j}(t)-u_{N_k}(t)}$$
+\end{column}
+\end{columns}
+
+\vspace{0.2cm}
+
+\begin{itemize}
+	\justifying
+	\item La tensión de un nudo $j$, $u_{N_j}$, se define como la diferencia de potencial entre dicho nudo y un nudo arbitrario que se toma como referencia.
+	\item A partir de las tensiones nodales se puede calcular cualquier tensión del circuito y, por tanto, cualquier magnitud eléctrica.
+	\item Por este motivo, se dice que las tensiones nodales son \textbf{variables básicas} de un circuito.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}\frametitle{Ecuación de un nudo genérico}
+
+\begin{itemize}
+\justifying
+
+\item En cada nudo se plantea la ley de Kirchhoff de intensidades, distinguiendo aquellas corrientes que provienen de fuentes de intensidad (\textbf{supuestas entrantes en el nudo}) de las que circulan por las conductancias conectadas en dicho nudo (\textbf{supuestas salientes}).
+
+\item Estas intensidades por las conductancias se pueden expresar en función de las tensiones nodales. 
+
+\end{itemize}
+
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_4/nudo_generico.eps,height=3.5cm}
+\end{figure}
+
+
+
+\end{frame}
+
+
+\begin{frame}\frametitle{Ecuaciones de nudos}
+\begin{exampleblock}{Ejemplo}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_4/ejemplo_2.eps,height=6cm}
+\end{figure}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}\frametitle{Sistema de ecuaciones de nudos}
+
+Extendiendo el balance anterior a todos los nudos del circuito (excepto el de referencia), se llega a la siguiente expresión en forma matricial:
+\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    G_{N_{(1,1)}} & \cdots & G_{N_{(1,n-1)}} \\
+    \vdots & \ddots & \vdots \\
+    G_{N_{(n-1,1)}} & \cdots & G_{N_{(n-1,n-1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       u_{N_1}(t)  \\
+        \vdots \\
+        u_{N_{n-1}}(t)  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       i_{N_1}(t)  \\
+        \vdots \\
+        i_{N_{n-1}}(t)  \\
+      \end{array}
+    \right)}
+\end{equation*}
+$$\Downarrow$$
+$$\boxed{\textbf{G}_N\textbf{U}_N=\textbf{I}_N}$$
+
+\vspace{0.5cm}
+\begin{description}
+  \item[\textbf{G}$_N$] Matriz de conductancias nodales.
+  \item[\textbf{U}$_N$] Vector de tensiones de nudos.
+  \item[\textbf{I}$_N$] Vector de intensidades inyectadas en los nudos.
+\end{description}
+
+\end{frame}
+
+
+
+
+\begin{frame}\frametitle{Formulación por inspección}
+
+\vspace*{-0.2cm}
+\begin{small}
+\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    G_{N_{(1,1)}} & \cdots & G_{N_{(1,n-1)}} \\
+    \vdots & \ddots & \vdots \\
+    G_{N_{(n-1,1)}} & \cdots & G_{N_{(n-1,n-1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       u_{N_1}(t)  \\
+        \vdots \\
+        u_{N_{n-1}}(t)  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       i_{N_1}(t)  \\
+        \vdots \\
+        i_{N_{n-1}}(t)  \\
+      \end{array}
+    \right)}
+\end{equation*}
+\vspace*{-0.2cm}
+\begin{enumerate}
+  \item Elementos de la matriz \textbf{G}$_N$
+\vspace*{-0.1cm}
+\begin{equation*}
+\begin{split}
+G_{N_{(j,j)}}&=\sum_{k}G_{jk} \ \ \text{(suma de conductancias conectadas al nudo $j$)}\\
+G_{N_{(j,k)}}&=-G_{jk} \ \ \text{(conductancia total entre el nudo $j$ y el nudo $k$)}
+\end{split}
+\end{equation*}
+  \item Elementos del vector \textbf{I}$_N$: suma de las fuentes de intensidad que inciden en el nudo $j$, positivas si entran en el nudo y negativas si salen.
+\vspace*{-0.1cm}
+ \begin{equation*}
+  i_{N_j}=\sum_{j} i_{N_{pj}}-i_{N_{nj}}
+ \end{equation*}
+\end{enumerate}
+\end{small}
+
+\end{frame}
+
+
+\begin{frame}\frametitle{Ecuaciones de nudos. Casos particulares}
+
+\begin{block}{Circuitos con fuentes \textbf{reales} de tensión}
+	\justifying
+  Sustituir cada fuente real de tensión por su fuente de intensidad equivalente.
+  \vspace{-0.3cm}
+  \begin{figure}[hbt]
+\epsfig{file=./figuras_tema_4/equivalencia_fuentes.eps,height=1.7cm}
+\end{figure}
+
+\end{block}
+
+\begin{block}{Circuitos con fuentes \textbf{ideales} de tensión}
+
+\begin{small}
+\begin{enumerate}
+	\justifying
+  \item Sustituir cada fuente de tensión por una fuente de intensidad de valor $I_x$ desconocido.
+  \item Plantear las ecuaciones de nudos.
+  \item Por cada fuente de tensión ideal, añadir al sistema de ecuaciones anterior una ecuación que relacione la tensión de la fuente con las tensiones de los nudos.
+\end{enumerate}
+\end{small}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\begin{exampleblock}{Ejercicio 4.1}
+\justifying
+Determinar las tensiones de los nudos en el circuito de la figura y la potencia cedida por la fuente. Datos: $E_g$ = 11 V, $R_1$ = 2 $\Omega$, $R_2$ = 4 $\Omega$, $R_3$ = 2 $\Omega$, $R_4$ = 4 $\Omega$ y $R_5$ = 1 $\Omega$.
+\begin{figure}[hbt]
+	\centering
+\epsfig{file=./figuras_tema_4/Ej_nudos.eps,height=3.5cm}
+\end{figure}
+\textbf{Solución}: $U_A=-5$ V, $U_B=6$ V, $U_C=1$ V, $P_{ced}=44$ W
+\end{exampleblock}
+\end{frame}
+
+\section[]{Ecuaciones de mallas}
+
+\begin{frame}\frametitle{Intensidades de malla}
+
+\begin{itemize}
+  \justifying
+  \item Recorre todos los elementos del circuito que conforma dicha malla.
+  \item No se corresponden necesariamente con ninguna corriente eléctrica real.
+  \item Se representa habitualmente mediante una flecha, ubicada en el interior de la malla respectiva, que indica el sentido que arbitrariamente se le asigna a dicha intensidad.
+  \item Por conveniencia, todas las intensidades de mallas se orientan en el mismo sentido.
+
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_4/mallas.eps,height=2cm}
+\end{figure}
+
+	\item Solo están definidas en circuitos planos, si no lo son, se pueden plantear las ecuaciones de bucles en su lugar.
+	
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}\frametitle{Ecuaciones de mallas}
+\vspace{-0.1cm}
+\begin{block}{Intensidades de malla como variables básicas}
+	\justifying
+\begin{columns}
+\begin{column}{5cm}
+\vspace{-0.2cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_4/refer_malla.eps,height=2cm}
+\end{figure}
+\end{column}
+\begin{column}{6cm}
+\begin{small}
+	
+A partir de las intensidades de malla se puede obtener cualquier magnitud de dicho circuito, son \textbf{variables básicas}.
+\end{small}
+\vspace{-0.2cm}
+$$\boxed{i_{jk}(t)=i_{M_j}(t)-i_{M_k}(t)}$$
+\end{column}
+\end{columns}
+\end{block}
+\vspace{-0.2cm}
+\begin{block}{Ecuación de una malla genérica}
+\vspace*{-0.2cm}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_4/malla_generica.eps,height=3.5cm}
+\end{figure}
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{Ecuaciones de mallas}
+\begin{exampleblock}{Ejemplo}
+\begin{figure}[hbt]
+\epsfig{file=./figuras_tema_4/ejemplo_3.eps,height=6cm}
+\end{figure}
+\end{exampleblock}
+\end{frame}
+
+
+\begin{frame}\frametitle{Sistema de ecuaciones de mallas}
+
+Extendiendo a todas las mallas del circuito:
+\begin{small}
+\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    R_{M_{(1,1)}} & \cdots & R_{M_{(1,c-n+1)}} \\
+    \vdots & \ddots & \vdots \\
+    R_{M_{(c-n+1,1)}} & \cdots & R_{M_{(c-n+1,c-n+1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       i_{M_1}(t)  \\
+        \vdots \\
+        i_{M_{c-n+1}}(t)  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       u_{M_1}(t)  \\
+        \vdots \\
+        u_{M_{c-n+1}}(t)  \\
+      \end{array}
+    \right)}
+\end{equation*}
+\end{small}
+$$\Downarrow$$
+$$\boxed{\textbf{R}_M\textbf{I}_M=\textbf{U}_M}$$
+
+\vspace{0.5cm}
+
+\begin{description}
+  \item[\textbf{R}$_M$] Matriz de resistencias de mallas.
+  \item[\textbf{I}$_M$] Vector de intensidades de mallas.
+  \item[\textbf{U}$_M$] Vector de tensiones aplicadas a las mallas.
+\end{description}
+
+\end{frame}
+
+
+\begin{frame}\frametitle{Formulación por inspección}
+
+\begin{small}
+\begin{equation*}
+   {\left(
+  \begin{array}{ccc}
+    R_{M_{(1,1)}} & \cdots & R_{M_{(1,c-n+1)}} \\
+    \vdots & \ddots & \vdots \\
+    R_{M_{(c-n+1,1)}} & \cdots & R_{M_{(c-n+1,c-n+1)}}\\
+  \end{array}
+\right)}
+    {\left(
+      \begin{array}{c}
+       i_{M_1}(t)  \\
+        \vdots \\
+        i_{M_{c-n+1}}(t)  \\
+      \end{array}
+    \right)}=
+    {\left(
+      \begin{array}{c}
+       u_{M_1}(t)  \\
+        \vdots \\
+        u_{M_{c-n+1}}(t)  \\
+      \end{array}
+    \right)}
+\end{equation*}
+\vspace{-0.3cm}
+\begin{enumerate}
+  \item Elementos de la matriz \textbf{R}$_M$
+\vspace*{-0.2cm}
+\begin{equation*}
+\begin{split}
+R_{M_{(j,j)}}&=\sum_{k}R_{jk} \ \ \text{(suma de resistencias pertenecientes a la malla $j$)}\\
+R_{M_{(j,k)}}&=-R_{jk} \ \ \text{(resistencia total común de la malla $j$ y la malla $k$)}
+\end{split}
+\end{equation*}
+  \item Elementos del vector \textbf{U}$_M$: suma de las fuentes de tensión que pertenecen a la malla $j$, con signo positivo si la intensidad de la malla sale por el terminal positivo de la fuente y signo negativo si entra.
+
+    \begin{equation*}
+	U_{M_j}=\sum_{j} u_{M_{pj}}-u_{M_{nj}} 
+ \end{equation*}
+\end{enumerate}
+\end{small}
+
+\end{frame}
+
+
+\begin{frame}\frametitle{Ecuaciones de mallas. Casos particulares}
+
+\begin{block}{Circuitos con fuentes \textbf{reales} de intensidad}
+
+Se sustituye cada fuente real de intensidad por su fuente de tensión equivalente.
+    \vspace{-0.3cm}
+  \begin{figure}[hbt]
+\epsfig{file=./figuras_tema_4/equivalencia_fuentes_1.eps,height=1.7cm}
+\end{figure}
+
+\end{block}
+
+\begin{block}{Circuitos con fuentes \textbf{ideales} de intensidad}
+\vspace{-0.1cm}
+\begin{small}
+\begin{enumerate}
+	\justifying
+  \item Sustituir cada fuente de intensidad por una fuente de tensión de valor $U_x$ desconocido.
+  \item Plantear las ecuaciones de mallas.
+  \item Añadir al sistema de ecuaciones anterior ecuaciones que relacionen las intensidades de cada fuente ideal con las intensidades de malla.
+\end{enumerate}
+\end{small}
+\end{block}
+\end{frame}
+
+
+
+
+\begin{frame}
+\begin{exampleblock}{Ejercicio 4.2}
+\justifying
+Determinar las intensidades de malla en el circuito de la figura y la potencia cedida por la fuente. Datos: $I_g$ = 8 A, $R_1$ = 2 $\Omega$, $R_2$ = 1 $\Omega$, $R_3$ = 2 $\Omega$, $R_4$ = 1 $\Omega$ y $R_5$ = 1 $\Omega$.
+
+\begin{figure}[hbt]
+\centering
+\epsfig{file=./figuras_tema_4/Ej_mallas.eps,height=3.5cm}
+\end{figure}
+\textbf{Solución}: $I_a=0,5$ A, $I_b=-3$ A, $I_c=5$ A, $P_{ced}=76$ W
+\end{exampleblock}
+\end{frame}
+
+
+
+\end{document}
+
+

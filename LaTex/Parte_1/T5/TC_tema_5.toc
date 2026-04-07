@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{Condensador}{3}{0}{1}
+\beamer@sectionintoc {2}{Inductancia o bobina}{7}{0}{2}
+\beamer@sectionintoc {3}{Acoplamiento magn\'etico}{13}{0}{3}
+\beamer@sectionintoc {4}{Elementos pasivos reales}{20}{0}{4}
