@@ -41,12 +41,6 @@ class IntentoEjercicioAdmin(admin.ModelAdmin):
     # Columnas que verás en la tabla principal
     list_display = ('usuario', 'uvus_del_alumno', 'bloque_id', 'aciertos', 'fallos', 'fecha')
 
-    # Filtros laterales para encontrar rápido los datos
-    list_filter = ('bloque_id', 'fecha', 'usuario')
-
-    # Buscador por nombre de usuario o por su UVUS
-    search_fields = ('usuario__username', 'usuario__uvus')
-
     # Hacemos que la fecha no se pueda editar manualmente
     readonly_fields = ('fecha',)
 

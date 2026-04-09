@@ -80,6 +80,7 @@ export class BloqueComponent implements OnInit {
     return Math.sqrt(real * real + imag * imag);
   }
 
+
   prepararPreguntas(circuito: any) {
     this.preguntasEjemplo = [];
 
@@ -150,94 +151,74 @@ export class BloqueComponent implements OnInit {
   }
 
   comprobarRespuestas() {
-    const respondidas = this.preguntasEjemplo.filter(
-      (p) => p.respuestaUsuario !== null,
-    ).length;
+    const respondidas = this.preguntasEjemplo.filter(
+      (p) => p.respuestaUsuario !== null,
+    ).length;
 
-    if (respondidas < this.preguntasEjemplo.length) {
-      Swal.fire(
-        'Atención',
-        'Por favor, completa todas las preguntas.',
-        'warning',
-      );
-      return;
-    }
+    if (respondidas < this.preguntasEjemplo.length) {
+      Swal.fire('Atención', 'Por favor, completa todas las preguntas.', 'warning');
+      return;
+    }
 
-    Swal.fire({
-      title: '¿Enviar respuestas?',
-      text: 'Se guardará tu progreso en el servidor',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, corregir y guardar',
-      cancelButtonText: 'Revisar',
-      confirmButtonColor: '#3085d6',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        let aciertos = 0;
-        let fallos = 0;
-        const tolerancia = 0.05;
+    Swal.fire({
+      title: '¿Enviar respuestas?',
+      text: 'Se calculará tu nota con un 5% de margen de error.',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, corregir',
+      cancelButtonText: 'Revisar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let aciertos = 0;
+        let fallos = 0;
+        
+        // Definimos una tolerancia del 5% para considerar una respuesta como correcta
+        const tolerancia = 0.05; 
 
-        // 1. Lógica de corrección
-        this.preguntasEjemplo.forEach((p) => {
-          const real = Math.abs(p.valorReal);
-          const usuario = Math.abs(p.respuestaUsuario);
+        this.preguntasEjemplo.forEach((p) => {
+          // Usamos valor absoluto para comparar solo magnitudes
+          const real = Math.abs(p.valorReal);
+          const usuario = Math.abs(p.respuestaUsuario);
 
-          if (real < 0.0001) {
-            p.acertada = usuario < 0.01;
-          } else {
-            const errorRelativo = Math.abs(real - usuario) / real;
-            p.acertada = errorRelativo <= tolerancia;
-          }
-          p.acertada ? aciertos++ : fallos++;
-        });
+          // Caso A: El valor es prácticamente cero
+          if (real < 1e-6) {
+            p.acertada = usuario < 0.01; // Si el real es 0, aceptamos algo muy pequeño
+          } 
+          // Caso B: Cálculo de ERROR RELATIVO (Diferencia / Real)
+          else {
+            const errorRelativo = Math.abs(real - usuario) / real;
+            p.acertada = errorRelativo <= tolerancia;
+          }
 
-        // 2. Preparar envío a Django
-        const token = localStorage.getItem('token');
-        const headers = new HttpHeaders().set(
-          'Authorization',
-          `Bearer ${token}`,
-        );
+          p.acertada ? aciertos++ : fallos++;
+        });
 
-        const datosEnvio = {
-          bloque_id: Number(this.bloqueId),
-          aciertos: aciertos,
-          fallos: fallos,
-          detalle_ejercicio: {
-            circuito: this.circuitoGenerado,
-            preguntas: this.preguntasEjemplo, // Incluye las respuestas del usuario y si acertó
-          },
-        };
+        // --- Lógica de envío a Django ---
+        const token = localStorage.getItem('token');
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-        // 3. Petición POST al historial
-        this.http
-          .post('http://localhost:8000/api/auth/historial/', datosEnvio, { headers })
-          .subscribe({
-            next: () => {
-              const total = this.preguntasEjemplo.length;
-              this.mensajeResultado =
-                aciertos === total
-                  ? `¡Excelente! ${aciertos}/${total} correctas.`
-                  : `Has acertado ${aciertos} de ${total}.`;
+        const datosEnvio = {
+          bloque_id: Number(this.bloqueId),
+          aciertos: aciertos,
+          fallos: fallos,
+          detalle_ejercicio: {
+            circuito: this.circuitoGenerado.circuito || this.circuitoGenerado,
+            preguntas: this.preguntasEjemplo,
+          },
+        };
 
-              this.resultadoVisible = true;
-              Swal.fire(
-                '¡Enviado!',
-                'Tu intento ha sido registrado correctamente.',
-                'success',
-              );
-            },
-            error: (err) => {
-              console.error('Error al guardar:', err);
-              Swal.fire(
-                'Error',
-                'No se pudo conectar con el servidor para guardar el progreso.',
-                'error',
-              );
-            },
-          });
-      }
-    });
-  }
+        this.http.post('http://localhost:8000/api/auth/historial/', datosEnvio, { headers })
+          .subscribe({
+            next: () => {
+              this.resultadoVisible = true;
+              this.mensajeResultado = `Resultado: ${aciertos} aciertos y ${fallos} fallos.`;
+              Swal.fire('¡Guardado!', 'Tu progreso se ha registrado.', 'success');
+            },
+            error: () => Swal.fire('Error', 'No se pudo guardar el intento.', 'error')
+          });
+      }
+    });
+  }
 
   generarEjercicio() {
     this.cargando = true;
@@ -262,6 +243,7 @@ export class BloqueComponent implements OnInit {
     this.circuitosService.generarCircuito(payload).subscribe({
       next: (res) => {
         this.cargando = false;
+        console.log('Respuesta del servidor:', res);
         if (res.success) {
           this.circuitoGenerado = res;
           this.prepararPreguntas(res.circuito);
@@ -273,6 +255,7 @@ export class BloqueComponent implements OnInit {
         this.cargando = false;
         this.errorCircuito = 'Error. Inicia sesion de nuevo';
       },
+      
     });
   }
 }

@@ -38,7 +38,7 @@
         </div>
       }
 
-      @if (circuitoGenerado?.success && !cargando) {
+      @if ((circuitoGenerado?.success || circuitoGenerado?.componentes) && !cargando) {
         <div class="main-display">
           
           <div class="circuit-container">

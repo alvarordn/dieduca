@@ -39,7 +39,7 @@ class UserLoginSerializer(serializers.Serializer):
 
         data['user'] = user
         return data
-    
+
 class IntentoEjercicioSerializer(serializers.ModelSerializer):
     class Meta:
         model = IntentoEjercicio

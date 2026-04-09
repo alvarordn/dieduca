@@ -82,13 +82,14 @@
             @for (comp of componentes; track comp.id) {
               @if (comp.value) {
                 @let pos = getLabelPosition(comp);
+                @let texto = formatearEtiqueta(comp.value);
                 <text
                   [attr.x]="pos.x"
                   [attr.y]="pos.y"
                   text-anchor="middle"
                   class="label-outline"
                 >
-                  {{ comp.value }}
+                  {{ texto }}
                 </text>
                 <text
                   [attr.x]="pos.x"
@@ -96,8 +97,7 @@
                   text-anchor="middle"
                   class="label-fill"
                 >
-                  {{ (comp.value || "").split(" ")[0] | number: "1.0-2" }}
-                  {{ (comp.value || "").split(" ")[1] || "" }}
+                  {{ texto }}
                 </text>
               }
             }

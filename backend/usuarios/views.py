@@ -50,7 +50,6 @@ class LoginView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 @api_view(['POST'])
 @permission_classes([AllowAny]) # Permite que Angular mande el "tic" sin complicaciones de permisos por ahora
 def track_time(request):

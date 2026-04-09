@@ -149,4 +149,16 @@ getNodeImgPath(type: string): string {
   // Coincide con tu carpeta assets/nodes/
   return `assets/nodes/${type}.png`;
 }
+
+// circuit-viewer.component.ts
+
+formatearEtiqueta(valor: string | null): string {
+  if (!valor) return '';
+
+  return valor
+    .replace(/micro/g, 'μ') // Cambia micro por mu
+    .replace(/-/g, '')      // Elimina el dash (guion)
+    .replace(/\s+/g, ' ')   // Quita espacios dobles si quedaron
+    .trim();
+}
 }

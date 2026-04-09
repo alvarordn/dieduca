@@ -54,7 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
       if (userUvus && this.estarActivo) {
         this.http.post('http://localhost:8000/api/auth/track-time/', { uvus: userUvus })
           .subscribe({
-            next: () => console.log('Minuto de conexión registrado'),
+            next: () => console.log('Minuto de conexión registrado' ),
             error: (err) => console.error('Error al registrar tiempo', err)
           });
       }

@@ -21,3 +21,4 @@ describe('RegistroComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
