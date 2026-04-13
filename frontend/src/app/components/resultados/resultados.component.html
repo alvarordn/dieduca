@@ -103,10 +103,11 @@
               <th class="text-center">ACCIÓN</th>
             </tr>
           </thead>
+          
           <tbody>
             @for (intento of historial; track intento.id) {
               <tr>
-                <td class="small text-muted">{{ intento.fecha }}</td>
+                <td class="small text-muted">{{ intento.fecha | date: 'dd/MM/yyyy' }}</td>
                 <td><span class="fw-bold">Bloque {{ intento.bloque_id }}</span></td>
                 <td class="text-center">
                   <span class="status-badge bg-green-sub me-1">

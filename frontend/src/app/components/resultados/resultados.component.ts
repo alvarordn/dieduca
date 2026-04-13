@@ -96,7 +96,6 @@ export class ResultadosComponent implements OnInit {
 
     return { total: bTotal, aciertos: bAciertos, exito, progreso };
   }
-
   verRevision(intento: any) {
     // Debug para ver qué tiene el intento realmente
     console.log('Datos brutos de Django:', intento.detalle_ejercicio);

@@ -1,121 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
-
-
-.background-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-size: cover;
-  z-index: -1; 
-  pointer-events: none;
-}
-
-
-.teoria-page-wrapper {
+/* BASE Y FONDO */
+.teoria {
   position: relative;
   min-height: 100vh;
-  width: 100%;
-  padding: 100px 15px 60px; 
+  padding: 100px 20px 60px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background: transparent !important;
-  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: url('/assets/img/fondo.jpg') center/cover no-repeat fixed;
+  overflow-x: hidden;
 }
 
+/* OVERLAY DINÁMICO */
+.teoria__overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(59, 130, 246, 0.15),
+    rgba(15, 23, 42, 0.75)
+  );
+  pointer-events: none;
+  z-index: 0;
+}
 
-.teoria-card {
-  background: rgba(255, 255, 255, 0.98); 
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+/* CARD PREMIUM (GLASSMORPHISM) */
+.teoria__card {
   width: 100%;
-  max-width: 1200px;
-
-  border-radius: 28px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-  padding: clamp(1.2rem, 5vw, 3rem);
-  margin: 0 auto;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  max-width: 1100px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 40px 100px rgba(0, 0, 0, 0.25),
+    0 10px 20px rgba(0, 0, 0, 0.05);
+  
+  padding: 3rem;
+  position: relative;
+  z-index: 1;
 }
 
-
-.main-header {
+/* HEADER */
+.teoria__header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
-.header-badge {
-  background: #eff6ff;
-  color: #3b82f6;
-  padding: 5px 15px;
-  border-radius: 20px;
-  font-weight: 800;
-  font-size: 0.8rem;
-  text-transform: uppercase;
+.teoria__top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.teoria__badge {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 700;
   letter-spacing: 1px;
-  display: inline-block;
-  margin-bottom: 0.8rem;
+  text-transform: uppercase;
 }
 
-.header-line {
-  width: 40px;
-  height: 4px;
-  background: #3b82f6;
-  margin: 1rem auto 0;
+.teoria__meta {
+  font-size: 0.8rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.teoria__title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -1px;
+  margin: 0;
+}
+
+/* DIVIDER CON ANIMACIÓN DE BRILLO */
+.teoria__divider {
+  width: 80px;
+  height: 6px;
+  margin: 15px auto;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
+  background-size: 200% auto;
   border-radius: 10px;
+  animation: shimmer 3s infinite linear;
 }
 
+/* VISOR DE PDF */
+.teoria__viewer {
+  margin-top: 2rem;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #f1f5f9;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.pdf-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: #0f172a;
+  color: white;
+}
+
+.pdf-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pdf-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.pdf-status {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.15);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
 
 .pdf-container {
-  margin-top: 2rem;
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.05);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 20px;
+  background: #cbd5e1; /* Color neutro para el fondo del visor */
+  display: flex;
+  justify-content: center;
 }
 
-.pdf-container iframe {
-  width: 100%;
-  height: 800px;
-  border: none;
+.custom-pdf-viewer {
   display: block;
-  border-radius: 20px;
+  width: 100%;
+  height: 75vh;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
+/* ANIMACIONES */
+.animate-fade-in {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
 
+/* RESPONSIVE */
 @media (max-width: 768px) {
-  .pdf-container iframe {
-    height: 400px;
+  .teoria__card {
+    padding: 1.5rem;
+    border-radius: 24px;
   }
-}
-
-@media (max-width: 480px) {
-  .teoria-page-wrapper {
-    padding-top: 80px; 
-    padding-left: 10px;
-    padding-right: 10px;
+  .teoria__title {
+    font-size: 1.8rem;
   }
-
-  .pdf-container iframe {
-    height: 300px;
+  .custom-pdf-viewer {
+    height: 60vh;
   }
-
-  .teoria-card {
-    padding: 1.2rem;
-    border-radius: 20px;
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
 }

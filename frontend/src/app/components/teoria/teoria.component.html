@@ -1,14 +1,46 @@
-<div class="teoria-page-wrapper">
-  <div class="background-overlay"></div>
+<div class="teoria">
+  <div class="teoria__overlay"></div>
 
-  <div class="teoria-card animate-fadeIn">
-    <header class="main-header">
-      <span class="header-badge">Bloque {{ bloqueId }}</span>
-      <div class="header-line"></div>
+  <section class="teoria__card animate-fade-in">
+    <header class="teoria__header">
+      <div class="teoria__top">
+        <span class="teoria__badge">Bloque {{ bloqueId }}</span>
+        <span class="teoria__meta">
+          <i class="fas fa-book-open"></i> Material de Estudio Oficial
+        </span>
+      </div>
+
+      <h1 class="teoria__title">Contenido Teórico</h1>
+      <div class="teoria__divider"></div>
     </header>
 
-    <div class="pdf-container">
-      <iframe [src]="pdfSafeUrl" title="PDF de Prueba"></iframe>
+    <div class="teoria__viewer">
+      <div class="pdf-toolbar">
+        <div class="pdf-info">
+          <span class="pdf-icon">📄</span>
+          <span class="pdf-title">Tema {{ bloqueId }}: Análisis de Circuitos</span>
+        </div>
+        
+        <div class="pdf-actions">
+          <span class="pdf-status">LECTURA ACTIVA</span>
+          </div>
+      </div>
+
+      <div class="pdf-container">
+        @if (pdfUrl) {
+        <pdf-viewer
+         
+          [src]="pdfUrl"
+          [render-text]="true"
+          [original-size]="false"
+          [show-all]="true"
+          class="custom-pdf-viewer">
+        </pdf-viewer>} @else {
+          <div class="pdf-loading">
+            <p>Cargando contenido...</p>
+          </div>
+        }
+      </div>
     </div>
-  </div>
+  </section>
 </div>

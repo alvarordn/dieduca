@@ -28,7 +28,7 @@
         @for (bloque of bloques; track bloque.id) {
           <li class="navbar-item" (mouseenter)="abrirDesplegable(bloque.id)" (mouseleave)="cerrarDesplegable()">
             <div class="bloque-wrapper">
-              <span class="bloque-nombre" (click)="toggleDesplegableMovil(bloque.id)">
+              <span class="bloque-nombre" (click)="toggleDesplegableMovil(bloque.id)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
                 {{ bloque.nombre }}
                 <i class="bi bi-chevron-down arrow-icon"></i>
               </span>

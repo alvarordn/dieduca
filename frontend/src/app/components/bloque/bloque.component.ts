@@ -118,6 +118,8 @@ export class BloqueComponent implements OnInit {
       });
     }
 
+
+
     // Preguntamos por caída de tensión de otro
     if (aleatorios[1]) {
       this.preguntasEjemplo.push({

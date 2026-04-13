@@ -85,6 +85,7 @@ export class CircuitViewerComponent implements OnChanges {
     return this.MARGIN + row * this.CELL_SIZE;
   }
 
+
   // Busca un nodo por su ID
   getNode(nodeId: string): Nodo | undefined {
     return this.nodos.find((n) => n.id === nodeId);

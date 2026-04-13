@@ -48,7 +48,6 @@
   transform: scale(1.05) rotate(-2deg);
 }
 
-
 .menu-ham {
   display: none;
 }
@@ -91,18 +90,22 @@
 .bloque-nombre {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 16px;
   color: var(--text-main);
-  padding: 6px 14px;
+  padding: 10px 10px;
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.75rem;
   cursor: pointer;
   transition: var(--transition);
   white-space: nowrap;
+  text-decoration: none; /* Por si es un <a> */
 }
 
-.bloque-nombre:hover {
+/* --- ESTADO ACTIVO Y HOVER --- */
+/* He unido el hover con la clase .active para que se vean igual */
+.bloque-nombre:hover,
+.bloque-nombre.active {
   background: white;
   color: var(--primary);
   box-shadow: 0 4px 10px rgba(59, 130, 246, 0.1);
@@ -129,11 +132,13 @@
 .navbar-profile {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   background: white;
-  padding: 5px 12px;
+  padding: 8px 8px;
   border-radius: 50px;
   border: 1px solid #e2e8f0;
+  margin-left: 10px;
+  font-size: 0.85rem;
 }
 
 .btn-seguimiento {
@@ -164,7 +169,7 @@
   color: #ff4d4f;
   font-weight: 700;
   font-size: 0.7rem;
-  padding: 5px 10px;
+  padding: 10px 10px;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
@@ -232,9 +237,11 @@
   transition: 0.2s;
 }
 
-.desplegable-item:hover {
+.desplegable-item:hover,
+.desplegable-item.active {
   background: #f8fafc;
   color: var(--primary);
+  font-weight: 600;
 }
 
 @media (max-width: 1100px) {
@@ -250,7 +257,6 @@
     height: 0;
   }
 
-  
   .navbar-menu {
     position: fixed;
     top: 0;
@@ -277,7 +283,6 @@
     margin-bottom: 8px;
   }
 
- 
   .bloque-nombre {
     width: 100%;
     display: flex;
@@ -292,11 +297,18 @@
     transition: 0.2s;
   }
 
+  /* Resaltado en móvil */
+  .bloque-nombre.active {
+    background: #eef2ff;
+    color: var(--primary);
+    border-left: 4px solid var(--primary);
+    border-radius: 4px 12px 12px 4px;
+  }
+
   .bloque-nombre:hover {
     background: #eef2ff;
     color: var(--primary);
   }
-
 
   .desplegable {
     position: static;
@@ -315,11 +327,11 @@
     font-size: 0.85rem;
   }
 
-  .desplegable-item:hover {
+  .desplegable-item:hover,
+  .desplegable-item.active {
     background: white;
     color: var(--primary);
   }
-
 
   .user-mobile-header {
     margin-bottom: 20px;
@@ -336,9 +348,6 @@
     color: var(--primary);
   }
 
-
-
-
   .overlay {
     position: fixed;
     inset: 0;
@@ -346,5 +355,4 @@
     backdrop-filter: blur(4px);
     z-index: 1040;
   }
-  
 }

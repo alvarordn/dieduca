@@ -1,45 +1,43 @@
-import { Component } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @Component({
   selector: 'app-teoria',
   standalone: true,
-  imports: [PdfViewerModule,CommonModule],
+  imports: [CommonModule, PdfViewerModule],
   templateUrl: './teoria.component.html',
   styleUrls: ['./teoria.component.css'],
 })
-export class TeoriaComponent {
-  pdfSafeUrl!: SafeResourceUrl;
-  bloqueId = 0;
+export class TeoriaComponent implements OnInit {
 
-  constructor(
-    private sanitizer: DomSanitizer,
-    private route: ActivatedRoute,
-  ) {}
+  pdfUrl!: string;
+  bloqueId!: number;
 
-  ngOnInit() {
-    this.route.params.subscribe((params) => {
-      //obtenemos el bloque id
-      this.bloqueId = +params['id'];
-      
-      //dividimos en partes para poder cambiar de temas 
-      let parte = '';
-      if (this.bloqueId < 7) {
-        parte = 'Parte_1';
-      } else if (this.bloqueId < 9) {
-        parte = 'Parte_2';
-      } else {
-        parte = 'Parte_3';
-      }
+  constructor(private route: ActivatedRoute) {}
 
-      //asignamos la ruta con las parte y el bloqueId para saber q tema es
-      const rutaPdf = `assets/teoria/${parte}/T${this.bloqueId}/TC_tema_${this.bloqueId}.pdf`;
-      this.pdfSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rutaPdf);
+  ngOnInit(): void {
+    this.route.params.subscribe(({ id }) => {
+      this.bloqueId = Number(id);
+      this.loadPdf();
     });
-    
+  }
+
+  private loadPdf(): void {
+    const parte = this.getParte(this.bloqueId);
+    this.pdfUrl = this.buildPdfPath(parte, this.bloqueId);
+
+    console.log('PDF URL:', this.pdfUrl);
+  }
+
+  private getParte(id: number): string {
+    if (id < 7) return 'Parte_1';
+    if (id < 9) return 'Parte_2';
+    return 'Parte_3';
+  }
+
+  private buildPdfPath(parte: string, id: number): string {
+    return `/assets/teoria/${parte}/T${id}/TC_tema_${id}.pdf`;
   }
 }
