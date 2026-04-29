@@ -2,8 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('test/', views.test_connection, name="test"),
-    path('generar-circuito/', views.generar_circuito, name='generar-circuito'),
+
+    path('generar_circuito/', views.generar_circuito, name='generar_circuito'),
 ]
 
 # Si llega una peticion a api/circuitos/test, finalmente se dirigira aqui,

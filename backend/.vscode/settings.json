@@ -4,10 +4,11 @@
 
   // 🧩 Permite a Pylance (el analizador) encontrar tus imports
   "python.analysis.extraPaths": [
-    "./backend",             // carpeta del proyecto Django
-    "./circuitos",           // app Django
-    "./circuitos/alvaro",    // donde está lib.py, test_draw.py
-    "./circuitos/circuit-lib"
+    "./backend",
+    "./circuitos",
+    "./circuitos/alvaro",
+    "./circuitos/circuit-lib",
+    "./Lib/site-packages"
   ],
 
   // 🧠 Mejora la autocompletación e imports automáticos
@@ -18,4 +19,3 @@
   "editor.formatOnSave": true,
   "files.trimTrailingWhitespace": true
 }
-

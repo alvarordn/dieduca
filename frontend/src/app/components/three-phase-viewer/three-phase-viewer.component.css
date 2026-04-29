@@ -1,0 +1,107 @@
+/* Importamos fuente moderna para títulos y etiquetas del circuito */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap");
+
+/* ===== CONTENEDOR PRINCIPAL DEL CIRCUITO ===== */
+.circuit-wrapper {
+  margin: 2rem 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== BADGE SUPERIOR (ETIQUETA DEL CIRCUITO) ===== */
+.circuit-badge {
+  background: #1e293b;
+  color: #60a5fa;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 800;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  margin-bottom: -12px;
+  z-index: 5; /* para que quede encima del card */
+}
+
+/* ===== CARD PRINCIPAL DEL CIRCUITO ===== */
+.circuit-glass-card {
+  width: 95%;
+
+  /* OJO: esto está muy alto (10000px es innecesario) */
+  max-width: 10000px;
+
+  /* efecto glass */
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+
+  border-radius: 28px;
+  padding: 1.5rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  /* sombra para efecto flotante */
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+
+  /* animación suave al interactuar */
+  transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 1s ease;
+}
+
+/* efecto hover del card (zoom suave) */
+.circuit-glass-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== CONTENEDOR DEL SVG DEL CIRCUITO ===== */
+.svg-container {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+  overflow: visible;
+}
+
+/* SVG del circuito eléctrico */
+.circuit-svg {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+}
+
+/* líneas del circuito (cables) */
+.wire-line {
+  stroke-width: 8px;
+  stroke-linecap: round;
+}
+
+/* etiquetas dentro del SVG */
+.label-fill {
+  fill: #1e293b;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+/* ===== ANIMACIÓN DE ENTRADA ===== */
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* keyframes de aparición suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

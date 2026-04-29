@@ -1,36 +1,38 @@
-
+/* footer principal de la página */
 .main-footer {
-  background-color: #0f172a;
-  color: #f8fafc;
+  background-color: #0f172a; /* fondo oscuro tipo web moderna */
+  color: #f8fafc; /* texto blanco suave */
   padding: 4rem 2rem 2rem 2rem;
   font-family: 'Inter', sans-serif;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05); /* línea sutil arriba */
 }
 
+/* contenedor principal del footer */
 .footer-content {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto; /* centra el footer */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* responsive automático */
+  gap: 3rem; /* espacio entre columnas */
 }
 
-
+/* logo del footer */
 .footer-logo {
   height: 50px;
   margin-bottom: 1.5rem;
-  filter: brightness(0) invert(1); 
+  filter: brightness(0) invert(1); /* lo pone blanco */
 }
 
+/* texto dentro de secciones del footer */
 .footer-section p {
-  color: #94a3b8;
+  color: #94a3b8; /* gris suave */
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.6; /* mejora lectura */
 }
 
-
+/* títulos de cada bloque del footer */
 .footer-section h3 {
-  color: #3b82f6; 
+  color: #3b82f6; /* azul principal */
   text-transform: uppercase;
   font-size: 0.85rem;
   font-weight: 800;
@@ -39,7 +41,7 @@
   position: relative;
 }
 
-
+/* línea decorativa debajo del título */
 .footer-section h3::after {
   content: '';
   display: block;
@@ -50,17 +52,19 @@
   border-radius: 2px;
 }
 
-
+/* lista del footer */
 .footer-section ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* cada elemento de la lista */
 .footer-section ul li {
   margin-bottom: 0.8rem;
 }
 
+/* enlaces del footer */
 .footer-section ul li a {
   color: #94a3b8;
   text-decoration: none;
@@ -69,35 +73,39 @@
   display: inline-block;
 }
 
+/* hover de enlaces (efecto movimiento + cambio color) */
 .footer-section ul li a:hover {
   color: #ffffff;
   transform: translateX(8px);
 }
 
-
+/* contenedor de redes sociales */
 .social-links {
   display: flex;
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
 
+/* iconos de redes sociales */
 .social-links a {
   color: #94a3b8;
   font-size: 1.2rem;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
+/* hover redes sociales */
 .social-links a:hover {
   color: #3b82f6;
   transform: translateY(-3px);
 }
 
+/* iconos dentro del footer */
 .footer-section i {
   margin-right: 10px;
   color: #3b82f6;
 }
 
-
+/* parte inferior del footer (copyright) */
 .footer-bottom {
   max-width: 1200px;
   margin: 4rem auto 0;
@@ -108,22 +116,27 @@
   font-size: 0.85rem;
 }
 
-/* Responsive */
+/* responsive para tablets/móvil */
 @media (max-width: 768px) {
+
+  /* pasa todo a una sola columna */
   .footer-content {
     grid-template-columns: 1fr;
     text-align: center;
   }
-  
+
+  /* centra la línea decorativa del título */
   .footer-section h3::after {
     margin: 0.5rem auto 0 auto;
   }
-  
+
+  /* centra iconos sociales */
   .social-links {
     justify-content: center;
   }
 
+  /* en móvil el hover cambia a efecto vertical */
   .footer-section ul li a:hover {
-    transform: translateY(-3px); 
+    transform: translateY(-3px);
   }
 }

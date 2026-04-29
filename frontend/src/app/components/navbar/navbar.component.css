@@ -1,5 +1,7 @@
+/* importación de fuente moderna para la navbar */
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
+/* variables globales del componente (colores, transiciones, etc.) */
 :host {
   --primary: #3b82f6;
   --primary-dark: #1d4ed8;
@@ -11,18 +13,20 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* barra de navegación principal */
 .navbar {
   background: var(--bg-glass);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px); /* efecto cristal */
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding: 0.5rem 0;
-  position: sticky;
+  position: sticky; /* se queda fija arriba */
   top: 0;
   z-index: 1000;
   font-family: "Plus Jakarta Sans", sans-serif;
 }
 
+/* estructura interna de la navbar */
 .navbar-content {
   display: grid;
   grid-template-columns: 220px 1fr 320px;
@@ -32,26 +36,31 @@
   box-sizing: border-box;
 }
 
+/* zona izquierda (logo + menú hamburguesa) */
 .nav-left {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
+/* logo principal */
 .logo {
   height: 50px;
   width: auto;
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* efecto hover del logo */
 .logo:hover {
   transform: scale(1.05) rotate(-2deg);
 }
 
+/* botón hamburguesa (solo móvil) */
 .menu-ham {
   display: none;
 }
 
+/* muestra el menú hamburguesa en pantallas pequeñas */
 @media (max-width: 1100px) {
   .menu-ham {
     display: block;
@@ -67,11 +76,13 @@
   }
 }
 
+/* zona central de navegación */
 .nav-center {
   display: flex;
   justify-content: center;
 }
 
+/* menú principal */
 .navbar-menu {
   display: flex;
   gap: 4px;
@@ -83,10 +94,12 @@
   border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
+/* cada item del menú */
 .navbar-item {
   position: relative;
 }
 
+/* botones del menú */
 .bloque-nombre {
   display: flex;
   align-items: center;
@@ -99,11 +112,10 @@
   cursor: pointer;
   transition: var(--transition);
   white-space: nowrap;
-  text-decoration: none; /* Por si es un <a> */
+  text-decoration: none;
 }
 
-/* --- ESTADO ACTIVO Y HOVER --- */
-/* He unido el hover con la clase .active para que se vean igual */
+/* estado activo y hover del menú */
 .bloque-nombre:hover,
 .bloque-nombre.active {
   background: white;
@@ -111,17 +123,20 @@
   box-shadow: 0 4px 10px rgba(59, 130, 246, 0.1);
 }
 
+/* icono de flecha del menú */
 .arrow-icon {
   font-size: 0.7rem;
   transition: transform 0.3s ease;
   opacity: 0.5;
 }
 
+/* rotación de flecha al hacer hover */
 .navbar-item:hover .arrow-icon {
   transform: rotate(180deg);
   opacity: 1;
 }
 
+/* zona derecha (usuario, botones login, etc.) */
 .nav-right {
   display: flex;
   justify-content: flex-end;
@@ -129,6 +144,7 @@
   gap: 10px;
 }
 
+/* perfil del usuario */
 .navbar-profile {
   display: flex;
   align-items: center;
@@ -141,6 +157,7 @@
   font-size: 0.85rem;
 }
 
+/* botón de seguimiento */
 .btn-seguimiento {
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   border: none;
@@ -155,14 +172,15 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  user-select: none;
 }
 
+/* hover botón seguimiento */
 .btn-seguimiento:hover {
   filter: brightness(1.1);
   box-shadow: 0 12px 20px rgba(37, 99, 235, 0.5);
 }
 
+/* botón logout */
 .logout-action {
   background: #fff1f0;
   border: none;
@@ -175,19 +193,21 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  transition: background-color 0.3s ease;
 }
 
+/* hover logout */
 .logout-action:hover {
   background: #ffe3e3;
   color: #d93636;
 }
 
+/* botones login/registro */
 .navbar-auth-buttons {
   display: flex;
   gap: 8px;
 }
 
+/* botón login */
 .btn-login {
   color: var(--text-main);
   text-decoration: none;
@@ -196,6 +216,7 @@
   padding: 8px 15px;
 }
 
+/* botón registro */
 .btn-register {
   background: var(--primary);
   color: white !important;
@@ -204,13 +225,14 @@
   text-decoration: none;
   font-weight: 700;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-  transition: background-color 0.3s ease;
 }
 
+/* hover registro */
 .btn-register:hover {
   background: var(--primary-dark);
 }
 
+/* menú desplegable */
 .desplegable {
   position: absolute;
   top: 100%;
@@ -221,10 +243,9 @@
   min-width: 180px;
   padding: 6px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--primary);
-  z-index: 100;
 }
 
+/* item del desplegable */
 .desplegable-item {
   display: flex;
   align-items: center;
@@ -234,29 +255,33 @@
   font-size: 0.8rem;
   font-weight: 500;
   border-radius: 8px;
-  transition: 0.2s;
 }
 
+/* hover del desplegable */
 .desplegable-item:hover,
 .desplegable-item.active {
   background: #f8fafc;
   color: var(--primary);
-  font-weight: 600;
 }
 
+/* responsive menú móvil */
 @media (max-width: 1100px) {
+
+  /* cambia layout navbar */
   .navbar-content {
     display: flex;
     justify-content: space-between;
     padding: 0 1.5rem;
   }
 
+  /* oculta centro */
   .nav-center {
     display: block;
     width: 0;
     height: 0;
   }
 
+  /* menú lateral móvil */
   .navbar-menu {
     position: fixed;
     top: 0;
@@ -264,95 +289,52 @@
     width: 280px;
     height: 100vh;
     background: #ffffff;
-    border-radius: 0; 
-    display: flex;
     flex-direction: column;
-    align-items: stretch;
     padding: 70px 16px 20px 16px;
     transition: left 0.35s ease;
     box-shadow: 20px 0 50px rgba(0, 0, 0, 0.2);
-    z-index: 1050;
   }
 
+  /* menú abierto */
   .navbar-menu.active {
     left: 0;
   }
 
+  /* items en móvil */
   .navbar-item {
     width: 100%;
-    margin-bottom: 8px;
   }
 
+  /* botones menú móvil */
   .bloque-nombre {
     width: 100%;
-    display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 14px 16px;
     font-size: 0.95rem;
     background: #f8fafc;
     border-radius: 12px;
-    margin-bottom: 8px;
-    border: 1px solid #f1f5f9;
-    transition: 0.2s;
   }
 
-  /* Resaltado en móvil */
+  /* activo en móvil */
   .bloque-nombre.active {
     background: #eef2ff;
     color: var(--primary);
     border-left: 4px solid var(--primary);
-    border-radius: 4px 12px 12px 4px;
   }
 
-  .bloque-nombre:hover {
-    background: #eef2ff;
-    color: var(--primary);
-  }
-
+  /* desplegable móvil */
   .desplegable {
     position: static;
     transform: none;
     background: #f1f5f9;
-    border-radius: 10px;
-    margin-top: 6px;
-    padding: 6px;
     box-shadow: none;
-    border: none;
   }
 
-  .desplegable-item {
-    padding: 10px 12px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-  }
-
-  .desplegable-item:hover,
-  .desplegable-item.active {
-    background: white;
-    color: var(--primary);
-  }
-
-  .user-mobile-header {
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #e2e8f0;
-  }
-
-  .mobile-user-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--primary);
-  }
-
+  /* overlay fondo oscuro móvil */
   .overlay {
     position: fixed;
     inset: 0;
     background: rgba(15, 23, 42, 0.45);
     backdrop-filter: blur(4px);
-    z-index: 1040;
   }
 }

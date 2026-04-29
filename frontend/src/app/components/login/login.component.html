@@ -1,48 +1,78 @@
+/* contenedor principal del login */
 <div class="login-container">
+
+  <!-- fondo con imagen + overlay oscuro -->
   <div class="background-overlay"></div>
 
+  <!-- tarjeta principal del login -->
   <div class="login-card animate-fadeIn">
+
+    <!-- cabecera con logo y texto -->
     <div class="login-header">
+
+      <!-- logo de la ETSI -->
       <div class="brand-logo">
         <img src="assets/images/logoetsi-removebg-preview.png" alt="ETSI Logo">
       </div>
+
+      <!-- título principal -->
       <h1>Iniciar Sesión</h1>
+
+      <!-- texto descriptivo -->
       <p>Accede a la plataforma de Teoría de Circuitos</p>
+
     </div>
 
+    <!-- formulario de login Angular -->
     <form (ngSubmit)="login()" #loginForm="ngForm">
+
+      <!-- campo usuario -->
       <div class="form-group">
+
         <label for="uvus">Usuario (UVUS)</label>
+
+        <!-- input con icono -->
         <div class="input-wrapper">
           <i class="bi bi-person-circle"></i>
+
+          <!-- binding con Angular (ngModel) -->
           <input 
-            type="text" 
-            id="uvus" 
-            [(ngModel)]="uvus" 
-            name="uvus" 
+            type="text"
+            id="uvus"
+            [(ngModel)]="uvus"
+            name="uvus"
             placeholder="Introduce tu UVUS"
             required
             autocomplete="username"
           >
         </div>
+
       </div>
 
+      <!-- campo contraseña -->
       <div class="form-group">
+
         <label for="password">Contraseña</label>
+
+        <!-- input con icono -->
         <div class="input-wrapper">
           <i class="bi bi-shield-lock"></i>
+
+          <!-- input password con binding -->
           <input 
-            type="password" 
-            id="password" 
-            [(ngModel)]="password" 
-            name="password" 
+            type="password"
+            id="password"
+            [(ngModel)]="password"
+            name="password"
             placeholder="••••••••"
             required
             autocomplete="current-password"
           >
         </div>
+
       </div>
 
+      <!-- mensaje de error si login falla -->
       @if (error) {
         <div class="error-bubble">
           <i class="bi bi-exclamation-triangle-fill"></i>
@@ -50,20 +80,35 @@
         </div>
       }
 
-      <button type="submit" class="btn-login" [disabled]="cargando || !loginForm.form.valid">
+      <!-- botón de login -->
+      <button type="submit"
+              class="btn-login"
+              [disabled]="cargando || !loginForm.form.valid">
+
+        <!-- si está cargando -->
         @if (cargando) {
           <span class="spinner"></span>
           <span>Procesando...</span>
-        } @else {
+        }
+
+        <!-- si no está cargando -->
+        @else {
           <span>Entrar ahora</span>
           <i class="bi bi-arrow-right-short"></i>
         }
+
       </button>
+
     </form>
 
+    <!-- enlace a registro -->
     <div class="registro-link">
       <span>¿Nuevo en la ETSI?</span>
+
+      <!-- routerLink de Angular para navegación sin recargar -->
       <a [routerLink]="['/registro']">Crea tu cuenta</a>
     </div>
+
   </div>
+
 </div>

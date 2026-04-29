@@ -4,32 +4,44 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CircuitosService {
-  // Base de la API para circuitos
-  private baseUrl = 'http://localhost:8000/api/circuitos';
 
-  constructor(private http: HttpClient) { }
+  // URL base del backend de circuitos
+  private baseUrl = 'http://127.0.0.1:8000/api/circuitos';
 
+  constructor(private http: HttpClient) {}
+
+  // Genera un circuito y limpia datos inconsistentes del backend
   generarCircuito(datos: any): Observable<any> {
-    // Nota: Hemos quitado los headers de Authorization porque usamos AllowAny en el backend
-    // Esto evita errores si el token de la sesión ha expirado.
-    return this.http.post(`${this.baseUrl}/generar-circuito/`, datos).pipe(
+
+    return this.http.post(`${this.baseUrl}/generar_circuito/`, datos).pipe(
+
       map((res: any) => {
-        // Aprovechamos para limpiar los potenciales complejos (46.15+0j -> 46.15)
-        if (res.success && res.circuito) {
-          res.circuito.nodos.forEach((n: any) => {
-            n.potential = n.potential.replace(/\+0j|\(|\)/g, '');
+
+        console.log('backend', res);
+
+        // Comprobamos que la respuesta es válida sin comparaciones débiles
+        const tieneCircuito =
+          res &&
+          res.success &&
+          res.circuito &&
+          res.circuito.sections;
+
+        if (tieneCircuito) {
+
+          res.circuito.sections.forEach((s: any) => {
+
+            // Si no existe la parte imaginaria, la inicializamos a 0
+            if (s?.Z_phase?.im === undefined) {
+              s.Z_phase.im = 0;
+            }
           });
         }
-        return res;
-      })
-    );
-  }
 
-  testConnection(): Observable<any> {
-    // La ruta correcta según tu urls.py
-    return this.http.get(`${this.baseUrl}/test/`);
+        return res;
+      }),
+    );
   }
 }

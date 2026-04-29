@@ -17,14 +17,14 @@ msd = [(0, ' '),
 
 def format_with_prefix(val):
     exp = most_significant_digit(val)
-    
+
     for threshold, prefix in msd:
         if exp <= threshold:
             break
-    
+
     scale = 10 ** threshold
     scaled_val = val * scale
-    
+
     text = f"{scaled_val:g} {prefix}".strip()
     return text
 
@@ -71,18 +71,18 @@ class circuit():
             for jdx in range(cols - 1):
                 n1 = f"N{idx}{jdx}"
                 n2 = f"N{idx}{jdx + 1}"
-                el = random.choice(passive)     
-                if el == 'resistor':    
-                    val = random.choice(limits[el])    
-                    imp = val       
+                el = random.choice(passive)
+                if el == 'resistor':
+                    val = random.choice(limits[el])
+                    imp = val
                     string_val = format_with_prefix(val) + 'Omega'
                 elif el == 'inductor':
                     val = random.choice(limits[el])
-                    imp = complex(0, 2*np.pi*50*val) 
+                    imp = complex(0, 2*np.pi*50*val)
                     string_val = format_with_prefix(val) + 'H'
-                elif el == 'capacitor':  
+                elif el == 'capacitor':
                     val = random.choice(limits[el])
-                    imp = complex(0, -1/(2*np.pi*50*val))  
+                    imp = complex(0, -1/(2*np.pi*50*val))
                     string_val = format_with_prefix(val) + 'F'
                 else:
                     imp = None
@@ -94,18 +94,18 @@ class circuit():
             for idx in range(rows - 1):
                 n1 = f"N{idx}{jdx}"
                 n2 = f"N{idx + 1}{jdx}"
-                el = random.choice(passive)    
-                if el == 'resistor':    
-                    val = random.choice(limits[el])    
-                    imp = val           
+                el = random.choice(passive)
+                if el == 'resistor':
+                    val = random.choice(limits[el])
+                    imp = val
                     string_val = format_with_prefix(val) + 'Omega'
                 elif el == 'inductor':
                     val = random.choice(limits[el])
-                    imp = complex(0, 2*np.pi*50*val) 
+                    imp = complex(0, 2*np.pi*50*val)
                     string_val = format_with_prefix(val) + 'H'
-                elif el == 'capacitor':  
+                elif el == 'capacitor':
                     val = random.choice(limits[el])
-                    imp = complex(0, -1/(2*np.pi*50*val))  
+                    imp = complex(0, -1/(2*np.pi*50*val))
                     string_val = format_with_prefix(val) + 'F'
                 else:
                     imp = None
@@ -122,26 +122,26 @@ class circuit():
             self.G[e[0]][e[1]]["impedance"] = None
             self.G[e[0]][e[1]]["str_value"] = f'{self.G[e[0]][e[1]]["value"]} V' if self.G[e[0]][e[1]]["element"] == 'v_source' else f'{self.G[e[0]][e[1]]["value"]} A'
         self.edges = list(self.G.edges(data=True))
-        
-            
-        
+
+
+
     def draw(self):
         # Crear posiciones en cuadrícula ordenada
         pos = {}
-        
+
         for node in self.nodes:
             # Extraer índices del nombre del nodo (ej: "N12" -> fila=1, col=2)
             idx = int(node[1])  # fila
             jdx = int(node[2])  # columna
             # Posicionar en cuadrícula: x = columna, y = fila invertida (para que se vea bien)
             pos[node] = (jdx, -idx)
-        
+
         # Crear etiquetas para las aristas con el tipo de componente y su valor
         edge_labels = {}
         for e in self.edges:
             element = self.G[e[0]][e[1]]['element']
             string_val = self.G[e[0]][e[1]].get('string')
-            
+
             if string_val:
                 edge_labels[(e[0], e[1])] = f"{element}\n{string_val}"
             else:
@@ -152,7 +152,7 @@ class circuit():
         cols = max([int(node[2]) for node in self.nodes]) + 1
 
         plt.figure(figsize=(12, 8))
-        
+
         # Dibujar nodos
         nx.draw_networkx_nodes(
             self.G, pos,
@@ -161,14 +161,14 @@ class circuit():
             edgecolors='black',
             linewidths=2
         )
-        
+
         # Dibujar etiquetas de nodos
         nx.draw_networkx_labels(
             self.G, pos,
             font_size=10,
             font_weight='bold'
         )
-        
+
         # Dibujar aristas
         nx.draw_networkx_edges(
             self.G, pos,
@@ -179,7 +179,7 @@ class circuit():
             width=2,
             connectionstyle='arc3,rad=0.1'
         )
-        
+
         # Dibujar etiquetas de componentes
         nx.draw_networkx_edge_labels(
             self.G, pos,
@@ -188,45 +188,45 @@ class circuit():
             font_size=8,
             bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='gray', alpha=0.8)
         )
-        
+
         plt.title(f'Circuito {rows}x{cols}', fontsize=14, fontweight='bold')
         plt.axis('equal')
         plt.grid(True, alpha=0.3, linestyle='--')
         plt.tight_layout()
-    
-    
+
+
 
     def solve(self):
         self.n = len(self.nodes)
         self.x = np.ones(self.n*2)
         sol = fsolve(self.iterate, self.x)
         return sol
-        
+
     def iterate(self, x):
         self.set_voltages(x)
         self.compute_currents()
         res = self.compute_res()
         return res
-        
+
     def set_voltages(self, x):
         idx = 0
         for node in self.nodes:
             self.G.nodes[node]["voltage"] = complex(x[0], x[1])
             idx += 2
-        
+
     def compute_currents(self):
         for e in self.edges:
             if (self.G[e[0]][e[1]]["element"] == 'capacitor') or (self.G[e[0]][e[1]]["element"] == 'inductor') or (self.G[e[0]][e[1]]["element"] == 'resistor'):
                 self.G[e[0]][e[1]]["current"] = (self.G.nodes[e[0]]["voltage"] - self.G.nodes[e[1]]["voltage"])/self.G[e[0]][e[1]]["impedance"]
             if self.G[e[0]][e[1]]["element"] == 'c_source':
-                self.G[e[0]][e[1]]["current"] = self.G[e[0]][e[1]]["value"]        
-        
+                self.G[e[0]][e[1]]["current"] = self.G[e[0]][e[1]]["value"]
+
         self.exclude = []
         for e in self.edges:
             if self.G[e[0]][e[1]]["element"] == 'v_source':
                 node = e[1]
                 self.exclude.append(node)
-                edges = list(self.G.in_edges(node)) 
+                edges = list(self.G.in_edges(node))
                 total = 0
                 try:
                     total += self.G[edges[0]][edges[1]]["current"]
@@ -238,18 +238,18 @@ class circuit():
                 except:
                     pass
                 self.G[e[0]][e[1]]["current"] = total
-        
+
     def compute_res(self):
         residuals = []
         for node in self.nodes:
             if node not in self.exclude:
-                edges_in = list(self.G.in_edges(node)) 
+                edges_in = list(self.G.in_edges(node))
                 edges_out = list(self.G.out_edges(node))
                 res = 0
                 for e in edges_in:
-                    res += self.G[e[0]][e[1]]["current"] 
+                    res += self.G[e[0]][e[1]]["current"]
                 for e in edges_out:
-                    res -= self.G[e[0]][e[1]]["current"] 
+                    res -= self.G[e[0]][e[1]]["current"]
                 residuals.append(np.real(res))
                 residuals.append(np.imag(res))
         for e in self.edges:
@@ -258,12 +258,12 @@ class circuit():
                 residuals.append(np.real(res))
                 residuals.append(np.imag(res))
         return residuals
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
 
 

@@ -1,9 +1,10 @@
+/* Importamos fuente moderna para darle un estilo más limpio y profesional */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-/* BASE Y FONDO */
+/* ====== CONTENEDOR PRINCIPAL ====== */
 .teoria {
   position: relative;
-  min-height: 100vh;
+  min-height: 100vh; /* ocupa toda la pantalla */
   padding: 100px 20px 60px;
   display: flex;
   justify-content: center;
@@ -13,44 +14,49 @@
   overflow-x: hidden;
 }
 
-/* OVERLAY DINÁMICO */
+/* ====== OVERLAY OSCURO + EFECTO VISUAL ====== */
 .teoria__overlay {
   position: fixed;
-  inset: 0;
+  inset: 0; /* cubre toda la pantalla */
   background: radial-gradient(
     circle at 50% 0%,
     rgba(59, 130, 246, 0.15),
     rgba(15, 23, 42, 0.75)
   );
-  pointer-events: none;
+  pointer-events: none; /* no bloquea clicks */
   z-index: 0;
 }
 
-/* CARD PREMIUM (GLASSMORPHISM) */
+/* ====== CARD PRINCIPAL (GLASSMORPHISM) ====== */
 .teoria__card {
   width: 100%;
   max-width: 1100px;
+
+  /* efecto cristal */
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
-  
+
   border-radius: 32px;
   border: 1px solid rgba(255, 255, 255, 0.4);
+
+  /* sombras para efecto flotante */
   box-shadow: 
     0 40px 100px rgba(0, 0, 0, 0.25),
     0 10px 20px rgba(0, 0, 0, 0.05);
-  
+
   padding: 3rem;
   position: relative;
   z-index: 1;
 }
 
-/* HEADER */
+/* ====== HEADER DE LA SECCIÓN ====== */
 .teoria__header {
   text-align: center;
   margin-bottom: 2.5rem;
 }
 
+/* contenedor superior (badge + meta info) */
 .teoria__top {
   display: flex;
   justify-content: center;
@@ -59,6 +65,7 @@
   margin-bottom: 15px;
 }
 
+/* badge superior tipo etiqueta */
 .teoria__badge {
   background: linear-gradient(135deg, #2563eb, #3b82f6);
   color: white;
@@ -70,12 +77,14 @@
   text-transform: uppercase;
 }
 
+/* texto pequeño de información */
 .teoria__meta {
   font-size: 0.8rem;
   color: #475569;
   font-weight: 500;
 }
 
+/* título principal */
 .teoria__title {
   font-size: 2.5rem;
   font-weight: 800;
@@ -84,18 +93,21 @@
   margin: 0;
 }
 
-/* DIVIDER CON ANIMACIÓN DE BRILLO */
+/* ====== DIVISOR ANIMADO ====== */
 .teoria__divider {
   width: 80px;
   height: 6px;
   margin: 15px auto;
+
+  /* efecto degradado animado */
   background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
   background-size: 200% auto;
+
   border-radius: 10px;
   animation: shimmer 3s infinite linear;
 }
 
-/* VISOR DE PDF */
+/* ====== VISOR DE PDF ====== */
 .teoria__viewer {
   margin-top: 2rem;
   border-radius: 24px;
@@ -105,6 +117,7 @@
   border: 1px solid rgba(0,0,0,0.05);
 }
 
+/* barra superior del visor PDF */
 .pdf-toolbar {
   display: flex;
   justify-content: space-between;
@@ -114,17 +127,20 @@
   color: white;
 }
 
+/* info del PDF (icono + nombre) */
 .pdf-info {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+/* título del PDF */
 .pdf-title {
   font-weight: 600;
   font-size: 0.9rem;
 }
 
+/* estado del PDF */
 .pdf-status {
   font-size: 0.65rem;
   font-weight: 700;
@@ -135,13 +151,15 @@
   border-radius: 6px;
 }
 
+/* contenedor del visor */
 .pdf-container {
   padding: 20px;
-  background: #cbd5e1; /* Color neutro para el fondo del visor */
+  background: #cbd5e1;
   display: flex;
   justify-content: center;
 }
 
+/* iframe o visor PDF personalizado */
 .custom-pdf-viewer {
   display: block;
   width: 100%;
@@ -151,11 +169,12 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* ANIMACIONES */
+/* ====== ANIMACIONES ====== */
 .animate-fade-in {
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* entrada suave desde abajo */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -167,19 +186,26 @@
   }
 }
 
+/* animación de brillo tipo loading */
 @keyframes shimmer {
   to { background-position: 200% center; }
 }
 
-/* RESPONSIVE */
+/* ====== RESPONSIVE ====== */
 @media (max-width: 768px) {
+
+  /* reducimos padding en móvil */
   .teoria__card {
     padding: 1.5rem;
     border-radius: 24px;
   }
+
+  /* título más pequeño en móvil */
   .teoria__title {
     font-size: 1.8rem;
   }
+
+  /* visor más bajo en pantallas pequeñas */
   .custom-pdf-viewer {
     height: 60vh;
   }

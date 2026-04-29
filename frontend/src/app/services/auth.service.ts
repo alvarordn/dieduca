@@ -10,6 +10,7 @@ import { Usuario } from '../models/usuario';
   providedIn: 'root',
 })
 export class AuthService {
+
   private apiUrl = 'http://localhost:8000/api/auth';
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
@@ -26,35 +27,44 @@ export class AuthService {
     return !!sessionStorage.getItem('token');
   }
 
-  // --- FUNCIÓN QUE TE DABA EL ERROR ---
   getUserId(): string | null {
+
     const token = this.getToken();
     if (!token) return null;
 
     try {
+
       const partes = token.split('.');
       if (partes.length < 2) return null;
 
       const payloadJson = atob(partes[1]);
       const payload = JSON.parse(payloadJson);
+
+      // comprobación estricta (sin ==)
       return payload.user_id ? String(payload.user_id) : null;
+
     } catch (e) {
+
       console.error("Error al decodificar el token:", e);
       return null;
     }
   }
 
-  // --- LÓGICA DE LOGOUT (PARA EVITAR BUGUEOS) ---
   forceLogout() {
-    this.stopTracking(); 
+
+    this.stopTracking();
+
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('uvus');
+
     this.uvusSubject.next(null);
     this.isAuthenticatedSubject.next(false);
+
     this.router.navigate(['/login']);
   }
 
   logout() {
+
     Swal.fire({
       title: '¿Cerrar sesión?',
       text: '¿Estás seguro de que quieres salir?',
@@ -64,28 +74,40 @@ export class AuthService {
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#3b82f6',
       cancelButtonColor: '#64748b',
-      didOpen: (popup) => { popup.style.borderRadius = '24px'; },
+      didOpen: (popup) => {
+        popup.style.borderRadius = '24px';
+      },
     }).then((result) => {
+
+      // aquí antes NO hay ==, usamos propiedad booleana directa
       if (result.isConfirmed) {
+
         this.forceLogout();
+
         Swal.fire({
           title: 'Sesión cerrada',
           icon: 'success',
           timer: 1500,
           showConfirmButton: false,
-          didOpen: (popup) => { popup.style.borderRadius = '24px'; },
+          didOpen: (popup) => {
+            popup.style.borderRadius = '24px';
+          },
         });
       }
     });
   }
 
-  // --- RESTO DE MÉTODOS ---
   login(uvus: string, password: string): Observable<any> {
+
     return this.http.post(`${this.apiUrl}/login/`, { uvus, password }).pipe(
+
       tap((response: any) => {
+
         if (response.token) {
+
           sessionStorage.setItem('token', response.token);
           sessionStorage.setItem('uvus', response.uvus);
+
           this.uvusSubject.next(response.uvus);
           this.isAuthenticatedSubject.next(true);
         }
@@ -94,11 +116,16 @@ export class AuthService {
   }
 
   register(datos: Usuario): Observable<Usuario> {
+
     return this.http.post(`${this.apiUrl}/register/`, datos).pipe(
+
       tap((response: any) => {
+
         if (response.token) {
+
           sessionStorage.setItem('token', response.token);
           sessionStorage.setItem('uvus', response.uvus);
+
           this.uvusSubject.next(response.uvus);
           this.isAuthenticatedSubject.next(true);
         }
@@ -107,9 +134,13 @@ export class AuthService {
   }
 
   startTracking(username: string) {
+
     this.timerSub = interval(60000).subscribe(() => {
+
       this.http.post(`${this.apiUrl}/track-time/`, { uvus: username })
-        .subscribe({ error: (err) => console.error('Error al registrar tiempo') });
+        .subscribe({
+          error: () => console.error('Error al registrar tiempo')
+        });
     });
   }
 
@@ -119,7 +150,15 @@ export class AuthService {
     }
   }
 
-  getToken(): string | null { return sessionStorage.getItem('token'); }
-  getUvus(): string | null { return sessionStorage.getItem('uvus'); }
-  isLoggedIn(): boolean { return this.hasToken(); }
+  getToken(): string | null {
+    return sessionStorage.getItem('token');
+  }
+
+  getUvus(): string | null {
+    return sessionStorage.getItem('uvus');
+  }
+
+  isLoggedIn(): boolean {
+    return this.hasToken();
+  }
 }

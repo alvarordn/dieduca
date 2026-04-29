@@ -1,24 +1,43 @@
 <div class="page-wrapper">
+
+  <!-- Fondo con imagen + overlay oscuro para mejorar legibilidad -->
   <div class="background-overlay"></div>
 
+  <!-- Contenedor principal del dashboard -->
   <div class="seguimiento-container animate-fadeIn">
+
+    <!-- Cabecera del panel de progreso -->
     <header class="progreso-header">
       <div class="header-content">
-        <span class="badge-tech"><i class="bi bi-graph-up-arrow"></i> Dashboard Académico</span>
+
+        <!-- Badge superior tipo “etiqueta” -->
+        <span class="badge-tech">
+          <i class="bi bi-graph-up-arrow"></i> Dashboard Académico
+        </span>
+
+        <!-- Título dinámico con el nombre del usuario -->
         <h1>Tu Progreso Técnico, {{ nombreUsuario }}</h1>
+
+        <!-- Subtítulo explicando la sección -->
         <p>Análisis en tiempo real de tu rendimiento en Circuitos Eléctricos</p>
       </div>
     </header>
 
+    <!-- Grid de estadísticas generales -->
     <div class="stats-grid">
+
+      <!-- Card total de preguntas -->
       <div class="stat-card glass-card">
-        <div class="stat-icon bg-blue"><i class="bi bi-journal-text"></i></div>
+        <div class="stat-icon bg-blue">
+          <i class="bi bi-journal-text"></i>
+        </div>
         <div class="stat-info">
           <span class="label">Total Preguntas</span>
           <span class="value">{{ totalPreguntasS }}</span>
         </div>
       </div>
 
+      <!-- Card de aciertos -->
       <div class="stat-card glass-card success-border">
         <div class="stat-icon bg-white shadow-sm">
           <i class="bi bi-check-circle-fill text-green-strong"></i>
@@ -29,6 +48,7 @@
         </div>
       </div>
 
+      <!-- Card de fallos -->
       <div class="stat-card glass-card danger-border">
         <div class="stat-icon bg-white shadow-sm">
           <i class="bi bi-x-circle-fill text-red-strong"></i>
@@ -40,12 +60,18 @@
       </div>
     </div>
 
+    <!-- Sección de rendimiento por bloques -->
     <div class="rendimiento-section glass-card">
+
+      <!-- Cabecera de la sección -->
       <div class="section-header">
         <h5><i class="bi bi-layers-half"></i> Rendimiento por Bloque</h5>
       </div>
+
       <div class="table-responsive">
         <table class="progreso-table">
+
+          <!-- Cabecera de la tabla -->
           <thead>
             <tr>
               <th>BLOQUE TEMÁTICO</th>
@@ -54,47 +80,91 @@
               <th class="text-center">ESTADO</th>
             </tr>
           </thead>
+
           <tbody>
+
+            <!-- Recorremos todos los bloques -->
             @for (bloque of bloques; track bloque.id) {
+
+              <!-- Calculamos estadísticas del bloque actual -->
               @let stats = obtenerEstadisticas(bloque.id);
+
               <tr>
+
+                <!-- Info del bloque -->
                 <td>
                   <div class="bloque-info">
                     <span class="bloque-title">Bloque {{ bloque.id }}</span>
                     <span class="bloque-sub">{{ bloque.nombre }}</span>
                   </div>
                 </td>
+
+                <!-- Barra de progreso -->
                 <td>
                   <div class="progress-container">
-                    <div class="progress-bar" 
+
+                    <!-- Se cambia el color según progreso -->
+                    <div class="progress-bar"
                          [ngClass]="stats.progreso >= 100 ? 'bg-green' : 'bg-warning'"
                          [style.width.%]="stats.progreso">
                     </div>
+
                   </div>
-                  <small class="text-muted">{{ stats.aciertos }} / 20 aciertos</small>
+
+                  <!-- Info adicional de aciertos -->
+                  <small class="text-muted">
+                    {{ stats.aciertos }} / 20 aciertos
+                  </small>
                 </td>
-                <td class="text-center fw-bold">{{ stats.exito }} %</td>
+
+                <!-- Porcentaje de éxito -->
+                <td class="text-center fw-bold">
+                  {{ stats.exito }} %
+                </td>
+
+                <!-- Estado del bloque -->
                 <td class="text-center">
+
+                  <!-- Si no está completo -->
                   @if (stats.progreso < 100) {
-                    <span class="status-badge bg-warning-sub"><i class="bi bi-clock-history"></i> En proceso</span>
+                    <span class="status-badge bg-warning-sub">
+                      <i class="bi bi-clock-history"></i> En proceso
+                    </span>
+
+                  <!-- Si ya está completo -->
                   } @else {
-                    <span class="status-badge bg-green-sub"><i class="bi bi-trophy-fill"></i> Dominado</span>
+                    <span class="status-badge bg-green-sub">
+                      <i class="bi bi-trophy-fill"></i> Dominado
+                    </span>
                   }
+
                 </td>
+
               </tr>
             }
+
           </tbody>
         </table>
       </div>
     </div>
 
+    <!-- Historial de intentos recientes -->
     <div class="rendimiento-section glass-card mt-4">
+
+      <!-- Cabecera historial -->
       <div class="section-header d-flex justify-content-between align-items-center">
         <h5><i class="bi bi-list-check"></i> Historial Reciente e Intentos</h5>
-        <span class="badge bg-primary rounded-pill">{{ historial.length }} registros</span>
+
+        <!-- contador de registros -->
+        <span class="badge bg-primary rounded-pill">
+          {{ historial.length }} registros
+        </span>
       </div>
+
       <div class="table-responsive mt-3">
         <table class="progreso-table">
+
+          <!-- Cabecera tabla historial -->
           <thead>
             <tr>
               <th>FECHA</th>
@@ -103,36 +173,63 @@
               <th class="text-center">ACCIÓN</th>
             </tr>
           </thead>
-          
+
           <tbody>
-            @for (intento of historial; track intento.id) {
+
+            <!-- Mostramos los últimos 10 intentos -->
+            @for (intento of historial.slice(0,10); track intento.id) {
+
               <tr>
-                <td class="small text-muted">{{ intento.fecha | date: 'dd/MM/yyyy' }}</td>
-                <td><span class="fw-bold">Bloque {{ intento.bloque_id }}</span></td>
+
+                <!-- Fecha formateada -->
+                <td class="small text-muted">
+                  {{ intento.fecha | date: 'dd/MM/yyyy' }}
+                </td>
+
+                <!-- Bloque del intento -->
+                <td>
+                  <span class="fw-bold">
+                    Bloque {{ intento.bloque_id }}
+                  </span>
+                </td>
+
+                <!-- Aciertos y fallos -->
                 <td class="text-center">
+
                   <span class="status-badge bg-green-sub me-1">
                     {{ intento.aciertos }} <i class="bi bi-check"></i>
                   </span>
+
                   <span class="status-badge bg-danger-sub">
                     {{ intento.fallos }} <i class="bi bi-x"></i>
                   </span>
+
                 </td>
+
+                <!-- Botón para ver revisión -->
                 <td class="text-center">
                   <button (click)="verRevision(intento)" class="btn-revision">
                     <i class="bi bi-eye"></i> Revisar Fallos
                   </button>
                 </td>
+
               </tr>
-            } @empty {
+
+            }
+
+            <!-- Si no hay historial -->
+            @empty {
               <tr>
                 <td colspan="4" class="text-center py-4 text-muted">
                   Aún no has realizado ejercicios detallados.
                 </td>
               </tr>
             }
+
           </tbody>
         </table>
       </div>
     </div>
+
   </div>
 </div>

@@ -1,21 +1,36 @@
+<!-- NAVBAR PRINCIPAL DE LA APLICACIÓN -->
 <nav class="navbar">
   <div class="navbar-content">
-    
+
+    <!-- ZONA IZQUIERDA: menú hamburguesa + logo -->
     <div class="nav-left">
-      <button class="menu-ham" [class.active]="menuMovilAbierto" (click)="toggleMenuMovil()">
+
+      <!-- Botón hamburguesa para abrir menú en móvil -->
+      <button
+        class="menu-ham"
+        [class.active]="menuMovilAbierto"
+        (click)="toggleMenuMovil()"
+      >
         <i class="bi bi-list"></i>
       </button>
 
+      <!-- Logo que lleva a home -->
       <div class="navbar-brand">
         <a [routerLink]="['/']">
-          <img src="assets/images/logoetsi-removebg-preview.png" alt="logo ETSI" class="logo" />
+          <img
+            src="assets/images/logoetsi-removebg-preview.png"
+            alt="logo ETSI"
+            class="logo"
+          />
         </a>
       </div>
     </div>
 
+    <!-- ZONA CENTRAL: menú de bloques -->
     <div class="nav-center">
       <ul class="navbar-menu" [class.active]="menuMovilAbierto">
-        
+
+        <!-- Si el usuario está logueado, se muestra en móvil -->
         @if (authService.isLoggedIn()) {
           <li class="navbar-item d-lg-none user-mobile-header">
             <div class="mobile-user-box">
@@ -25,22 +40,51 @@
           </li>
         }
 
+        <!-- Recorro todos los bloques del sistema -->
         @for (bloque of bloques; track bloque.id) {
-          <li class="navbar-item" (mouseenter)="abrirDesplegable(bloque.id)" (mouseleave)="cerrarDesplegable()">
+          <li
+            class="navbar-item"
+            (mouseenter)="abrirDesplegable(bloque.id)"
+            (mouseleave)="cerrarDesplegable()"
+          >
+
             <div class="bloque-wrapper">
-              <span class="bloque-nombre" (click)="toggleDesplegableMovil(bloque.id)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
+
+              <!-- Nombre del bloque (abre menú desplegable) -->
+              <span
+                class="bloque-nombre"
+                (click)="toggleDesplegableMovil(bloque.id)"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: false }"
+              >
                 {{ bloque.nombre }}
                 <i class="bi bi-chevron-down arrow-icon"></i>
               </span>
 
+              <!-- Menú desplegable del bloque -->
               @if (estaAbierto(bloque.id)) {
                 <div class="desplegable">
-                  <a [routerLink]="['/bloque', bloque.id, 'teoria']" class="desplegable-item" (click)="cerrarMenuMovil()">
+
+                  <!-- Enlace a teoría del bloque -->
+                  <a
+                    [routerLink]="['/bloque', bloque.id, 'teoria']"
+                    class="desplegable-item"
+                    (click)="cerrarMenuMovil()"
+                  >
                     <i class="bi bi-book me-2"></i> Teoría Bloque {{ bloque.id }}
                   </a>
-                  <a [routerLink]="['/bloque', bloque.id, 'ejercicio']" class="desplegable-item" (click)="cerrarMenuMovil()">
-                    <i class="bi bi-pencil-square me-2"></i> Ejercicio Bloque {{ bloque.id }}
-                  </a>
+
+                  <!-- Solo hay ejercicio si el bloque es mayor que 1 -->
+                  @if (bloque.id > 1) {
+                    <a
+                      [routerLink]="['/bloque', bloque.id, 'ejercicio']"
+                      class="desplegable-item"
+                      (click)="cerrarMenuMovil()"
+                    >
+                      <i class="bi bi-pencil-square me-2"></i> Ejercicio Bloque {{ bloque.id }}
+                    </a>
+                  }
+
                 </div>
               }
             </div>
@@ -49,40 +93,64 @@
       </ul>
     </div>
 
+    <!-- ZONA DERECHA: login / usuario -->
     <div class="nav-right">
+
+      <!-- Si está logueado -->
       @if (authService.isLoggedIn()) {
         <div class="navbar-profile shadow-sm">
+
+          <!-- icono usuario -->
           <i class="bi bi-person-circle d-none d-md-block text-secondary fs-5"></i>
-          
-          <span class="user-name d-none d-lg-inline">Hola, {{ nombreUsuario }}</span>
+
+          <!-- nombre usuario -->
+          <span class="user-name d-none d-lg-inline">
+            Hola, {{ nombreUsuario }}
+          </span>
+
           <span class="divider d-none d-lg-inline">|</span>
-          
-          <button class="btn-seguimiento" [routerLink]="['/resultados', idUsuario]">
+
+          <!-- botón de seguimiento -->
+          <button
+            class="btn-seguimiento"
+            [routerLink]="['/resultados', idUsuario]"
+          >
             <i class="bi bi-graph-up-arrow me-1"></i>
             <span class="d-none d-md-inline">Seguimiento</span>
           </button>
-          
+
+          <!-- botón logout -->
           <button class="logout-action" (click)="logout()">
             <span class="d-none d-sm-inline me-1">Salir</span>
             <i class="bi bi-box-arrow-right"></i>
           </button>
+
         </div>
       } @else {
+
+        <!-- Si NO está logueado -->
         <div class="navbar-auth-buttons">
+
+          <!-- ir a login -->
           <a [routerLink]="['/login']" class="btn-login">
             <i class="bi bi-box-arrow-in-right me-1"></i>
             <span class="btn-text-nav">Entrar</span>
           </a>
+
+          <!-- ir a registro -->
           <a [routerLink]="['/registro']" class="btn-register">
             <i class="bi bi-person-plus me-1"></i>
             <span class="btn-text-responsive">Registrarse</span>
           </a>
+
         </div>
       }
     </div>
 
+    <!-- overlay cuando el menú móvil está abierto -->
     @if (menuMovilAbierto) {
       <div class="overlay" (click)="cerrarMenuMovil()"></div>
     }
+
   </div>
 </nav>

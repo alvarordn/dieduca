@@ -1,103 +1,101 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-// Representa un nodo del circuito dentro de una grilla.
-// Cada nodo tiene una posición (row, col) y un tipo visual.
+// estructura de un nodo del circuito (puntos de la grilla)
 interface Nodo {
-  id: string; // Identificador único del nodo
-  row: number; // Fila dentro de la grilla
-  col: number; // Columna dentro de la grilla
-  type: string; // Tipo visual (esquina, borde, centro, etc.)
+  id: string; // id único del nodo
+  row: number; // fila en la rejilla
+  col: number; // columna en la rejilla
+  type: string; // tipo visual del nodo (esquina, centro, etc.)
 }
 
-// Representa un componente eléctrico que conecta dos nodos.
+// estructura de un componente eléctrico (resistencia, etc.)
 interface Componente {
-  id: string; // Identificador único
-  source: string; // ID del nodo origen
-  target: string; // ID del nodo destino
-  type: string; // Tipo de componente (resistor, capacitor, etc.)
-  value: string | null; // Valor del componente (ej: 10Ω)
-  orientation: string; // 'horizontal' o 'vertical'
-  labelPosition: string; // Posición donde se dibuja el valor
+  id: string; // id único del componente
+  source: string; // nodo origen
+  target: string; // nodo destino
+  type: string; // tipo de componente (resistor, etc.)
+  value: string | null; // valor del componente (ej: 10Ω)
+  orientation: string; // orientación horizontal o vertical
+  labelPosition: string; // dónde se dibuja el texto
 }
 
 @Component({
-  selector: 'app-circuit-viewer', // Nombre para usar el componente en HTML
-  standalone: true, // No necesita módulo
-  imports: [CommonModule], // Importa directivas básicas (*ngIf, *ngFor)
+  selector: 'app-circuit-viewer',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './circuit-viewer.component.html',
   styleUrl: './circuit-viewer.component.css',
 })
 export class CircuitViewerComponent implements OnChanges {
-  // Datos que recibe desde el componente padre
+
+  // datos que llegan desde el componente padre
   @Input() circuitData: any;
 
-  // Constantes de diseño (controlan el tamaño del dibujo)
-  public readonly CELL_SIZE = 200; // Tamaño de cada celda de la grilla
-  public readonly NODE_RADIUS = 18; // Radio visual del nodo
-  public readonly MARGIN = 100; // Margen externo del dibujo
+  // constantes para controlar el tamaño del dibujo
+  public readonly CELL_SIZE = 200; // tamaño de cada celda del grid
+  public readonly NODE_RADIUS = 18; // radio visual del nodo
+  public readonly MARGIN = 100; // margen del circuito
 
-  // Dimensiones totales del lienzo
+  // tamaño total del SVG
   imgWidth = 0;
   imgHeight = 0;
 
-  // Listas internas procesadas
+  // listas internas ya procesadas
   nodos: Nodo[] = [];
   componentes: Componente[] = [];
 
-  // Se ejecuta automáticamente cuando cambia algún @Input()
+  // se ejecuta cuando cambia el input (circuitData)
   ngOnChanges(changes: SimpleChanges) {
-    // Si cambió circuitData y tiene valor válido
     if (changes['circuitData'] && this.circuitData) {
-      this.processCircuitData();
+      this.processCircuitData(); // recalculo todo el circuito
     }
-    
   }
 
   ngOnInit(){
-    console.log("Datos del circuito",this.circuitData)
+    // debug para ver qué datos llegan
+    console.log("Datos del circuito", this.circuitData)
   }
 
-  // Procesa los datos recibidos y calcula dimensiones del circuito
+  // procesa los datos del circuito para poder dibujarlo
   processCircuitData() {
-    // Carga nodos y componentes o usa arreglo vacío si no existen
+
+    // guardo nodos y componentes (si no hay, array vacío)
     this.nodos = this.circuitData.nodos || [];
-    console.log(this.circuitData.componentes)
     this.componentes = this.circuitData.componentes || [];
 
-    // Obtiene cantidad de filas y columnas (valores por defecto si no vienen)
-    const rows = this.circuitData.rows ;
-    const cols = this.circuitData.cols ;
+    console.log(this.circuitData.componentes)
 
+    // tamaño de la rejilla (filas y columnas)
+    const rows = this.circuitData.rows;
+    const cols = this.circuitData.cols;
 
-    // Calcula ancho y alto total del área de dibujo
+    // calculo tamaño total del SVG
     this.imgWidth = (cols - 1) * this.CELL_SIZE + this.MARGIN * 2;
     this.imgHeight = (rows - 1) * this.CELL_SIZE + this.MARGIN * 2;
   }
 
-  // Convierte una columna de la grilla en coordenada X (en píxeles)
+  // convierte columna de grid a coordenada X en píxeles
   getNodeX(col: number): number {
     return this.MARGIN + col * this.CELL_SIZE;
   }
 
-  // Convierte una fila de la grilla en coordenada Y (en píxeles)
+  // convierte fila de grid a coordenada Y en píxeles
   getNodeY(row: number): number {
     return this.MARGIN + row * this.CELL_SIZE;
   }
 
-
-  // Busca un nodo por su ID
+  // busca un nodo por su id
   getNode(nodeId: string): Nodo | undefined {
     return this.nodos.find((n) => n.id === nodeId);
   }
 
-  // Calcula el punto medio entre el nodo origen y destino
-  // Sirve para colocar el componente visualmente entre ambos
+  // calcula el punto medio entre dos nodos (para centrar componentes)
   getComponentMidPoint(comp: Componente): { x: number; y: number } {
     const sourceNode = this.getNode(comp.source);
     const targetNode = this.getNode(comp.target);
 
-    // Si alguno no existe, retorna posición por defecto
+    // si falta alguno, devuelvo 0 por seguridad
     if (!sourceNode || !targetNode) return { x: 0, y: 0 };
 
     return {
@@ -106,17 +104,18 @@ export class CircuitViewerComponent implements OnChanges {
     };
   }
 
-  // Devuelve la rotación en grados según orientación
+  // decide cómo rotar el componente según orientación
   getComponentRotation(comp: Componente): number {
     return comp.orientation === 'vertical' ? 180 : 90;
   }
 
-  // Calcula la posición donde se dibujará el texto (valor del componente)
+  // calcula dónde poner el texto del componente
   getLabelPosition(comp: Componente): { x: number; y: number } {
     const mid = this.getComponentMidPoint(comp);
-    const offset = 40; // Separación respecto al centro
+    const offset = 40; // separación respecto al centro
 
     switch (comp.labelPosition) {
+
       case 'outside-top':
         return { x: mid.x, y: mid.y - offset - 20 };
 
@@ -135,31 +134,30 @@ export class CircuitViewerComponent implements OnChanges {
       case 'inside-right':
         return { x: mid.x + offset, y: mid.y };
 
+      // posición por defecto si no coincide nada
       default:
         return { x: mid.x + offset, y: mid.y };
     }
   }
 
-  // Devuelve la ruta de la imagen según tipo de componente
-getComponentImgPath(type: string): string {
-  return `assets/components/${type}.png`;
-}
+  // ruta de imagen según tipo de componente
+  getComponentImgPath(type: string): string {
+    return `assets/components/${type}.png`;
+  }
 
-  // Devuelve la imagen correspondiente al tipo de nodo
-getNodeImgPath(type: string): string {
-  // Coincide con tu carpeta assets/nodes/
-  return `assets/nodes/${type}.png`;
-}
+  // ruta de imagen según tipo de nodo
+  getNodeImgPath(type: string): string {
+    return `assets/nodes/${type}.png`;
+  }
 
-// circuit-viewer.component.ts
+  // formatea etiquetas para que se vean mejor
+  formatearEtiqueta(valor: string | null): string {
+    if (!valor) return '';
 
-formatearEtiqueta(valor: string | null): string {
-  if (!valor) return '';
-
-  return valor
-    .replace(/micro/g, 'μ') // Cambia micro por mu
-    .replace(/-/g, '')      // Elimina el dash (guion)
-    .replace(/\s+/g, ' ')   // Quita espacios dobles si quedaron
-    .trim();
-}
+    return valor
+      .replace(/micro/g, 'μ') // cambia "micro" por símbolo real
+      .replace(/-/g, '')      // quita guiones
+      .replace(/\s+/g, ' ')   // limpia espacios dobles
+      .trim();                // quita espacios finales
+  }
 }

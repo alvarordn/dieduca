@@ -1,4 +1,5 @@
 import lib
+import matplotlib.pyplot as plt
 
 # ─── Circuito monofásico ───────────────────────────────────────────────────
 # print(">>> Generando circuito monofásico...")

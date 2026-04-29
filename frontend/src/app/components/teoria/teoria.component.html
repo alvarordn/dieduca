@@ -1,46 +1,94 @@
+
+/* Contenedor principal de toda la página */
 <div class="teoria">
+
+  <!-- Fondo con overlay para oscurecer la imagen -->
   <div class="teoria__overlay"></div>
 
+  <!-- Card principal donde va todo el contenido -->
   <section class="teoria__card animate-fade-in">
+
+    <!-- Header de la sección -->
     <header class="teoria__header">
+
+      <!-- Parte superior con badge + info -->
       <div class="teoria__top">
-        <span class="teoria__badge">Bloque {{ bloqueId }}</span>
+
+        <!-- Badge con el número del bloque -->
+        <span class="teoria__badge">
+          Bloque {{ bloqueId }}
+        </span>
+
+        <!-- Texto informativo del material -->
         <span class="teoria__meta">
           <i class="fas fa-book-open"></i> Material de Estudio Oficial
         </span>
+
       </div>
 
+      <!-- Título principal de la página -->
       <h1 class="teoria__title">Contenido Teórico</h1>
+
+      <!-- Línea decorativa animada -->
       <div class="teoria__divider"></div>
+
     </header>
 
+    <!-- Contenedor del visor PDF -->
     <div class="teoria__viewer">
+
+      <!-- Barra superior del visor -->
       <div class="pdf-toolbar">
+
+        <!-- Info del PDF -->
         <div class="pdf-info">
+
+          <!-- Icono del documento -->
           <span class="pdf-icon">📄</span>
-          <span class="pdf-title">Tema {{ bloqueId }}: Análisis de Circuitos</span>
+
+          <!-- Título dinámico según bloque -->
+          <span class="pdf-title">
+            Tema {{ bloqueId }}: Análisis de Circuitos
+          </span>
+
         </div>
-        
+
+        <!-- Acciones / estado del PDF -->
         <div class="pdf-actions">
-          <span class="pdf-status">LECTURA ACTIVA</span>
-          </div>
+
+          <!-- Estado visual de lectura -->
+          <span class="pdf-status">
+            LECTURA ACTIVA
+          </span>
+
+        </div>
       </div>
 
+      <!-- Zona donde se muestra el PDF -->
       <div class="pdf-container">
+
+        <!-- Si el PDF ya está cargado -->
         @if (pdfUrl) {
-        <pdf-viewer
-         
-          [src]="pdfUrl"
-          [render-text]="true"
-          [original-size]="false"
-          [show-all]="true"
-          class="custom-pdf-viewer">
-        </pdf-viewer>} @else {
+
+          <pdf-viewer
+            [src]="pdfUrl"
+            [render-text]="true"
+            [original-size]="false"
+            [show-all]="true"
+            class="custom-pdf-viewer">
+          </pdf-viewer>
+
+        }
+
+        <!-- Si todavía está cargando -->
+        @else {
           <div class="pdf-loading">
             <p>Cargando contenido...</p>
           </div>
         }
+
       </div>
     </div>
+
   </section>
 </div>

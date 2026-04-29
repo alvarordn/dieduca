@@ -1,5 +1,7 @@
+/* IMPORTAMOS FUENTE PARA TODA LA PÁGINA */
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap");
 
+/* CONTENEDOR PRINCIPAL DEL REGISTRO */
 .registro-container {
   min-height: 100vh;
   min-height: 100svh;
@@ -9,14 +11,15 @@
   padding: 20px;
   position: relative;
   font-family: "Plus Jakarta Sans", sans-serif;
-  overflow-y: auto; 
+  overflow-y: auto;
   background: #0f172a;
 }
 
+/* CAPA DE FONDO OSCURO + IMAGEN */
 .background-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9)), 
+  background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9)),
               url("/assets/images/etsi.jpg");
   background-size: cover;
   background-position: center;
@@ -25,6 +28,7 @@
   z-index: 0;
 }
 
+/* TARJETA DEL FORMULARIO */
 .registro-card {
   position: relative;
   z-index: 1;
@@ -39,16 +43,19 @@
   margin: 20px 0;
 }
 
+/* CABECERA DEL FORMULARIO */
 .registro-header {
   text-align: center;
   margin-bottom: 1.5rem;
 }
 
+/* LOGO DE LA APLICACIÓN */
 .brand-logo img {
   height: 50px;
   margin-bottom: 0.8rem;
 }
 
+/* TÍTULO PRINCIPAL */
 .registro-header h1 {
   font-size: 1.8rem;
   font-weight: 800;
@@ -56,16 +63,18 @@
   letter-spacing: -1px;
 }
 
+/* SUBTÍTULO */
 .registro-header p {
   color: #64748b;
   font-size: 0.85rem;
 }
 
-
+/* GRUPO DE CAMPOS DEL FORMULARIO */
 .form-group {
   margin-bottom: 1rem;
 }
 
+/* ETIQUETAS DE LOS INPUTS */
 .form-group label {
   display: block;
   margin-bottom: 0.4rem;
@@ -76,12 +85,14 @@
   letter-spacing: 0.5px;
 }
 
+/* CONTENEDOR DE INPUT + ICONO */
 .input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
+/* ICONO DENTRO DEL INPUT */
 .input-wrapper i {
   position: absolute;
   left: 14px;
@@ -89,7 +100,9 @@
   font-size: 1.1rem;
 }
 
-.input-wrapper input, .input-wrapper select {
+/* INPUTS Y SELECT */
+.input-wrapper input,
+.input-wrapper select {
   width: 100%;
   padding: 12px 12px 12px 42px;
   border: 2px solid #e2e8f0;
@@ -99,6 +112,7 @@
   background: #f8fafc;
 }
 
+/* SELECT PERSONALIZADO */
 .input-wrapper select {
   cursor: pointer;
   appearance: none;
@@ -108,14 +122,16 @@
   background-size: 20px;
 }
 
-.input-wrapper input:focus, .input-wrapper select:focus {
+/* EFECTO FOCO EN INPUTS */
+.input-wrapper input:focus,
+.input-wrapper select:focus {
   outline: none;
   border-color: #3b82f6;
   background: white;
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
-
+/* MENSAJE DE ERROR */
 .error-bubble {
   color: #dc2626;
   font-size: 0.75rem;
@@ -124,6 +140,7 @@
   padding-left: 5px;
 }
 
+/* BOTÓN DE REGISTRO */
 .btn-registro {
   width: 100%;
   padding: 14px;
@@ -143,18 +160,20 @@
   box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
 }
 
+/* HOVER DEL BOTÓN */
 .btn-registro:hover:not(:disabled) {
   background: #2563eb;
   transform: translateY(-2px);
 }
 
+/* BOTÓN DESHABILITADO */
 .btn-registro:disabled {
   background: #cbd5e0;
   cursor: not-allowed;
   box-shadow: none;
 }
 
-
+/* SPINNER DE CARGA */
 .spinner {
   width: 18px;
   height: 18px;
@@ -164,8 +183,12 @@
   animation: spin 0.8s linear infinite;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+/* ANIMACIÓN DEL SPINNER */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
+/* LINK A LOGIN */
 .login-link {
   text-align: center;
   margin-top: 1.5rem;
@@ -173,6 +196,7 @@
   color: #64748b;
 }
 
+/* LINK CLICKABLE */
 .login-link a {
   color: #3b82f6;
   text-decoration: none;
@@ -180,24 +204,25 @@
   margin-left: 5px;
 }
 
-
+/* ANIMACIÓN DE ENTRADA */
 .animate-fadeIn {
   animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* KEYFRAMES FADE IN */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-
+/* RESPONSIVE MÓVIL */
 @media (max-width: 480px) {
   .registro-card {
     padding: 1.5rem;
     border-radius: 24px;
     margin: 10px;
   }
-  
+
   .registro-header h1 {
     font-size: 1.5rem;
   }

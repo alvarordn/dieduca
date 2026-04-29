@@ -1,35 +1,41 @@
+/* importo fuente de Google para que el texto se vea más moderno */
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap");
 
+/* contenedor principal del circuito */
 .circuit-wrapper {
-  margin: 2rem 0;
+  margin: 2rem 0; /* separo del resto de la página */
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-.circuit-glass-card:hover  {
-  transform: scale(1.07);
-  box-shadow: #000 10px 10px 10px -10px;
+  align-items: center; /* centro todo horizontalmente */
 }
 
+/* efecto hover de la tarjeta del circuito */
+.circuit-glass-card:hover  {
+  transform: scale(1.07); /* zoom suave al pasar el ratón */
+  box-shadow: #000 10px 10px 10px -10px; /* sombra cuando haces hover */
+}
+
+/* etiqueta superior del circuito (tipo badge) */
 .circuit-badge {
-  background: #1e293b;
-  color: #60a5fa;
+  background: #1e293b; /* fondo oscuro */
+  color: #60a5fa; /* azul claro */
   padding: 6px 14px;
   border-radius: 8px;
   font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 800;
   font-size: 0.7rem;
-  letter-spacing: 1px;
+  letter-spacing: 1px; /* separo letras para look más tech */
   margin-bottom: -12px;
-  z-index: 5;
+  z-index: 5; /* para que quede por encima del card */
 }
 
+/* tarjeta principal con efecto "glass" */
 .circuit-glass-card {
-  width: 95%; 
+  width: 95%;
   max-width: 900px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.9); /* semi transparente */
+  backdrop-filter: blur(10px); /* efecto cristal */
   -webkit-backdrop-filter: blur(10px);
   border-radius: 28px;
   padding: 1.5rem;
@@ -37,44 +43,48 @@
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
   transition:
     transform 1s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 1s ease;
+    box-shadow 1s ease; /* animación suave */
 }
 
+/* contenedor del SVG del circuito */
 .svg-container {
   width: 100%;
-
   background: #ffffff;
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: visible; 
+  overflow: visible; /* para que no corte elementos */
   padding: 20px;
 }
 
+/* SVG del circuito */
 .circuit-svg {
   width: 100%;
-  height: auto; 
-  max-height: 70vh; 
+  height: auto;
+  max-height: 70vh; /* límite de altura en pantalla */
   display: block;
 }
 
+/* líneas del circuito (cables) */
 .wire-line {
   stroke: #000000;
   stroke-width: 4px;
-  stroke-linecap: round;
+  stroke-linecap: round; /* extremos redondeados */
 }
 
+/* texto del circuito con borde blanco */
 .label-outline {
-  stroke: white;
+  stroke: white; /* borde blanco para que se lea mejor */
   stroke-width: 6px;
   paint-order: stroke;
   font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 800;
-  font-size: 18px; 
-  fill: none;
+  font-size: 18px;
+  fill: none; /* solo borde */
 }
 
+/* texto del circuito relleno */
 .label-fill {
   fill: #1e293b;
   font-family: "Plus Jakarta Sans", sans-serif;
@@ -82,21 +92,25 @@
   font-size: 18px;
 }
 
+/* responsive para móviles */
 @media (max-width: 480px) {
   .circuit-glass-card {
-    padding: 0.5rem;
+    padding: 0.5rem; /* menos padding en móvil */
     width: 100%;
   }
+
   .label-fill,
   .label-outline {
-    font-size: 14px;
+    font-size: 14px; /* texto más pequeño en móvil */
   }
 }
 
+/* animación de entrada */
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-out forwards;
 }
 
+/* keyframes de fadeIn (aparece suave desde abajo) */
 @keyframes fadeIn {
   from {
     opacity: 0;

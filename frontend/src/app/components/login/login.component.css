@@ -1,8 +1,10 @@
+/* importación de fuente moderna para toda la pantalla de login */
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap");
 
+/* contenedor principal del login */
 .login-container {
   min-height: 100vh;
-  min-height: 100svh;
+  min-height: 100svh; /* mejora en móviles modernos */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,27 +12,28 @@
   position: relative;
   font-family: "Plus Jakarta Sans", sans-serif;
   overflow: hidden;
-  background: #0f172a; 
+  background: #0f172a; /* color base oscuro */
 }
 
-
+/* fondo con imagen + degradado */
 .background-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)), 
+  background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)),
               url("/assets/images/etsi.jpg");
   background-size: cover;
   background-position: center;
-  filter: blur(4px);
+  filter: blur(4px); /* desenfoque para que el login destaque */
   transform: scale(1.05);
   z-index: 0;
 }
 
+/* tarjeta principal del login */
 .login-card {
   position: relative;
   z-index: 1;
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px); /* efecto cristal */
   padding: clamp(2rem, 5vw, 3rem);
   border-radius: clamp(24px, 5vw, 32px);
   width: 100%;
@@ -39,16 +42,19 @@
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
+/* cabecera del login (logo + texto) */
 .login-header {
   text-align: center;
   margin-bottom: 2rem;
 }
 
+/* logo de la empresa/uni */
 .brand-logo img {
   height: 60px;
   margin-bottom: 1rem;
 }
 
+/* título principal */
 .login-header h1 {
   font-size: 1.8rem;
   font-weight: 800;
@@ -57,16 +63,18 @@
   margin-bottom: 0.5rem;
 }
 
+/* subtítulo */
 .login-header p {
   color: #64748b;
   font-size: 0.9rem;
 }
 
-
+/* grupo de cada input (usuario, contraseña, etc.) */
 .form-group {
   margin-bottom: 1.25rem;
 }
 
+/* etiqueta del input */
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
@@ -77,12 +85,14 @@
   letter-spacing: 0.5px;
 }
 
+/* wrapper para input + icono */
 .input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
+/* icono dentro del input */
 .input-wrapper i {
   position: absolute;
   left: 16px;
@@ -90,6 +100,7 @@
   font-size: 1.2rem;
 }
 
+/* input de texto */
 .input-wrapper input {
   width: 100%;
   padding: 14px 14px 14px 48px;
@@ -100,6 +111,7 @@
   background: #f8fafc;
 }
 
+/* cuando el input está seleccionado */
 .input-wrapper input:focus {
   outline: none;
   background: white;
@@ -107,7 +119,7 @@
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
-
+/* mensaje de error */
 .error-bubble {
   background: #fef2f2;
   color: #b91c1c;
@@ -122,7 +134,7 @@
   border: 1px solid #fee2e2;
 }
 
-
+/* botón principal de login */
 .btn-login {
   width: 100%;
   padding: 14px;
@@ -141,19 +153,21 @@
   box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
 }
 
+/* hover del botón login */
 .btn-login:hover:not(:disabled) {
   background: #2563eb;
   transform: translateY(-2px);
   box-shadow: 0 15px 25px -5px rgba(59, 130, 246, 0.5);
 }
 
+/* botón desactivado */
 .btn-login:disabled {
   background: #94a3b8;
   cursor: not-allowed;
   box-shadow: none;
 }
 
-
+/* texto de registro */
 .registro-link {
   text-align: center;
   margin-top: 1.5rem;
@@ -161,6 +175,7 @@
   color: #64748b;
 }
 
+/* enlace de registro */
 .registro-link a {
   color: #3b82f6;
   text-decoration: none;
@@ -168,7 +183,7 @@
   margin-left: 5px;
 }
 
-
+/* spinner de carga */
 .spinner {
   width: 18px;
   height: 18px;
@@ -178,22 +193,26 @@
   animation: spin 0.8s linear infinite;
 }
 
+/* animación del spinner */
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
-
+/* animación de entrada del login */
 .animate-fadeIn {
   animation: fadeIn 0.6s ease-out;
 }
 
+/* keyframes fade in */
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Responsive */
+/* responsive para móviles */
 @media (max-width: 480px) {
+
+  /* reduce padding en pantallas pequeñas */
   .login-card {
     padding: 1.75rem;
     width: 100%;

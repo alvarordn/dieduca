@@ -5,39 +5,55 @@ import { catchError, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 
 export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
+
+  // Inyectamos el servicio de autenticación dentro del interceptor
   const authService = inject(AuthService);
+
+  // Obtenemos el token guardado (si existe)
   const token = authService.getToken();
 
+  // Variable que usaremos para modificar la request
   let authReq = req;
 
-  // 1. SI HAY TOKEN, LO PONEMOS EN LA CABECERA
+  // 1. SI EXISTE TOKEN LO AÑADIMOS A LA CABECERA
   if (token) {
+
+    // Clonamos la request original para no modificarla directamente
     authReq = req.clone({
       headers: req.headers.set('Authorization', `Bearer ${token}`)
     });
   }
 
-  // 2. ESCUCHAMOS LA RESPUESTA PARA DETECTAR SI EL TOKEN CADUCA
+  // 2. INTERCEPTAMOS RESPUESTAS PARA CONTROLAR ERRORES DE AUTH
   return next(authReq).pipe(
+
     catchError((error: HttpErrorResponse) => {
-      // 401 = No autorizado (Token caducado)
-      // 403 = Prohibido (Token inválido)
-      if (error.status === 401 || error.status === 403) {
+
+      // 401 o 403 significa que la sesión no es válida
+      if (error.status == 401 || error.status == 403) {
+
         console.warn("Sesión caducada. Expulsando usuario...");
 
-        // Llamamos a la limpieza inmediata sin preguntas
+        // Cerramos sesión y limpiamos datos locales
         authService.forceLogout();
 
-        // Avisamos al usuario de forma elegante
+        // Mostramos alerta al usuario
         Swal.fire({
+
           title: 'Sesión caducada',
           text: 'Por seguridad, tu sesión ha finalizado. Por favor, entra de nuevo.',
           icon: 'info',
           confirmButtonColor: '#3b82f6',
           timer: 4000,
-          didOpen: (popup) => { popup.style.borderRadius = '24px'; }
+
+          // Ajuste visual del modal
+          didOpen: (popup) => {
+            popup.style.borderRadius = '24px';
+          }
         });
       }
+
+      // Reenviamos el error para que siga su flujo normal
       return throwError(() => error);
     })
   );

@@ -1,51 +1,119 @@
+/* contenedor principal de toda la home */
 <div class="home-wrapper">
-  <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
-    
+
+  <!-- carrusel de imágenes de fondo -->
+  <div id="carouselExampleIndicators"
+       class="carousel slide carousel-fade"
+       data-bs-ride="carousel"
+       data-bs-interval="5000"
+       data-bs-pause="false">
+
+    <!-- indicadores (los puntos del carrusel) -->
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+      <!-- slide 1 activo -->
+      <button type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to="0"
+              class="active"
+              aria-current="true"
+              aria-label="Slide 1"></button>
+
+      <!-- slide 2 -->
+      <button type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+
+      <!-- slide 3 -->
+      <button type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
+
     </div>
 
+    <!-- imágenes del carrusel -->
     <div class="carousel-inner">
+
+      <!-- primera imagen activa -->
       <div class="carousel-item active">
         <img src="assets/images/civil.png" class="d-block w-100" alt="Slide 1" />
       </div>
+
+      <!-- segunda imagen -->
       <div class="carousel-item">
         <img src="assets/images/quimica.png" class="d-block w-100" alt="Slide 2" />
       </div>
+
+      <!-- tercera imagen -->
       <div class="carousel-item">
         <img src="assets/images/aeroespacial.png" class="d-block w-100" alt="Slide 3" />
       </div>
+
     </div>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <!-- botón anterior del carrusel -->
+    <button class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
+
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+
+    <!-- botón siguiente del carrusel -->
+    <button class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
+
     </button>
+
   </div>
 
+  <!-- capa encima del carrusel con el contenido -->
   <div class="home-container">
+
+    <!-- tarjeta de bienvenida -->
     <div class="welcome-card text-center">
+
+      <!-- logo de la ETSI -->
       <div class="icon-box">
         <img src="assets/images/logoetsi-removebg-preview.png" alt="logo ETSI" />
       </div>
 
-      @if (nombreUsuario) { 
+      <!-- si hay usuario logueado -->
+      @if (nombreUsuario) {
         <h1>
           Bienvenido a la ETSI
+
+          <!-- nombre del usuario -->
           <span class="userName">{{ nombreUsuario }}</span>
         </h1>
-      } @else {
+      }
+
+      <!-- si no hay usuario -->
+      @else {
         <h1>Bienvenido a la ETSI</h1>
       }
 
-      <p class="lead">Plataforma de estudio para <b>Teoría de Circuitos</b>.</p>
-      <p>Explora los temas y pon a prueba tus conocimientos con los ejercicios.</p>
+      <!-- texto descriptivo -->
+      <p class="lead">
+        Plataforma de estudio para <b>Teoría de Circuitos</b>.
+      </p>
+
+      <p>
+        Explora los temas y pon a prueba tus conocimientos con los ejercicios.
+      </p>
+
     </div>
+
   </div>
+
 </div>

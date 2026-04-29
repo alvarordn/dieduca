@@ -1,11 +1,21 @@
+<!-- si existe circuitData, muestro todo el circuito -->
 @if (circuitData) {
+
+  <!-- contenedor principal del circuito -->
   <div class="circuit-wrapper animate-fadeIn">
+
+    <!-- etiqueta superior del esquema -->
     <div class="circuit-badge">
       <i class="bi bi-gear-fill"></i> ESQUEMA TÉCNICO
     </div>
 
+    <!-- tarjeta principal con efecto glass -->
     <div class="circuit-glass-card">
+
+      <!-- contenedor del SVG -->
       <div class="svg-container">
+
+        <!-- SVG donde se dibuja el circuito -->
         <svg
           [attr.viewBox]="
             '-100 -100 ' + (imgWidth + 200) + ' ' + (imgHeight + 200)
@@ -13,10 +23,17 @@
           preserveAspectRatio="xMidYMid meet"
           class="circuit-svg"
         >
+
+          <!-- capa de cables / conexiones -->
           <g class="layer-wires">
+
+            <!-- recorro todos los componentes -->
             @for (comp of componentes; track comp.id) {
+
               @let source = getNode(comp.source);
               @let target = getNode(comp.target);
+
+              <!-- si existe origen y destino dibujo la línea -->
               @if (source && target) {
                 <line
                   [attr.x1]="getNodeX(source.col)"
@@ -26,15 +43,22 @@
                   class="wire-line"
                 />
               }
+
             }
+
           </g>
 
+          <!-- capa de componentes (resistencias, etc.) -->
           <g class="layer-components">
+
             @for (comp of componentes; track comp.id) {
+
               @let mid = getComponentMidPoint(comp);
 
+              <!-- círculo base del componente -->
               <circle [attr.cx]="mid.x" [attr.cy]="mid.y" r="35" fill="white" />
 
+              <!-- imagen del componente -->
               <image
                 [attr.xlink:href]="getComponentImgPath(comp.type)"
                 [attr.x]="mid.x - 50"
@@ -50,13 +74,18 @@
                   mid.y +
                   ')'
                 "
-                class="component-image"
               />
+
             }
+
           </g>
 
+          <!-- capa de nodos del circuito -->
           <g class="layer-nodes">
+
             @for (nodo of nodos; track nodo.id) {
+
+              <!-- nodo especial de tierra -->
               @if (nodo.id == "N00") {
                 <image
                   xlink:href="assets/components/ground.png"
@@ -67,6 +96,8 @@
                   class="node-image"
                 />
               }
+
+              <!-- imagen del nodo normal -->
               <image
                 [attr.xlink:href]="getNodeImgPath(nodo.type)"
                 [attr.x]="getNodeX(nodo.col) - 50"
@@ -75,14 +106,23 @@
                 height="91"
                 class="node-image"
               />
+
             }
+
           </g>
 
+          <!-- capa de etiquetas de valores -->
           <g class="layer-labels">
+
             @for (comp of componentes; track comp.id) {
+
+              <!-- solo muestro etiqueta si tiene valor -->
               @if (comp.value) {
+
                 @let pos = getLabelPosition(comp);
                 @let texto = formatearEtiqueta(comp.value);
+
+                <!-- texto con borde (para que se lea bien) -->
                 <text
                   [attr.x]="pos.x"
                   [attr.y]="pos.y"
@@ -91,6 +131,8 @@
                 >
                   {{ texto }}
                 </text>
+
+                <!-- texto principal -->
                 <text
                   [attr.x]="pos.x"
                   [attr.y]="pos.y"
@@ -99,11 +141,16 @@
                 >
                   {{ texto }}
                 </text>
+
               }
+
             }
+
           </g>
+
         </svg>
       </div>
+
     </div>
   </div>
 }

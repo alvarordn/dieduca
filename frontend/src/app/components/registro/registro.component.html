@@ -1,58 +1,128 @@
+<!-- CONTENEDOR PRINCIPAL DE LA PÁGINA DE REGISTRO -->
 <div class="registro-container">
+
+  <!-- FONDO OSCURO CON IMAGEN -->
   <div class="background-overlay"></div>
 
+  <!-- TARJETA PRINCIPAL DEL FORMULARIO -->
   <div class="registro-card animate-fadeIn">
+
+    <!-- CABECERA DEL REGISTRO -->
     <div class="registro-header">
+
+      <!-- LOGO DE LA ETSI -->
       <div class="brand-logo">
         <img src="assets/images/logoetsi-removebg-preview.png" alt="ETSI Logo">
       </div>
+
+      <!-- TÍTULO PRINCIPAL -->
       <h1>Crear Cuenta</h1>
+
+      <!-- SUBTÍTULO -->
       <p>Únete a la comunidad de Ingeniería de Sevilla</p>
     </div>
 
+    <!-- FORMULARIO DE REGISTRO -->
     <form (ngSubmit)="register()" #regForm="ngForm">
-      
+
+      <!-- CAMPO UVUS (USUARIO) -->
       <div class="form-group">
         <label for="uvus">Usuario (UVUS) *</label>
         <div class="input-wrapper">
           <i class="bi bi-person-badge"></i>
-          <input type="text" id="uvus" [(ngModel)]="uvus" name="uvus" placeholder="Ej: jsmith1" required>
+          <input
+            type="text"
+            id="uvus"
+            [(ngModel)]="uvus"
+            name="uvus"
+            placeholder="Ej: jsmith1"
+            required
+          >
         </div>
-        @if (errorUvus) { <div class="error-bubble">{{ errorUvus }}</div> }
+
+        <!-- ERROR DE VALIDACIÓN UVUS -->
+        @if (errorUvus) {
+          <div class="error-bubble">{{ errorUvus }}</div>
+        }
       </div>
 
+      <!-- CAMPO EMAIL -->
       <div class="form-group">
         <label for="email">Correo Corporativo *</label>
         <div class="input-wrapper">
           <i class="bi bi-envelope-at"></i>
-          <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="usuario@alum.us.es" required>
+          <input
+            type="email"
+            id="email"
+            [(ngModel)]="email"
+            name="email"
+            placeholder="usuario@alum.us.es"
+            required
+          >
         </div>
-        @if (errorEmail) { <div class="error-bubble">{{ errorEmail }}</div> }
+
+        <!-- ERROR EMAIL -->
+        @if (errorEmail) {
+          <div class="error-bubble">{{ errorEmail }}</div>
+        }
       </div>
 
+      <!-- CAMPO GRADO -->
       <div class="form-group">
         <label for="grado">Grado Académico *</label>
         <div class="input-wrapper">
           <i class="bi bi-mortarboard"></i>
-          <select id="grado" [(ngModel)]="grado" name="grado" required>
-            <option value="" disabled selected>Selecciona tu grado</option>
+
+          <!-- SELECT DE GRADOS -->
+          <select
+            id="grado"
+            [(ngModel)]="grado"
+            name="grado"
+            required
+          >
+            <option value="" disabled selected>
+              Selecciona tu grado
+            </option>
+
+            <!-- LISTA DINÁMICA DE GRADOS -->
             @for (g of grados; track g.valor) {
-              <option [value]="g.valor">{{ g.nombre }}</option>
+              <option [value]="g.valor">
+                {{ g.nombre }}
+              </option>
             }
           </select>
         </div>
       </div>
 
+      <!-- CAMPO CONTRASEÑA -->
       <div class="form-group">
         <label for="password">Contraseña *</label>
         <div class="input-wrapper">
           <i class="bi bi-key"></i>
-          <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Mín. 8 caracteres" required>
+          <input
+            type="password"
+            id="password"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="Mín. 8 caracteres"
+            required
+          >
         </div>
-        @if (error) { <div class="error-bubble">{{ error }}</div> }
+
+        <!-- ERROR CONTRASEÑA -->
+        @if (error) {
+          <div class="error-bubble">{{ error }}</div>
+        }
       </div>
 
-      <button type="submit" class="btn-registro" [disabled]="cargando || !regForm.form.valid">
+      <!-- BOTÓN DE REGISTRO -->
+      <button
+        type="submit"
+        class="btn-registro"
+        [disabled]="cargando || !regForm.form.valid"
+      >
+
+        <!-- ESTADO CARGANDO -->
         @if (cargando) {
           <span class="spinner"></span>
           <span>Creando cuenta...</span>
@@ -60,12 +130,15 @@
           <span>Registrarse ahora</span>
           <i class="bi bi-check-circle-fill"></i>
         }
+
       </button>
     </form>
 
+    <!-- LINK A LOGIN -->
     <div class="login-link">
       <span>¿Ya eres miembro?</span>
       <a [routerLink]="['/login']">Inicia Sesión</a>
     </div>
+
   </div>
 </div>
