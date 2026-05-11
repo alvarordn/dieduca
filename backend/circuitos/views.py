@@ -7,41 +7,85 @@ import numpy as np
 import traceback
 import re
 
+# Importo las clases que me ha dado el profesor (NO se tocan)
 from .alvaro.lib_new import Circuit, ThreePhaseCircuit
 
 
-# ======================================================
-# 🔧 HELPERS
-# ======================================================
-
+# =========================================================
+# 🔁 CONVERSIÓN DE NÚMEROS COMPLEJOS A JSON
+# =========================================================
+# Esto lo hago porque el frontend (Angular) no entiende complejos tipo Python
+# Entonces los separo en parte real e imaginaria
 def complex_to_dict(z):
     if z is None:
         return {"re": 0.0, "im": 0.0}
+
     return {
         "re": float(np.real(z)),
         "im": float(np.imag(z))
     }
 
 
+# =========================================================
+# 🧼 NORMALIZAR VALORES PARA QUE NO ROMPAN EL FRONTEND
+# =========================================================
+# Aquí me aseguro de que TODO lo que mando sea JSON válido
 def safe_value(v):
+
+    if v is None:
+        return 0.0
+
+    # Si es complejo numpy lo convierto
     if isinstance(v, complex):
         return complex_to_dict(v)
+
+    # Si es tipo numpy raro lo paso a float
     if isinstance(v, np.generic):
         return float(v)
+
+    # Si es string lo limpio
+    if isinstance(v, str):
+        return v.strip()
+
     return v
 
 
+# =========================================================
+# 🔢 CONVERSIÓN SEGURA A FLOAT
+# =========================================================
+# Esto evita errores típicos de backend con valores raros o None
 def safe_float(v):
+
     if v is None:
         return 0.0
+
+    # Si es complejo, me quedo con el módulo
     if isinstance(v, complex):
-        return float(abs(v))
-    if isinstance(v, (int, float, np.number)):
-        return float(v)
-    return 0.0
+        v = abs(v)
+
+    # numpy number -> float normal
+    if isinstance(v, np.number):
+        v = float(v)
+
+    try:
+        v = float(v)
+    except:
+        return 0.0
+
+    # elimino valores absurdamente pequeños (ruido numérico)
+    if abs(v) < 1e-12:
+        return 0.0
+
+    # redondeo para no devolver 0.00000000003 cosas raras
+    return round(v, 6)
 
 
+# =========================================================
+# 🧠 NORMALIZAR TIPOS DE COMPONENTES
+# =========================================================
+# Aquí traduzco lo que viene del lib.py a algo estándar
 def normalize_type(t):
+
     if not t:
         return "unknown"
 
@@ -53,18 +97,45 @@ def normalize_type(t):
         return "capacitor"
     if "ind" in t:
         return "inductor"
-    if "volt" in t:
-        return "source"
+
+    # fuentes de corriente y tensión
+    if "c_source" in t or "current" in t:
+        return "c_source"
+    if "v_source" in t or "volt" in t:
+        return "v_source"
+
     if "wire" in t:
         return "wire"
 
     return t
 
 
-# ======================================================
-# 🧠 NODOS TYPE (FRONTEND IMAGES)
-# ======================================================
+# =========================================================
+# 🧹 LIMPIEZA EXTRA DE FLOATS
+# =========================================================
+# Similar a safe_float pero más simple (fallback)
+def clean_float(v, eps=1e-6):
 
+    if v is None:
+        return 0.0
+
+    try:
+        v = float(v)
+
+        # si es casi 0, lo pongo directamente a 0
+        if abs(v) < eps:
+            return 0.0
+
+        return v
+
+    except:
+        return 0.0
+
+
+# =========================================================
+# 📍 TIPO DE NODO SEGÚN SU POSICIÓN EN LA MATRIZ
+# =========================================================
+# Esto es solo para pintar el circuito en frontend bonito
 def determinar_tipo_nodo(row, col, rows, cols):
 
     is_top = row == 0
@@ -72,6 +143,7 @@ def determinar_tipo_nodo(row, col, rows, cols):
     is_left = col == 0
     is_right = col == cols - 1
 
+    # esquinas
     if is_top and is_left:
         return "corner-top-left"
     if is_top and is_right:
@@ -81,6 +153,7 @@ def determinar_tipo_nodo(row, col, rows, cols):
     if is_bottom and is_right:
         return "corner-bottom-right"
 
+    # bordes
     if is_top:
         return "edge-top"
     if is_bottom:
@@ -90,31 +163,35 @@ def determinar_tipo_nodo(row, col, rows, cols):
     if is_right:
         return "edge-right"
 
+    # centro
     return "center"
 
 
-# ======================================================
-# 🚀 API
-# ======================================================
-
+# =========================================================
+# 🚀 API PRINCIPAL: GENERAR CIRCUITO
+# =========================================================
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def generar_circuito(request):
 
-
     try:
 
+        # =========================
+        # 📥 DATOS DEL FRONTEND
+        # =========================
         bloque_id = int(request.data.get('bloque', 1))
         rows = int(request.data.get('rows', 2))
         cols = int(request.data.get('cols', 3))
 
-                # ======================================================
-        # 🔺 TRIFÁSICO (MEJORADO)
-        # ======================================================
+
+        # =====================================================
+        # ⚡ CASO TRIFÁSICO (BLOQUES 9 Y 10)
+        # =====================================================
         if bloque_id in [9, 10]:
 
             num_sections = int(request.data.get('num_sections', 3))
 
+            # Creo circuito trifásico usando la librería del profe
             circuit = ThreePhaseCircuit(
                 num_sections=num_sections,
                 freq=50,
@@ -129,14 +206,14 @@ def generar_circuito(request):
             visual_options = ["series", "paraleloY", "paraleloDelta"]
             prev_visual = None
 
-            # 🔥 SOLO UN LOOP (ARREGLADO)
+            # genero secciones del circuito
             for i, s in enumerate(circuit.sections):
 
                 ref = s["elements"]["A"]
 
                 visual = random.choice(visual_options)
 
-                # evita repetición inmediata
+                # evito repetir visual igual seguido (queda más variado)
                 if visual == prev_visual:
                     visual = random.choice(visual_options)
 
@@ -152,6 +229,7 @@ def generar_circuito(request):
 
                     "Z_phase": complex_to_dict(s.get("Z_phase")),
 
+                    # componentes por fase
                     "elements": {
                         ph: {
                             "type": normalize_type(
@@ -167,7 +245,7 @@ def generar_circuito(request):
                 })
 
             # =========================
-            # RESULTS
+            # 📊 RESULTADOS TRIFÁSICOS
             # =========================
             results = {}
 
@@ -181,9 +259,9 @@ def generar_circuito(request):
                 results[ph] = {
                     "V_phase": complex_to_dict(r["V_phase"]),
                     "I_line": complex_to_dict(r["I_line"]),
-                    "P": float(r["P"]),
-                    "Q": float(r["Q"]),
-                    "S": float(r["S"])
+                    "P": clean_float(r["P"]),
+                    "Q": clean_float(r["Q"]),
+                    "S": clean_float(r["S"])
                 }
 
                 P_total += abs(r["P"])
@@ -208,18 +286,16 @@ def generar_circuito(request):
                 }
             })
 
-        # ======================================================
-        # ⚡ MONOFÁSICO
-        # ======================================================
 
+        # =====================================================
+        # 🔌 CASO MONOFÁSICO (RESTO DE BLOQUES)
+        # =====================================================
         circuit = Circuit(rows=rows, cols=cols)
         circuit.solve()
 
-        # -----------------------------
-        # NODOS
-        # -----------------------------
         nodos = []
 
+        # convierto nodos del grafo a JSON
         for node in circuit.G.nodes():
 
             match = re.match(r"N(\d)(\d)", node)
@@ -234,44 +310,32 @@ def generar_circuito(request):
                 "row": row,
                 "col": col,
                 "type": determinar_tipo_nodo(row, col, rows, cols),
-                "potential": safe_float(
+                "potential": safe_value(
                     circuit.G.nodes[node].get("potential", 0)
                 )
             })
 
-        # -----------------------------
-        # COMPONENTES
-        # -----------------------------
         componentes = []
 
+        # convierto edges (componentes del circuito)
         for i, (u, v) in enumerate(circuit.G.edges()):
+
             data = circuit.G[u][v]
 
-            u_match = re.match(r"N(\d)(\d)", u)
-            v_match = re.match(r"N(\d)(\d)", v)
-
-            if u_match and v_match:
-                ur, uc = int(u_match.group(1)), int(u_match.group(2))
-                vr, vc = int(v_match.group(1)), int(v_match.group(2))
-
-                orientation = "horizontal" if ur == vr else "vertical"
-            else:
-                orientation = "horizontal"
-
             componentes.append({
-                "id": f"c{i}",
-                "source": u,
-                "target": v,
+                    "id": f"c{i}",
+                    "source": u,
+                    "target": v,
 
-                "type": normalize_type(data.get("element")),
+                    "type": normalize_type(data.get("element")),
+                    "value": str(data.get("string", "")),
 
-                "value": str(data.get("string", "")),
+                    "orientation": "horizontal" if u[1] == v[1] else "vertical",
 
-                # 🔥 NUEVO
-                "orientation": orientation,
 
-                "current": safe_float(data.get("current", 0)),
-                "v_drop": safe_float(data.get("v_drop", 0))
+
+                    "current": safe_float(data.get("current", 0)),
+                    "v_drop": safe_float(data.get("v_drop", 0))
             })
 
         return Response({
@@ -285,9 +349,11 @@ def generar_circuito(request):
             }
         })
 
-
     except Exception as e:
+
+        # si algo explota, lo enseño en consola y devuelvo error limpio
         print(traceback.format_exc())
+
         return Response({
             "success": False,
             "error": str(e)

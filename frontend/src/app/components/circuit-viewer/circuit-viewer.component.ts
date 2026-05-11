@@ -28,7 +28,6 @@ interface Componente {
   styleUrl: './circuit-viewer.component.css',
 })
 export class CircuitViewerComponent implements OnChanges {
-
   // datos que llegan desde el componente padre
   @Input() circuitData: any;
 
@@ -52,19 +51,18 @@ export class CircuitViewerComponent implements OnChanges {
     }
   }
 
-  ngOnInit(){
-    // debug para ver qué datos llegan
-    console.log("Datos del circuito", this.circuitData)
+  ngOnInit() {
+    console.log(
+      'CircuitViewerComponent initialized with data:',
+      this.circuitData,
+    );
   }
 
   // procesa los datos del circuito para poder dibujarlo
   processCircuitData() {
-
     // guardo nodos y componentes (si no hay, array vacío)
     this.nodos = this.circuitData.nodos || [];
     this.componentes = this.circuitData.componentes || [];
-
-    console.log(this.circuitData.componentes)
 
     // tamaño de la rejilla (filas y columnas)
     const rows = this.circuitData.rows;
@@ -115,7 +113,6 @@ export class CircuitViewerComponent implements OnChanges {
     const offset = 40; // separación respecto al centro
 
     switch (comp.labelPosition) {
-
       case 'outside-top':
         return { x: mid.x, y: mid.y - offset - 20 };
 
@@ -156,8 +153,10 @@ export class CircuitViewerComponent implements OnChanges {
 
     return valor
       .replace(/micro/g, 'μ') // cambia "micro" por símbolo real
-      .replace(/-/g, '')      // quita guiones
-      .replace(/\s+/g, ' ')   // limpia espacios dobles
-      .trim();                // quita espacios finales
+      .replace(/-/g, '') // quita guiones
+      .replace(/\s+/g, ' ') // limpia espacios dobles
+      .trim(); // quita espacios finales
   }
+
+ 
 }

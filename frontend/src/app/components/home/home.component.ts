@@ -38,8 +38,5 @@ export class HomeComponent {
       }
 
     });
-
-    // debug: muestra el usuario en consola
-    console.log('UVUS del usuario:', this.nombreUsuario);
   }
 }

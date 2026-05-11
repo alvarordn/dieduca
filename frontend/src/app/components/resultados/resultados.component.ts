@@ -49,7 +49,7 @@ export class ResultadosComponent implements OnInit {
     this.nombreUsuario =
       sessionStorage.getItem('uvus')?.toUpperCase() || 'USUARIO';
 
-    console.log(this.nombreUsuario);
+    
 
     // Al iniciar el componente cargamos los datos del backend
     this.cargarDatosDesdeServidor();
@@ -70,7 +70,7 @@ export class ResultadosComponent implements OnInit {
 
         // Si todo va bien
         next: (data) => {
-          console.log('Datos recibidos de Django:', data);
+          
 
           // Guardamos el historial recibido
           this.historial = data;
@@ -93,18 +93,14 @@ export class ResultadosComponent implements OnInit {
 
   calcularTotalesGlobales() {
 
-    // 🔴 OJO: esto está un poco raro, porque se recalcula luego igual
-    // (pero lo dejo tal cual tu lógica)
-
-    if (this.aciertos > 20){
-      this.aciertos = 20;
-    }
-
     // Sumamos todos los aciertos del historial
     this.aciertos = this.historial.reduce(
       (sum, item) => sum + item.aciertos,
       0,
     );
+
+    // limitamos a 20 aciertos para que no se descontrole el porcentaje
+    this.aciertos = Math.min(this.aciertos, 20); 
 
     // Sumamos todos los fallos del historial
     this.fallos = this.historial.reduce(
@@ -115,8 +111,6 @@ export class ResultadosComponent implements OnInit {
     // Total de preguntas realizadas
     this.totalPreguntasS = this.aciertos + this.fallos;
 
-    // (esto no hace nada porque no se guarda el resultado)
-    this.aciertos.toExponential(1);
   }
 
   obtenerEstadisticas(bloqueId: number) {
@@ -132,6 +126,8 @@ export class ResultadosComponent implements OnInit {
       0,
     );
 
+    const aciertosLimitados = Math.min(bAciertos, 20); // limitamos a 20 aciertos para el porcentaje
+
     // Sumamos fallos del bloque
     const bFallos = intentosBloque.reduce(
       (sum, h) => sum + h.fallos,
@@ -139,15 +135,15 @@ export class ResultadosComponent implements OnInit {
     );
 
     // Total del bloque
-    const bTotal = bAciertos + bFallos;
+    const bTotal = aciertosLimitados + bFallos;
 
     // Porcentaje de éxito (basado en 20 preguntas objetivo)
-    const exito = bTotal > 0 ? Math.round((bAciertos / 20) * 100) : 0;
+    const exito = bTotal > 0 ? Math.round((aciertosLimitados / 20) * 100) : 0;
 
     // Progreso máximo limitado a 100%
     const metaAciertos = 20;
     const progreso = Math.min(
-      Math.round((bAciertos / metaAciertos) * 100),
+      Math.round((aciertosLimitados / metaAciertos) * 100),
       100,
     );
 
@@ -156,9 +152,6 @@ export class ResultadosComponent implements OnInit {
   }
 
   verRevision(intento: any) {
-
-    // Debug: ver lo que devuelve Django
-    console.log('Datos brutos de Django:', intento.detalle_ejercicio);
 
     // Cogemos el circuito del intento
     let circuito = intento.detalle_ejercicio?.circuito;

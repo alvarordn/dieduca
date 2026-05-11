@@ -20,8 +20,6 @@ export class CircuitosService {
 
       map((res: any) => {
 
-        console.log('backend', res);
-
         // Comprobamos que la respuesta es válida sin comparaciones débiles
         const tieneCircuito =
           res &&

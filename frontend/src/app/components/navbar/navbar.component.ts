@@ -56,13 +56,11 @@ export class NavbarComponent {
 
         // obtenemos token guardado
         const token = this.authService.getToken();
-        console.log('Token almacenado:', token);
 
         // si existe token, sacamos el id del usuario
         if (token) {
           try {
             this.idUsuario = this.authService.getUserId();
-            console.log("ID del Usuario", this.idUsuario);
           } catch (e) {
             console.error('Error al decodificar el token', e);
           }

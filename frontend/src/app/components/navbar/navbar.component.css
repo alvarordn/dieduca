@@ -266,7 +266,6 @@
 
 /* responsive menú móvil */
 @media (max-width: 1100px) {
-
   /* cambia layout navbar */
   .navbar-content {
     display: flex;

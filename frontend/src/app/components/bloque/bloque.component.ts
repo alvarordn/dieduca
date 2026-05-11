@@ -21,36 +21,47 @@ import Swal from 'sweetalert2';
   styleUrl: './bloque.component.css',
 })
 export class BloqueComponent implements OnInit {
-
-  // id del bloque que viene por la URL (nivel del ejercicio)
+  // El ID que pillo de la URL para saber en qué bloque estamos
   public bloqueId = 0;
 
-  // estado de carga cuando se genera el circuito
-  public cargando = false;
+  // Los nombres de los temas para ponerlos en el título
+  TEMAS_BLOQUES: { [key: number]: string } = {
+    1: 'Conceptos fundamentales y leyes de Kirchhof',
+    2: 'Circuitos Resistivos con Generadores Ideales',
+    3: 'Fuentes reales y circuitos equivalentes',
+    4: 'Técnicas de análisis de circuitos',
+    5: 'Componentes dinámicos',
+    6: 'Análisis de circuitos de corriente continua en distintos regímenes temporales',
+    7: 'Resolución de circuitos de corriente alterna sinusoidal',
+    8: 'Potencia y energía en circuitos de corriente alterna sinusoidal',
+    9: 'Circuitos trifásicos',
+    10: 'Potencia en circuitos trifásicos equilibrados',
+  };
 
-  // mensaje de error si algo falla al generar el circuito
+  // Para enseñar el spinner de carga o los fallos
+  public cargando = false;
   public errorCircuito = '';
 
-  // aquí guardo el circuito que me devuelve el backend
+  // Aquí guardo el objeto que me escupe el Python
   public circuitoGenerado: any = null;
 
-  // mensaje final con el resultado del intento
+  // Para el texto final de si has aprobado o no
   public mensajeResultado = '';
-
-  // controla si se muestran los resultados o no
   public resultadoVisible = false;
 
-  // tipo de circuito (mono o trifásico)
+  // Si es de una fase o de tres
   tipoCircuito: 'monofasico' | 'trifasico' | null = null;
 
-  // lista de preguntas del ejercicio
+  // El array con las preguntas que le salen al usuario
   preguntasEjemplo: any[] = [];
 
-  // tamaño del circuito en pantalla (grid)
+  // Tamaño de la rejilla por defecto
   rows = 2;
   cols = 3;
 
-  // número de secciones (solo para trifásico)
+  public tituloBloque = '';
+
+  // Cuántas partes tiene el trifásico
   secciones: number = 2;
 
   constructor(
@@ -59,65 +70,86 @@ export class BloqueComponent implements OnInit {
     private http: HttpClient,
   ) {}
 
+  // Nada más entrar, miro qué bloque es y si hay algo guardado de antes
   ngOnInit() {
-    // saco el id del bloque desde la URL
+    // Me suscribo a los parámetros para pillar el ID
     this.route.params.subscribe((params) => {
       this.bloqueId = +params['id'];
+
+      // Pillo el nombre del mapa de arriba
+      this.tituloBloque = this.TEMAS_BLOQUES[this.bloqueId] || 'Bloque';
+
+      // Si cambio de bloque, que no se quede lo viejo pintado
       this.limpiarEstado();
     });
 
-    // si vienes de revisar un intento anterior, lo cargo aquí
+    // Por si el usuario ha dado a "revisar" desde el historial
     const revision = sessionStorage.getItem('intento_revision');
 
     if (revision) {
       const data = JSON.parse(revision);
-
-      // a veces el circuito viene anidado raro, por eso lo arreglo aquí
       let circuito = data.circuito;
+
+      // Un poco de limpieza por si los datos vienen raros
       if (circuito?.circuito) circuito = circuito.circuito;
 
       this.circuitoGenerado = circuito;
       this.preguntasEjemplo = data.preguntas || [];
       this.resultadoVisible = true;
 
+      // Lo borro para que no salga siempre al recargar
       sessionStorage.removeItem('intento_revision');
     }
   }
 
-  // resetea todo cuando cambias de bloque
+  // Para dejarlo todo a cero
   limpiarEstado() {
     this.circuitoGenerado = null;
     this.preguntasEjemplo = [];
     this.resultadoVisible = false;
   }
 
-  // llama al backend para generar el circuito
+  // Función gorda para pedir el circuito al server
   generarEjercicio() {
     this.cargando = true;
     this.errorCircuito = '';
 
-    const payload: any = {
-      bloque: this.bloqueId,
-    };
+    const payload: any = { bloque: this.bloqueId };
 
-    // si es monofásico, mando filas y columnas
+    // Si es un circuito normal, le paso filas y columnas
     if (this.bloqueId <= 8) {
       payload.rows = this.rows;
       payload.cols = this.cols;
     }
 
-    // si es trifásico, mando número de secciones
+    // Si es de los últimos, le paso las secciones
     if (this.bloqueId > 8) {
       payload.num_sections = this.secciones;
     }
 
+    // Llamada al servicio
     this.circuitosService.generarCircuito(payload).subscribe({
       next: (res) => {
+        // Validación rara que nos han pedido para los trifásicos
+        if (this.bloqueId > 8) {
+          for (let i = 0; i < res.circuito.sections.length; i++) {
+            if (
+              i == res.circuito.sections.length - 1 &&
+              res.circuito.sections[i].type == 'serie'
+            ) {
+              this.errorCircuito =
+                'El circuito no debe contener componentes en serie';
+              this.cargando = false;
+              this.generarEjercicio(); // Reintento automático
+              return;
+            }
+          }
+        }
+
         this.cargando = false;
+        console.log('Circuito:', res);
 
-        console.log('Respuesta circuito: ', res);
-
-        // validaciones básicas de tamaño del circuito
+        // Que no se nos rompa el layout si el backend manda una burrada
         if (res.circuito.cols > 6 || res.circuito.rows > 6) {
           this.errorCircuito = 'Circuito demasiado grande';
           return;
@@ -128,28 +160,14 @@ export class BloqueComponent implements OnInit {
           return;
         }
 
-        // validaciones extra para trifásico
-        if (res.tipo === 'trifasico') {
-          if (res.circuito.sections.length > 6) {
-            this.errorCircuito = 'Demasiadas secciones';
-            return;
-          }
-          if (res.circuito.sections.length < 2) {
-            this.errorCircuito = 'Muy pocas secciones';
-            return;
-          }
-        }
-
         if (!res.success) {
           this.errorCircuito = 'Error generando circuito';
           return;
         }
 
-        // guardo circuito y tipo
+        // Si todo va bien, guardo y saco las preguntas
         this.circuitoGenerado = res.circuito;
         this.tipoCircuito = res.tipo;
-
-        // genero preguntas según el bloque
         this.prepararPreguntas(res.circuito);
       },
 
@@ -160,323 +178,174 @@ export class BloqueComponent implements OnInit {
     });
   }
 
-  // según el bloque, genero preguntas distintas
+  // Según el bloque en el que estemos, tiro por una función de preguntas u otra
   prepararPreguntas(circuito: any) {
     this.preguntasEjemplo = [];
 
+    console.log('Circuito recibido:', circuito);
+
     if (this.bloqueId >= 2 && this.bloqueId <= 7) {
       this.generarBasicas(circuito);
-      return;
-    }
-
-    if (this.bloqueId === 8) {
+    } else if (this.bloqueId === 8) {
       this.generarPotenciasMonofasico(circuito);
-      return;
-    }
-
-    if (this.bloqueId === 9) {
+    } else if (this.bloqueId === 9) {
       this.generarTrifasico(circuito);
-      return;
-    }
-
-    if (this.bloqueId === 10) {
+    } else if (this.bloqueId === 10) {
       this.generarPotenciasTrifasico(circuito);
-      return;
     }
   }
 
-  // preguntas básicas de monofásico
+  // Para no preguntar por cables o cosas que no tienen valores
+  obtenerComponentesValidos(comps: any[]) {
+    return comps.filter((c) => {
+      return (
+        Math.abs(c.current) > 1e-6 &&
+        Math.abs(c.v_drop) > 1e-6 &&
+        c.type !== 'opencircuit'
+      );
+    });
+  }
+
+  // Genera preguntas típicas de V, I, R y P
   generarBasicas(circuito: any) {
     const comps = circuito.componentes || [];
+    const nodos = circuito.nodos || [];
+    const preguntas: any[] = [];
 
-    const preguntasDisponibles: any[] = [];
-
-    // corriente de un componente random
     if (comps.length) {
-      const c = comps[(Math.random() * comps.length) | 0];
+      const validos = this.obtenerComponentesValidos(comps);
 
-      preguntasDisponibles.push({
-        label: `Corriente en ${c.id}`,
-        valorReal: c.current,
-        unidad: 'A',
-      });
-    }
+      if (validos.length) {
+        // Pillo un componente al azar de los que valen
+        const c = validos[(Math.random() * validos.length) | 0];
 
-    // caída de tensión
-    if (comps.length) {
-      const c = comps[(Math.random() * comps.length) | 0];
+        preguntas.push({
+          label: `Corriente en ${c.id}`,
+          valorReal: Math.abs(Number(c.current) || 0),
+          unidad: 'A',
+        });
 
-      preguntasDisponibles.push({
-        label: `Caída de tensión en ${c.id}`,
-        valorReal: c.v_drop,
-        unidad: 'V',
-      });
-    }
+        preguntas.push({
+          label: `Caída de tensión en ${c.id}`,
+          valorReal: Math.abs(Number(c.v_drop) || 0),
+          unidad: 'V',
+        });
 
-    // resistencia (ley de Ohm)
-    if (comps.length) {
-      const c = comps[(Math.random() * comps.length) | 0];
+        if (c.current) {
+          preguntas.push({
+            label: `Resistencia equivalente en ${c.id}`,
+            valorReal: Math.abs(Number(c.v_drop) / Number(c.current)),
+            unidad: 'Ω',
+          });
+        }
 
-      if (c.current) {
-        preguntasDisponibles.push({
-          label: `Resistencia en ${c.id}`,
-          valorReal: c.v_drop / c.current,
-          unidad: 'Ω',
+        preguntas.push({
+          label: `Potencia en ${c.id}`,
+          valorReal: Math.abs(
+            (Number(c.current) || 0) * (Number(c.v_drop) || 0),
+          ),
+          unidad: 'W',
         });
       }
-    }
 
-    // componente con más corriente
-    if (comps.length) {
-      const mayor = comps.reduce((a: any, b: any) =>
-        Math.abs(a.current) > Math.abs(b.current) ? a : b,
-      );
+      // Preguntas de relleno sobre el dibujo
+      preguntas.push({
+        label: 'Número de nodos del circuito',
+        valorReal: nodos.length,
+        unidad: '',
+      });
 
-      preguntasDisponibles.push({
-        label: `Corriente máxima del circuito`,
-        valorReal: Math.abs(mayor.current),
-        unidad: 'A',
+      preguntas.push({
+        label: 'Número de componentes',
+        valorReal: comps.length,
+        unidad: '',
       });
     }
 
-    // mayor caída de tensión
-    if (comps.length) {
-      const mayor = comps.reduce((a: any, b: any) =>
-        Math.abs(a.v_drop) > Math.abs(b.v_drop) ? a : b,
-      );
-
-      preguntasDisponibles.push({
-        label: `Mayor caída de tensión`,
-        valorReal: Math.abs(mayor.v_drop),
-        unidad: 'V',
-      });
-    }
-
-    // me quedo con 4 aleatorias para que no sea siempre igual
-    const seleccionadas = preguntasDisponibles
+    // Mezclo un poco y me quedo con 4
+    this.preguntasEjemplo = preguntas
       .sort(() => Math.random() - 0.5)
-      .slice(0, 4);
-
-    this.preguntasEjemplo = seleccionadas.map((p, i) => ({
-      id: `p${i}`,
-      ...p,
-      respuestaUsuario: null,
-      acertada: undefined,
-    }));
+      .slice(0, 4)
+      .map((p, i) => ({
+        id: `p${i}`,
+        ...p,
+        respuestaUsuario: null,
+        acertada: undefined,
+      }));
   }
 
-  // bloque 8: potencias monofásicas
+  // Lógica para potencias en circuitos de una sola fase
   generarPotenciasMonofasico(circuito: any) {
     const comps = circuito.componentes || [];
-
     let P_total = 0;
+    let Q_total = 0;
 
-    // sumo potencia total del circuito
     comps.forEach((c: any) => {
-      P_total += Math.abs((c.current || 0) * (c.v_drop || 0));
+      // Cálculo básico de potencia
+      const p_inst = Math.abs((c.current || 0) * (c.v_drop || 0));
+      P_total += p_inst;
+
+      // Si es un condensador o bobina, lo meto en la reactiva
+      if (c.type === 'capacitor' || c.type === 'inductor') {
+        Q_total += p_inst;
+      }
     });
 
-    this.preguntasEjemplo = [];
+    // Pitágoras para la potencia aparente
+    const S_total = Math.sqrt(Math.pow(P_total, 2) + Math.pow(Q_total, 2));
+    const FP = S_total > 0 ? P_total / S_total : 1;
 
-    // potencia total
-    this.preguntasEjemplo.push({
-      id: 'P',
-      label: 'Potencia total del circuito',
+    const preguntas: any[] = [];
+
+    preguntas.push({
+      label: 'Potencia activa total del circuito',
       valorReal: P_total,
-      respuestaUsuario: null,
       unidad: 'W',
-      acertada: undefined,
     });
-
-    // potencia de un componente random
-    if (comps.length) {
-      const c = comps[(Math.random() * comps.length) | 0];
-
-      this.preguntasEjemplo.push({
-        id: 'Pc',
-        label: `Potencia en ${c.id}`,
-        valorReal: Math.abs((c.current || 0) * (c.v_drop || 0)),
-        respuestaUsuario: null,
-        unidad: 'W',
-        acertada: undefined,
-      });
-    }
-
-    // componente con más potencia
-    if (comps.length) {
-      const max = comps.reduce((a: any, b: any) => {
-        const Pa = Math.abs((a.current || 0) * (a.v_drop || 0));
-        const Pb = Math.abs((b.current || 0) * (b.v_drop || 0));
-        return Pa > Pb ? a : b;
-      });
-
-      this.preguntasEjemplo.push({
-        id: 'Pmax',
-        label: 'Mayor potencia',
-        valorReal: Math.abs((max.current || 0) * (max.v_drop || 0)),
-        respuestaUsuario: null,
-        unidad: 'W',
-        acertada: undefined,
-      });
-    }
-
-    // check de suma
-    this.preguntasEjemplo.push({
-      id: 'Pcheck',
-      label: 'Suma total de potencias',
-      valorReal: P_total,
-      respuestaUsuario: null,
-      unidad: 'W',
-      acertada: undefined,
+    preguntas.push({
+      label: 'Potencia aparente total',
+      valorReal: S_total,
+      unidad: 'VA',
     });
-  }
-
-  // trifásico básico
-  generarTrifasico(circuito: any) {
-    const r = circuito.results || {};
-    const A = r.A || {};
-    const B = r.B || {};
-    const C = r.C || {};
-
-    this.preguntasEjemplo = [];
-
-    // corrientes y tensiones por fase
-    this.preguntasEjemplo.push({
-      id: 'IA',
-      label: 'Corriente fase A',
-      valorReal: this.modulo(A.I_line),
-      unidad: 'A',
-      respuestaUsuario: null,
-      acertada: undefined,
-    });
-
-    this.preguntasEjemplo.push({
-      id: 'IB',
-      label: 'Corriente fase B',
-      valorReal: this.modulo(B.I_line),
-      unidad: 'A',
-      respuestaUsuario: null,
-      acertada: undefined,
-    });
-
-    this.preguntasEjemplo.push({
-      id: 'VA',
-      label: 'Tensión fase A',
-      valorReal: this.modulo(A.V_phase),
-      unidad: 'V',
-      respuestaUsuario: null,
-      acertada: undefined,
-    });
-
-    this.preguntasEjemplo.push({
-      id: 'VC',
-      label: 'Tensión fase C',
-      valorReal: this.modulo(C.V_phase),
-      unidad: 'V',
-      respuestaUsuario: null,
-      acertada: undefined,
-    });
-
-    // fase con más corriente
-    const fases = [
-      { name: 'A', val: this.modulo(A.I_line) },
-      { name: 'B', val: this.modulo(B.I_line) },
-      { name: 'C', val: this.modulo(C.I_line) },
-    ];
-
-    const max = fases.reduce((a, b) => (a.val > b.val ? a : b));
-
-    this.preguntasEjemplo.push({
-      id: 'IMAX',
-      label: 'Fase con mayor corriente',
-      valorReal: max.name,
-      respuestaUsuario: null,
+    preguntas.push({
+      label: 'Factor de potencia (cos φ)',
+      valorReal: Number(FP.toFixed(2)),
       unidad: '',
-      acertada: undefined,
     });
 
-    // diferencia de tensiones
-    this.preguntasEjemplo.push({
-      id: 'Veq',
-      label: 'Diferencia de tensión A-B',
-      valorReal: Math.abs(this.modulo(A.V_phase) - this.modulo(B.V_phase)),
-      unidad: 'V',
-      respuestaUsuario: null,
-      acertada: undefined,
-    });
-
-    // selecciono 4 aleatorias
-    const seleccionadas = this.preguntasEjemplo
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 4);
-
-    this.preguntasEjemplo = seleccionadas.map((p, i) => ({
-      id: `p${i}`,
-      ...p,
-      respuestaUsuario: null,
-      acertada: undefined,
-    }));
-  }
-
-  // potencias trifásicas
-  generarPotenciasTrifasico(circuito: any) {
-    const r = circuito.results || {};
-
-    let P = 0,
-      Q = 0,
-      S = 0;
-
-    // sumo potencias de todas las fases
-    Object.values(r).forEach((f: any) => {
-      P += Math.abs(f.P || 0);
-      Q += Math.abs(f.Q || 0);
-      S += Math.abs(f.S || 0);
-    });
-
-    this.preguntasEjemplo.push(
-      {
-        id: 'P',
-        label: 'Potencia activa total',
-        valorReal: P,
+    if (comps.length > 0) {
+      const c = comps[Math.floor(Math.random() * comps.length)];
+      preguntas.push({
+        label: `Potencia disipada en el componente ${c.type} de ${c.value}`,
+        valorReal: Math.abs((c.current || 0) * (c.v_drop || 0)),
         unidad: 'W',
+      });
+    }
+
+    this.preguntasEjemplo = preguntas
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 4)
+      .map((p, i) => ({
+        id: `p${i}`,
+        ...p,
         respuestaUsuario: null,
         acertada: undefined,
-      },
-      {
-        id: 'Q',
-        label: 'Potencia reactiva total',
-        valorReal: Q,
-        unidad: 'VAR',
-        respuestaUsuario: null,
-        acertada: undefined,
-      },
-      {
-        id: 'S',
-        label: 'Potencia aparente total',
-        valorReal: S,
-        unidad: 'VA',
-        respuestaUsuario: null,
-        acertada: undefined,
-      },
-    );
+      }));
   }
 
-  // calcula módulo (para números complejos en trifásico)
+  // Para sacar el valor de un número complejo (módulo)
   modulo(val: any): number {
     if (!val) return 0;
     if (typeof val === 'number') return Math.abs(val);
-
-    const s = val.toString();
-    const parts = s.match(/[+-]?\d+(\.\d+)?/g) || [];
-
-    const r = Number(parts[0] || 0);
-    const i = Number(parts[1] || 0);
-
-    return Math.sqrt(r * r + i * i);
+    if (val.re !== undefined && val.im !== undefined) {
+      return Math.sqrt(val.re * val.re + val.im * val.im);
+    }
+    return 0;
   }
 
-  // comprobar respuestas del alumno
+  // Cuando el usuario le da al botón de enviar
   comprobarRespuestas() {
+    // Que no se dejen nada vacío
     if (this.preguntasEjemplo.some((p) => p.respuestaUsuario == null)) {
       Swal.fire('Atención', 'Completa todas las preguntas', 'warning');
       return;
@@ -486,28 +355,31 @@ export class BloqueComponent implements OnInit {
       title: '¿Enviar respuestas?',
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: 'Sí, enviar',
     }).then((result) => {
       if (!result.isConfirmed) return;
 
+      // Margen de error del 5% por si hay redondeos
+      const TOLERANCIA = 0.05;
       let aciertos = 0;
 
-      // comparo respuestas con un margen de error del 5%
       this.preguntasEjemplo.forEach((p) => {
-        const ok =
-          Math.abs(p.valorReal - p.respuestaUsuario) / (p.valorReal || 1) <= 0.05;
+        const real = Number(p.valorReal);
+        const user = Number(p.respuestaUsuario);
+
+        // Si es 0 comparo a pelo, si no, saco el porcentaje de error
+        const error =
+          real === 0 ? Math.abs(user) : Math.abs(real - user) / Math.abs(real);
+        const ok = error <= TOLERANCIA;
 
         p.acertada = ok;
-
         if (ok) aciertos++;
       });
 
       const fallos = this.preguntasEjemplo.length - aciertos;
-
       const token = localStorage.getItem('token');
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-      // guardo resultado en backend (historial)
+      // Guardo el resultado en el historial de la base de datos
       this.http
         .post(
           'http://localhost:8000/api/auth/historial/',
@@ -524,11 +396,125 @@ export class BloqueComponent implements OnInit {
         )
         .subscribe(() => {
           this.resultadoVisible = true;
-
           this.mensajeResultado = `${aciertos} de ${this.preguntasEjemplo.length} acertadas`;
-
           Swal.fire('OK', this.mensajeResultado, 'success');
         });
     });
+  }
+
+  // Preguntas para el sistema trifásico (líneas y fases)
+  generarTrifasico(circuito: any) {
+    const r = circuito.results || {};
+    const params = circuito.params || {};
+    const A = r.A || {};
+    const B = r.B || {};
+    const C = r.C || {};
+
+    const preguntas: any[] = [];
+
+    preguntas.push({
+      label: 'Corriente de línea fase A',
+      valorReal: this.modulo(A.I_line),
+      unidad: 'A',
+    });
+    preguntas.push({
+      label: 'Corriente de línea fase B',
+      valorReal: this.modulo(B.I_line),
+      unidad: 'A',
+    });
+    preguntas.push({
+      label: 'Corriente de línea fase C',
+      valorReal: this.modulo(C.I_line),
+      unidad: 'A',
+    });
+    preguntas.push({
+      label: 'Tensión de fase (A)',
+      valorReal: this.modulo(A.V_phase),
+      unidad: 'V',
+    });
+    preguntas.push({
+      label: 'Tensión de línea',
+      valorReal: params.v_line,
+      unidad: 'V',
+    });
+    preguntas.push({
+      label: 'Relación Vlínea / Vfase',
+      valorReal: params.v_line / this.modulo(A.V_phase || 1),
+      unidad: '',
+    });
+
+    this.preguntasEjemplo = preguntas
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 4)
+      .map((p, i) => ({
+        id: `p${i}`,
+        ...p,
+        respuestaUsuario: null,
+        acertada: undefined,
+      }));
+  }
+
+  // Preguntas de potencias pero para trifásica (sistema completo)
+  generarPotenciasTrifasico(circuito: any) {
+    const r = circuito.results || {};
+    let P = 0;
+    let Q = 0;
+    let S = 0;
+
+    // Sumo lo de las tres fases (A, B, C)
+    Object.values(r).forEach((f: any) => {
+      P += Math.abs(f.P || 0);
+      Q += Math.abs(f.Q || 0);
+      S += Math.abs(f.S || 0);
+    });
+
+    const FP = S !== 0 ? P / S : 0;
+    const preguntas: any[] = [];
+
+    preguntas.push({
+      label: 'Potencia activa total del sistema',
+      valorReal: P,
+      unidad: 'W',
+    });
+    preguntas.push({
+      label: 'Potencia reactiva total del sistema',
+      valorReal: Q,
+      unidad: 'VAR',
+    });
+    preguntas.push({
+      label: 'Potencia aparente total del sistema',
+      valorReal: S,
+      unidad: 'VA',
+    });
+    preguntas.push({
+      label: 'Factor de potencia del sistema',
+      valorReal: FP,
+      unidad: '',
+    });
+    preguntas.push({
+      label: 'Potencia activa fase A',
+      valorReal: Math.abs(r.A?.P || 0),
+      unidad: 'W',
+    });
+    preguntas.push({
+      label: 'Potencia activa fase B',
+      valorReal: Math.abs(r.B?.P || 0),
+      unidad: 'W',
+    });
+    preguntas.push({
+      label: 'Potencia activa fase C',
+      valorReal: Math.abs(r.C?.P || 0),
+      unidad: 'W',
+    });
+
+    this.preguntasEjemplo = preguntas
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 4)
+      .map((p, i) => ({
+        id: `p${i}`,
+        ...p,
+        respuestaUsuario: null,
+        acertada: undefined,
+      }));
   }
 }

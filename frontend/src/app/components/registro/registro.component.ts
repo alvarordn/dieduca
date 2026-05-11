@@ -75,8 +75,8 @@ export class RegistroComponent {
   ];
 
   // Inyectamos servicios:
-  // authService -> para llamar al backend
-  // router -> para navegar entre páginas
+  // authService para hacer las peticiones
+  // router para navegar entre paginas
   constructor(
     private authService: AuthService,
     private router: Router,

@@ -11,9 +11,9 @@ type Fase = 'A' | 'B' | 'C';
   templateUrl: './three-phase-viewer.component.html',
   styleUrl: './three-phase-viewer.component.css',
 })
-export class ThreePhaseViewerComponent implements OnChanges {
+export class ThreePhaseViewerComponent  {
 
-  // Datos que vienen desde el componente padre (circuito completo)
+  // Datos que vienen desde el componente padre 
   @Input() data: any;
 
   // Array con las fases eléctricas del sistema
@@ -28,16 +28,11 @@ export class ThreePhaseViewerComponent implements OnChanges {
 
   // Colores asociados a cada fase (para visualización)
   readonly Color: Record<Fase, string> = {
-    A: '#e74c3c', // rojo
-    B: '#3498db', // azul
-    C: '#2ecc71', // verde
+    A: 'black', 
+    B: 'black', 
+    C: 'black', 
   };
 
-  ngOnChanges() {
-
-    // Debug: cada vez que cambian los datos de entrada
-    console.log('data: ', this.data);
-  }
 
   // Getter que asegura que siempre haya un circuito válido
   // (evita errores si data viene undefined)
@@ -76,4 +71,6 @@ export class ThreePhaseViewerComponent implements OnChanges {
     const final = this.sections?.length - 1;
     return this.getSectionX(final) + 120;
   }
+
+  
 }

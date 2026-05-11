@@ -18,6 +18,19 @@ export class TeoriaComponent implements OnInit {
   // ID del bloque que viene por la ruta (URL)
   bloqueId!: number;
 
+    TEMAS_BLOQUES: { [key: number]: string } = {
+    1: 'Conceptos fundamentales y leyes de Kirchhof',
+    2: 'Circuitos Resistivos con Generadores Ideales',
+    3: 'Fuentes reales y circuitos equivalentes',
+    4: 'Técnicas de análisis de circuitos',
+    5: 'Componentes dinámicos',
+    6: 'Análisis de circuitos de corriente continua en distintos regímenes temporales',
+    7: 'Resolución de circuitos de corriente alterna sinusoidal',
+    8: 'Potencia y energía en circuitos de corriente alterna sinusoidal',
+    9: 'Circuitos trifásicos',
+    10: 'Potencia en circuitos trifásicos equilibrados',
+  };
+  tituloBloque: string = '';
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -28,6 +41,7 @@ export class TeoriaComponent implements OnInit {
 
       // Convertimos el id a número porque viene como string
       this.bloqueId = Number(id);
+      this.tituloBloque = this.TEMAS_BLOQUES[this.bloqueId] || 'Bloque';
 
       // Cargamos el PDF correspondiente al bloque
       this.loadPdf();
@@ -43,8 +57,6 @@ export class TeoriaComponent implements OnInit {
     // Construimos la ruta final del PDF
     this.pdfUrl = this.buildPdfPath(parte, this.bloqueId);
 
-    // Debug para ver si la ruta está bien generada
-    console.log('PDF URL:', this.pdfUrl);
   }
 
   // Función que decide en qué carpeta está cada bloque

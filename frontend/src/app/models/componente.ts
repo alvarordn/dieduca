@@ -6,4 +6,5 @@ export interface Componente {
   value: string;
   orientation: 'horizontal' | 'vertical';
   labelPosition: string;
+  
 }

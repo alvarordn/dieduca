@@ -49,16 +49,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
       this.estarActivo = false;
 
-      console.log("Usuario Inactivo");
+
 
     }, this.tiempoInactivo);
   }
 
   startTracking() {
-
-    if (this.estarActivo) {
-      console.log("usuario activo");
-    }
 
     this.intervalId = setInterval(() => {
 
@@ -71,10 +67,6 @@ export class AppComponent implements OnInit, OnDestroy {
           'http://localhost:8000/api/auth/track-time/',
           { uvus: userUvus }
         ).subscribe({
-
-          next: () => console.log('Minuto de conexión registrado'),
-
-          error: () => console.error('Error al registrar tiempo')
         });
       }
 
