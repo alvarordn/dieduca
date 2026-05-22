@@ -1,0 +1,42 @@
+@if (circuitData) {
+  <div class="circuit-container">
+    <svg [attr.viewBox]="'-50 -50 ' + (imgWidth + 100) + ' ' + (imgHeight + 100)" 
+         preserveAspectRatio="xMidYMid meet" class="circuit-svg">
+      
+      <g class="layer-wires">
+        @for (comp of componentes; track comp.id) {
+          @let source = getNode(comp.source); @let target = getNode(comp.target);
+          @if (source && target) {
+            <line [attr.x1]="getNodeX(source.col)" [attr.y1]="getNodeY(source.row)"
+                  [attr.x2]="getNodeX(target.col)" [attr.y2]="getNodeY(target.row)"
+                  stroke="#2c3e50" stroke-width="6" stroke-linecap="round" />
+          }
+        }
+      </g>
+
+      <g class="layer-components">
+        @for (comp of componentes; track comp.id) {
+          @if (comp.type !== 'wire') {
+            @let mid = getComponentMidPoint(comp);
+            <circle [attr.cx]="mid.x" [attr.cy]="mid.y" r="45" fill="#ffffff" />
+            <image [attr.xlink:href]="getComponentImgPath(comp.type)"
+                   [attr.x]="mid.x - 55" [attr.y]="mid.y - 55" width="110" height="110"
+                   [attr.transform]="'rotate(' + getComponentRotation(comp) + ' ' + mid.x + ' ' + mid.y + ')'" />
+          }
+        }
+      </g>
+
+      <g class="layer-labels">
+        @for (comp of componentes; track comp.id) {
+          @if (comp.type !== 'wire') {
+            @let posLabel = getLabelPosition(comp);
+            <text [attr.x]="posLabel.x" [attr.y]="posLabel.y" text-anchor="middle"
+                  fill="#1e293b" font-weight="bold" font-size="24px">
+              {{ comp.id }}
+            </text>
+          }
+        }
+      </g>
+    </svg>
+  </div>
+}

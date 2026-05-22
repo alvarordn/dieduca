@@ -1,194 +1,120 @@
-<!-- contenedor principal de toda la página -->
 <div class="page-wrapper">
 
-  <!-- capa de fondo para efecto visual -->
   <div class="background-overlay"></div>
 
-  <!-- tarjeta principal donde va todo el contenido -->
   <div class="bloque-card animate-fadeIn">
 
-    <!-- cabecera del bloque -->
     <header class="header-section">
-
-      <!-- etiqueta con el número del bloque -->
       <span class="header-badge">Bloque {{ bloqueId }}</span>
-
-      <!-- título principal -->
       <h1>{{ tituloBloque }}</h1>
-
-      <!-- línea decorativa debajo del título -->
       <div class="header-line"></div>
     </header>
 
-    <!-- contenido del ejercicio -->
     <div class="ejercicio-content">
 
-      <!-- sección de configuración del circuito -->
-      <section class="config-section">
-        <h3><i class="bi bi-gear-fill"></i> Parámetros</h3>
-
-        <!-- inputs para configurar el circuito -->
-        <div class="controles-grid">
-
-          <!-- si es bloque monofásico -->
-          @if (bloqueId <= 8) {
-
-            <!-- número de filas -->
-            <div class="control-group">
-              <label>Filas</label>
-              <input type="number" [(ngModel)]="rows" min="2" max="6" [disabled]="cargando"/>
-            </div>
-
-            <!-- número de columnas -->
-            <div class="control-group">
-              <label>Columnas</label>
-              <input type="number" [(ngModel)]="cols" min="2" max="6" [disabled]="cargando"/>
-            </div>
-          }
-
-          <!-- si es bloque trifásico -->
-          @if (bloqueId > 8) {
-
-            <!-- número de secciones del circuito -->
-            <div class="control-group">
-              <label>Secciones</label>
-              <input type="number" [(ngModel)]="secciones" min="2" max="6" [disabled]="cargando"/>
-            </div>
-          }
-
-        </div>
-
-        <!-- botón para generar circuito -->
-        <button class="btn-generar"
-                (click)="generarEjercicio()"
-                [disabled]="cargando">
-
-          <!-- estado normal -->
-          @if (!cargando) {
-            <span>
-              <i class="bi bi-lightning-charge"></i>
-              Generar Circuito
-            </span>
-          }
-
-          <!-- estado cargando -->
-          @else {
-            <span class="loader"></span>
-          }
-
-        </button>
-      </section>
-
-      <!-- si hay error al generar circuito -->
-      @if (errorCircuito) {
-        <div class="error-content">
-          <i class="bi bi-exclamation-triangle"></i>
-          {{ errorCircuito }}
+      @if (bloqueId === 4) {
+        <div class="bloque4-wrapper animate-fadeIn">
+          <app-bloque4></app-bloque4>
         </div>
       }
 
-      <!-- si ya hay circuito generado y no hay error -->
-      @if (circuitoGenerado && !cargando && !errorCircuito) {
+      @else {
+        
+        <section class="config-section">
+          <h3><i class="bi bi-gear-fill"></i> Parámetros</h3>
 
-        <div class="main-display">
-
-          <!-- zona donde se muestra el circuito -->
-          <div class="circuit-container">
-
-            <!-- vista monofásica -->
+          <div class="controles-grid">
             @if (bloqueId <= 8) {
-              <app-circuit-viewer
-                [circuitData]="circuitoGenerado">
-              </app-circuit-viewer>
-            }
-
-            <!-- vista trifásica -->
-            @if (bloqueId > 8) {
-              <app-three-phase-viewer
-                [data]="circuitoGenerado">
-              </app-three-phase-viewer>
-            }
-
-          </div>
-
-          <!-- sección de preguntas -->
-          <section class="preguntas-section">
-
-            <!-- título de la sección -->
-            <div class="section-title">
-              <i class="bi bi-pencil-square"></i>
-              <h3>Evaluación</h3>
-            </div>
-
-            <!-- lista de preguntas -->
-            <div class="preguntas-grid">
-
-              <!-- bucle de preguntas -->
-              @for (p of preguntasEjemplo; track p.id) {
-
-                <!-- cada pregunta -->
-                <div class="pregunta-item"
-                     [ngClass]="{
-                       acierto: p.acertada === true,
-                       error: p.acertada === false
-                     }">
-
-                  <!-- texto de la pregunta -->
-                  <label>{{ p.label }}</label>
-
-                  <!-- input de respuesta -->
-                  <div class="input-wrapper">
-
-                    <input type="number"
-                           [(ngModel)]="p.respuestaUsuario"
-                           placeholder="0.00"
-                           step="0.01"/>
-
-                    <!-- unidad (A, V, W, etc.) -->
-                    <span class="unit">{{ p.unidad }}</span>
-
-                  </div>
-
-                </div>
-
-              }
-
-            </div>
-
-            <!-- botones de acciones -->
-            <div class="acciones-footer">
-
-              <!-- botón para corregir respuestas -->
-              <button class="btn-comprobar"
-                      (click)="comprobarRespuestas()">
-
-                <i class="bi bi-send-check"></i>
-                Corregir
-
-              </button>
-
-              <!-- botón para resetear -->
-              <button class="btn-limpiar"
-                      (click)="limpiarEstado()">
- 
-                <i class="bi bi-arrow-counterclockwise"></i>
-
-              </button>
-
-            </div>
-
-            <!-- mensaje de resultado final -->
-            @if (resultadoVisible) {
-
-              <div class="feedback-toast">
-                {{ mensajeResultado }}
+              <div class="control-group">
+                <label>Filas</label>
+                <input type="number" [(ngModel)]="rows" min="2" max="6" [disabled]="cargando"/>
               </div>
 
+              <div class="control-group">
+                <label>Columnas</label>
+                <input type="number" [(ngModel)]="cols" min="2" max="6" [disabled]="cargando"/>
+              </div>
             }
 
-          </section>
+            @if (bloqueId > 8) {
+              <div class="control-group">
+                <label>Secciones</label>
+                <input type="number" [(ngModel)]="secciones" min="2" max="6" [disabled]="cargando"/>
+              </div>
+            }
+          </div>
 
-        </div>
+          <button class="btn-generar" (click)="generarEjercicio()" [disabled]="cargando">
+            @if (!cargando) {
+              <span>
+                <i class="bi bi-lightning-charge"></i>
+                Generar Circuito
+              </span>
+            } @else {
+              <span class="loader"></span>
+            }
+          </button>
+        </section>
+
+        @if (errorCircuito) {
+          <div class="error-content">
+            <i class="bi bi-exclamation-triangle"></i>
+            {{ errorCircuito }}
+          </div>
+        }
+
+        @if (circuitoGenerado && !cargando && !errorCircuito) {
+          <div class="main-display">
+
+            <div class="circuit-container">
+              @if (bloqueId <= 8) {
+                <app-circuit-viewer [circuitData]="circuitoGenerado"></app-circuit-viewer>
+              }
+
+              @if (bloqueId > 8) {
+                <app-three-phase-viewer [data]="circuitoGenerado"></app-three-phase-viewer>
+              }
+            </div>
+
+            <section class="preguntas-section">
+              <div class="section-title">
+                <i class="bi bi-pencil-square"></i>
+                <h3>Evaluación</h3>
+              </div>
+
+              <div class="preguntas-grid">
+                @for (p of preguntasEjemplo; track p.id) {
+                  <div class="pregunta-item" [ngClass]="{ acierto: p.acertada === true, error: p.acertada === false }">
+                    <label>{{ p.label }}</label>
+
+                    <div class="input-wrapper">
+                      <input type="number" [(ngModel)]="p.respuestaUsuario" placeholder="0.00" step="0.01"/>
+                      <span class="unit">{{ p.unidad }}</span>
+                    </div>
+                  </div>
+                }
+              </div>
+
+              <div class="acciones-footer">
+                <button class="btn-comprobar" (click)="comprobarRespuestas()">
+                  <i class="bi bi-send-check"></i>
+                  Corregir
+                </button>
+
+                <button class="btn-limpiar" (click)="limpiarEstado()">
+                  <i class="bi bi-arrow-counterclockwise"></i>
+                </button>
+              </div>
+
+              @if (resultadoVisible) {
+                <div class="feedback-toast">
+                  {{ mensajeResultado }}
+                </div>
+              }
+            </section>
+
+          </div>
+        }
       }
 
     </div>

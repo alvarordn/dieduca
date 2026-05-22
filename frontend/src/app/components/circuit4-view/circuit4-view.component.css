@@ -1,0 +1,13 @@
+.circuit-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circuit-svg {
+  width: 100%;
+  max-width: 800px; /* Controla qué tan grande puede llegar a verse */
+  height: auto;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+}

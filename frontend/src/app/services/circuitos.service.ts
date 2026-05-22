@@ -8,19 +8,19 @@ import { map } from 'rxjs/operators';
 })
 export class CircuitosService {
 
-  // URL base del backend de circuitos
+  // URL base apuntando al prefijo del servidor Django local
   private baseUrl = 'http://127.0.0.1:8000/api/circuitos';
 
   constructor(private http: HttpClient) {}
 
-  // Genera un circuito y limpia datos inconsistentes del backend
+  /**
+   * Envía los parámetros al backend por POST para generar el circuito correspondiente.
+   * Filtra e inicializa inconsistencias en las fases complejas si es necesario.
+   */
   generarCircuito(datos: any): Observable<any> {
-
     return this.http.post(`${this.baseUrl}/generar_circuito/`, datos).pipe(
-
       map((res: any) => {
-
-        // Comprobamos que la respuesta es válida sin comparaciones débiles
+        // Validación estricta del árbol de propiedades del JSON de respuesta
         const tieneCircuito =
           res &&
           res.success &&
@@ -28,16 +28,14 @@ export class CircuitosService {
           res.circuito.sections;
 
         if (tieneCircuito) {
-
           res.circuito.sections.forEach((s: any) => {
-
-            // Si no existe la parte imaginaria, la inicializamos a 0
+            // Inicialización preventiva de valores imaginarios indefinidos
             if (s?.Z_phase?.im === undefined) {
+              s.Z_phase = s.Z_phase || {};
               s.Z_phase.im = 0;
             }
           });
         }
-
         return res;
       }),
     );
