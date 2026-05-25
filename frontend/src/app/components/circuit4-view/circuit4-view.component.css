@@ -7,7 +7,8 @@
 
 .circuit-svg {
   width: 100%;
-  max-width: 800px; /* Controla qué tan grande puede llegar a verse */
   height: auto;
-  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+  min-height: 550px;
+  background: #f8fafc;
+  border-radius: 12px;
 }

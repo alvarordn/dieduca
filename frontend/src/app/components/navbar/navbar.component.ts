@@ -1,20 +1,27 @@
+// importamos lo necesario de angular
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 
+// servicio que controla login, logout y datos del usuario
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
+
+  // módulos que usa este componente
   imports: [CommonModule, RouterLink, RouterLinkActive],
+
+  // html y css del componente
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
+
 export class NavbarComponent {
 
-  // LISTA DE BLOQUES DEL MENÚ
-  // Cada bloque representa una parte del temario de la asignatura
+  // lista de bloques que salen en el menú
+  // cada uno tiene un id y un nombre
   bloques = [
     { id: 1, nombre: 'Bloque 1' },
     { id: 2, nombre: 'Bloque 2' },
@@ -28,90 +35,101 @@ export class NavbarComponent {
     { id: 10, nombre: 'Bloque 10' },
   ];
 
-  // DATOS DEL USUARIO LOGUEADO
-  nombreUsuario: string | null = '';
+  // nombre del usuario que ha iniciado sesión
+  nombreUsuario: string | null = null;
+
+  // id del usuario sacado del token
   idUsuario: string | null = null;
 
-  // ESTADO DE LOGIN (no se usa mucho porque lo controla el servicio)
-  estaLogeado: boolean = false;
-
-  // controla qué bloque está desplegado en el menú
+  // bloque desplegable abierto
   bloqueAbierto: number | null = null;
 
-  // controla si el menú móvil está abierto o cerrado
-  menuMovilAbierto: boolean = false;
+  // controla si el menú móvil está abierto
+  menuMovilAbierto = false;
 
+  // inyectamos el servicio de autenticación
   constructor(public authService: AuthService) {}
 
+  // se ejecuta cuando carga el componente
   ngOnInit() {
 
-    // nos suscribimos al observable del usuario (login/logout en tiempo real)
+    // escuchamos cambios del usuario
     this.authService.uvus$.subscribe((uvus) => {
 
-      // si hay usuario logueado
+      // si existe usuario
       if (uvus) {
 
-        // formateamos el nombre (primera mayúscula)
+        // ponemos la primera letra en mayúscula
         this.nombreUsuario =
-          uvus.charAt(0).toUpperCase() + uvus.slice(1).toLowerCase();
+          uvus.charAt(0).toUpperCase() +
+          uvus.slice(1).toLowerCase();
 
-        // obtenemos token guardado
+        // obtenemos el token guardado
         const token = this.authService.getToken();
 
-        // si existe token, sacamos el id del usuario
+        // si hay token intentamos sacar el id
         if (token) {
           try {
             this.idUsuario = this.authService.getUserId();
-          } catch (e) {
-            console.error('Error al decodificar el token', e);
+
+          } catch (error) {
+
+            // error por si el token falla
+            console.error('Error leyendo el token', error);
           }
         }
 
       } else {
-        // si no hay usuario logueado, limpiamos datos
+
+        // si no hay usuario limpiamos datos
         this.nombreUsuario = null;
         this.idUsuario = null;
       }
     });
   }
 
-  // CERRAR SESIÓN
+  // cerrar sesión
   logout() {
     this.authService.logout();
   }
 
-  // ABRIR DESPLEGABLE DE UN BLOQUE (hover en desktop)
-  abrirDesplegable(bloqueId: number) {
-    this.bloqueAbierto = bloqueId;
+  // abrir desplegable de un bloque
+  abrirDesplegable(id: number) {
+    this.bloqueAbierto = id;
   }
 
-  // CERRAR DESPLEGABLE
+  // cerrar desplegable
   cerrarDesplegable() {
     this.bloqueAbierto = null;
   }
 
-  // COMPROBAR SI UN BLOQUE ESTÁ ABIERTO
-  estaAbierto(bloqueId: number): boolean {
-    return this.bloqueAbierto === bloqueId;
+  // comprobar si un bloque está abierto
+  estaAbierto(id: number): boolean {
+    return this.bloqueAbierto === id;
   }
 
-  // ABRIR / CERRAR MENÚ MÓVIL (hamburguesa)
+  // abrir o cerrar menú móvil
   toggleMenuMovil() {
     this.menuMovilAbierto = !this.menuMovilAbierto;
   }
 
-  // CERRAR MENÚ MÓVIL COMPLETAMENTE
+  // cerrar menú móvil entero
   cerrarMenuMovil() {
     this.menuMovilAbierto = false;
     this.bloqueAbierto = null;
   }
 
-  // TOGGLE DE DESPLEGABLE EN MÓVIL (click en bloque)
-  toggleDesplegableMovil(bloqueId: number) {
-    if (this.bloqueAbierto === bloqueId) {
+  // abrir/cerrar desplegable en móvil
+  toggleDesplegableMovil(id: number) {
+
+    // si ya está abierto se cierra
+    if (this.bloqueAbierto === id) {
       this.bloqueAbierto = null;
+
     } else {
-      this.bloqueAbierto = bloqueId;
+
+      // si no, se abre
+      this.bloqueAbierto = id;
     }
   }
 }

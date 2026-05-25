@@ -186,7 +186,7 @@ def generar_circuito(request):
         if bloque_id == 4:
             nodos = []
             componentes = []
-            pregunta = {}
+            preguntas = []
 
             # Seleccionamos una plantilla aleatoria (o fija según tu lógica de test)
             plantilla = int(request.data.get('plantilla', 1))
@@ -204,14 +204,16 @@ def generar_circuito(request):
                 )
 
                 # 📌 Asegúrate de que las listas [...] estén bien metidas dentro de los paréntesis (...)
-                val_Ig = float(python_random.choice([1, 2, 3, 4, 5]))
-                val_R1 = float(python_random.choice([10, 20, 30, 40]))
-                val_R2 = float(python_random.choice([5, 15, 25, 35]))
-                val_R3 = float(python_random.choice([50, 100, 150]))
+                val_Ig = float(python_random.choice([10]))  # fijo para que coincida con el enunciado
+                val_R1 = float(python_random.choice([1]))
+                val_R2 = float(python_random.choice([1]))
+                val_R3 = float(python_random.choice([1]))
 
                 # Resolución analítica exacta por Kirchhoff (Método de Nudos)
-                va_solucion = float(val_Ig * (val_R1 + val_R2))
-                vb_solucion = 0.0
+                va_solucion = 15.0
+                vb_solucion = 10.0
+                pr1_solucion = 25.0
+                pig_solucion = 150.0
 
                 # 📌 MAPEADO DE COORDENADAS (Basado fielmente en tu imagen)
                 # Fila 0: Cable superior de R1
@@ -259,13 +261,33 @@ def generar_circuito(request):
                     {"id": "W_C_R", "source": "N00_GND", "target": "N32", "type": "wire", "value": "", "orientation": "horizontal", "labelPosition": "inside-bottom"}
                 ]
 
-                pregunta = {
+                preguntas = {
                     "id": "p1",
                     "enunciado_general": enunciado_global,
-                    "datos_enunciado": f"Datos: Ig = {val_Ig} A, R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω.",
-                    "label": "Tensión en el nudo A (VA)",
-                    "unidad": "V",
-                    "solucion": round(va_solucion, 2)
+                    "datos_enunciado": "Datos: Ig = 10 A, R1 = R2 = R3 = 1Ω.",
+                    "items": [
+                        {
+                            "label": "Tensión en el nudo A (VA)",
+                            "unidad": "V",
+                            "solucion": va_solucion
+                        },
+                        {
+                            "label": "Tensión en el nudo B (VB)",
+                            "unidad": "V",
+                            "solucion": vb_solucion
+                        },
+                        {
+                            "label": "Potencia en R1",
+                            "unidad": "W",
+                            "solucion": pr1_solucion
+                        },
+                        {
+                            "label": "Potencia de la fuente Ig",
+                            "unidad": "W",
+                            "solucion": pig_solucion,
+                            "nota": "cedida"
+                        }
+                    ]
                 }
 
 
@@ -279,12 +301,12 @@ def generar_circuito(request):
                     )
 
                     # 📌 Valores aleatorios corregidos metiendo las listas dentro de los corchetes [...]
-                    val_Ig = float(python_random.choice([1.0, 2.0, 3.0, 4.0, 5.0]))
-                    val_R1 = float(python_random.choice([10.0, 20.0, 30.0, 40.0]))
-                    val_R2 = float(python_random.choice([5.0, 15.0, 25.0, 35.0]))
-                    val_R3 = float(python_random.choice([50.0, 100.0, 150.0]))
-                    val_R4 = float(python_random.choice([50.0, 100.0, 150.0]))
-                    val_R5 = float(python_random.choice([50.0, 100.0, 150.0]))
+                    val_Ig = 10.0
+                    val_R1 = 2.0
+                    val_R2 = 2.0
+                    val_R3 = 4.0
+                    val_R4 = 4.0
+                    val_R5 = 4.0
 
                     # 📌 RESOLUCIÓN ANALÍTICA (Sistema de ecuaciones de nudos)
                     import numpy as np
@@ -301,9 +323,11 @@ def generar_circuito(request):
                         soluciones = np.linalg.solve(A_matriz, B_matriz)
 
                         # 📌 Corregido: Extracción escalar usando índices para evitar el TypeError
-                        va_sol = float(soluciones[0])
-                        vb_sol = float(soluciones[1])
-                        vc_sol = float(soluciones[2])
+                        va_sol = 30.0
+                        vb_sol = 20.0
+                        vc_sol = 20.0
+                        i_r2_sol = 5.0
+
 
                         # Intensidad por R2 (de A hacia C)
                         i_r2_sol = float((va_sol - vc_sol) / val_R2)
@@ -347,13 +371,37 @@ def generar_circuito(request):
                         {"id": "W_GND_R", "source": "SE", "target": "GND", "type": "wire"}
                     ]
 
-                    pregunta = {
+                    preguntas = {
                         "id": "p2",
+
                         "enunciado_general": enunciado_global,
-                        "datos_enunciado": f"Datos: Ig = {val_Ig} A, R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω, R4 = {val_R4} Ω, R5 = {val_R5} Ω.",
-                        "label": "Intensidad de corriente a través de R2 (I_R2)",
-                        "unidad": "A",
-                        "solucion": round(i_r2_sol, 3)
+
+                        "datos_enunciado": (
+                            "Datos: Ig = 10 A, R1 = 2 Ω, R2 = 2 Ω, R3 = R4 = R5 = 4 Ω."
+                        ),
+
+                        "items": [
+                            {
+                                "label": "Tensión en el nudo A (VA)",
+                                "unidad": "V",
+                                "solucion": va_sol
+                            },
+                            {
+                                "label": "Tensión en el nudo B (VB)",
+                                "unidad": "V",
+                                "solucion": vb_sol
+                            },
+                            {
+                                "label": "Tensión en el nudo C (VC)",
+                                "unidad": "V",
+                                "solucion": vc_sol
+                            },
+                            {
+                                "label": "Corriente por R2 (IR2)",
+                                "unidad": "A",
+                                "solucion": i_r2_sol
+                            }
+                        ]
                     }
 
             # -------------------------------------------------
@@ -366,13 +414,13 @@ def generar_circuito(request):
                     )
 
                     # 📌 Valores aleatorios para los componentes (Incluyendo Eg y Rg)
-                    val_Eg = float(python_random.choice([10.0, 12.0, 24.0, 30.0])) # Fuente de tensión en Voltios
-                    val_Rg = float(python_random.choice([2.0, 4.0, 5.0]))          # Resistencia de la fuente
-                    val_R1 = float(python_random.choice([10.0, 20.0, 30.0]))
-                    val_R2 = float(python_random.choice([5.0, 15.0, 25.0]))
-                    val_R3 = float(python_random.choice([50.0, 100.0, 150.0]))
-                    val_R4 = float(python_random.choice([50.0, 100.0, 150.0]))
-                    val_R5 = float(python_random.choice([50.0, 100.0, 150.0]))
+                    val_Eg = 20.0
+                    val_Rg = 2.0
+                    val_R1 = 2.0
+                    val_R2 = 2.0
+                    val_R3 = 4.0
+                    val_R4 = 4.0
+                    val_R5 = 4.0
 
                     # 📌 RESOLUCIÓN ANALÍTICA POR MATRICES
                     # Nota: La rama izquierda ahora tiene Eg y Rg en serie conectadas hacia el Nudo A.
@@ -391,9 +439,11 @@ def generar_circuito(request):
 
                     try:
                         soluciones = np.linalg.solve(A_matriz, B_matriz)
-                        va_sol = float(soluciones[0])
-                        vb_sol = float(soluciones[1])
-                        vc_sol = float(soluciones[2])
+                        va_sol = 12.0
+                        vb_sol = 8.0
+                        vc_sol = 8.0
+
+                        p_total = 80.0
                     except np.linalg.LinAlgError:
                         va_sol, vb_sol, vc_sol = 0.0, 0.0, 0.0
 
@@ -442,13 +492,19 @@ def generar_circuito(request):
                         {"id": "W_GND_R", "source": "SE", "target": "GND", "type": "wire"}
                     ]
 
-                    pregunta = {
+                    preguntas = {
                         "id": "p3",
                         "enunciado_general": enunciado_global,
-                        "datos_enunciado": f"Datos: Eg = {val_Eg} V, Rg = {val_Rg} Ω, R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω, R4 = {val_R4} Ω, R5 = {val_R5} Ω.",
-                        "label": "Tensión en el nudo A (VA)",
-                        "unidad": "V",
-                        "solucion": round(va_sol, 2)
+                        "datos_enunciado": (
+                            "Datos: Eg = 20 V, R1 = 2 Ω, R2 = 2 Ω, R3 = 4 Ω, "
+                            "R4 = 4 Ω, R5 = 4 Ω, Rg = 2 Ω."
+                        ),
+                        "items": [
+                            {"label": "Tensión en el nudo A (VA)", "unidad": "V", "solucion": va_sol},
+                            {"label": "Tensión en el nudo B (VB)", "unidad": "V", "solucion": vb_sol},
+                            {"label": "Tensión en el nudo C (VC)", "unidad": "V", "solucion": vc_sol},
+                            {"label": "Potencia total consumida", "unidad": "W", "solucion": p_total}
+                        ]
                     }
             # -------------------------------------------------
             # PLANTILLA 4 (Tensiones de nudos - Problema 4)
@@ -460,12 +516,12 @@ def generar_circuito(request):
                 )
 
                 # 📌 Valores aleatorios para los componentes
-                val_Eg = float(python_random.choice([5.0, 10.0, 12.0, 15.0])) # Fuente de tensión entre A y B
-                val_R1 = float(python_random.choice([10.0, 20.0, 30.0]))
-                val_R2 = float(python_random.choice([5.0, 15.0, 25.0]))
-                val_R3 = float(python_random.choice([20.0, 40.0, 50.0]))
-                val_R4 = float(python_random.choice([50.0, 100.0, 150.0]))
-                val_R5 = float(python_random.choice([50.0, 100.0, 150.0]))
+                val_Eg = 11.0
+                val_R1 = 2.0
+                val_R2 = 4.0
+                val_R3 = 2.0
+                val_R4 = 4.0
+                val_R5 = 1.0
 
                 # 📌 RESOLUCIÓN ANALÍTICA (Planteamiento con Supernudo A-B)
                 # Ecuación del supernudo (A y B juntos):
@@ -487,9 +543,10 @@ def generar_circuito(request):
 
                 try:
                     soluciones = np.linalg.solve(A_matriz, B_matriz)
-                    va_sol = float(soluciones[0])
-                    vb_sol = float(soluciones[1])
-                    vc_sol = float(soluciones[2])
+                    va_sol = -5.0
+                    vb_sol = 6.0
+                    vc_sol = 1.0
+                    p_fuente = 44.0
                 except np.linalg.LinAlgError:
                     va_sol, vb_sol, vc_sol = 0.0, 0.0, 0.0
 
@@ -530,13 +587,19 @@ def generar_circuito(request):
                     {"id": "W_GND_R", "source": "SE", "target": "GND", "type": "wire"}
                 ]
 
-                pregunta = {
+                preguntas = {
                     "id": "p4",
                     "enunciado_general": enunciado_global,
-                    "datos_enunciado": f"Datos: Eg = {val_Eg} V, R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω, R4 = {val_R4} Ω, R5 = {val_R5} Ω.",
-                    "label": "Tensión en el nudo B (VB)",
-                    "unidad": "V",
-                    "solucion": round(vb_sol, 2)
+                    "datos_enunciado": (
+                        f"Datos: Eg = {val_Eg} V, R1 = {val_R1} Ω, R2 = {val_R2} Ω, "
+                        f"R3 = {val_R3} Ω, R4 = {val_R4} Ω, R5 = {val_R5} Ω."
+                    ),
+                    "items": [
+                        {"label": "Tensión en el nudo A (VA)", "unidad": "V", "solucion": va_sol},
+                        {"label": "Tensión en el nudo B (VB)", "unidad": "V", "solucion": vb_sol},
+                        {"label": "Tensión en el nudo C (VC)", "unidad": "V", "solucion": vc_sol},
+                        {"label": "Potencia cedida por la fuente", "unidad": "W", "solucion": p_fuente}
+                    ]
                 }
 
             # -------------------------------------------------
@@ -549,14 +612,13 @@ def generar_circuito(request):
                 )
 
                 # 📌 Valores aleatorios para los componentes
-                val_Eg = float(python_random.choice([10.0, 12.0, 15.0, 24.0])) # En Voltios
-                val_Ig = float(python_random.choice([1.0, 2.0, 3.0, 4.0]))     # En Amperios
-                val_R1 = float(python_random.choice([10.0, 20.0, 30.0]))
-                val_R2 = float(python_random.choice([5.0, 15.0, 25.0]))
-                val_R3 = float(python_random.choice([20.0, 40.0, 50.0]))
-                val_R4 = float(python_random.choice([50.0, 100.0, 150.0]))
-                val_R5 = float(python_random.choice([50.0, 100.0, 150.0]))
-
+                val_Eg = 20.0
+                val_Ig = 4.0
+                val_R1 = 2.0
+                val_R2 = 2.0
+                val_R3 = 2.0
+                val_R4 = 2.0
+                val_R5 = 2.0
                 # 📌 RESOLUCIÓN ANALÍTICA (Matriz de nudos reducida ya que VA = Eg)
                 # Como VA ya se conoce (Eg), resolvemos para VB y VC:
                 # Nudo B: VB * (1/R1 + 1/R3 + 1/R4) - VC * (1/R3) = Eg * (1/R1)
@@ -576,9 +638,12 @@ def generar_circuito(request):
 
                 try:
                     soluciones = np.linalg.solve(A_matriz, B_matriz)
-                    va_sol = float(val_Eg)
-                    vb_sol = float(soluciones[0])
-                    vc_sol = float(soluciones[1])
+                    va_sol = 20.0
+                    vb_sol = 11.0
+                    vc_sol = 13.0
+
+                    pv_sol = 160.0   # Potencia fuente de tensión
+                    pi_sol = 67.0
                 except np.linalg.LinAlgError:
                     va_sol, vb_sol, vc_sol = 0.0, 0.0, 0.0
 
@@ -622,13 +687,21 @@ def generar_circuito(request):
                     {"id": "W_GND_EXT", "source": "SE", "target": "SE_EXT", "type": "wire"}
                 ]
 
-                pregunta = {
+                preguntas = {
                     "id": "p5",
                     "enunciado_general": enunciado_global,
-                    "datos_enunciado": f"Datos: Eg = {val_Eg} V, Ig = {val_Ig} A, R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω, R4 = {val_R4} Ω, R5 = {val_R5} Ω.",
-                    "label": "Tensión en el nudo C (VC)",
-                    "unidad": "V",
-                    "solucion": round(vc_sol, 2)
+                    "datos_enunciado": (
+                        f"Datos: Eg = {val_Eg} V, Ig = {val_Ig} A, "
+                        f"R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω, "
+                        f"R4 = {val_R4} Ω, R5 = {val_R5} Ω."
+                    ),
+                    "items": [
+                        {"label": "Tensión en el nudo A (VA)", "unidad": "V", "solucion": va_sol},
+                        {"label": "Tensión en el nudo B (VB)", "unidad": "V", "solucion": vb_sol},
+                        {"label": "Tensión en el nudo C (VC)", "unidad": "V", "solucion": vc_sol},
+                        {"label": "Potencia fuente de tensión", "unidad": "W", "solucion": pv_sol},
+                        {"label": "Potencia fuente de corriente", "unidad": "W", "solucion": pi_sol}
+                    ]
                 }
 
             # -------------------------------------------------
@@ -641,14 +714,14 @@ def generar_circuito(request):
                 )
 
                 # 📌 Valores aleatorios (Mantenemos magnitudes reales en el choice)
-                val_Eg_mag = float(python_random.choice([10.0, 20.0, 50.0, 100.0])) # Magnitud en Voltios (RMS)
-                val_R1 = float(python_random.choice([10.0, 20.0, 30.0]))
-                val_R2 = float(python_random.choice([5.0, 15.0, 25.0]))
-                val_R3 = float(python_random.choice([40.0, 50.0, 60.0]))
+                val_Eg = 4.0
+                val_R1 = 1.0
+                val_R2 = 2.0
+                val_R3 = 2.0
 
                 # 📌 RESOLUCIÓN ANALÍTICA (Sistema de mallas en CA)
                 # Definimos la fuente como un número complejo puro (fase 0°)
-                Eg = complex(val_Eg_mag, 0.0)
+                Eg = complex(val_Eg, 0.0)
 
                 # Planteamiento de ecuaciones de malla:
                 # Malla a: Ia * (R1 + R2) - Ib * R2 = 0
@@ -664,11 +737,14 @@ def generar_circuito(request):
                 try:
                     soluciones = np.linalg.solve(Z_matriz, V_matriz)
                     # Extraemos las corrientes complejas de malla
-                    ia_complex = soluciones[0]
-                    ib_complex = soluciones[1]
+                    ia_sol = float(soluciones[0])
+                    ib_sol = float(soluciones[1])
+
+                    # 📌 Potencia generada por la fuente
+                    pg_sol = float(val_Eg * ia_sol)
 
                     # Calculamos la magnitud de la corriente Ib (por ejemplo, para la solución)
-                    solucion_magnitud = float(np.abs(ib_complex))
+                    solucion_magnitud = float(np.abs(ib_sol))
                 except np.linalg.LinAlgError:
                     solucion_magnitud = 0.0
 
@@ -697,13 +773,27 @@ def generar_circuito(request):
                     {"id": "W_LO_BOT", "source": "SW", "target": "SE", "type": "wire"}
                 ]
 
-                pregunta = {
+                preguntas = {
                     "id": "p6",
                     "enunciado_general": enunciado_global,
-                    "datos_enunciado": f"Datos: Eg = {val_Eg_mag} V (CA), R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω.",
-                    "label": "Magnitud de la corriente de malla Ib",
-                    "unidad": "A",
-                    "solucion": round(solucion_magnitud, 2)
+                    "datos_enunciado": f"Datos: Eg = {val_Eg} V, R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω.",
+                    "items": [
+                        {
+                            "label": "Corriente de malla Ia",
+                            "unidad": "A",
+                            "solucion": round(ia_sol, 2)
+                        },
+                        {
+                            "label": "Corriente de malla Ib",
+                            "unidad": "A",
+                            "solucion": round(ib_sol, 2)
+                        },
+                        {
+                            "label": "Potencia generada por la fuente",
+                            "unidad": "W",
+                            "solucion": round(pg_sol, 2)
+                        }
+                    ]
                 }
 
             # -------------------------------------------------
@@ -716,13 +806,13 @@ def generar_circuito(request):
                     )
 
                     # 📌 Valores aleatorios para los componentes
-                    val_Ig = float(python_random.choice([1.0, 2.0, 3.0, 4.0]))     # Fuente de corriente (hacia abajo)
-                    val_Rg = float(python_random.choice([10.0, 20.0, 30.0]))
-                    val_R1 = float(python_random.choice([10.0, 15.0, 25.0]))
-                    val_R2 = float(python_random.choice([5.0, 10.0, 20.0]))
-                    val_R3 = float(python_random.choice([20.0, 40.0, 50.0]))
-                    val_R4 = float(python_random.choice([50.0, 100.0, 150.0]))
-                    val_R5 = float(python_random.choice([50.0, 100.0, 150.0]))
+                    val_Ig = 12.0
+                    val_Rg = 2.0
+                    val_R1 = 2.0
+                    val_R2 = 2.0
+                    val_R3 = 2.0
+                    val_R4 = 2.0
+                    val_R5 = 2.0
 
                     # 📌 RESOLUCIÓN ANALÍTICA (Sistema de 3 mallas: Ia, Ib, Ic)
                     # Nota: La fuente de corriente Ig externa define una relación, pero al estar en paralelo con Rg,
@@ -742,9 +832,10 @@ def generar_circuito(request):
 
                     try:
                         soluciones = np.linalg.solve(A_matriz, B_matriz)
-                        ia_sol = float(soluciones[0])
-                        ib_sol = float(soluciones[1])
-                        ic_sol = float(soluciones[2])
+                        ia_sol = -6.0
+                        ib_sol = -3.0
+                        ic_sol = -3.0
+                        p_total = 144.0
                     except np.linalg.LinAlgError:
                         ia_sol, ib_sol, ic_sol = 0.0, 0.0, 0.0
 
@@ -794,13 +885,23 @@ def generar_circuito(request):
                         {"id": "W_LO_2", "source": "SE", "target": "GND", "type": "wire"}
                     ]
 
-                    pregunta = {
+                    preguntas = {
                         "id": "p7",
                         "enunciado_general": enunciado_global,
-                        "datos_enunciado": f"Datos: Ig = {val_Ig} A, Rg = {val_Rg} Ω, R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω, R4 = {val_R4} Ω, R5 = {val_R5} Ω.",
+                        "datos_enunciado": (
+                            "Datos: Ig = 12 A, R1 = R2 = R3 = R4 = R5 = Rg = 2 Ω."
+                        ),
                         "label": "Corriente de malla Ia",
                         "unidad": "A",
-                        "solucion": round(ia_sol, 2)
+                        "solucion": ia_sol,
+
+                        # 👇 EXTRA IMPORTANTE (para frontend)
+                        "items": [
+                            {"label": "Ia", "unidad": "A", "solucion": ia_sol},
+                            {"label": "Ib", "unidad": "A", "solucion": ib_sol},
+                            {"label": "Ic", "unidad": "A", "solucion": ic_sol},
+                            {"label": "Potencia total", "unidad": "W", "solucion": p_total}
+                        ]
                     }
             # -------------------------------------------------
             # PLANTILLA 8 (Intensidades de malla - Problema 8)
@@ -812,12 +913,12 @@ def generar_circuito(request):
                     )
 
                     # 📌 Valores aleatorios para los componentes
-                    val_Ig = float(python_random.choice([1.0, 1.5, 2.0, 2.5])) # Fuente de corriente intermedia
-                    val_R1 = float(python_random.choice([10.0, 20.0, 30.0]))
-                    val_R2 = float(python_random.choice([15.0, 25.0, 35.0]))
-                    val_R3 = float(python_random.choice([10.0, 20.0, 40.0]))
-                    val_R4 = float(python_random.choice([50.0, 100.0, 150.0]))
-                    val_R5 = float(python_random.choice([50.0, 100.0, 150.0]))
+                    val_Ig = 8.0
+                    val_R1 = 2.0
+                    val_R2 = 1.0
+                    val_R3 = 2.0
+                    val_R4 = 1.0
+                    val_R5 = 1.0
 
                     # 📌 RESOLUCIÓN ANALÍTICA (Planteamiento con Supermalla)
                     # Ecuación de Malla a: Ia * (R1 + R2 + R4) - Ib * R2 - Ic * R4 = 0
@@ -836,9 +937,10 @@ def generar_circuito(request):
 
                     try:
                         soluciones = np.linalg.solve(A_matriz, B_matriz)
-                        ia_sol = float(soluciones[0])
-                        ib_sol = float(soluciones[1])
-                        ic_sol = float(soluciones[2])
+                        ia_sol = 0.5
+                        ib_sol = -3.0
+                        ic_sol = 5.0
+                        p_total = 76.0
                     except np.linalg.LinAlgError:
                         ia_sol, ib_sol, ic_sol = 0.0, 0.0, 0.0
 
@@ -880,13 +982,19 @@ def generar_circuito(request):
                         {"id": "W_LO_2", "source": "SE", "target": "GND", "type": "wire"}
                     ]
 
-                    pregunta = {
+                    preguntas = {
                         "id": "p8",
                         "enunciado_general": enunciado_global,
-                        "datos_enunciado": f"Datos: Ig = {val_Ig} A, R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω, R4 = {val_R4} Ω, R5 = {val_R5} Ω.",
-                        "label": "Corriente de malla Ic",
-                        "unidad": "A",
-                        "solucion": round(ic_sol, 2)
+                        "datos_enunciado": (
+                            "Datos: Ig = 8 A, R1 = 2 Ω, R2 = 1 Ω, R3 = 2 Ω, R4 = 1 Ω, R5 = 1 Ω."
+                        ),
+
+                        "items": [
+                            {"label": "Ia", "unidad": "A", "solucion": ia_sol},
+                            {"label": "Ib", "unidad": "A", "solucion": ib_sol},
+                            {"label": "Ic", "unidad": "A", "solucion": ic_sol},
+                            {"label": "Potencia cedida por la fuente", "unidad": "W", "solucion": p_total}
+                        ]
                     }
 
             # -------------------------------------------------
@@ -899,14 +1007,20 @@ def generar_circuito(request):
                     )
 
                     # 📌 Valores aleatorios para los componentes
-                    val_Ig = float(python_random.choice([1.0, 2.0, 3.0]))          # Fuente de corriente superior
-                    val_Eg = float(python_random.choice([10.0, 12.0, 20.0, 24.0])) # Fuente de tensión central-derecha
-                    val_R1 = float(python_random.choice([10.0, 20.0, 30.0]))
-                    val_R2 = float(python_random.choice([15.0, 25.0, 35.0]))
-                    val_R3 = float(python_random.choice([10.0, 20.0, 40.0]))
-                    val_R4 = float(python_random.choice([50.0, 100.0, 150.0]))
-                    val_R5 = float(python_random.choice([50.0, 100.0, 150.0]))
+                    val_Ig = 5.0
+                    val_Eg = 10.0
+                    val_R1 = 2.0
+                    val_R2 = 2.0
+                    val_R3 = 2.0
+                    val_R4 = 2.0
+                    val_R5 = 2.0
 
+                    ia_sol = 3.0
+                    ib_sol = 5.0
+                    ic_sol = 4.0
+
+                    PIg = 120.0
+                    PEg = -10.0
                     # 📌 RESOLUCIÓN ANALÍTICA
                     # Al estar Ig en la periferia de la malla b: Ib = val_Ig
                     # Nos queda un sistema de 2 ecuaciones con 2 incógnitas (Ia, Ic):
@@ -970,13 +1084,23 @@ def generar_circuito(request):
                         {"id": "W_LO_2", "source": "SE", "target": "GND", "type": "wire"}
                     ]
 
-                    pregunta = {
+                    preguntas = {
                         "id": "p9",
                         "enunciado_general": enunciado_global,
-                        "datos_enunciado": f"Datos: Ig = {val_Ig} A, Eg = {val_Eg} V, R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω, R4 = {val_R4} Ω, R5 = {val_R5} Ω.",
-                        "label": "Corriente de malla Ia",
-                        "unidad": "A",
-                        "solucion": round(ia_sol, 2)
+                        "datos_enunciado": (
+                            f"Datos: Ig = {val_Ig} A, Eg = {val_Eg} V, "
+                            f"R1 = {val_R1} Ω, R2 = {val_R2} Ω, R3 = {val_R3} Ω, "
+                            f"R4 = {val_R4} Ω, R5 = {val_R5} Ω."
+                        ),
+
+                        # 👇 FORMATO UNIFICADO
+                        "items": [
+                            {"label": "Corriente de malla Ia", "unidad": "A", "solucion": ia_sol},
+                            {"label": "Corriente de malla Ib", "unidad": "A", "solucion": ib_sol},
+                            {"label": "Corriente de malla Ic", "unidad": "A", "solucion": ic_sol},
+                            {"label": "Potencia de la fuente Ig", "unidad": "W", "solucion": PIg},
+                            {"label": "Potencia de la fuente Eg", "unidad": "W", "solucion": PEg}
+                        ]
                     }
             # Envoltura final idéntica a tus especificaciones del JSON
             return Response({
@@ -988,7 +1112,7 @@ def generar_circuito(request):
                     "cols": 5,
                     "nodos": nodos,
                     "componentes": componentes,
-                    "preguntas": pregunta
+                    "preguntas": preguntas
                 }
             }, status=status.HTTP_200_OK)
 

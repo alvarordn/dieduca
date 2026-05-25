@@ -5,6 +5,17 @@
   animation: fadeIn 0.4s ease;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* =========================
    TITULO
 ========================= */
@@ -21,91 +32,69 @@ h2 {
   border-radius: 14px;
   padding: 12px;
   border: 1px solid #dbe4ff;
-  transition: all 0.25s ease;
-  box-shadow: none;
 }
 
 .form-select:focus {
   border-color: #0d6efd;
-  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.2);
+  box-shadow: 0 0 0 0.2rem rgba(13,110,253,.2);
 }
 
 /* =========================
-   TARJETAS
+   CARDS GENERALES
 ========================= */
 .card {
   border-radius: 24px;
   overflow: hidden;
-  background: #ffffff;
   transition: all 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08) !important;
 }
 
 /* =========================
-   CUERPO TARJETA
+   CIRCUITO CARD
 ========================= */
-.card-body {
-  padding: 2rem;
+.circuit-card {
+  width: 100%;
+  max-width: 900px;
+}
+
+/* BODY DEL CIRCUITO CENTRADO */
+.circuit-body {
+  width: 100%;
+  min-height: 450px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1rem;
+}
+
+/* COMPONENTE DEL CIRCUITO */
+.circuit-view {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* =========================
-   ALERT ENUNCIADO
+   ALERT
 ========================= */
 .alert-warning {
   border: none;
   border-radius: 18px;
-  background: linear-gradient(135deg, #fff8e1, #fff3cd);
-  box-shadow: 0 6px 18px rgba(255, 193, 7, 0.12);
-}
-
-.alert-warning h6 {
-  color: #b58105;
-  font-size: 1rem;
-}
-
-.alert-warning p {
-  margin-bottom: 10px;
-  color: #555;
-}
-
-.alert-warning .text-primary {
-  font-size: 1.1rem;
+  background: linear-gradient(135deg,#fff8e1,#fff3cd);
 }
 
 /* =========================
-   INPUT RESPUESTA
+   INPUTS
 ========================= */
-.bg-white {
-  border-radius: 18px !important;
-  transition: all 0.25s ease;
-}
-
-.bg-white:hover {
-  border-color: #0d6efd !important;
-}
-
 .form-control {
   border-radius: 12px 0 0 12px;
-  padding: 12px;
-  border: 1px solid #dbe4ff;
-  transition: all 0.25s ease;
-}
-
-.form-control:focus {
-  border-color: #0d6efd;
-  box-shadow: none;
-}
-
-.input-group-text {
-  border-radius: 0 12px 12px 0;
-  background: #0d6efd;
-  color: white;
-  border: none;
-  padding: 0 18px;
 }
 
 /* =========================
@@ -113,17 +102,7 @@ h2 {
 ========================= */
 .btn-success {
   border-radius: 16px;
-  padding: 14px;
   font-weight: 600;
-  font-size: 1rem;
-  background: linear-gradient(135deg, #198754, #20c997);
-  border: none;
-  transition: all 0.3s ease;
-}
-
-.btn-success:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(25, 135, 84, 0.25);
 }
 
 /* =========================
@@ -135,33 +114,10 @@ h2 {
 }
 
 /* =========================
-   ANIMACIONES
-========================= */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =========================
    RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
-  .card-body {
-    padding: 1.2rem;
-  }
-
-  h2 {
-    font-size: 1.4rem;
-  }
-
-  .btn-success {
-    font-size: 0.95rem;
+  .circuit-body {
+    min-height: 300px;
   }
 }
