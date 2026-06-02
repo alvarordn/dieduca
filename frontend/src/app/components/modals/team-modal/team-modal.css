@@ -1,0 +1,320 @@
+/* MODAL OVERLAY */
+.overlay-modal {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+
+  padding: 20px;
+}
+
+/* CONTAINER */
+.contenedor-modal {
+  width: 100%;
+  max-width: 900px;
+
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+
+  box-shadow: 0 20px 50px var(--shadow);
+
+  overflow: hidden;
+
+  animation: fadeIn 0.25s ease;
+
+  color: var(--text-primary);
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* HEADER */
+.cabecera-modal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 22px;
+
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cabecera-modal h2 {
+  font-size: 18px;
+  font-weight: 800;
+
+  color: var(--text-primary);
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cabecera-modal p {
+  font-size: 12px;
+  color: var(--text-muted);
+
+  margin-top: 3px;
+}
+
+/* CLOSE BUTTON */
+.btn-cerrar {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 10px;
+
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+
+  color: var(--text-primary);
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s ease;
+}
+
+.btn-cerrar:hover {
+  background: var(--bg-card-hover);
+  transform: scale(1.05);
+}
+
+/* ERROR */
+.caja-error {
+  margin: 14px 20px 0;
+  padding: 10px 12px;
+
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+
+  color: var(--accent-red);
+
+  font-size: 13px;
+
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* FORM GRID */
+.rejilla-formulario {
+  padding: 20px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 14px;
+}
+
+/* GROUP */
+.grupo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.grupo-formulario.completo {
+  grid-column: span 2;
+}
+
+/* LABEL */
+label {
+  font-size: 11px;
+  color: var(--text-muted);
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* INPUTS */
+input,
+select {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+
+  color: var(--text-primary);
+
+  padding: 10px 12px;
+  border-radius: 10px;
+
+  outline: none;
+
+  transition: 0.2s ease;
+
+  font-size: 14px;
+}
+
+input::placeholder {
+  color: var(--text-muted);
+}
+
+input:focus,
+select:focus {
+  border-color: var(--accent-green);
+
+  box-shadow: 0 0 0 3px rgba(0, 210, 106, 0.15);
+}
+
+/* LOGO PREVIEW */
+.vista-logo {
+  grid-column: span 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 18px;
+
+  background: var(--bg-secondary);
+
+  border: 1px solid var(--border-color);
+
+  border-radius: 14px;
+
+  min-height: 150px;
+}
+
+/* IMG */
+.vista-logo img {
+  width: 120px;
+  height: 120px;
+
+  object-fit: contain;
+
+  border-radius: 14px;
+
+  background: white;
+
+  padding: 10px;
+
+  border: 1px solid var(--border-color);
+
+  box-shadow: 0 6px 18px var(--shadow);
+}
+
+/* ACTIONS */
+.acciones {
+  grid-column: span 2;
+
+  display: flex;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-top: 10px;
+}
+
+/* BUTTONS */
+.btn-cancelar,
+.btn-guardar {
+  flex: 1;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  transition: 0.2s ease;
+}
+
+/* CANCEL */
+.btn-cancelar {
+  background: transparent;
+
+  border: 1px solid var(--border-color);
+
+  color: var(--text-primary);
+}
+
+.btn-cancelar:hover {
+  background: var(--bg-secondary);
+}
+
+/* SAVE */
+.btn-guardar {
+  background: var(--accent-green);
+
+  color: #fff;
+}
+
+.btn-guardar:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-guardar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+  .overlay-modal {
+    padding: 14px;
+  }
+
+  .contenedor-modal {
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+
+  .rejilla-formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .vista-logo,
+  .acciones,
+  .grupo-formulario.completo {
+    grid-column: span 1;
+  }
+
+  .acciones {
+    flex-direction: column;
+  }
+
+  .vista-logo img {
+    width: 90px;
+    height: 90px;
+  }
+}

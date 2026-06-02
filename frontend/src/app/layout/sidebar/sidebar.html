@@ -1,0 +1,47 @@
+<aside class="barra-lateral">
+
+  <button (click)="onToggle()" class="btn-cerrar bi bi-x"></button>
+
+  <!-- HEADER -->
+  <div class="cabecera-sidebar" routerLink="/">
+     <i class="bi bi-ball"></i>DATAGOL
+  </div>
+
+  <!-- NAV -->
+  <nav class="navegacion-sidebar">
+
+    <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="onToggle()">
+      <i class="bi bi-speedometer2"></i>
+      Dashboard
+    </a>
+
+    <a routerLink="/teams" routerLinkActive="active" (click)="onToggle()">
+      <i class="bi bi-shield"></i>
+      Equipos
+    </a>
+
+    <a routerLink="/players" routerLinkActive="active" (click)="onToggle()">
+      <i class="bi bi-person"></i>
+      Jugadores
+    </a>
+
+    <a routerLink="/standings" routerLinkActive="active" (click)="onToggle()">
+      <i class="bi bi-trophy"></i>
+      Clasificación
+    </a>
+
+    <a routerLink="/rankings" routerLinkActive="active" (click)="onToggle()">
+      <i class="bi bi-bar-chart"></i>
+      Rankings
+    </a>
+
+  </nav>
+
+  <!-- FOOTER -->
+  <div class="pie-sidebar">
+
+    <button class="btn-configuracion bi bi-gear" routerLink="/settings"></button>
+
+  </div>
+
+</aside>

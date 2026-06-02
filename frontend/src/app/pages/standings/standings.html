@@ -1,0 +1,71 @@
+<div class="pagina-clasificacion">
+
+  <!-- HEADER -->
+  <div class="cabecera-pagina">
+    <div>
+      <h2>
+        <i class="bi bi-trophy"></i>
+        Clasificación
+      </h2>
+      <p>Tabla general de equipos</p>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="tabla-clasificacion">
+
+    <!-- HEADER -->
+    <div class="cabecera-tabla">
+      <div>#</div>
+      <div>Equipo</div>
+      <div>Pts</div>
+      <div>PJ</div>
+      <div>GF</div>
+      <div>GC</div>
+      <div>DG</div>
+    </div>
+
+    <!-- ROWS -->
+    @for (team of equipos; let i = $index; track team.id) {
+
+      <div class="fila-clasificacion"
+           [ngClass]="{
+             'zona-champions': i < 4,
+             'zona-europa': i >= 4 && i < 6,
+             'zona-conference': i === 6,
+             'zona-descenso': i >= equipos.length - 3
+           }">
+
+        <div class="posicion">{{ i + 1 }}</div>
+
+        <div class="celda-equipo">
+
+          <img class="logo-equipo"
+               [src]="team.escudoUrl || 'assets/default-team.png'">
+
+          <span>{{ team.nombre }}</span>
+        </div>
+
+        <div class="celda">{{ team.puntos }}</div>
+        <div class="celda">{{ 36 }}</div>
+        <div class="celda">{{ team.golesFavor }}</div>
+        <div class="celda">{{ team.golesContra }}</div>
+        <div class="celda">{{ team.golesFavor - team.golesContra }}</div>
+
+      </div>
+
+    }
+
+  </div>
+
+  <!-- LEGEND -->
+  <div class="leyenda">
+
+    <div><span class="punto champions"></span> Champions League</div>
+    <div><span class="punto europa"></span> Europa League</div>
+    <div><span class="punto conference"></span> Conference League</div>
+    <div><span class="punto descenso"></span> Descenso</div>
+
+  </div>
+
+</div>

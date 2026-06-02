@@ -13,9 +13,7 @@
     <div class="ejercicio-content">
 
       @if (bloqueId === 4) {
-        <div class="bloque4-wrapper animate-fadeIn">
-          <app-bloque4></app-bloque4>
-        </div>
+      <app-bloque4></app-bloque4>
       }
 
       @else {
@@ -39,7 +37,7 @@
             @if (bloqueId > 8) {
               <div class="control-group">
                 <label>Secciones</label>
-                <input type="number" [(ngModel)]="secciones" min="2" max="6" [disabled]="cargando"/>
+                <input type="number" [(ngModel)]="secciones" min="2" max="5" [disabled]="cargando"/>
               </div>
             }
           </div>

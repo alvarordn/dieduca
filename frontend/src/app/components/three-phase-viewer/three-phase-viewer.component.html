@@ -1,4 +1,4 @@
-@if (data) {
+@if (data && data.sections.length <= 5) {
   <div class="circuit-wrapper animate-fadeIn">
     <!-- título del circuito -->
     <div class="circuit-badge">Circuito Trifásico</div>
@@ -227,5 +227,9 @@
         </svg>
       </div>
     </div>
+  </div>
+} @else {
+  <div>
+    {{mensajeError}}
   </div>
 }

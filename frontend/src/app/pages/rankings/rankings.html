@@ -1,0 +1,256 @@
+<div class="pagina-rankings">
+
+  <!-- HEADER -->
+  <div class="cabecera-pagina">
+
+    <div>
+      <h2>
+        <i class="bi bi-trophy-fill"></i>
+        Rankings
+      </h2>
+      <p>Mejores jugadores por estadísticas</p>
+    </div>
+
+  </div>
+
+  <!-- GOLES -->
+  <section class="seccion-ranking">
+
+    <h3>
+      <i class="bi bi-flag-fill"></i>
+      Máximos goleadores
+    </h3>
+
+    <div class="top3">
+
+      @for (player of goles.slice(0, 3); let i = $index; track player.id) {
+
+        <div class="tarjeta-podio" [ngClass]="i === 0 ? 'gold' : i === 1 ? 'silver' : 'bronze'">
+
+          <div class="insignia-rango">
+            <i class="bi bi-award-fill"></i>
+            {{ i + 1 }}
+          </div>
+
+          <img class="avatar"
+               [src]="player.fotoUrl || 'https://via.placeholder.com/80'">
+
+          <div class="nombre-jugador">{{ player.nombre }}</div>
+
+          <div class="equipo-jugador">
+            <i class="bi bi-shield-fill"></i>
+            {{ player.equipo?.nombre }}
+          </div>
+
+          <div class="valor-estadistica">
+            <i class="bi bi-graph-up"></i>
+            {{ player.goles }}
+          </div>
+
+          <div class="etiqueta-estadistica">Goles</div>
+
+        </div>
+
+      }
+
+    </div>
+
+    <div class="lista-ranking">
+
+      @for (player of goles.slice(3,10); let i = $index; track player.id) {
+
+        <div class="fila-ranking">
+
+          <div class="posicion">
+            <i class="bi bi-hash"></i>
+            {{ i + 4 }}
+          </div>
+
+          <div class="celda-jugador">
+
+            <img [src]="player.fotoUrl || 'https://via.placeholder.com/40'">
+
+            <span>{{ player.nombre }}</span>
+          </div>
+
+          <div class="equipo">
+            <i class="bi bi-shield"></i>
+            {{ player.equipo?.nombre }}
+          </div>
+
+          <div class="valor">
+            <i class="bi bi-bullseye"></i>
+            {{ player.goles }}
+          </div>
+
+          <div class="barra">
+            <div class="relleno" [style.width.%]="player.goles * 5"></div>
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+  <!-- ASISTENCIAS -->
+  <section class="seccion-ranking">
+
+    <h3>
+      <i class="bi bi-people-fill"></i>
+      Máximos asistentes
+    </h3>
+
+    <div class="top3">
+
+      @for (player of asistencias.slice(0, 3); let i = $index; track player.id) {
+
+        <div class="tarjeta-podio" [ngClass]="i === 0 ? 'gold' : i === 1 ? 'silver' : 'bronze'">
+
+          <div class="insignia-rango">
+            <i class="bi bi-award"></i>
+            {{ i + 1 }}
+          </div>
+
+          <img class="avatar"
+               [src]="player.fotoUrl || 'https://via.placeholder.com/80'">
+
+          <div class="nombre-jugador">{{ player.nombre }}</div>
+
+          <div class="equipo-jugador">
+            <i class="bi bi-shield-fill"></i>
+            {{ player.equipo?.nombre }}
+          </div>
+
+          <div class="valor-estadistica">
+            <i class="bi bi-magic"></i>
+            {{ player.asistencias }}
+          </div>
+
+          <div class="etiqueta-estadistica">Asistencias</div>
+
+        </div>
+
+      }
+
+    </div>
+
+    <div class="lista-ranking">
+
+      @for (player of asistencias.slice(3,10); let i = $index; track player.id) {
+
+        <div class="fila-ranking">
+
+          <div class="posicion">
+            <i class="bi bi-hash"></i>
+            {{ i + 4 }}
+          </div>
+
+          <div class="celda-jugador">
+            <img [src]="player.fotoUrl || 'https://via.placeholder.com/40'">
+            <span>{{ player.nombre }}</span>
+          </div>
+
+          <div class="equipo">
+            <i class="bi bi-shield"></i>
+            {{ player.equipo?.nombre }}
+          </div>
+
+          <div class="valor">
+            <i class="bi bi-magic"></i>
+            {{ player.asistencias }}
+          </div>
+
+          <div class="barra">
+            <div class="relleno" [style.width.%]="player.asistencias * 5"></div>
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+  <!-- VALOR DE MERCADO -->
+  <section class="seccion-ranking">
+
+    <h3>
+      <i class="bi bi-cash-coin"></i>
+      Jugadores más valiosos
+    </h3>
+
+    <div class="top3">
+
+      @for (player of valorMercado.slice(0, 3); let i = $index; track player.id) {
+
+        <div class="tarjeta-podio" [ngClass]="i === 0 ? 'gold' : i === 1 ? 'silver' : 'bronze'">
+
+          <div class="insignia-rango">
+            <i class="bi bi-award-fill"></i>
+            {{ i + 1 }}
+          </div>
+
+          <img class="avatar"
+               [src]="player.fotoUrl || 'https://via.placeholder.com/80'">
+
+          <div class="nombre-jugador">{{ player.nombre }}</div>
+
+          <div class="equipo-jugador">
+            <i class="bi bi-shield-fill"></i>
+            {{ player.equipo?.nombre }}
+          </div>
+
+          <div class="valor-estadistica">
+            <i class="bi bi-currency-euro"></i>{{ player.valorMercado }}M
+          </div>
+
+          <div class="etiqueta-estadistica">Valor</div>
+
+        </div>
+
+      }
+
+    </div>
+
+    <div class="lista-ranking">
+
+      @for (player of valorMercado.slice(3,10); let i = $index; track player.id) {
+
+        <div class="fila-ranking">
+
+          <div class="posicion">
+            <i class="bi bi-hash"></i>
+            {{ i + 4 }}
+          </div>
+
+          <div class="celda-jugador">
+            <img [src]="player.fotoUrl">
+            <span>{{ player.nombre }}</span>
+          </div>
+
+          <div class="equipo">
+            <i class="bi bi-shield"></i>
+            {{ player.equipo?.nombre }}
+          </div>
+
+          <div class="valor">
+            <i class="bi bi-currency-euro"></i>{{ player.valorMercado }}M
+          </div>
+
+          <div class="barra">
+            <div class="relleno" [style.width.%]="player.valorMercado * 2"></div>
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+</div>

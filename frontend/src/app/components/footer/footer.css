@@ -1,0 +1,100 @@
+/* ==========================================================================  
+   🐾 PIE DE PÁGINA DATAGOL (ADAPTATIVO PREMIUM CON TARJETAS GLASSMORPHISM)  
+   ========================================================================== */
+
+.pie-pagina {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--footer-bg-gradient, #1e3a8a));
+  color: var(--text-primary);
+  padding: 3rem 1.5rem 1rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border-color);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* CONTENEDOR */
+.contenedor-footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* 🧱 CARDS */
+.seccion-footer {
+  flex: 1;
+  min-width: 220px;
+
+  background: var(--footer-card-bg, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--footer-card-border, rgba(255, 255, 255, 0.08));
+  border-radius: 16px;
+
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease, border 0.3s ease;
+}
+
+.seccion-footer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* TITULOS */
+.seccion-footer h2.logo {
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent-blue);
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+}
+
+.seccion-footer h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* TEXTO */
+.seccion-footer p {
+  margin: 0.3rem 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* LINKS */
+.seccion-footer a {
+  display: block;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin: 0.4rem 0;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.seccion-footer a:hover {
+  color: var(--accent-blue);
+  transform: translateX(4px);
+}
+
+/* BOTTOM */
+.parte-inferior-footer {
+  border-top: 1px solid var(--border-color);
+  margin-top: 2rem;
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+/* ==========================================================================  
+   📱 RESPONSIVE  
+   ========================================================================== */

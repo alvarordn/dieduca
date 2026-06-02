@@ -1,0 +1,207 @@
+/* CONTENEDOR GENERAL */
+.detalles-equipo {
+  padding: 20px;
+  color: var(--text-primary);
+}
+
+/* TOP BAR */
+.barra-superior {
+  margin-bottom: 15px;
+}
+
+.btn-volver {
+  background: #1e293b;
+  color: #f1f5f9;
+
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+
+  padding: 8px 12px;
+  margin-top: 50px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn-volver:hover {
+  background: #334155;
+  transform: translateX(-3px);
+}
+
+/* HEADER */
+.cabecera-equipo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+
+  padding: 20px;
+  margin-bottom: 20px;
+  margin-right: 100px;
+}
+
+.logo-equipo img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.info-equipo h2 {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.info-equipo p {
+  color: var(--text-muted);
+  margin: 4px 0 10px;
+  font-size: 13px;
+}
+
+/* BADGES */
+.badges-equipo {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: #1e293b;
+  color: #f1f5f9;
+
+  padding: 6px 10px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  border: 1px solid var(--border-color);
+}
+
+/* STATS GRID */
+.rejilla-estadisticas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+  margin-right: 100px;
+}
+
+/* STAT CARD */
+.tarjeta-estadistica {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+
+  padding: 18px;
+  text-align: center;
+
+  transition: 0.2s;
+}
+
+.tarjeta-estadistica:hover {
+  transform: translateY(-3px);
+  background: var(--bg-card-hover);
+}
+
+.tarjeta-estadistica i {
+  font-size: 20px;
+  color: var(--accent-green);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.valor-estadistica {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.etiqueta-estadistica {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* CARD GENERAL */
+.tarjeta {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-right: 100px;
+}
+
+.cabecera-tarjeta {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cabecera-tarjeta h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cuerpo-tarjeta {
+  padding: 10px 16px;
+}
+
+/* FILA JUGADOR */
+.fila-jugador {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-right: 100px;
+}
+
+.fila-jugador:last-child {
+  border-bottom: none;
+}
+
+.avatar-jugador {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+.info-jugador {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.nombre-jugador {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.subinfo-jugador {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.estadisticas-jugador {
+  font-size: 12px;
+  color: var(--accent-blue);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* LOADING */
+.cargando {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-muted);
+}

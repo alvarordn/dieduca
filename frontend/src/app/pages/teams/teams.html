@@ -1,0 +1,76 @@
+<div class="pagina-equipos">
+
+  <!-- HEADER -->
+  <div class="cabecera-pagina">
+    <div>
+      <h2>Equipos</h2>
+      <p>Gestión de equipos</p>
+    </div>
+
+    <button class="boton-crear" routerLink="/team/{{ -1 }}">
+      <i class="bi bi-plus-circle"></i>
+      Crear equipo
+    </button>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="barra-busqueda">
+    <i class="bi bi-search"></i>
+
+    <input
+      type="text"
+      placeholder="Buscar equipo por nombre..."
+      [(ngModel)]="searchText"
+    />
+  </div>
+
+  <!-- LOADING -->
+  @if (!equipos.length) {
+    <div class="cargando">
+      <i class="bi bi-arrow-repeat spin"></i>
+      Cargando equipos...
+    </div>
+  }
+
+  <!-- GRID -->
+  <div class="rejilla-equipos">
+
+    @for (team of equipos; track team.id) {
+
+      @if (team.nombre.toLowerCase().includes(searchText.toLowerCase())) {
+
+        <div class="tarjeta-equipo">
+
+          <div class="logo-equipo">
+            <img [src]="team.escudoUrl || 'assets/default.png'" />
+          </div>
+
+          <div class="info-equipo">
+            <h3>{{ team.nombre }}</h3>
+            <span>ID: {{ team.id }}</span>
+          </div>
+
+          <div class="acciones-equipo">
+
+            <button class="boton-ver" routerLink="/team-details/{{ team.id }}">
+              <i class="bi bi-eye"></i>
+            </button>
+
+            <button class="boton-editar" routerLink="/team/{{ team.id }}">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+
+            <button class="boton-eliminar" (click)="deleteTeam(team.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+
+          </div>
+
+        </div>
+
+      }
+
+    }
+
+  </div>
+</div>

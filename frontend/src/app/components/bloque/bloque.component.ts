@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -52,6 +52,7 @@ export class BloqueComponent implements OnInit {
   cols = 3;
   public tituloBloque = '';
   secciones: number = 2;
+  @Input() revision: boolean = false;
 
   constructor(
     private route: ActivatedRoute,

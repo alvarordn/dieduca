@@ -1,0 +1,38 @@
+<!-- PANTALLA DE CARGA -->
+@if (loading) {
+  <div class="pantalla-carga">
+    <div class="logo-carga">
+      <img src="img/logo.png" alt="">
+      DATAGOL
+    </div>
+
+    <div class="spinner-carga"></div>
+
+    <p>Cargando aplicación...</p>
+  </div>
+}
+
+<!-- APP -->
+@if (!loading) {
+
+  @if (sidebarOpen) {
+    <app-sidebar (closeSidebar)="sidebarOpen = false"></app-sidebar>
+  }
+
+  @if (!sidebarOpen) {
+    <button class="boton-sidebar" (click)="sidebarOpen = true">
+      <i class="bi bi-list"></i>
+    </button>
+  }
+
+  <div class="contenido-principal" [class.sidebar-cerrada]="!sidebarOpen">
+
+    <div class="contenido-pagina">
+      <router-outlet></router-outlet>
+    </div>
+
+    <app-footer></app-footer>
+
+  </div>
+
+}

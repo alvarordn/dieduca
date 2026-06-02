@@ -1,0 +1,299 @@
+/* PÁGINA */
+.pagina-jugadores {
+  padding: 20px;
+}
+
+/* HEADER */
+.cabecera-pagina {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cabecera-pagina h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.cabecera-pagina p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* BOTÓN CREAR */
+.btn-crear {
+  background: var(--accent-green);
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-right: 100px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s ease;
+}
+
+.btn-crear:hover {
+  background: var(--accent-green-dark);
+  transform: translateY(-2px);
+}
+
+/* CARGA */
+.carga {
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  text-align: center;
+
+  color: var(--text-muted);
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ICONO */
+.carga i {
+  font-size: 2rem;
+  color: var(--accent-blue);
+}
+
+.girar {
+  animation: girar 1s linear infinite;
+}
+
+@keyframes girar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* BARRA BUSQUEDA */
+.barra-busqueda {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 15px 0;
+  padding: 10px 14px;
+
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  margin-right: 100px;
+}
+
+.barra-busqueda i {
+  color: var(--text-muted);
+}
+
+.barra-busqueda input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 14px;
+}
+
+/* GRID */
+.rejilla-jugadores {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-right: 100px;
+}
+
+/* TARJETA */
+.tarjeta-jugador {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  transition: 0.2s ease;
+  position: relative;
+}
+
+.tarjeta-jugador:hover {
+  transform: translateY(-4px);
+  background: var(--bg-card-hover);
+}
+
+/* IMAGEN */
+.imagen-jugador {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 2px solid var(--border-color);
+}
+
+/* INFO */
+.info-jugador h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.info-jugador p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.equipo {
+  font-size: 12px;
+  color: var(--accent-blue);
+}
+
+/* ACCIONES */
+.acciones-jugador {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* BOTONES */
+.btn-ver,
+.btn-editar,
+.btn-eliminar {
+  flex: 1;
+
+  border: none;
+  padding: 9px 12px;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+/* VER */
+.btn-ver {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+.btn-ver:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+}
+
+/* EDITAR */
+.btn-editar {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.btn-editar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(245, 158, 11, 0.35);
+}
+
+/* ELIMINAR */
+.btn-eliminar {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+.btn-eliminar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(239, 68, 68, 0.35);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .rejilla-jugadores {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cabecera-pagina h2 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .pagina-jugadores {
+    padding: 14px;
+  }
+
+  .cabecera-pagina {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cabecera-pagina h2 {
+    font-size: 20px;
+  }
+
+  .btn-crear {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rejilla-jugadores {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .tarjeta-jugador {
+    padding: 14px;
+  }
+
+  .imagen-jugador {
+    width: 70px;
+    height: 70px;
+  }
+
+  .acciones-jugador {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-ver,
+  .btn-editar,
+  .btn-eliminar {
+    width: 100%;
+  }
+
+  .barra-busqueda {
+    padding: 8px 12px;
+  }
+
+  .tarjeta-jugador:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .cabecera-pagina h2 {
+    font-size: 18px;
+  }
+
+  .info-jugador h3 {
+    font-size: 15px;
+  }
+}

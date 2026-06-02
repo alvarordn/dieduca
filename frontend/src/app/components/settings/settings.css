@@ -1,0 +1,122 @@
+/* CONTENEDOR */
+.contenedor-configuracion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* HEADER */
+.cabecera-configuracion {
+  margin-bottom: 32px;
+}
+
+.cabecera-configuracion h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 8px 0;
+}
+
+.cabecera-configuracion h2 i {
+  color: var(--accent-green);
+}
+
+.cabecera-configuracion p {
+  color: var(--text-muted);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* CONTENT */
+.contenido-configuracion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* CARD */
+.tarjeta-configuracion {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  gap: 20px;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* ICON */
+.icono-tarjeta {
+  font-size: 1.5rem;
+  color: var(--accent-green);
+  background: rgba(0, 210, 106, 0.1);
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* BODY */
+.cuerpo-tarjeta h3 {
+  margin: 0 0 6px 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.cuerpo-tarjeta p {
+  margin: 0 0 20px 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* THEME SELECTOR */
+.selector-tema {
+  display: flex;
+  gap: 16px;
+}
+
+/* BUTTONS */
+.btn-tema {
+  flex: 1;
+  max-width: 180px;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+/* LIGHT */
+.btn-tema.claro {
+  background-color: #f8fafc;
+  border: 2px solid #e2e8f0;
+  color: #0f172a;
+}
+
+.btn-tema.claro:hover {
+  border-color: var(--accent-green);
+  background-color: #f1f5f9;
+}
+
+/* DARK */
+.btn-tema.oscuro {
+  background-color: #0f172a;
+  border: 2px solid #1e293b;
+  color: #f8fafc;
+}
+
+.btn-tema.oscuro:hover {
+  border-color: var(--accent-green);
+  background-color: #1e293b;
+}

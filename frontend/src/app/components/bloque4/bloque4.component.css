@@ -1,14 +1,16 @@
-/* =========================
-   CONTENEDOR GENERAL
-========================= */
-.container {
+/* WRAPPER GENERAL */
+.bloque4-wrapper {
+  width: 100%;
+  padding: 20px;
   animation: fadeIn 0.4s ease;
+  font-family: system-ui, Arial, sans-serif;
 }
 
+/* animación de entrada suave */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -16,107 +18,259 @@
   }
 }
 
-/* =========================
-   TITULO
-========================= */
-h2 {
+/* HEADER (parte superior) */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px 0;
+}
+
+.header-left h2 {
+  margin: 0;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 0.5px;
   color: #0d6efd;
 }
 
-/* =========================
-   SELECT
-========================= */
-.form-select {
-  border-radius: 14px;
-  padding: 12px;
+.header-left small {
+  color: #6c757d;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+/* select del problema */
+.select-problema {
+  padding: 10px 14px;
+  border-radius: 12px;
   border: 1px solid #dbe4ff;
+  background: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.form-select:focus {
+.select-problema:focus {
+  outline: none;
   border-color: #0d6efd;
-  box-shadow: 0 0 0 0.2rem rgba(13,110,253,.2);
+  box-shadow: 0 0 0 3px rgba(13,110,253,0.15);
 }
 
-/* =========================
-   CARDS GENERALES
-========================= */
-.card {
-  border-radius: 24px;
-  overflow: hidden;
-  transition: all 0.3s ease;
+/* LOADING */
+.loading {
+  text-align: center;
+  padding: 60px 0;
+  color: #6c757d;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08) !important;
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e9ecef;
+  border-top-color: #0d6efd;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
 }
 
-/* =========================
-   CIRCUITO CARD
-========================= */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* CARD DEL CIRCUITO */
 .circuit-card {
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
+  margin: 0 auto 20px;
+
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: 0.2s ease;
 }
 
-/* BODY DEL CIRCUITO CENTRADO */
-.circuit-body {
-  width: 100%;
-  min-height: 450px;
+.circuit-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
 
+.circuit-title {
+  padding: 12px 16px;
+  background: #0d6efd;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* aquí está la clave del centrado del circuito */
+.circuit-body {
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  padding: 1rem;
+  min-height: 450px;
+  overflow: hidden;
 }
 
-/* COMPONENTE DEL CIRCUITO */
+/* SVG del circuito */
 .circuit-view {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
+  margin: 0 auto;
 }
 
-/* =========================
-   ALERT
-========================= */
-.alert-warning {
-  border: none;
-  border-radius: 18px;
-  background: linear-gradient(135deg,#fff8e1,#fff3cd);
+/* ENUNCIADO */
+.enunciado {
+  max-width: 1100px;
+  margin: 0 auto 20px;
+  background: #fff8e1;
+  padding: 16px;
+  border-radius: 14px;
+  border-left: 5px solid #ffc107;
 }
 
-/* =========================
-   INPUTS
-========================= */
-.form-control {
-  border-radius: 12px 0 0 12px;
+.enunciado h4 {
+  margin: 0 0 10px;
 }
 
-/* =========================
-   BOTON
-========================= */
-.btn-success {
-  border-radius: 16px;
+.enunciado p {
+  margin: 0 0 8px;
+  color: #495057;
+}
+
+.enunciado .datos {
+  color: #0d6efd;
   font-weight: 600;
 }
 
-/* =========================
-   SPINNER
-========================= */
-.spinner-border {
-  width: 4rem;
-  height: 4rem;
+/* PREGUNTAS */
+.preguntas {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+.pregunta-card {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 14px;
+  padding: 14px;
+  transition: 0.2s ease;
+}
+
+.pregunta-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+}
+
+.pregunta-label {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.ok {
+  color: #198754;
+  font-weight: bold;
+}
+
+.fail {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* input */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #dbe4ff;
+}
+
+input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13,110,253,0.1);
+}
+
+.unit {
+  font-weight: 600;
+  color: #6c757d;
+}
+
+/* BOTÓN FINAL */
+.footer {
+  max-width: 1100px;
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-submit {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #198754, #20c997);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(25,135,84,0.2);
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-reset {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 14px;
+  background: #dc3545;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-reset:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(220,53,69,0.2);
+}
+/* responsive */
 @media (max-width: 768px) {
+  .preguntas {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
   .circuit-body {
     min-height: 300px;
   }

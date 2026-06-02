@@ -16,6 +16,8 @@ export class ThreePhaseViewerComponent  {
   // Datos que vienen desde el componente padre 
   @Input() data: any;
 
+  mensajeError: string = 'No pueden ser mas de 5 secciones';
+
   // Array con las fases eléctricas del sistema
   fases: Fase[] = ['A', 'B', 'C'];
 

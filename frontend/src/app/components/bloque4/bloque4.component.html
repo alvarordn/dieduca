@@ -1,163 +1,90 @@
-<div class="container mt-4">
-
-  <!-- HEADER -->
-  <div class="row mb-4 align-items-center">
-
-    <div class="col-md-8">
-      <h2 class="text-primary fw-bold mb-0">
-        🔌 Bloque 4: Análisis de Nudos y Mallas
-      </h2>
-      <small class="text-muted">
-        Resuelve el circuito paso a paso
-      </small>
+<div class="bloque4-wrapper">
+  <div class="header">
+    <div class="header-left">
+      <h2>Bloque 4: Análisis de Nudos y Mallas</h2>
+      <small>Resuelve el circuito paso a paso</small>
     </div>
 
-    <div class="col-md-4 text-end">
-
+    <div class="header-right">
       <select
-        class="form-select form-select-lg shadow-sm"
-        [disabled]="cargando"
+        class="select-problema"
+        [disabled]="cargando || modoRevision"
         (change)="onCambiarProblema($any($event.target).value)"
       >
-        @for (i of [1,2,3,4,5,6,7,8,9]; track i) {
+        @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9]; track i) {
           <option [value]="i">Problema {{ i }}</option>
         }
       </select>
-
     </div>
-
   </div>
 
-  <!-- LOADING -->
   @if (cargando) {
-    <div class="text-center my-5">
-      <div class="spinner-border text-primary"></div>
-      <p class="text-muted mt-2">Generando circuito...</p>
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Generando circuito...</p>
+    </div>
+
+  } @else if (circuitData) {
+    <div class="circuit-card">
+      <div class="circuit-title">Circuito del problema</div>
+
+      <div class="circuit-body">
+        <app-circuit4-view
+          class="circuit-view"
+          [circuitData]="circuitData"
+        ></app-circuit4-view>
+      </div>
+    </div>
+
+    <div class="enunciado">
+      <h4>Enunciado</h4>
+      <p>{{ circuitData?.preguntas?.enunciado_general }}</p>
+      <div class="datos">{{ circuitData?.preguntas?.datos_enunciado }}</div>
+    </div>
+
+    <div class="preguntas">
+      @for (p of preguntasEjemplo; track p.id) {
+        <div class="pregunta-card">
+          <div class="pregunta-label">
+            {{ p.label }}
+
+            @if (p.acertada === true) {
+              <span class="ok">✔</span>
+            } @else if (p.acertada === false) {
+              <span class="fail">✘</span>
+            }
+          </div>
+
+          <div class="input-wrapper">
+            <input
+              type="number"
+              [(ngModel)]="p.respuestaUsuario"
+              [readonly]="modoRevision"
+              [class.ok]="p.acertada === true"
+              [class.fail]="p.acertada === false"
+            />
+            <span class="unit">{{ p.unidad }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="footer">
+      <button
+        class="btn-submit"
+        (click)="comprobarRespuestas()"
+        [disabled]="modoRevision"
+      >
+        Corregir ejercicio
+      </button>
+
+      <button
+        class="btn-reset"
+        (click)="borrarRespuestas()"
+        [disabled]="modoRevision"
+      >
+        Borrar
+      </button>
     </div>
   }
-
-  <!-- CONTENIDO -->
-  @else if (circuitData) {
-
-    <!-- 🔥 CIRCUITO ARRIBA -->
-    <div class="row mb-4">
-
-      <div class="col-12">
-
-        <div class="card shadow border-0">
-
-          <div class="card-header bg-dark text-white">
-            ⚡ Circuito del problema
-          </div>
-
-          <div class="card-body d-flex justify-content-center p-4">
-
-            <app-circuit4-view
-              [circuitData]="circuitData"
-            ></app-circuit4-view>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- 📘 PREGUNTAS ABAJO -->
-    <div class="row">
-
-      <div class="col-lg-12">
-
-        <div class="card shadow border-0">
-
-          <div class="card-body p-4">
-
-            <!-- ENUNCIADO -->
-            <div class="alert alert-warning">
-
-              <h6 class="fw-bold text-uppercase mb-2">
-                Enunciado
-              </h6>
-
-              <p class="small text-muted mb-2">
-                {{ circuitData?.preguntas?.enunciado_general }}
-              </p>
-
-              <div class="fw-bold text-primary border-top pt-2 mt-2">
-                {{ circuitData?.preguntas?.datos_enunciado }}
-              </div>
-
-            </div>
-
-            <!-- PREGUNTAS -->
-            <div class="row">
-
-              @for (p of preguntasEjemplo; track p.id) {
-
-                <div class="col-md-6 mb-3">
-
-                  <div class="p-3 border rounded shadow-sm h-100">
-
-                    <label class="fw-bold d-flex justify-content-between align-items-center">
-
-                      <span>{{ p.label }}</span>
-
-                      @if (p.acertada === true) {
-                        <span class="badge bg-success">✔</span>
-                      }
-                      @else if (p.acertada === false) {
-                        <span class="badge bg-danger">✘</span>
-                      }
-
-                    </label>
-
-                    <div class="input-group input-group-lg mt-2">
-
-                      <input
-                        type="number"
-                        class="form-control"
-                        [(ngModel)]="p.respuestaUsuario"
-                        [ngClass]="{
-                          'is-valid': p.acertada === true,
-                          'is-invalid': p.acertada === false
-                        }"
-                      />
-
-                      <span class="input-group-text bg-dark text-white">
-                        {{ p.unidad }}
-                      </span>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              }
-
-            </div>
-
-            <!-- BOTÓN -->
-            <div class="d-grid mt-4">
-
-              <button
-                class="btn btn-success btn-lg shadow-sm"
-                (click)="comprobarRespuestas()"
-              >
-                ✔ Corregir ejercicio
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  }
-
 </div>

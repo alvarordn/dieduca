@@ -1,0 +1,181 @@
+.pagina-equipos {
+  padding: 20px;
+}
+
+/* HEADER */
+.cabecera-pagina {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cabecera-pagina h2 {
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.cabecera-pagina p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* BOTÓN CREAR */
+.boton-crear {
+  background: var(--accent-green);
+  color: white;
+  border: none;
+  margin-right: 100px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.boton-crear:hover {
+  background: var(--accent-green-dark);
+  transform: translateY(-2px);
+}
+
+/* GRID */
+.rejilla-equipos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-right: 100px;
+}
+
+/* CARD */
+.tarjeta-equipo {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+.tarjeta-equipo:hover {
+  transform: translateY(-4px);
+  background: var(--bg-card-hover);
+}
+
+/* LOGO */
+.logo-equipo img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+/* INFO */
+.info-equipo h3 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.info-equipo span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ACCIONES */
+.acciones-equipo {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* SEARCH */
+.barra-busqueda {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 15px 0;
+  padding: 10px 14px;
+
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  margin-right: 100px;
+}
+
+.barra-busqueda i {
+  color: var(--text-muted);
+}
+
+.barra-busqueda input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 14px;
+}
+
+/* BOTONES */
+.boton-ver,
+.boton-editar,
+.boton-eliminar {
+  flex: 1;
+
+  border: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+/* VER */
+.boton-ver {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+}
+
+.boton-ver:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+}
+
+/* EDITAR */
+.boton-editar {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+}
+
+.boton-editar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(245, 158, 11, 0.35);
+}
+
+/* ELIMINAR */
+.boton-eliminar {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: white;
+}
+
+.boton-eliminar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(239, 68, 68, 0.35);
+}
+
+/* LOADING */
+.cargando {
+  padding: 30px;
+  text-align: center;
+  color: var(--text-muted);
+}

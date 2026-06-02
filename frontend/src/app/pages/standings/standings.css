@@ -1,0 +1,176 @@
+.pagina-clasificacion {
+  padding: 20px;
+}
+
+/* HEADER */
+.cabecera-pagina {
+  margin-bottom: 18px;
+}
+
+.cabecera-pagina h2 {
+  font-size: 26px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+}
+
+.cabecera-pagina p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* CARD TABLE */
+.tabla-clasificacion {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-right: 100px;
+}
+
+/* HEADER TABLE */
+.cabecera-tabla {
+  display: grid;
+  grid-template-columns: 60px 1fr repeat(5, 80px);
+  align-items: center;
+
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ROW */
+.fila-clasificacion {
+  display: grid;
+  grid-template-columns: 60px 1fr repeat(5, 80px);
+  align-items: center;
+
+  padding: 14px 16px;
+  border-top: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.fila-clasificacion:hover {
+  background: var(--bg-card-hover);
+}
+
+/* CENTRADO GLOBAL */
+.cabecera-tabla > div,
+.fila-clasificacion > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* EXCEPCIÓN EQUIPO */
+.cabecera-tabla > div:nth-child(2),
+.fila-clasificacion > div:nth-child(2) {
+  justify-content: flex-start;
+}
+
+/* POS */
+.posicion {
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* EQUIPO */
+.celda-equipo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+/* LOGO */
+.logo-equipo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: contain;
+  background: var(--bg-tertiary);
+  padding: 2px;
+}
+
+/* CELDAS */
+.celda {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ZONAS */
+.fila-clasificacion.zona-champions {
+  border-left: 4px solid #22c55e;
+  background: rgba(34, 197, 94, 0.06);
+}
+
+.fila-clasificacion.zona-europa {
+  border-left: 4px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.06);
+}
+
+.fila-clasificacion.zona-conference {
+  border-left: 4px solid #a855f7;
+  background: rgba(168, 85, 247, 0.06);
+}
+
+.fila-clasificacion.zona-descenso {
+  border-left: 4px solid #ef4444;
+  background: rgba(239, 68, 68, 0.06);
+}
+
+/* LEYENDA */
+.leyenda {
+  margin-top: 18px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.leyenda div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.punto {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.punto.champions { background: #22c55e; }
+.punto.europa { background: #3b82f6; }
+.punto.conference { background: #a855f7; }
+.punto.descenso { background: #ef4444; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .cabecera-tabla,
+  .fila-clasificacion {
+    grid-template-columns: 50px 1fr repeat(5, 60px);
+  }
+
+  .celda {
+    font-size: 12px;
+  }
+
+  .celda-equipo {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,140 @@
+<div class="overlay-modal">
+
+  <div class="contenedor-modal">
+
+    <!-- HEADER -->
+    <div class="cabecera-modal">
+
+      <div>
+        <h2>
+          <i class="bi bi-person-plus-fill"></i>
+          {{ form.value.id === -1 ? 'Crear jugador' : 'Editar jugador' }}
+        </h2>
+        <p>Gestión de jugadores del sistema</p>
+      </div>
+
+      <button class="btn-cerrar" (click)="back()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+    </div>
+
+    <!-- ERROR -->
+    @if (errorMessage) {
+      <div class="caja-error">
+        <i class="bi bi-exclamation-triangle"></i>
+        {{ errorMessage }}
+      </div>
+    }
+
+    <!-- FORM -->
+    <form [formGroup]="form" (ngSubmit)="save()" class="rejilla-formulario">
+
+      <!-- NOMBRE -->
+      <div class="grupo-formulario">
+        <label>Nombre</label>
+        <input type="text" formControlName="nombre">
+      </div>
+
+      <!-- APELLIDO -->
+      <div class="grupo-formulario">
+        <label>Apellido</label>
+        <input type="text" formControlName="apellido1">
+      </div>
+
+      <!-- EDAD -->
+      <div class="grupo-formulario">
+        <label>Edad</label>
+        <input type="number" formControlName="edad">
+      </div>
+
+      <div class="grupo-formulario">
+        <label>Peso (kg)</label>
+        <input type="number" formControlName="peso">
+      </div>
+
+      <div class="grupo-formulario">
+        <label>Altura (cm)</label>
+        <input type="number" formControlName="estatura">
+      </div>
+
+      <!-- POSICIÓN -->
+      <div class="grupo-formulario">
+        <label>Posición</label>
+        <select formControlName="posicion">
+          <option value="">Selecciona posición</option>
+
+          @for (pos of positions; track pos) {
+            <option [value]="pos">{{ pos }}</option>
+          }
+
+        </select>
+      </div>
+
+      <!-- EQUIPO -->
+      <div class="grupo-formulario">
+        <label>Equipo</label>
+        <select formControlName="equipo">
+          <option value="">Selecciona equipo</option>
+
+          @for (team of teams; track team.id) {
+            <option [value]="team.id">
+              {{ team.nombre }}
+            </option>
+          }
+
+        </select>
+      </div>
+
+      <!-- FOTO -->
+      <div class="grupo-formulario">
+        <label>Foto URL</label>
+        <input type="text" formControlName="fotoUrl">
+      </div>
+
+      <!-- STATS -->
+      <div class="rejilla-estadisticas">
+
+        <div class="grupo-formulario">
+          <label>Goles</label>
+          <input type="number" formControlName="goles">
+        </div>
+
+        <div class="grupo-formulario">
+          <label>Asistencias</label>
+          <input type="number" formControlName="asistencias">
+        </div>
+
+        <div class="grupo-formulario">
+          <label>Valor (€M)</label>
+          <input type="number" formControlName="valorMercado">
+        </div>
+
+      </div>
+
+      <!-- NACIONALIDAD -->
+      <div class="grupo-formulario completo">
+        <label>Nacionalidad</label>
+        <input type="text" formControlName="nacionalidad">
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="acciones">
+
+        <button type="button" class="btn-cancelar" (click)="back()">
+          <i class="bi bi-arrow-left"></i>
+          Cancelar
+        </button>
+
+        <button type="submit" class="btn-guardar" [disabled]="loading">
+          <i class="bi bi-check-circle"></i>
+          {{ loading ? 'Guardando...' : 'Guardar' }}
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

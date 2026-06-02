@@ -31,9 +31,9 @@ import { Grado } from '../../models/grado';
 
 export class RegistroComponent {
 
-  // =========================
+
   // CAMPOS DEL FORMULARIO
-  // =========================
+
 
   // nombre de usuario
   uvus: string = '';
@@ -49,9 +49,9 @@ export class RegistroComponent {
 
 
 
-  // =========================
+
   // VARIABLES DE CONTROL
-  // =========================
+
 
   // loading mientras se registra
   cargando: boolean = false;
@@ -67,9 +67,7 @@ export class RegistroComponent {
 
 
 
-  // =========================
   // LISTA DE GRADOS
-  // =========================
 
   grados: Grado[] = [
 
@@ -124,9 +122,8 @@ export class RegistroComponent {
 
 
 
-  // =========================
   // CONSTRUCTOR
-  // =========================
+
 
   constructor(
     private authService: AuthService,

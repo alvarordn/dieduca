@@ -1,14 +1,20 @@
 .circuit-container {
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start; 
+  align-items: flex-start;
 }
 
 .circuit-svg {
-  width: 100%;
+  width: 70%;        
+  max-width: 500px;
+  margin-left: 70px; 
+  margin-top: -70px;
   height: auto;
-  min-height: 550px;
-  background: #f8fafc;
-  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.circuit-svg.circuit-desplazado {
+  margin-top: -50px;
+  margin-left: -30px;
 }

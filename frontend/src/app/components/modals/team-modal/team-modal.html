@@ -1,0 +1,228 @@
+<div class="overlay-modal">
+
+  <div class="contenedor-modal">
+
+    <!-- HEADER -->
+    <div class="cabecera-modal">
+
+      <div>
+        <h2>
+          <i class="bi bi-shield-fill"></i>
+
+          {{ form.value.id === -1
+            ? 'Crear equipo'
+            : 'Editar equipo'
+          }}
+        </h2>
+
+        <p>Gestión de equipos Datagol</p>
+      </div>
+
+      <button class="btn-cerrar" (click)="back()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+    </div>
+
+    <!-- ERROR -->
+    @if (errorMessage) {
+
+      <div class="caja-error">
+        <i class="bi bi-exclamation-triangle"></i>
+        {{ errorMessage }}
+      </div>
+
+    }
+
+    <!-- FORM -->
+    <form
+      [formGroup]="form"
+      (ngSubmit)="save()"
+      class="rejilla-formulario"
+    >
+
+      <!-- NOMBRE -->
+      <div class="grupo-formulario">
+
+        <label>
+          <i class="bi bi-shield"></i>
+          Nombre
+        </label>
+
+        <input
+          type="text"
+          formControlName="nombre"
+          placeholder="Real Madrid"
+        >
+
+      </div>
+
+      <!-- PAIS -->
+      <div class="grupo-formulario">
+
+        <label>
+          <i class="bi bi-globe"></i>
+          País
+        </label>
+
+        <input
+          type="text"
+          formControlName="pais"
+          placeholder="España"
+        >
+
+      </div>
+
+      <!-- LIGA -->
+      <div class="grupo-formulario">
+
+        <label>
+          <i class="bi bi-trophy"></i>
+          Liga
+        </label>
+
+        <input
+          type="text"
+          formControlName="liga"
+          placeholder="LaLiga"
+        >
+
+      </div>
+
+      <!-- ESTADIO -->
+      <div class="grupo-formulario">
+
+        <label>
+          <i class="bi bi-building"></i>
+          Estadio
+        </label>
+
+        <input
+          type="text"
+          formControlName="estadio"
+          placeholder="Santiago Bernabéu"
+        >
+
+      </div>
+
+      <!-- FUNDACION -->
+      <div class="grupo-formulario">
+
+        <label>
+          <i class="bi bi-calendar"></i>
+          Fundación
+        </label>
+
+        <input
+          type="number"
+          formControlName="fundacion"
+        >
+
+      </div>
+
+      <!-- ESCUDO -->
+      <div class="grupo-formulario">
+
+        <label>
+          <i class="bi bi-image"></i>
+          Escudo URL
+        </label>
+
+        <input
+          type="text"
+          formControlName="escudoUrl"
+          placeholder="https://..."
+        >
+
+      </div>
+
+      <!-- PUNTOS -->
+      <div class="grupo-formulario">
+
+        <label>
+          <i class="bi bi-star"></i>
+          Puntos
+        </label>
+
+        <input
+          type="number"
+          formControlName="puntos"
+        >
+
+      </div>
+
+      <!-- GOLES FAVOR -->
+      <div class="grupo-formulario">
+
+        <label>
+          <i class="bi bi-arrow-up-circle"></i>
+          Goles a favor
+        </label>
+
+        <input
+          type="number"
+          formControlName="golesFavor"
+        >
+
+      </div>
+
+      <!-- GOLES CONTRA -->
+      <div class="grupo-formulario">
+
+        <label>
+          <i class="bi bi-arrow-down-circle"></i>
+          Goles en contra
+        </label>
+
+        <input
+          type="number"
+          formControlName="golesContra"
+        >
+
+      </div>
+
+      <!-- ESCUDO PREVIEW -->
+      @if (form.value.escudoUrl) {
+
+        <div class="vista-logo">
+
+          <img
+            [src]="form.value.escudoUrl"
+            alt="Escudo"
+          >
+
+        </div>
+
+      }
+
+      <!-- ACTIONS -->
+      <div class="acciones">
+
+        <button
+          type="button"
+          class="btn-cancelar"
+          (click)="back()"
+        >
+          <i class="bi bi-arrow-left"></i>
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="btn-guardar"
+        >
+          <i class="bi bi-check-circle"></i>
+
+          {{ form.value.id === -1
+            ? 'Crear equipo'
+            : 'Guardar cambios'
+          }}
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

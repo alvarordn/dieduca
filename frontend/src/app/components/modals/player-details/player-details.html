@@ -1,0 +1,76 @@
+<div class="detalles-jugador">
+  <div class="barra-superior">
+    <button class="btn-volver" (click)="back()">
+      <i class="bi bi-arrow-left"></i>
+      Volver
+    </button>
+  </div>
+
+  <!-- HEADER -->
+  <div class="cabecera-jugador">
+    <img class="avatar-jugador" [src]="jugador.fotoUrl" />
+
+    <div class="info-jugador">
+      <h2>
+        <i class="bi bi-person-circle"></i>
+        {{ jugador.nombre }} {{ jugador.apellido1 }}
+      </h2>
+
+      <p>
+        <i class="bi bi-shield"></i>
+        {{ jugador.equipo?.nombre }}
+      </p>
+
+      <div class="badges">
+        <span class="badge">
+          <i class="bi bi-diagram-3"></i>
+          {{ jugador.posicion }}
+        </span>
+
+        <span class="badge">
+          <i class="bi bi-flag"></i>
+          {{ jugador.nacionalidad }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="rejilla-estadisticas">
+    <div class="tarjeta-estadistica">
+      <i class="bi bi-bullseye"></i>
+      <div class="valor">{{ jugador.goles }}</div>
+      <div class="etiqueta">Goles</div>
+    </div>
+
+    <div class="tarjeta-estadistica">
+      <i class="bi bi-magic"></i>
+      <div class="valor">{{ jugador.asistencias }}</div>
+      <div class="etiqueta">Asistencias</div>
+    </div>
+
+    <div class="tarjeta-estadistica">
+      <i class="bi bi-currency-euro"></i>
+      <div class="valor">{{ jugador.valorMercado }}M</div>
+      <div class="etiqueta">Valor de mercado</div>
+    </div>
+
+    <div class="tarjeta-estadistica">
+      <i class="bi bi-speedometer2"></i>
+      <div class="valor">{{ jugador.edad }}</div>
+      <div class="etiqueta">Edad</div>
+    </div>
+
+    <div class="tarjeta-estadistica">
+      <i class="bi bi-rulers"></i>
+      <div class="valor">{{ jugador.estatura }} cm</div>
+      <div class="etiqueta">Altura</div>
+    </div>
+
+    <div class="tarjeta-estadistica">
+      <i class="bi bi-activity"></i>
+      <div class="valor">{{ jugador.peso }} kg</div>
+      <div class="etiqueta">Peso</div>
+    </div>
+  </div>
+</div>
